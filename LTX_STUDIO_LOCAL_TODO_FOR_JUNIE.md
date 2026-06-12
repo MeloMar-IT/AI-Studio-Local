@@ -651,17 +651,17 @@ Create the main project workspace UI.
 
 ## TODO
 
-- [ ] Create three-pane layout
-- [ ] Add left project sidebar
-- [ ] Add scene list
-- [ ] Add asset navigation placeholders
-- [ ] Add centre preview canvas
-- [ ] Add right scene inspector
-- [ ] Add bottom timeline placeholder
-- [ ] Add scene selection
-- [ ] Add add/delete/rename scene actions
-- [ ] Add attached element chips
-- [ ] Add generate button placeholder
+- [x] Create three-pane layout
+- [x] Add left project sidebar
+- [x] Add scene list
+- [x] Add asset navigation placeholders
+- [x] Add centre preview canvas
+- [x] Add right scene inspector
+- [x] Add bottom timeline placeholder
+- [x] Add scene selection
+- [x] Add add/delete/rename scene actions
+- [x] Add attached element chips
+- [x] Add generate button placeholder
 
 ## Prompt for Junie
 
