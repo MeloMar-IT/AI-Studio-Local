@@ -53,8 +53,26 @@ If you modify the data structures shared between the App and the Worker, update 
 The application and worker support three environment modes: `development`, `test`, and `production`.
 
 ### Setting Environment Mode
-- **Swift App**: The environment is controlled by the `appEnvironment` setting in `UserSettings` (defaults to `development`).
+- **Swift App**: The environment is controlled by the `appEnvironment` setting in `UserSettings` (defaults to `development`). This is persisted in `@AppStorage`.
 - **Python Worker**: Use the `LTX_WORKER_ENVIRONMENT` environment variable (defaults to `development`).
+
+### Configuring the Application
+The application uses standard macOS directories for data storage.
+
+**Swift App Defaults:**
+- **App Data/Continuity**: `~/Library/Application Support/LTX Studio Local/`
+- **Projects**: `~/Documents/LTX Studio Local/Projects/`
+- **Exports**: `~/Movies/LTX Studio Local/Exports/`
+
+These can be customized in the **Settings** panel within the application.
+
+**Python Worker Configuration:**
+The worker is configured via environment variables (prefixed with `LTX_WORKER_`):
+- `LTX_WORKER_HOST`: Default `127.0.0.1`
+- `LTX_WORKER_PORT`: Default `8000`
+- `LTX_WORKER_LOG_LEVEL`: Default `INFO`
+- `LTX_WORKER_MODELS_DIR`: Default `models`
+- `LTX_WORKER_OUTPUT_DIR`: Default `outputs`
 
 ### Production Mode Safeguards
 Production mode strictly forbids the use of mock engines or mock services. If you try to run in production with a mock engine, the system will fail fast with a clear error.

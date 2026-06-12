@@ -15,7 +15,9 @@ Application Services
         ├── ModelStore (Model profiles)
         ├── GenerationClient (Worker API communication)
         ├── ExportService (Mock)
-        └── HardwareProfiler (System info)
+        ├── HardwareProfiler (System info)
+        ├── FileSystemService (Directory management)
+        └── UserSettings (App configuration)
         │
         ▼
 Local Python Worker (FastAPI)
@@ -41,6 +43,8 @@ The frontend responsible for the user experience. It follows a clean architectur
 - **ContinuityStore**: Manages the library of reusable characters, locations, and styles.
 - **GenerationClient**: Handles communication with the Python worker via REST API.
 - **PromptComposer**: Composes the final prompt by combining scene-specific text with attached continuity elements.
+- **FileSystemService**: Provides robust directory management, ensuring standard macOS paths are used and validated.
+- **UserSettings**: Manages application-wide settings, persisting them via `@AppStorage` and aligning with macOS Application Support standards.
 
 ### 3. Local Python Worker (`worker/`)
 A background service that executes the computationally intensive generation tasks.
