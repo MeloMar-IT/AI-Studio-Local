@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct ProjectStudioView: View {
+    @EnvironmentObject var appState: AppState
     @StateObject private var viewModel = ProjectStudioViewModel()
     @State private var editingSceneId: String?
     @State private var newSceneName: String = ""
@@ -17,6 +18,7 @@ struct ProjectStudioView: View {
             }
         }
         .onAppear {
+            viewModel.setAppState(appState)
             // Load mock data if nothing is selected for MVP demonstration
             if viewModel.project == nil {
                 viewModel.selectProject(.mock, scenes: [.mock, Scene(name: "Scene 2", prompt: "A robot in a garden")])

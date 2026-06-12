@@ -71,9 +71,9 @@ struct HomeDashboardView: View {
                                     status: appState.hardwareProfile.totalMemoryGB >= 32 ? .success : .warning
                                 )
                                 StatusItem(
-                                    label: "Local Mode",
-                                    value: appState.hardwareProfile.isLocalModeReady ? "Ready" : "Limited",
-                                    status: appState.hardwareProfile.isLocalModeReady ? .success : .warning
+                                    label: "Worker",
+                                    value: appState.isWorkerAvailable ? "Online (\(appState.workerVersion))" : "Offline",
+                                    status: appState.isWorkerAvailable ? .success : .error
                                 )
                             }
                         }
@@ -90,13 +90,20 @@ struct HomeDashboardView: View {
                         // 6. Render Queue Summary
                         StatusCard(title: "Render Queue", icon: "list.bullet.rectangle.stack") {
                             VStack(alignment: .leading, spacing: Spacing.small) {
-                                StatusItem(label: "Active Jobs", value: "0", status: .info)
+                                StatusItem(label: "Active Jobs", value: "\(appState.activeJobsCount)", status: .info)
                                 StatusItem(label: "Waiting", value: "0", status: .info)
 
-                                Text("No pending renders.")
-                                    .font(.App.caption)
-                                    .foregroundColor(Color.App.secondaryText)
-                                    .padding(.top, Spacing.xxSmall)
+                                if appState.activeJobsCount == 0 {
+                                    Text("No pending renders.")
+                                        .font(.App.caption)
+                                        .foregroundColor(Color.App.secondaryText)
+                                        .padding(.top, Spacing.xxSmall)
+                                } else {
+                                    Text("\(appState.activeJobsCount) scenes generating...")
+                                        .font(.App.caption)
+                                        .foregroundColor(Color.App.accent)
+                                        .padding(.top, Spacing.xxSmall)
+                                }
                             }
                         }
                     }

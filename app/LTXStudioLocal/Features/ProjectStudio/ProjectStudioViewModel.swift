@@ -6,12 +6,31 @@ class ProjectStudioViewModel: ObservableObject {
     @Published var project: Project?
     @Published var scenes: [Scene] = []
     @Published var selectedSceneId: String?
+    @Published var isGenerating: Bool = false
 
     private let promptComposer: PromptComposer = DefaultPromptComposer()
     private let continuityStore: ContinuityStore = FileContinuityStore()
+    private let generationClient: GenerationClient = HTTPGenerationClient()
+    private var appState: AppState?
+    private var cancellables = Set<AnyCancellable>()
 
     var selectedScene: Scene? {
         scenes.first { $0.id == selectedSceneId }
+    }
+
+    init() {
+        NotificationCenter.default.publisher(for: .generationCompleted)
+            .receive(on: RunLoop.main)
+            .sink { [weak self] notification in
+                if let job = notification.object as? GenerationJob {
+                    self?.handleGenerationCompleted(job)
+                }
+            }
+            .store(in: &cancellables)
+    }
+
+    func setAppState(_ appState: AppState) {
+        self.appState = appState
     }
 
     func composePrompt(for scene: Scene) -> ComposedPrompt {
@@ -93,8 +112,56 @@ class ProjectStudioViewModel: ObservableObject {
     }
 
     func generateScene() {
-        guard let scene = selectedScene else { return }
-        print("Mock: Generating scene \(scene.name)")
-        // Integration with GenerationClient would go here
+        guard let scene = selectedScene, let project = project else { return }
+
+        isGenerating = true
+        let composed = composePrompt(for: scene)
+
+        let request = GenerationRequest(
+            prompt: composed.prompt,
+            negativePrompt: composed.negativePrompt,
+            modelId: "ltx-video-v1", // Default model for now
+            projectId: project.id,
+            sceneId: scene.id
+        )
+
+        Task {
+            do {
+                let jobId = try await generationClient.submitTextToVideo(request: request)
+
+                let job = GenerationJob(
+                    id: jobId,
+                    projectId: project.id,
+                    sceneId: scene.id,
+                    status: .queued,
+                    mode: scene.mode,
+                    modelProfile: ModelProfileSummary(id: "ltx-video-v1", name: "LTX Video v1"),
+                    progress: 0
+                )
+
+                await MainActor.run {
+                    appState?.addJob(job)
+                    isGenerating = false
+                }
+            } catch {
+                print("Failed to submit generation job: \(error)")
+                await MainActor.run {
+                    isGenerating = false
+                    // Handle error (e.g., show an alert)
+                }
+            }
+        }
+    }
+
+    private func handleGenerationCompleted(_ job: GenerationJob) {
+        if let index = scenes.firstIndex(where: { $0.id == job.sceneId }) {
+            // In a real app, we would update the scene with the generation ID
+            // and the output paths would be managed by a GenerationStore.
+            // For now, let's just add the job ID to the scene's generations.
+            if !scenes[index].generations.contains(job.id) {
+                scenes[index].generations.append(job.id)
+                updateProject()
+            }
+        }
     }
 }
