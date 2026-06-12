@@ -342,19 +342,19 @@ Create the initial macOS SwiftUI app shell. The app does not need real generatio
 
 ## TODO
 
-- [ ] Create macOS SwiftUI app under `app/`
-- [ ] Create `LTXStudioLocalApp.swift`
-- [ ] Create app-level state object
-- [ ] Create navigation router
-- [ ] Add dark-mode-first layout
-- [ ] Add Home Dashboard screen
-- [ ] Add Project Studio placeholder
-- [ ] Add Continuity Library placeholder
-- [ ] Add Model Manager placeholder
-- [ ] Add Render Queue placeholder
-- [ ] Add Settings placeholder
-- [ ] Add mock data
-- [ ] Add previews where possible
+- [x] Create macOS SwiftUI app under `app/`
+- [x] Create `LTXStudioLocalApp.swift`
+- [x] Create app-level state object
+- [x] Create navigation router
+- [x] Add dark-mode-first layout
+- [x] Add Home Dashboard screen
+- [x] Add Project Studio placeholder
+- [x] Add Continuity Library placeholder
+- [x] Add Model Manager placeholder
+- [x] Add Render Queue placeholder
+- [x] Add Settings placeholder
+- [x] Add mock data
+- [x] Add previews where possible
 
 ## Prompt for Junie
 
@@ -365,7 +365,7 @@ The app should be a native macOS SwiftUI application.
 
 Implement:
 
-- LTXStudioLocalApp.swift
+- AIStudioLocalApp.swift
 - AppState
 - AppRouter
 - Main navigation layout
