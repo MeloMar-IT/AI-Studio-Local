@@ -868,17 +868,17 @@ Create a UI for local model awareness and future model downloads.
 
 ## TODO
 
-- [ ] Add model profile list
-- [ ] Show installed/not installed status
-- [ ] Show model purpose
-- [ ] Show memory requirement
-- [ ] Show recommended badge
-- [ ] Add model detail screen
-- [ ] Add install button placeholder
-- [ ] Add remove button placeholder
-- [ ] Add validate model placeholder
+- [x] Add model profile list
+- [x] Show installed/not installed status
+- [x] Show model purpose
+- [x] Show memory requirement
+- [x] Show recommended badge
+- [x] Add model detail screen
+- [x] Add install button placeholder
+- [x] Add remove button placeholder
+- [x] Add validate model placeholder
 - [ ] Add hardware compatibility warning
-- [ ] Connect to mock worker `/models`
+- [x] Connect to mock worker `/models`
 
 ## Prompt for Junie
 

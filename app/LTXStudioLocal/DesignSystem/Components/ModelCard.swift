@@ -3,10 +3,29 @@ import SwiftUI
 struct ModelCard: View {
     let name: String
     let type: String
+    let purpose: String?
     let status: String
     let statusColor: Color
     let isSelected: Bool
     let action: () -> Void
+
+    init(
+        name: String,
+        type: String,
+        purpose: String? = nil,
+        status: String,
+        statusColor: Color,
+        isSelected: Bool,
+        action: @escaping () -> Void
+    ) {
+        self.name = name
+        self.type = type
+        self.purpose = purpose
+        self.status = status
+        self.statusColor = statusColor
+        self.isSelected = isSelected
+        self.action = action
+    }
 
     var body: some View {
         Button(action: action) {
@@ -23,9 +42,16 @@ struct ModelCard: View {
                         .font(.App.headline)
                         .foregroundColor(isSelected ? .white : Color.App.text)
 
-                    Text(type)
-                        .font(.App.caption)
-                        .foregroundColor(isSelected ? .white.opacity(0.8) : Color.App.secondaryText)
+                    if let purpose = purpose {
+                        Text(purpose)
+                            .font(.App.caption)
+                            .foregroundColor(isSelected ? .white.opacity(0.7) : Color.App.secondaryText)
+                            .lineLimit(1)
+                    } else {
+                        Text(type)
+                            .font(.App.caption)
+                            .foregroundColor(isSelected ? .white.opacity(0.8) : Color.App.secondaryText)
+                    }
                 }
 
                 Spacer()
