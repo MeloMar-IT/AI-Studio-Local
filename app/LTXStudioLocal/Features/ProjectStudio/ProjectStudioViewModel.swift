@@ -7,10 +7,14 @@ class ProjectStudioViewModel: ObservableObject {
     @Published var scenes: [Scene] = []
     @Published var selectedSceneId: String?
     @Published var isGenerating: Bool = false
+    @Published var isExporting: Bool = false
+    @Published var lastExport: ExportMetadata?
 
     private let promptComposer: PromptComposer = DefaultPromptComposer()
     private let continuityStore: ContinuityStore = FileContinuityStore()
     private let generationClient: GenerationClient = HTTPGenerationClient()
+    private let exportService: ExportService = MockExportService()
+    private let projectStore: ProjectStore = FileProjectStore()
     private var appState: AppState?
     private var cancellables = Set<AnyCancellable>()
 
@@ -110,6 +114,37 @@ class ProjectStudioViewModel: ObservableObject {
         if let index = scenes.firstIndex(where: { $0.id == sceneId }) {
             scenes[index].attachedContinuityElements.removeAll { $0.elementId == elementId }
             updateProject()
+        }
+    }
+
+    func exportProject(preset: ExportPreset, projectURL: URL) {
+        guard let project = project else { return }
+
+        isExporting = true
+
+        Task {
+            do {
+                let metadata = try await exportService.exportProject(
+                    project,
+                    scenes: scenes,
+                    preset: preset,
+                    projectURL: projectURL
+                )
+
+                // Save to project store as well
+                try projectStore.saveExportMetadata(metadata, to: projectURL)
+
+                await MainActor.run {
+                    self.isExporting = false
+                    self.lastExport = metadata
+                    // Optionally notify user
+                }
+            } catch {
+                await MainActor.run {
+                    self.isExporting = false
+                    self.appState?.errorMessage = "Export failed: \(error.localizedDescription)"
+                }
+            }
         }
     }
 

@@ -9,6 +9,7 @@ struct ProjectStudioView: View {
     @State private var selectedElementForDetail: ContinuityElement?
     @State private var isShowingComposedPrompt = false
     @State private var selectedGenerationForPrompt: SceneGeneration?
+    @State private var isShowingExportDialog = false
 
     var body: some View {
         Group {
@@ -43,6 +44,9 @@ struct ProjectStudioView: View {
         }
         .sheet(item: $selectedGenerationForPrompt) { generation in
             generationPromptSheet(generation)
+        }
+        .sheet(isPresented: $isShowingExportDialog) {
+            ExportDialog(viewModel: viewModel, isPresented: $isShowingExportDialog)
         }
     }
 
@@ -338,6 +342,16 @@ struct ProjectStudioView: View {
                     Text(String(format: "%.1fs", totalDuration))
                         .font(.system(size: 11, design: .monospaced))
                         .foregroundColor(Color.App.secondaryText)
+
+                    Button {
+                        isShowingExportDialog = true
+                    } label: {
+                        Label("Export", systemImage: "square.and.arrow.up")
+                            .font(.system(size: 11, weight: .bold))
+                    }
+                    .buttonStyle(.plain)
+                    .foregroundColor(Color.App.accent)
+                    .padding(.leading, Spacing.small)
                 }
             }
             .padding(.horizontal, Spacing.medium)

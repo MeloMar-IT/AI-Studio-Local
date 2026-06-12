@@ -5,6 +5,7 @@ public protocol ProjectStore {
     func load(from url: URL) throws -> (Project, [Scene])
     func saveGenerationMetadata(_ job: GenerationJob, for sceneId: String, composedPrompt: String?, to projectURL: URL) throws
     func loadGenerationMetadata(for sceneId: String, generationId: String, from projectURL: URL) throws -> GenerationJob
+    func saveExportMetadata(_ metadata: ExportMetadata, to projectURL: URL) throws
 }
 
 public enum ProjectStoreError: Error {
@@ -138,6 +139,20 @@ public final class FileProjectStore: ProjectStore {
             return try jsonDecoder.decode(GenerationJob.self, from: data)
         } catch {
             throw ProjectStoreError.decodingError(error)
+        }
+    }
+
+    public func saveExportMetadata(_ metadata: ExportMetadata, to projectURL: URL) throws {
+        let exportsDirectory = projectURL.appendingPathComponent("exports")
+
+        do {
+            try fileManager.createDirectory(at: exportsDirectory, withIntermediateDirectories: true)
+
+            let metadataURL = exportsDirectory.appendingPathComponent("metadata-\(metadata.id.prefix(8)).json")
+            let data = try jsonEncoder.encode(metadata)
+            try data.write(to: metadataURL)
+        } catch {
+            throw ProjectStoreError.fileSystemError(error)
         }
     }
 

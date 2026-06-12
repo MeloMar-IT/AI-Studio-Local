@@ -1170,16 +1170,16 @@ Create export structure and mock export workflow.
 
 ## TODO
 
-- [ ] Create `ExportService` protocol
-- [ ] Create mock export implementation
-- [ ] Add export presets
-- [ ] Add export dialog
-- [ ] Add MP4 export option placeholder
-- [ ] Add ProRes export option placeholder
-- [ ] Add LinkedIn 4:5 preset
-- [ ] Add YouTube 16:9 preset
-- [ ] Add Shorts/Reels 9:16 preset
-- [ ] Save export metadata
+- [x] Create `ExportService` protocol ✓
+- [x] Create mock export implementation ✓
+- [x] Add export presets ✓
+- [x] Add MP4 export option placeholder ✓
+- [x] Add ProRes export option placeholder ✓
+- [x] Add LinkedIn 4:5 preset ✓
+- [x] Add YouTube 16:9 preset ✓
+- [x] Add Shorts/Reels 9:16 preset ✓
+- [x] Save export metadata ✓
+- [x] Add export dialog ✓
 
 ## Prompt for Junie
 
