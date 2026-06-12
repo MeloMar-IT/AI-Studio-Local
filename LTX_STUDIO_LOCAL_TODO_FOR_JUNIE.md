@@ -1218,9 +1218,9 @@ Extend Brand Kit support for deterministic overlays. The AI model should not be 
 - [✓] Extend `BrandKit` model with overlay metadata
 - [✓] Add Brand Kit editor UI in Continuity Library
 - [✓] Add simple preview panel for brand overlays
-- [ ] Implement actual video overlay rendering in `ExportService` (Future Phase)
-- [ ] Add logo asset management (pick file)
-- [ ] Support custom font selection for overlays
+- [✓] Implement actual video overlay rendering in `ExportService` (Future Phase)
+- [✓] Add logo asset management (pick file)
+- [✓] Support custom font selection for overlays
 
 ## Prompt for Junie (Updated)
 

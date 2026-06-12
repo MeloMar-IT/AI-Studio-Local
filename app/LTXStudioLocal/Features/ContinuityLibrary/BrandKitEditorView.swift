@@ -14,13 +14,20 @@ struct BrandKitEditorView: View {
                     .foregroundColor(.secondary)
 
                 VStack(alignment: .leading, spacing: Spacing.small) {
-                    Text("Logo Path")
+                    Text("Logo Asset")
                         .font(.App.caption)
-                    TextField("Path to logo asset", text: Binding(
-                        get: { brandKit.logoAssetPath ?? "" },
-                        set: { brandKit.logoAssetPath = $0.isEmpty ? nil : $0 }
-                    ))
-                    .textFieldStyle(.roundedBorder)
+                    HStack {
+                        TextField("Path to logo asset", text: Binding(
+                            get: { brandKit.logoAssetPath ?? "" },
+                            set: { brandKit.logoAssetPath = $0.isEmpty ? nil : $0 }
+                        ))
+                        .textFieldStyle(.roundedBorder)
+                        .disabled(true)
+
+                        Button("Select...") {
+                            selectLogo()
+                        }
+                    }
                 }
 
                 VStack(alignment: .leading, spacing: Spacing.small) {
@@ -69,26 +76,79 @@ struct BrandKitEditorView: View {
                     .font(.App.subheadline)
                     .foregroundColor(.secondary)
 
-                Toggle("Enable Title Card", isOn: $brandKit.titleCardSettings.isEnabled)
-                Toggle("Enable Lower Thirds", isOn: $brandKit.lowerThirdSettings.isEnabled)
-                Toggle("Enable Watermark", isOn: $brandKit.watermarkSettings.isEnabled)
-                Toggle("Enable Subtitles", isOn: $brandKit.subtitleStyleSettings.isEnabled)
-            Group {
-                Text("Watermark Position")
-                    .font(.App.caption)
-                Picker("", selection: $brandKit.watermarkSettings.position) {
-                    ForEach(OverlayPosition.allCases, id: \.self) { position in
-                        Text(position.rawValue.capitalized).tag(position)
+                HStack {
+                    Toggle("Title Card", isOn: $brandKit.titleCardSettings.isEnabled)
+                    if brandKit.titleCardSettings.isEnabled {
+                        FontPicker(selection: $brandKit.titleCardSettings.fontName)
                     }
                 }
-                .pickerStyle(.segmented)
-            }
+
+                HStack {
+                    Toggle("Lower Thirds", isOn: $brandKit.lowerThirdSettings.isEnabled)
+                    if brandKit.lowerThirdSettings.isEnabled {
+                        FontPicker(selection: $brandKit.lowerThirdSettings.fontName)
+                    }
+                }
+
+                HStack {
+                    Toggle("Watermark", isOn: $brandKit.watermarkSettings.isEnabled)
+                }
+
+                HStack {
+                    Toggle("Subtitles", isOn: $brandKit.subtitleStyleSettings.isEnabled)
+                    if brandKit.subtitleStyleSettings.isEnabled {
+                        FontPicker(selection: $brandKit.subtitleStyleSettings.fontName)
+                    }
+                }
+
+                Group {
+                    Text("Watermark Position")
+                        .font(.App.caption)
+                    Picker("", selection: $brandKit.watermarkSettings.position) {
+                        ForEach(OverlayPosition.allCases, id: \.self) { position in
+                            Text(position.rawValue.capitalized).tag(position)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                }
             }
 
             Divider()
 
             BrandPreviewPanel(brandKit: brandKit)
         }
+    }
+
+    private func selectLogo() {
+        let panel = NSOpenPanel()
+        panel.allowsMultipleSelection = false
+        panel.canChooseDirectories = false
+        panel.canChooseFiles = true
+        panel.allowedContentTypes = [.image]
+
+        if panel.runModal() == .OK {
+            brandKit.logoAssetPath = panel.url?.path
+        }
+    }
+}
+
+struct FontPicker: View {
+    @Binding var selection: String
+    private let availableFonts = [
+        "Helvetica", "Helvetica-Bold", "Arial", "Arial-BoldMT",
+        "Courier", "Courier-Bold", "Georgia", "Georgia-Bold",
+        "TimesNewRomanPSMT", "TimesNewRomanPS-BoldMT",
+        "Verdana", "Verdana-Bold"
+    ]
+
+    var body: some View {
+        Picker("Font", selection: $selection) {
+            ForEach(availableFonts, id: \.self) { font in
+                Text(font).tag(font)
+            }
+        }
+        .pickerStyle(.menu)
+        .frame(width: 200)
     }
 }
 
