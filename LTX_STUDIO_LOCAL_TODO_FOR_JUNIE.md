@@ -1211,22 +1211,19 @@ Do not implement real video encoding yet.
 
 ## Goal
 
-Prepare deterministic brand overlays, separate from AI model generation.
+Extend Brand Kit support for deterministic overlays. The AI model should not be trusted to render accurate logos or text. Brand elements must be applied during export.
 
 ## TODO
 
-- [ ] Extend BrandKit model
-- [ ] Add logo path
-- [ ] Add title card settings
-- [ ] Add lower-third settings
-- [ ] Add watermark settings
-- [ ] Add subtitle style settings
-- [ ] Add brand preview UI
-- [ ] Add overlay metadata to export
+- [✓] Extend `BrandKit` model with overlay metadata
+- [✓] Add Brand Kit editor UI in Continuity Library
+- [✓] Add simple preview panel for brand overlays
+- [ ] Implement actual video overlay rendering in `ExportService` (Future Phase)
+- [ ] Add logo asset management (pick file)
+- [ ] Support custom font selection for overlays
 
-## Prompt for Junie
+## Prompt for Junie (Updated)
 
-```text
 Extend Brand Kit support for deterministic overlays.
 
 The AI model should not be trusted to render accurate logos or text. Brand elements must be applied during export.
@@ -1248,7 +1245,6 @@ Add a Brand Kit editor UI in the Continuity Library.
 Add a simple preview panel showing how the brand overlay may look.
 
 For now, only store overlay metadata. Real video overlay rendering will be implemented later.
-```
 
 ---
 

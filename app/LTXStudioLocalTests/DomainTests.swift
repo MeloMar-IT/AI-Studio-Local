@@ -61,4 +61,18 @@ final class DomainTests: XCTestCase {
         XCTAssertEqual(profile.modelFamily, decoded.modelFamily)
         XCTAssertEqual(profile.qualityLevel, decoded.qualityLevel)
     }
+
+    func testBrandKitSync() throws {
+        var brandKit = BrandKit(name: "Test Brand", promptBlock: "Original Prompt")
+        brandKit.introCardText = "Hello World"
+        brandKit.brandColors = ["#FF0000"]
+        brandKit.syncElement()
+
+        XCTAssertTrue(brandKit.element.promptBlock.contains("introCardText"))
+        XCTAssertTrue(brandKit.element.promptBlock.contains("Hello World"))
+
+        let restoredKit = BrandKit(element: brandKit.element)
+        XCTAssertEqual(restoredKit.introCardText, "Hello World")
+        XCTAssertEqual(restoredKit.brandColors, ["#FF0000"])
+    }
 }

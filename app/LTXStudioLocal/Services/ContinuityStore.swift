@@ -129,7 +129,8 @@ public final class FileContinuityStore: ContinuityStore {
                 description: "Gradual movement towards subject",
                 promptBlock: "slow dolly in, tracking shot, smooth camera movement",
                 tags: ["camera", "movement"]
-            )
+            ),
+            BrandKit.mock.element
         ]
 
         for element in defaults {

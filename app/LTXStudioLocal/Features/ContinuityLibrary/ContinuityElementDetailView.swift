@@ -17,6 +17,18 @@ struct ContinuityElementDetailView: View {
 
                 Divider()
 
+                if editedElement.type == .brand {
+                    BrandKitEditorView(brandKit: Binding(
+                        get: { BrandKit(element: editedElement) },
+                        set: { newKit in
+                            var updatedKit = newKit
+                            updatedKit.syncElement()
+                            editedElement = updatedKit.element
+                        }
+                    ))
+                    Divider()
+                }
+
                 VStack(alignment: .leading, spacing: Spacing.medium) {
                     Text("Details")
                         .font(.App.headline)
@@ -43,37 +55,39 @@ struct ContinuityElementDetailView: View {
                     }
                 }
 
-                VStack(alignment: .leading, spacing: Spacing.medium) {
-                    Text("Prompt Generation")
-                        .font(.App.headline)
+                if editedElement.type != .brand {
+                    VStack(alignment: .leading, spacing: Spacing.medium) {
+                        Text("Prompt Generation")
+                            .font(.App.headline)
 
-                    VStack(alignment: .leading, spacing: Spacing.small) {
-                        Text("Prompt Block")
-                            .font(.App.caption)
-                            .foregroundColor(.secondary)
-                        TextEditor(text: $editedElement.promptBlock)
-                            .frame(height: 100)
+                        VStack(alignment: .leading, spacing: Spacing.small) {
+                            Text("Prompt Block")
+                                .font(.App.caption)
+                                .foregroundColor(.secondary)
+                            TextEditor(text: $editedElement.promptBlock)
+                                .frame(height: 100)
+                                .padding(4)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 4)
+                                        .stroke(Color.App.border, lineWidth: 1)
+                                )
+                        }
+
+                        VStack(alignment: .leading, spacing: Spacing.small) {
+                            Text("Negative Prompt (Optional)")
+                                .font(.App.caption)
+                                .foregroundColor(.secondary)
+                            TextEditor(text: Binding(
+                                get: { editedElement.negativePrompt ?? "" },
+                                set: { editedElement.negativePrompt = $0.isEmpty ? nil : $0 }
+                            ))
+                            .frame(height: 60)
                             .padding(4)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 4)
                                     .stroke(Color.App.border, lineWidth: 1)
                             )
-                    }
-
-                    VStack(alignment: .leading, spacing: Spacing.small) {
-                        Text("Negative Prompt (Optional)")
-                            .font(.App.caption)
-                            .foregroundColor(.secondary)
-                        TextEditor(text: Binding(
-                            get: { editedElement.negativePrompt ?? "" },
-                            set: { editedElement.negativePrompt = $0.isEmpty ? nil : $0 }
-                        ))
-                        .frame(height: 60)
-                        .padding(4)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 4)
-                                .stroke(Color.App.border, lineWidth: 1)
-                        )
+                        }
                     }
                 }
 
