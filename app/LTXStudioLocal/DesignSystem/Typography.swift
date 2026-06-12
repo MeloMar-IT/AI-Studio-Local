@@ -3,6 +3,9 @@ import SwiftUI
 extension Font {
     struct App {
         static let title = Font.system(.title, design: .rounded).weight(.bold)
+        static let title1 = Font.system(.title, design: .rounded).weight(.bold)
+        static let title2 = Font.system(.title2, design: .rounded).weight(.bold)
+        static let title3 = Font.system(.title3, design: .rounded).weight(.bold)
         static let subtitle = Font.system(.title3, design: .rounded).weight(.medium)
         static let headline = Font.system(.headline, design: .rounded).weight(.semibold)
         static let subheadline = Font.system(.subheadline, design: .rounded)

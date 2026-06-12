@@ -402,7 +402,7 @@ struct ProjectStudioView: View {
 
                 Spacer()
 
-                PrimaryButton(title: "Generate Scene", icon: "sparkles") {
+                PrimaryButton("Generate Scene", icon: "sparkles") {
                     viewModel.generateScene()
                 }
                 .padding(.bottom, Spacing.medium)
@@ -512,7 +512,7 @@ extension ContinuityElementType {
         case .audio: return "waveform"
         case .brand: return "tag.fill"
         case .promptBlock: return "text.alignleft"
-        case .loraReference: return "cpu"
+        case .lora: return "cpu"
         case .exportTemplate: return "square.and.arrow.up"
         }
     }

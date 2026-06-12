@@ -70,7 +70,7 @@ struct ModelManagerView: View {
             } else {
                 EmptyStateView(
                     title: "No Model Selected",
-                    subtitle: "Select a model from the list to view details.",
+                    message: "Select a model from the list to view details.",
                     icon: "cpu"
                 )
             }
@@ -79,6 +79,7 @@ struct ModelManagerView: View {
 }
 
 struct ModelDetailView: View {
+    @EnvironmentObject private var appState: AppState
     let model: ModelProfile
 
     var body: some View {
@@ -142,15 +143,15 @@ struct ModelDetailView: View {
                 // Actions
                 HStack(spacing: Spacing.medium) {
                     if model.installed {
-                        SecondaryButton(title: "Validate", icon: "checkmark.shield") {
+                        SecondaryButton("Validate", icon: "checkmark.shield") {
                             // Placeholder
                         }
 
-                        SecondaryButton(title: "Remove", icon: "trash", isDestructive: true) {
+                        SecondaryButton("Remove", icon: "trash", isDestructive: true) {
                             // Placeholder
                         }
                     } else {
-                        PrimaryButton(title: "Install Model", icon: "arrow.down.circle") {
+                        PrimaryButton("Install Model", icon: "arrow.down.circle") {
                             // Placeholder
                         }
                     }

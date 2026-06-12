@@ -14,7 +14,7 @@ public enum QualityLevel: String, Codable, CaseIterable {
     case cinematic = "Cinematic"
 }
 
-public struct ModelProfile: Codable, Identifiable, Equatable {
+public struct ModelProfile: Codable, Identifiable, Equatable, Hashable {
     public let id: String
     public var name: String
     public var purpose: String
