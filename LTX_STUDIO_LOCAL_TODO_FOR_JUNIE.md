@@ -1950,18 +1950,18 @@ Prepare the first usable MVP release.
 
 ## TODO
 
-- [ ] Verify app shell works
-- [ ] Verify worker starts
-- [ ] Verify mock generation works
-- [ ] Verify project save/load works
-- [ ] Verify continuity elements work
-- [ ] Verify prompt composition works
-- [ ] Verify render queue works
-- [ ] Verify model manager mock works
-- [ ] Update README
-- [ ] Update CHANGELOG
-- [ ] Add release notes
-- [ ] Tag version `v0.1.0`
+- [x] Verify app shell works
+- [x] Verify worker starts
+- [x] Verify mock generation works
+- [x] Verify project save/load works
+- [x] Verify continuity elements work
+- [x] Verify prompt composition works
+- [x] Verify render queue works
+- [x] Verify model manager mock works
+- [x] Update README
+- [x] Update CHANGELOG
+- [x] Add release notes
+- [x] Tag version `v0.1.0` (Ready for tagging)
 
 ## Prompt for Junie
 

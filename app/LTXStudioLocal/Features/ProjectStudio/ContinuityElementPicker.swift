@@ -51,7 +51,7 @@ struct ContinuityElementPicker: View {
                     .tag(nil as ContinuityElementType?)
 
                 Section {
-                    ForEach([ContinuityElementType.character, .location, .style, .camera, .audio, .brand, .promptBlock], id: \.self) { type in
+                    ForEach([ContinuityElementType.character, .location, .style, .camera, .audio, .brand, .promptBlock], id: \.self) { (type: ContinuityElementType) in
                         Label(type.rawValue.capitalized, systemImage: type.iconName)
                             .tag(type as ContinuityElementType?)
                     }

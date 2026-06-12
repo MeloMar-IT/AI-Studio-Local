@@ -128,10 +128,10 @@ struct ProjectTemplateSelectionView: View {
 
                         HStack {
                             Spacer()
-                            SecondaryButton(title: "Cancel") {
+                            SecondaryButton("Cancel") {
                                 dismiss()
                             }
-                            PrimaryButton(title: "Create Project") {
+                            PrimaryButton("Create Project") {
                                 onSelect(template, projectName, useDefaultBrandKit)
                                 dismiss()
                             }
@@ -188,7 +188,7 @@ struct TemplateRow: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(template.name)
                         .font(.App.headline)
-                        .foregroundColor(isSelected ? Color.App.accent : Color.App.primaryText)
+                        .foregroundColor(isSelected ? Color.App.accent : Color.App.text)
 
                     Text(template.description)
                         .font(.App.caption)

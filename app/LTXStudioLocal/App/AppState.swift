@@ -15,6 +15,9 @@ class AppState: ObservableObject {
     // Hardware Profile
     @Published var hardwareProfile: HardwareProfile = .unknown
 
+    // Continuity Library Cache for UI
+    @Published var continuityElements: [ContinuityElement] = []
+
     private let hardwareProfiler: HardwareProfilerProtocol
     private let generationClient: GenerationClient
     private var pollingTimer: Timer?

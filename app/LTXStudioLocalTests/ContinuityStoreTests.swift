@@ -68,7 +68,9 @@ final class ContinuityStoreTests: XCTestCase {
             name: "Validation Test",
             promptBlock: "Validate me"
         )
-        let data = try JSONEncoder().encode(element)
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        let data = try encoder.encode(element)
 
         let validated = try store.validateElement(from: data)
         XCTAssertEqual(validated.id, element.id)

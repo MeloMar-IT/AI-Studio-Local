@@ -232,7 +232,7 @@ class ProjectStudioViewModel: ObservableObject {
         }
     }
 
-    func removeElement(_ sceneId: String, elementId: String) {
+    func detachElement(_ sceneId: String, elementId: String, type: ContinuityElementType) {
         if let index = scenes.firstIndex(where: { $0.id == sceneId }) {
             scenes[index].attachedContinuityElements.removeAll { $0.elementId == elementId }
             updateProject()

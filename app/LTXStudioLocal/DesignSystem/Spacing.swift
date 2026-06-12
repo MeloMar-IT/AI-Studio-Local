@@ -12,5 +12,6 @@ struct Spacing {
     static let xxxLarge: CGFloat = 64
 
     static let cornerRadius: CGFloat = 8
+    static let cornerRadiusMedium: CGFloat = 10
     static let cornerRadiusLarge: CGFloat = 12
 }

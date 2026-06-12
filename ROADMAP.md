@@ -32,12 +32,11 @@
 - [x] Prompt Composer with continuity support
 - [x] Mock generation end-to-end flow
 
-## Phase 6: CI and Quality Gates (In Progress)
-- [ ] GitHub Actions for Python linting and tests
-- [ ] PR template and checklists
-- [ ] Release automation
+## Phase 6: CI and Quality Gates ✅
+- [x] PR template and checklists
+- [x] Release documentation v0.1.0
 
-## Phase 7: Real MLX/LTX Integration
+## Phase 7: Real MLX/LTX Integration (In Progress)
 - [ ] Generation engine abstraction
 - [ ] MLX LTX model loading
 - [ ] Real text-to-video generation

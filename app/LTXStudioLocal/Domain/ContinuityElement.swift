@@ -10,6 +10,20 @@ public enum ContinuityElementType: String, Codable, CaseIterable {
     case promptBlock = "prompt_block"
     case lora
     case exportTemplate = "export_template"
+
+    public var iconName: String {
+        switch self {
+        case .character: return "person.fill"
+        case .location: return "mappin.and.ellipse"
+        case .style: return "paintpalette.fill"
+        case .camera: return "video.fill"
+        case .audio: return "waveform"
+        case .brand: return "briefcase.fill"
+        case .promptBlock: return "text.alignleft"
+        case .lora: return "cpu"
+        case .exportTemplate: return "square.and.arrow.up.fill"
+        }
+    }
 }
 
 public struct ContinuityAsset: Codable, Identifiable, Equatable {
@@ -37,17 +51,7 @@ public struct ContinuityElement: Codable, Identifiable, Equatable {
     public var modifiedAt: Date
 
     public var iconName: String {
-        switch type {
-        case .character: return "person.fill"
-        case .location: return "mappin.and.ellipse"
-        case .style: return "paintpalette.fill"
-        case .camera: return "video.fill"
-        case .audio: return "waveform"
-        case .brand: return "briefcase.fill"
-        case .promptBlock: return "text.alignleft"
-        case .lora: return "cpu"
-        case .exportTemplate: return "square.and.arrow.up.fill"
-        }
+        return type.iconName
     }
 
     public init(

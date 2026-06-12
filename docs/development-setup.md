@@ -2,6 +2,10 @@
 
 This guide helps you set up LTX Studio Local for local development.
 
+## Current Status: MVP Foundation (v0.1.0)
+
+The project has reached the **v0.1.0 MVP Foundation** milestone. All core systems are implemented with mock generation to demonstrate the end-to-end workflow. Real MLX/LTX generation integration is slated for the next phase.
+
 ## Prerequisites
 
 - **macOS 14.0 (Sonoma)** or newer.

@@ -608,14 +608,12 @@ struct ProjectStudioView: View {
                                     .foregroundColor(Color.App.secondaryText)
                                     .italic()
                             } else {
-                                FlowLayout(spacing: 4) {
-                                    ForEach(audioElements, id: \.elementId) { attached in
-                                        if let element = appState.continuityElements.first(where: { $0.id == attached.elementId }) {
-                                            ElementChip(element: element) {
-                                                selectedElementForDetail = element
-                                            } onRemove: {
-                                                viewModel.detachElement(scene.id, elementId: element.id)
-                                            }
+                                FlowLayout(audioElements, spacing: 4) { attached in
+                                    if let element = appState.continuityElements.first(where: { $0.id == attached.elementId }) {
+                                        ElementChip(element: element) {
+                                            selectedElementForDetail = element
+                                        } onRemove: {
+                                            viewModel.detachElement(scene.id, elementId: element.id, type: .audio)
                                         }
                                     }
                                 }
@@ -725,40 +723,40 @@ struct ProjectStudioView: View {
                             }
                         }
                     }
-                } else {
                     InspectorSection(title: "Prompt") {
-                    VStack(alignment: .leading, spacing: Spacing.small) {
-                        TextEditor(text: Binding(
-                            get: { scene.prompt },
-                            set: { viewModel.updateScenePrompt(scene.id, prompt: $0) }
-                        ))
-                        .frame(height: 100)
-                        .padding(4)
-                        .background(RoundedRectangle(cornerRadius: 4).stroke(Color.App.border))
-                        .accessibilityLabel("Scene Prompt")
+                        VStack(alignment: .leading, spacing: Spacing.small) {
+                            TextEditor(text: Binding(
+                                get: { scene.prompt },
+                                set: { viewModel.updateScenePrompt(scene.id, prompt: $0) }
+                            ))
+                            .frame(height: 100)
+                            .padding(4)
+                            .background(RoundedRectangle(cornerRadius: 4).stroke(Color.App.border))
+                            .accessibilityLabel("Scene Prompt")
 
-                        HStack(spacing: Spacing.medium) {
-                            Button(action: { viewModel.improvePrompt(for: scene.id) }) {
-                                HStack {
-                                    Image(systemName: "wand.and.stars")
-                                    Text("Improve Prompt")
+                            HStack(spacing: Spacing.medium) {
+                                Button(action: { viewModel.improvePrompt(for: scene.id) }) {
+                                    HStack {
+                                        Image(systemName: "wand.and.stars")
+                                        Text("Improve Prompt")
+                                    }
+                                    .font(.App.caption)
+                                    .foregroundColor(Color.App.accent)
                                 }
-                                .font(.App.caption)
-                                .foregroundColor(Color.App.accent)
-                            }
-                            .buttonStyle(.plain)
-                            .help("Enhance your prompt using AI")
+                                .buttonStyle(.plain)
+                                .help("Enhance your prompt using AI")
 
-                            Button(action: { isShowingComposedPrompt = true }) {
-                                HStack {
-                                    Image(systemName: "eye")
-                                    Text("View Full Prompt")
+                                Button(action: { isShowingComposedPrompt = true }) {
+                                    HStack {
+                                        Image(systemName: "eye")
+                                        Text("View Full Prompt")
+                                    }
+                                    .font(.App.caption)
+                                    .foregroundColor(Color.App.accent)
                                 }
-                                .font(.App.caption)
-                                .foregroundColor(Color.App.accent)
+                                .buttonStyle(.plain)
+                                .help("See the final prompt with all elements combined")
                             }
-                            .buttonStyle(.plain)
-                            .help("See the final prompt with all elements combined")
                         }
                     }
                 }
@@ -771,22 +769,12 @@ struct ProjectStudioView: View {
                                 .foregroundColor(Color.App.secondaryText)
                                 .italic()
                         } else {
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: Spacing.xxSmall) {
-                                    ForEach(scene.attachedContinuityElements, id: \.elementId) { element in
-                                        ElementChip(element.elementId, icon: element.type.iconName) {
-                                            // Open detail
-                                            if let found = try? FileContinuityStore().loadAll().first(where: { $0.id == element.elementId }) {
-                                                selectedElementForDetail = found
-                                            }
-                                        }
-                                        .contextMenu {
-                                            Button(role: .destructive) {
-                                                viewModel.removeElement(scene.id, elementId: element.elementId)
-                                            } label: {
-                                                Label("Remove", systemImage: "trash")
-                                            }
-                                        }
+                            FlowLayout(scene.attachedContinuityElements, spacing: 4) { attached in
+                                if let element = appState.continuityElements.first(where: { $0.id == attached.elementId }) {
+                                    ElementChip(element: element) {
+                                        selectedElementForDetail = element
+                                    } onRemove: {
+                                        viewModel.detachElement(scene.id, elementId: attached.elementId, type: attached.type)
                                     }
                                 }
                             }
@@ -1131,23 +1119,6 @@ struct LockToggle: View {
             .toggleStyle(.checkbox)
             .font(.App.subheadline)
             .frame(maxWidth: .infinity, alignment: .leading)
-    }
-}
-
-
-extension ContinuityElementType {
-    var iconName: String {
-        switch self {
-        case .character: return "person.fill"
-        case .location: return "mappin.and.ellipse"
-        case .style: return "paintpalette.fill"
-        case .camera: return "video.fill"
-        case .audio: return "waveform"
-        case .brand: return "tag.fill"
-        case .promptBlock: return "text.alignleft"
-        case .lora: return "cpu"
-        case .exportTemplate: return "square.and.arrow.up"
-        }
     }
 }
 

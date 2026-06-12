@@ -4,14 +4,14 @@ AI Studio Local (LTX Studio Local) is a local-first AI video creation studio for
 
 The project prioritizes user experience, local-first privacy, and reusable creative elements.
 
-## Current Status: MVP Foundation (v0.1.0-pre)
+## Current Status: MVP Foundation (v0.1.0)
 
-The project is currently in the **MVP Foundation** phase. All core UI components, domain models, and service architectures are implemented.
+The project has reached **v0.1.0 MVP Foundation**. All core UI components, domain models, and service architectures are implemented and verified.
 
-- **SwiftUI App**: Fully functional shell with Home Dashboard, Project Studio, Continuity Library, Model Manager, and Render Queue.
-- **Python Worker**: FastAPI-based skeleton with mock generation endpoints.
+- **SwiftUI App**: Functional shell with Home Dashboard, Project Studio, Continuity Library, Model Manager, and Render Queue.
+- **Python Worker**: FastAPI service with mock generation endpoints and job lifecycle management.
 - **Generation Flow**: Mock generation is implemented to demonstrate the end-to-end workflow (App -> Worker -> App).
-- **MLX/LTX Integration**: Planned for the next phases. Real local generation is not yet enabled.
+- **Architecture**: Clean separation between Swift frontend and Python backend via shared JSON schemas.
 
 ## Project Structure
 
