@@ -596,14 +596,14 @@ Make the first screen friendly and useful.
 
 ## TODO
 
-- [ ] Add welcome headline
-- [ ] Add create action cards
-- [ ] Add recent projects section
-- [ ] Add system status card
-- [ ] Add installed model card
-- [ ] Add render queue summary
-- [ ] Add local privacy message
-- [ ] Add empty states
+- [x] Add welcome headline
+- [x] Add create action cards
+- [x] Add recent projects section
+- [x] Add system status card
+- [x] Add installed model card
+- [x] Add render queue summary
+- [x] Add local privacy message
+- [x] Add empty states
 - [ ] Add keyboard shortcuts where appropriate
 
 ## Prompt for Junie
