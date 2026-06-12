@@ -48,6 +48,100 @@ struct ProjectStudioView: View {
         .sheet(isPresented: $isShowingExportDialog) {
             ExportDialog(viewModel: viewModel, isPresented: $isShowingExportDialog)
         }
+        .sheet(isPresented: $viewModel.isShowingPromptComparison) {
+            if let improved = viewModel.improvedPrompt, let sceneId = viewModel.selectedSceneId {
+                promptImprovementSheet(improved, sceneId: sceneId)
+            }
+        }
+    }
+
+    private func promptImprovementSheet(_ improved: ImprovedPrompt, sceneId: String) -> some View {
+        VStack(spacing: 0) {
+            HStack {
+                Text("Improve Prompt")
+                    .font(.App.headline)
+                Spacer()
+                Button("Cancel") {
+                    viewModel.rejectImprovedPrompt()
+                }
+                .buttonStyle(.plain)
+                .foregroundColor(Color.App.secondaryText)
+            }
+            .padding()
+            .background(Color.App.surface)
+
+            ScrollView {
+                VStack(alignment: .leading, spacing: Spacing.large) {
+                    VStack(alignment: .leading, spacing: Spacing.small) {
+                        Text("ORIGINAL")
+                            .font(.App.caption)
+                            .foregroundColor(Color.App.secondaryText)
+                        Text(improved.original)
+                            .font(.App.body)
+                            .padding(Spacing.medium)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(RoundedRectangle(cornerRadius: 8).fill(Color.App.background))
+                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.App.border))
+                    }
+
+                    VStack(alignment: .leading, spacing: Spacing.small) {
+                        Text("IMPROVED")
+                            .font(.App.caption)
+                            .foregroundColor(Color.App.secondaryText)
+
+                        TextEditor(text: Binding(
+                            get: { viewModel.improvedPrompt?.improved ?? "" },
+                            set: { newValue in
+                                if let current = viewModel.improvedPrompt {
+                                    viewModel.improvedPrompt = ImprovedPrompt(original: current.original, improved: newValue, changes: current.changes)
+                                }
+                            }
+                        ))
+                        .font(.App.body)
+                        .frame(height: 150)
+                        .padding(Spacing.small)
+                        .background(RoundedRectangle(cornerRadius: 8).fill(Color.App.background))
+                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.App.accent.opacity(0.5)))
+                    }
+
+                    VStack(alignment: .leading, spacing: Spacing.small) {
+                        Text("ADDED STRUCTURE")
+                            .font(.App.caption)
+                            .foregroundColor(Color.App.secondaryText)
+
+                        VStack(alignment: .leading, spacing: Spacing.xxSmall) {
+                            ForEach(improved.changes.sorted(by: { $0.key < $1.key }), id: \.key) { key, value in
+                                HStack(alignment: .top) {
+                                    Text("\(key):")
+                                        .font(.App.caption)
+                                        .fontWeight(.bold)
+                                        .frame(width: 80, alignment: .leading)
+                                    Text(value)
+                                        .font(.App.caption)
+                                }
+                            }
+                        }
+                        .padding(Spacing.medium)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(RoundedRectangle(cornerRadius: 8).fill(Color.App.background))
+                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.App.border))
+                    }
+                }
+                .padding(Spacing.large)
+            }
+
+            HStack(spacing: Spacing.medium) {
+                SecondaryButton("Reject") {
+                    viewModel.rejectImprovedPrompt()
+                }
+                PrimaryButton("Accept & Use") {
+                    viewModel.acceptImprovedPrompt(for: sceneId)
+                }
+            }
+            .padding(Spacing.large)
+            .background(Color.App.surface)
+        }
+        .frame(width: 600, height: 600)
     }
 
     private func generationPromptSheet(_ generation: SceneGeneration) -> some View {
@@ -413,15 +507,27 @@ struct ProjectStudioView: View {
                         .padding(4)
                         .background(RoundedRectangle(cornerRadius: 4).stroke(Color.App.border))
 
-                        Button(action: { isShowingComposedPrompt = true }) {
-                            HStack {
-                                Image(systemName: "eye")
-                                Text("View Composed Prompt")
+                        HStack(spacing: Spacing.medium) {
+                            Button(action: { viewModel.improvePrompt(for: scene.id) }) {
+                                HStack {
+                                    Image(systemName: "wand.and.stars")
+                                    Text("Improve Prompt")
+                                }
+                                .font(.App.caption)
+                                .foregroundColor(Color.App.accent)
                             }
-                            .font(.App.caption)
-                            .foregroundColor(Color.App.accent)
+                            .buttonStyle(.plain)
+
+                            Button(action: { isShowingComposedPrompt = true }) {
+                                HStack {
+                                    Image(systemName: "eye")
+                                    Text("View Composed Prompt")
+                                }
+                                .font(.App.caption)
+                                .foregroundColor(Color.App.accent)
+                            }
+                            .buttonStyle(.plain)
                         }
-                        .buttonStyle(.plain)
                     }
                 }
 

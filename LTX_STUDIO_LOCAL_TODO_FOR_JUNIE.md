@@ -1256,14 +1256,14 @@ Add UX for improving rough prompts.
 
 ## TODO
 
-- [ ] Add “Improve Prompt” button
-- [ ] Add local rule-based prompt enhancer first
-- [ ] Add cinematic structure
-- [ ] Add camera instruction support
-- [ ] Add audio cue support
-- [ ] Show before/after
-- [ ] Allow accept/reject
-- [ ] Add tests for helper
+- [x] Add “Improve Prompt” button
+- [x] Add local rule-based prompt enhancer first
+- [x] Add cinematic structure
+- [x] Add camera instruction support
+- [x] Add audio cue support
+- [x] Show before/after
+- [x] Allow accept/reject
+- [x] Add tests for helper
 
 ## Prompt for Junie
 

@@ -217,7 +217,7 @@ struct BrandPreviewPanel: View {
     }
 
     @ViewBuilder
-    private func overlayLayer<Content: View>(position: OverlayPosition, @ViewBuilder content: () -> Content) -> some View {
+    private func overlayLayer<Content: View>(position: OverlayPosition, @ViewBuilder content: @escaping () -> Content) -> some View {
         GeometryReader { geo in
             ZStack {
                 content()

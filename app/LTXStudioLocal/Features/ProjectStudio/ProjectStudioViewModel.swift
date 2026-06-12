@@ -9,8 +9,11 @@ class ProjectStudioViewModel: ObservableObject {
     @Published var isGenerating: Bool = false
     @Published var isExporting: Bool = false
     @Published var lastExport: ExportMetadata?
+    @Published var improvedPrompt: ImprovedPrompt?
+    @Published var isShowingPromptComparison: Bool = false
 
     private let promptComposer: PromptComposer = DefaultPromptComposer()
+    private let promptImprovementHelper: PromptImprovementHelper = DefaultPromptImprovementHelper()
     private let continuityStore: ContinuityStore = FileContinuityStore()
     private let generationClient: GenerationClient = HTTPGenerationClient()
     private let exportService: ExportService = MockExportService()
@@ -89,6 +92,25 @@ class ProjectStudioViewModel: ObservableObject {
             scenes[index].prompt = prompt
             updateProject()
         }
+    }
+
+    func improvePrompt(for sceneId: String) {
+        guard let index = scenes.firstIndex(where: { $0.id == sceneId }) else { return }
+        let currentPrompt = scenes[index].prompt
+        improvedPrompt = promptImprovementHelper.improve(currentPrompt)
+        isShowingPromptComparison = true
+    }
+
+    func acceptImprovedPrompt(for sceneId: String) {
+        guard let improved = improvedPrompt else { return }
+        updateScenePrompt(sceneId, prompt: improved.improved)
+        improvedPrompt = nil
+        isShowingPromptComparison = false
+    }
+
+    func rejectImprovedPrompt() {
+        improvedPrompt = nil
+        isShowingPromptComparison = false
     }
 
     func toggleLock(_ sceneId: String, keyPath: WritableKeyPath<ConsistencyLocks, Bool>) {
