@@ -77,14 +77,16 @@ class JobStore:
                 job = self.jobs[job_id]
                 job.result_url = f"/outputs/{job_id}/output.mp4"
 
-                # Save metadata
-                metadata = {
-                    "job_id": job_id,
-                    "request": request.model_dump(),
-                    "completed_at": datetime.now(),
-                    "output_path": result_path
-                }
-                self.output_manager.save_metadata(job_id, metadata)
+                # Engine might have already saved its own detailed metadata
+                # but we keep this as a simple fallback/summary.
+                if not self.output_manager.get_metadata_path(job_id).exists():
+                    metadata = {
+                        "job_id": job_id,
+                        "request": request.model_dump(),
+                        "completed_at": datetime.now(),
+                        "output_path": result_path
+                    }
+                    self.output_manager.save_metadata(job_id, metadata)
 
                 logger.info(f"Job {job_id} completed successfully")
             else:

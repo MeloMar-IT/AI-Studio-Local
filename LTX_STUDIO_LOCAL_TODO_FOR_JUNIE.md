@@ -1497,20 +1497,20 @@ Only start this phase after the mock app workflow is stable.
 
 ## TODO
 
-- [ ] Choose MLX/LTX backend implementation
-- [ ] Document install requirements
-- [ ] Add model path configuration
-- [ ] Load model safely
-- [ ] Validate model exists
-- [ ] Validate hardware memory
-- [ ] Implement text-to-video generation
-- [ ] Save output video
-- [ ] Save preview frame
-- [ ] Save metadata
-- [ ] Stream progress
-- [ ] Handle cancellation
-- [ ] Add clear errors
-- [ ] Add manual test script
+- [x] Choose MLX/LTX backend implementation
+- [x] Document install requirements
+- [x] Add model path configuration
+- [x] Load model safely
+- [x] Validate model exists
+- [x] Validate hardware memory
+- [x] Implement text-to-video generation
+- [x] Save output video
+- [x] Save preview frame
+- [x] Save metadata
+- [x] Stream progress
+- [x] Handle cancellation
+- [x] Add clear errors
+- [x] Add manual test script
 
 ## Prompt for Junie
 
