@@ -61,6 +61,21 @@ When a user is in the Project Studio, they can attach elements from the library 
 
 The `PromptComposer` service is responsible for resolving these IDs and building the final prompt sent to the generation worker.
 
+### Consistency Locks
+
+In addition to attaching elements, users can apply "Consistency Locks" to a scene. These locks instruct the `PromptComposer` and eventually the worker to keep certain aspects stable across generations, such as:
+- Seed (exact same latent starting point)
+- Visual Style
+- Character Identity
+- Camera Angle
+
+## Current Implementation Status
+
+- **UI**: Element listing, filtering, and detail editing are implemented.
+- **Persistence**: JSON-based storage in Application Support is functional.
+- **Scene Attachment**: Elements can be picked and attached to scenes in the Project Studio.
+- **Prompt Composition**: The `PromptComposer` correctly resolves attached elements and merges their prompt blocks.
+
 ## Default Elements
 
 On first launch, the application populates the Continuity Library with a set of high-quality sample elements to help users get started.

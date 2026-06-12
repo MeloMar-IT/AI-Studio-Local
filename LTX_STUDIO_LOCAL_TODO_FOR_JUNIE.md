@@ -1351,15 +1351,15 @@ Keep docs aligned with implementation.
 
 ## TODO
 
-- [ ] Update README
-- [ ] Update ROADMAP
-- [ ] Update architecture doc
-- [ ] Update UX doc
-- [ ] Update continuity doc
-- [ ] Update model manager doc
-- [ ] Update development setup
-- [ ] Add screenshots placeholders
-- [ ] Add troubleshooting section
+- [x] Update README
+- [x] Update ROADMAP
+- [x] Update architecture doc
+- [x] Update UX doc
+- [x] Update continuity doc
+- [x] Update model manager doc
+- [x] Update development setup
+- [x] Add screenshots placeholders
+- [x] Add troubleshooting section
 
 ## Prompt for Junie
 

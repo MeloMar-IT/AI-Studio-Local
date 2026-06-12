@@ -66,6 +66,18 @@ The payload sent from the App to the Worker to initiate a new generation.
 ### 7. Generation Response (`generation-response.schema.json`)
 The immediate acknowledgement from the Worker when a job is successfully queued.
 
+## Mock Generation Flow
+
+In the current version (v0.1.0), the generation process is mocked to validate the end-to-end architecture:
+
+1. **App** sends a `GenerationRequest` to the **Worker**'s `/generate/text-to-video` endpoint.
+2. **Worker** validates the request against `generation-request.schema.json`.
+3. **Worker** creates a `GenerationJob`, saves it to the `JobStore`, and returns a `JobStatus` response.
+4. **App** begins polling the Worker's `/jobs/{id}` endpoint.
+5. **Worker** advances the job state through mock stages: `preparing_prompt`, `loading_model`, `generating_video`, `completed`.
+6. **Worker** "generates" a placeholder MP4 file and a `metadata.json` in the scene's generation folder.
+7. **App** detects the `completed` status and refreshes the Scene UI to show the new generation.
+
 ## Implementation Details
 
 - **IDs:** All major entities use UUIDs for unique identification.
