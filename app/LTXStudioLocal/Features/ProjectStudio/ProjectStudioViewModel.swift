@@ -164,13 +164,83 @@ class ProjectStudioViewModel: ObservableObject {
         }
     }
 
+    func deleteGeneration(_ generationId: String) {
+        if let sceneIndex = scenes.firstIndex(where: { $0.id == selectedSceneId }) {
+            scenes[sceneIndex].generations.removeAll { $0.id == generationId }
+            updateProject()
+        }
+    }
+
+    func useGeneration(_ generation: SceneGeneration) {
+        // In a real app, this might update the scene's current output reference
+        // For MVP, we'll just log it
+        print("Using generation: \(generation.id)")
+    }
+
+    func regenerateFromSettings(_ generation: SceneGeneration) {
+        guard let project = project else { return }
+
+        isGenerating = true
+
+        let request = GenerationRequest(
+            prompt: generation.composedPrompt,
+            negativePrompt: generation.negativePrompt,
+            modelId: generation.modelProfile?.id ?? "ltx-video-v1",
+            projectId: project.id,
+            sceneId: generation.sceneId
+        )
+
+        Task {
+            do {
+                let jobId = try await generationClient.submitTextToVideo(request: request)
+
+                let job = GenerationJob(
+                    id: jobId,
+                    projectId: project.id,
+                    sceneId: generation.sceneId,
+                    status: .queued,
+                    mode: .textToVideo,
+                    modelProfile: generation.modelProfile,
+                    progress: 0,
+                    startedAt: Date(),
+                    sceneName: selectedScene?.name
+                )
+
+                await MainActor.run {
+                    appState?.addJob(job)
+                    isGenerating = false
+                }
+            } catch {
+                print("Failed to submit generation job: \(error)")
+                await MainActor.run {
+                    isGenerating = false
+                }
+            }
+        }
+    }
+
     private func handleGenerationCompleted(_ job: GenerationJob) {
         if let index = scenes.firstIndex(where: { $0.id == job.sceneId }) {
-            // In a real app, we would update the scene with the generation ID
-            // and the output paths would be managed by a GenerationStore.
-            // For now, let's just add the job ID to the scene's generations.
-            if !scenes[index].generations.contains(job.id) {
-                scenes[index].generations.append(job.id)
+            let scene = scenes[index]
+            let composed = composePrompt(for: scene)
+
+            let newGeneration = SceneGeneration(
+                id: job.id,
+                sceneId: job.sceneId,
+                outputPath: job.outputPaths?.video,
+                previewImagePath: job.outputPaths?.preview,
+                composedPrompt: composed.prompt,
+                negativePrompt: composed.negativePrompt,
+                modelProfile: job.modelProfile,
+                seed: nil, // Would come from job metadata in real app
+                resolution: scene.resolution,
+                duration: scene.durationSeconds,
+                createdAt: Date(),
+                metadataPath: job.outputPaths?.metadata
+            )
+
+            if !scenes[index].generations.contains(where: { $0.id == job.id }) {
+                scenes[index].generations.append(newGeneration)
                 updateProject()
             }
         }

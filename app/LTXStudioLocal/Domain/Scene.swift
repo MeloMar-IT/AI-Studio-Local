@@ -74,7 +74,7 @@ public struct Scene: Codable, Identifiable, Equatable {
     public var resolution: SceneResolution?
     public var attachedContinuityElements: [AttachedContinuityElement]
     public var consistencyLocks: ConsistencyLocks
-    public var generations: [String]
+    public var generations: [SceneGeneration]
 
     public init(
         id: String = UUID().uuidString,
@@ -87,7 +87,7 @@ public struct Scene: Codable, Identifiable, Equatable {
         resolution: SceneResolution? = nil,
         attachedContinuityElements: [AttachedContinuityElement] = [],
         consistencyLocks: ConsistencyLocks = ConsistencyLocks(),
-        generations: [String] = []
+        generations: [SceneGeneration] = []
     ) {
         self.id = id
         self.name = name

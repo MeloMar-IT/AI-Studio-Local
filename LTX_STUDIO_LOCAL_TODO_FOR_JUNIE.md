@@ -967,7 +967,7 @@ Do not block the UI while checking hardware.
 
 ---
 
-# Phase 14 — Swift app to worker integration
+# Phase 14 — Swift app to worker integration ✓
 
 ## Goal
 
@@ -975,15 +975,15 @@ Connect the SwiftUI app to the Python worker.
 
 ## TODO
 
-- [x] Create `GenerationClient` protocol
-- [x] Create HTTP implementation
-- [x] Add worker health check
-- [x] Add model fetch
-- [x] Add text-to-video mock job submission
-- [x] Add job polling
-- [x] Add progress display
-- [x] Add cancel placeholder
-- [x] Show helpful error when worker unavailable
+- [✓] Create `GenerationClient` protocol
+- [✓] Create HTTP implementation
+- [✓] Add worker health check
+- [✓] Add model fetch
+- [✓] Add text-to-video mock job submission
+- [✓] Add job polling
+- [✓] Add progress display
+- [✓] Add cancel placeholder
+- [✓] Show helpful error when worker unavailable
 
 ## Prompt for Junie
 
@@ -1066,7 +1066,7 @@ The user must always understand what the app is doing.
 
 ---
 
-# Phase 16 — Generation history
+# Phase 16 — Generation history ✓
 
 ## Goal
 
@@ -1074,17 +1074,17 @@ Track generated versions per scene.
 
 ## TODO
 
-- [ ] Add generation list to scene
-- [ ] Add generation metadata model
-- [ ] Add generation cards
-- [ ] Show preview thumbnail placeholder
-- [ ] Show prompt used
-- [ ] Show seed
-- [ ] Show model
-- [ ] Show creation date
-- [ ] Add use version action
-- [ ] Add delete version action
-- [ ] Persist history
+- [✓] Add generation list to scene
+- [✓] Add generation metadata model
+- [✓] Add generation cards
+- [✓] Show preview thumbnail placeholder
+- [✓] Show prompt used
+- [✓] Show seed
+- [✓] Show model
+- [✓] Show creation date
+- [✓] Add use version action
+- [✓] Add delete version action
+- [✓] Persist history
 
 ## Prompt for Junie
 

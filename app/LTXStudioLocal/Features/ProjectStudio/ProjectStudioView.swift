@@ -8,6 +8,7 @@ struct ProjectStudioView: View {
     @State private var isShowingElementPicker = false
     @State private var selectedElementForDetail: ContinuityElement?
     @State private var isShowingComposedPrompt = false
+    @State private var selectedGenerationForPrompt: SceneGeneration?
 
     var body: some View {
         Group {
@@ -21,7 +22,8 @@ struct ProjectStudioView: View {
             viewModel.setAppState(appState)
             // Load mock data if nothing is selected for MVP demonstration
             if viewModel.project == nil {
-                viewModel.selectProject(.mock, scenes: [.mock, Scene(name: "Scene 2", prompt: "A robot in a garden")])
+                let mockScene = Scene(name: "Introduction Scene", prompt: "A man walking through a futuristic city", durationSeconds: 5.0, generations: [.mock])
+                viewModel.selectProject(.mock, scenes: [mockScene, Scene(name: "Scene 2", prompt: "A robot in a garden")])
             }
         }
         .sheet(isPresented: $isShowingElementPicker) {
@@ -39,6 +41,58 @@ struct ProjectStudioView: View {
                 composedPromptSheet(scene)
             }
         }
+        .sheet(item: $selectedGenerationForPrompt) { generation in
+            generationPromptSheet(generation)
+        }
+    }
+
+    private func generationPromptSheet(_ generation: SceneGeneration) -> some View {
+        VStack(spacing: 0) {
+            HStack {
+                Text("Generation Prompt")
+                    .font(.App.headline)
+                Spacer()
+                Button("Done") {
+                    selectedGenerationForPrompt = nil
+                }
+                .buttonStyle(.plain)
+                .foregroundColor(Color.App.accent)
+            }
+            .padding()
+            .background(Color.App.surface)
+
+            ScrollView {
+                VStack(alignment: .leading, spacing: Spacing.large) {
+                    VStack(alignment: .leading, spacing: Spacing.small) {
+                        Text("PROMPT")
+                            .font(.App.caption)
+                            .foregroundColor(Color.App.secondaryText)
+                        Text(generation.composedPrompt)
+                            .font(.App.body)
+                            .padding(Spacing.medium)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(RoundedRectangle(cornerRadius: 8).fill(Color.App.background))
+                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.App.border))
+                    }
+
+                    if let neg = generation.negativePrompt, !neg.isEmpty {
+                        VStack(alignment: .leading, spacing: Spacing.small) {
+                            Text("NEGATIVE PROMPT")
+                                .font(.App.caption)
+                                .foregroundColor(Color.App.secondaryText)
+                            Text(neg)
+                                .font(.App.body)
+                                .padding(Spacing.medium)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .background(RoundedRectangle(cornerRadius: 8).fill(Color.App.background))
+                                .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.App.border))
+                        }
+                    }
+                }
+                .padding(Spacing.large)
+            }
+        }
+        .frame(width: 500, height: 400)
     }
 
     private func elementDetailSheet(_ element: ContinuityElement) -> some View {
@@ -400,6 +454,16 @@ struct ProjectStudioView: View {
                             set: { _ in viewModel.toggleLock(scene.id, keyPath: \.seed) }
                         ))
                     }
+                }
+
+                InspectorSection(title: "History") {
+                    SceneHistoryView(
+                        generations: scene.generations,
+                        onUse: { viewModel.useGeneration($0) },
+                        onViewPrompt: { selectedGenerationForPrompt = $0 },
+                        onDelete: { viewModel.deleteGeneration($0.id) },
+                        onRegenerate: { viewModel.regenerateFromSettings($0) }
+                    )
                 }
 
                 Spacer()
