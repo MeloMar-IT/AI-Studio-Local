@@ -926,14 +926,14 @@ Detect or mock Mac hardware and recommend safe defaults.
 
 ## TODO
 
-- [ ] Create `HardwareProfiler` protocol
-- [ ] Add mock implementation
-- [ ] Add real basic implementation where safe
-- [ ] Detect Apple Silicon if possible
-- [ ] Detect memory if possible
-- [ ] Show hardware status in Home Dashboard
-- [ ] Show recommendations in Model Manager
-- [ ] Add graceful fallback
+- [x] Create `HardwareProfiler` protocol
+- [x] Add mock implementation
+- [x] Add real basic implementation where safe
+- [x] Detect Apple Silicon if possible
+- [x] Detect memory if possible
+- [x] Show hardware status in Home Dashboard
+- [x] Show recommendations in Model Manager
+- [x] Add graceful fallback
 
 ## Prompt for Junie
 

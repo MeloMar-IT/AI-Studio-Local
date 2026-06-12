@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct HomeDashboardView: View {
+    @EnvironmentObject private var appState: AppState
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: Spacing.xxxLarge) {
@@ -58,9 +60,21 @@ struct HomeDashboardView: View {
                         // 4. System Status Card
                         StatusCard(title: "System Status", icon: "desktopcomputer") {
                             VStack(alignment: .leading, spacing: Spacing.small) {
-                                StatusItem(label: "Hardware", value: "Apple M2 Max", status: .success)
-                                StatusItem(label: "Memory", value: "64GB Unified", status: .success)
-                                StatusItem(label: "Storage", value: "1.2TB Free", status: .success)
+                                StatusItem(
+                                    label: "Hardware",
+                                    value: appState.hardwareProfile.modelName,
+                                    status: appState.hardwareProfile.isAppleSilicon ? .success : .warning
+                                )
+                                StatusItem(
+                                    label: "Memory",
+                                    value: "\(appState.hardwareProfile.totalMemoryGB)GB Unified",
+                                    status: appState.hardwareProfile.totalMemoryGB >= 32 ? .success : .warning
+                                )
+                                StatusItem(
+                                    label: "Local Mode",
+                                    value: appState.hardwareProfile.isLocalModeReady ? "Ready" : "Limited",
+                                    status: appState.hardwareProfile.isLocalModeReady ? .success : .warning
+                                )
                             }
                         }
 

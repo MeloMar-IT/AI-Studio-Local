@@ -1,15 +1,28 @@
 import SwiftUI
 
 struct ModelManagerView: View {
+    @EnvironmentObject private var appState: AppState
     @StateObject private var viewModel = ModelManagerViewModel(modelStore: RemoteModelStore())
 
     var body: some View {
         HStack(spacing: 0) {
             // Sidebar List
             VStack(alignment: .leading, spacing: 0) {
-                Text("Models")
-                    .font(.App.title3)
-                    .padding()
+                HStack {
+                    Text("Models")
+                        .font(.App.title3)
+
+                    Spacer()
+
+                    Text(appState.hardwareProfile.generationProfile.rawValue)
+                        .font(.App.caption)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 2)
+                        .background(Color.App.accent.opacity(0.1))
+                        .foregroundColor(Color.App.accent)
+                        .cornerRadius(4)
+                }
+                .padding()
 
                 if viewModel.isLoading {
                     ProgressView()
@@ -103,14 +116,24 @@ struct ModelDetailView: View {
                 Divider()
 
                 // Specs
-                Grid(alignment: .leading, horizontalSpacing: Spacing.large, verticalSpacing: Spacing.medium) {
-                    GridRow {
-                        DetailItem(label: "Memory Required", value: "\(model.memoryRequirement ?? 0) GB Unified Memory")
-                        DetailItem(label: "Quality Level", value: model.qualityLevel.rawValue)
+                VStack(alignment: .leading, spacing: Spacing.medium) {
+                    HStack {
+                        Image(systemName: "info.circle")
+                        Text("Recommended for your Mac: \(appState.hardwareProfile.generationProfile.description)")
+                            .font(.App.caption)
                     }
-                    GridRow {
-                        DetailItem(label: "Version", value: model.version ?? "1.0")
-                        DetailItem(label: "Local Path", value: model.localPath ?? "Not installed")
+                    .foregroundColor(Color.App.accent)
+                    .padding(.bottom, Spacing.small)
+
+                    Grid(alignment: .leading, horizontalSpacing: Spacing.large, verticalSpacing: Spacing.medium) {
+                        GridRow {
+                            DetailItem(label: "Memory Required", value: "\(model.memoryRequirement ?? 0) GB Unified Memory")
+                            DetailItem(label: "Quality Level", value: model.qualityLevel.rawValue)
+                        }
+                        GridRow {
+                            DetailItem(label: "Version", value: model.version ?? "1.0")
+                            DetailItem(label: "Local Path", value: model.localPath ?? "Not installed")
+                        }
                     }
                 }
 
