@@ -1815,16 +1815,17 @@ Expose expert controls without overwhelming normal users.
 
 ## TODO
 
-- [ ] Add collapsed Advanced Settings panel
-- [ ] Add seed control
-- [ ] Add steps control
-- [ ] Add guidance control
-- [ ] Add FPS control
-- [ ] Add frame count control
-- [ ] Add model profile selector
-- [ ] Add LoRA weight placeholder
-- [ ] Add upscaler selector placeholder
-- [ ] Add reset to recommended defaults
+- [x] Add collapsed Advanced Settings panel
+- [x] Add seed control
+- [x] Add steps control
+- [x] Add guidance control
+- [x] Add FPS control
+- [x] Add frame count control
+- [x] Add model profile selector
+- [x] Add LoRA weight placeholder
+- [x] Add upscaler selector placeholder
+- [x] Add reset to recommended defaults
+- [x] Add quantization mode placeholder
 
 ## Prompt for Junie
 

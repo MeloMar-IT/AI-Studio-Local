@@ -863,16 +863,149 @@ struct ProjectStudioView: View {
                             }
                         }
 
-                        LockToggle(label: "Lock Seed", isOn: Binding(
-                            get: { scene.consistencyLocks.seed },
-                            set: { _ in viewModel.toggleLock(scene.id, keyPath: \.seed) }
-                        ))
+                        // Seed
+                        VStack(alignment: .leading, spacing: 4) {
+                            HStack {
+                                Text("Seed")
+                                    .font(.App.caption)
+                                    .foregroundColor(Color.App.secondaryText)
+                                Spacer()
+                                LockToggle(label: "Lock", isOn: Binding(
+                                    get: { scene.consistencyLocks.seed },
+                                    set: { _ in viewModel.toggleLock(scene.id, keyPath: \.seed) }
+                                ))
+                                .scaleEffect(0.8)
+                            }
 
-                        Text("Additional expert controls will appear here in Phase 32.")
-                            .font(.App.footnote)
-                            .foregroundColor(Color.App.secondaryText)
-                            .italic()
-                            .padding(.top, 4)
+                            TextField("Random", value: Binding(
+                                get: { scene.seed },
+                                set: { viewModel.updateSceneAdvancedSettings(scene.id, seed: $0) }
+                            ), format: .number)
+                            .textFieldStyle(.roundedBorder)
+                        }
+
+                        // Inference Steps
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Inference Steps")
+                                .font(.App.caption)
+                                .foregroundColor(Color.App.secondaryText)
+                            HStack {
+                                Slider(value: Binding(
+                                    get: { Float(scene.inferenceSteps ?? 30) },
+                                    set: { viewModel.updateSceneAdvancedSettings(scene.id, inferenceSteps: Int($0)) }
+                                ), in: 1...100, step: 1)
+                                Text("\(scene.inferenceSteps ?? 30)")
+                                    .font(.App.caption)
+                                    .frame(width: 30)
+                            }
+                        }
+
+                        // Guidance Scale
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Guidance Scale")
+                                .font(.App.caption)
+                                .foregroundColor(Color.App.secondaryText)
+                            HStack {
+                                Slider(value: Binding(
+                                    get: { scene.guidanceScale ?? 7.5 },
+                                    set: { viewModel.updateSceneAdvancedSettings(scene.id, guidanceScale: $0) }
+                                ), in: 1...20, step: 0.5)
+                                Text("\(String(format: "%.1f", scene.guidanceScale ?? 7.5))")
+                                    .font(.App.caption)
+                                    .frame(width: 30)
+                            }
+                        }
+
+                        // FPS & Frame Count
+                        HStack {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("FPS")
+                                    .font(.App.caption)
+                                    .foregroundColor(Color.App.secondaryText)
+                                TextField("24", value: Binding(
+                                    get: { scene.fps },
+                                    set: { viewModel.updateSceneAdvancedSettings(scene.id, fps: $0) }
+                                ), format: .number)
+                                .textFieldStyle(.roundedBorder)
+                            }
+
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Frames")
+                                    .font(.App.caption)
+                                    .foregroundColor(Color.App.secondaryText)
+                                TextField("120", value: Binding(
+                                    get: { scene.frameCount },
+                                    set: { viewModel.updateSceneAdvancedSettings(scene.id, frameCount: $0) }
+                                ), format: .number)
+                                .textFieldStyle(.roundedBorder)
+                            }
+                        }
+
+                        // Model Profile
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Model Profile")
+                                .font(.App.caption)
+                                .foregroundColor(Color.App.secondaryText)
+                            Picker("Model Profile", selection: Binding(
+                                get: { scene.modelProfileId ?? "default" },
+                                set: { viewModel.updateSceneAdvancedSettings(scene.id, modelProfileId: $0) }
+                            )) {
+                                Text("Recommended Default").tag("default")
+                                ForEach(viewModel.availableModels) { model in
+                                    Text(model.name).tag(model.id)
+                                }
+                            }
+                            .pickerStyle(.menu)
+                        }
+
+                        // LoRA Placeholder
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("LoRA Weights")
+                                .font(.App.caption)
+                                .foregroundColor(Color.App.secondaryText)
+                            Text("No LoRAs attached")
+                                .font(.App.footnote)
+                                .foregroundColor(Color.App.secondaryText)
+                                .padding(Spacing.small)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .background(Color.App.background)
+                                .cornerRadius(4)
+                        }
+
+                        // Upscaler Placeholder
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Upscaler")
+                                .font(.App.caption)
+                                .foregroundColor(Color.App.secondaryText)
+                            Picker("Upscaler", selection: .constant("none")) {
+                                Text("None").tag("none")
+                                Text("Spatial 2x (Placeholder)").tag("spatial2x")
+                                Text("Temporal 2x (Placeholder)").tag("temporal2x")
+                            }
+                            .pickerStyle(.menu)
+                            .disabled(true)
+                        }
+
+                        // Quantization Placeholder
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Quantization Mode")
+                                .font(.App.caption)
+                                .foregroundColor(Color.App.secondaryText)
+                            Picker("Quantization", selection: .constant("auto")) {
+                                Text("Auto (Recommended)").tag("auto")
+                                Text("4-bit (Placeholder)").tag("4bit")
+                                Text("8-bit (Placeholder)").tag("8bit")
+                            }
+                            .pickerStyle(.menu)
+                            .disabled(true)
+                        }
+
+                        Button("Reset to Recommended Defaults") {
+                            viewModel.resetSceneAdvancedSettings(scene.id)
+                        }
+                        .buttonStyle(.link)
+                        .font(.App.caption)
+                        .padding(.top, 4)
                     }
                 }
 

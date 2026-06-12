@@ -26,11 +26,15 @@ class ProjectStudioViewModel: ObservableObject {
     private var appState: AppState?
     private var cancellables = Set<AnyCancellable>()
 
+    @Published var availableModels: [ModelProfile] = []
+
     var selectedScene: Scene? {
         scenes.first { $0.id == selectedSceneId }
     }
 
     init() {
+        fetchAvailableModels()
+
         NotificationCenter.default.publisher(for: .generationCompleted)
             .receive(on: RunLoop.main)
             .sink { [weak self] notification in
@@ -67,6 +71,17 @@ class ProjectStudioViewModel: ObservableObject {
         self.scenes = scenes
         if self.selectedSceneId == nil {
             self.selectedSceneId = scenes.first?.id
+        }
+    }
+
+    private func fetchAvailableModels() {
+        Task { @MainActor in
+            do {
+                let modelStore = RemoteModelStore(generationClient: self.generationClient)
+                self.availableModels = try await modelStore.fetchModels()
+            } catch {
+                self.availableModels = ModelProfile.mocks
+            }
         }
     }
 
@@ -109,6 +124,35 @@ class ProjectStudioViewModel: ObservableObject {
     func updateSceneNegativePrompt(_ sceneId: String, prompt: String) {
         if let index = scenes.firstIndex(where: { $0.id == sceneId }) {
             scenes[index].negativePrompt = prompt.isEmpty ? nil : prompt
+            updateProject()
+        }
+    }
+
+    func updateSceneAdvancedSettings(_ sceneId: String, seed: Int? = nil, inferenceSteps: Int? = nil, guidanceScale: Float? = nil, fps: Int? = nil, frameCount: Int? = nil, modelProfileId: String? = nil, upscalerId: String? = nil, quantizationMode: String? = nil) {
+        if let index = scenes.firstIndex(where: { $0.id == sceneId }) {
+            if let seed = seed { scenes[index].seed = seed }
+            if let inferenceSteps = inferenceSteps { scenes[index].inferenceSteps = inferenceSteps }
+            if let guidanceScale = guidanceScale { scenes[index].guidanceScale = guidanceScale }
+            if let fps = fps { scenes[index].fps = fps }
+            if let frameCount = frameCount { scenes[index].frameCount = frameCount }
+            if let modelProfileId = modelProfileId { scenes[index].modelProfileId = modelProfileId }
+            if let upscalerId = upscalerId { scenes[index].upscalerId = upscalerId }
+            if let quantizationMode = quantizationMode { scenes[index].quantizationMode = quantizationMode }
+            updateProject()
+        }
+    }
+
+    func resetSceneAdvancedSettings(_ sceneId: String) {
+        if let index = scenes.firstIndex(where: { $0.id == sceneId }) {
+            scenes[index].seed = nil
+            scenes[index].inferenceSteps = nil
+            scenes[index].guidanceScale = nil
+            scenes[index].fps = nil
+            scenes[index].frameCount = nil
+            scenes[index].modelProfileId = nil
+            scenes[index].loraWeights = nil
+            scenes[index].upscalerId = nil
+            scenes[index].quantizationMode = nil
             updateProject()
         }
     }

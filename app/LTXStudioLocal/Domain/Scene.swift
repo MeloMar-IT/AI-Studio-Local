@@ -86,6 +86,17 @@ public struct Scene: Codable, Identifiable, Equatable {
     public var consistencyLocks: ConsistencyLocks
     public var generations: [SceneGeneration]
 
+    // Advanced Settings
+    public var seed: Int?
+    public var inferenceSteps: Int?
+    public var guidanceScale: Float?
+    public var fps: Int?
+    public var frameCount: Int?
+    public var modelProfileId: String?
+    public var loraWeights: [String: Float]?
+    public var upscalerId: String?
+    public var quantizationMode: String?
+
     public init(
         id: String = UUID().uuidString,
         name: String,
@@ -100,7 +111,16 @@ public struct Scene: Codable, Identifiable, Equatable {
         audioReferencePath: String? = nil,
         attachedContinuityElements: [AttachedContinuityElement] = [],
         consistencyLocks: ConsistencyLocks = ConsistencyLocks(),
-        generations: [SceneGeneration] = []
+        generations: [SceneGeneration] = [],
+        seed: Int? = nil,
+        inferenceSteps: Int? = nil,
+        guidanceScale: Float? = nil,
+        fps: Int? = nil,
+        frameCount: Int? = nil,
+        modelProfileId: String? = nil,
+        loraWeights: [String: Float]? = nil,
+        upscalerId: String? = nil,
+        quantizationMode: String? = nil
     ) {
         self.id = id
         self.name = name
@@ -116,6 +136,15 @@ public struct Scene: Codable, Identifiable, Equatable {
         self.attachedContinuityElements = attachedContinuityElements
         self.consistencyLocks = consistencyLocks
         self.generations = generations
+        self.seed = seed
+        self.inferenceSteps = inferenceSteps
+        self.guidanceScale = guidanceScale
+        self.fps = fps
+        self.frameCount = frameCount
+        self.modelProfileId = modelProfileId
+        self.loraWeights = loraWeights
+        self.upscalerId = upscalerId
+        self.quantizationMode = quantizationMode
     }
 
     enum CodingKeys: String, CodingKey {
@@ -133,6 +162,15 @@ public struct Scene: Codable, Identifiable, Equatable {
         case attachedContinuityElements = "attached_continuity_elements"
         case consistencyLocks = "consistency_locks"
         case generations
+        case seed
+        case inferenceSteps = "inference_steps"
+        case guidanceScale = "guidance_scale"
+        case fps
+        case frameCount = "frame_count"
+        case modelProfileId = "model_profile_id"
+        case loraWeights = "lora_weights"
+        case upscalerId = "upscaler_id"
+        case quantizationMode = "quantization_mode"
     }
 }
 
