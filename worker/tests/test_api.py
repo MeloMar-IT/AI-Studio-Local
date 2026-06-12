@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
 
 from ltx_worker.main import app
+import ltx_worker.api as api
 
 client = TestClient(app)
 
@@ -52,3 +53,19 @@ def test_create_job():
 def test_job_not_found():
     response = client.get("/jobs/non-existent-id")
     assert response.status_code == 404
+
+
+def test_cancel_job():
+    payload = {
+        "prompt": "A beautiful sunset over the ocean",
+        "model_id": "ltx-2.3-distilled",
+    }
+    response = client.post("/generate/text-to-video", json=payload)
+    job_id = response.json()["job_id"]
+
+    response = client.post(f"/jobs/{job_id}/cancel")
+    assert response.status_code == 200
+    assert response.json()["status"] == "cancelled"
+
+    response = client.get(f"/jobs/{job_id}")
+    assert response.json()["status"] == "cancelled"

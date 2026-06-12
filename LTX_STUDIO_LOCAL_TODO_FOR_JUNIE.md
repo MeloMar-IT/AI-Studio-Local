@@ -1443,15 +1443,15 @@ Prepare the architecture for real generation without implementing it all at once
 
 ## TODO
 
-- [ ] Add `GenerationEngine` abstraction
-- [ ] Add `MockGenerationEngine`
-- [ ] Add `LTXGenerationEngine` placeholder
-- [ ] Add model loader abstraction
-- [ ] Add LoRA loader abstraction
-- [ ] Add media encoder abstraction
-- [ ] Add progress callback mechanism
-- [ ] Add cancellation token support
-- [ ] Add output folder management
+- [x] Add `GenerationEngine` abstraction
+- [x] Add `MockGenerationEngine`
+- [x] Add `LTXGenerationEngine` placeholder
+- [x] Add model loader abstraction
+- [x] Add LoRA loader abstraction
+- [x] Add media encoder abstraction
+- [x] Add progress callback mechanism
+- [x] Add cancellation token support
+- [x] Add output folder management
 
 ## Prompt for Junie
 

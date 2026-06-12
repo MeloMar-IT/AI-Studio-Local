@@ -5,7 +5,10 @@ import psutil
 from fastapi import APIRouter, HTTPException
 
 from ltx_worker.config import settings
-from ltx_worker.jobs.store import job_store
+import ltx_worker.jobs.store as store
+from ltx_worker.engine.mock import MockGenerationEngine, MockModelLoader, MockLoraLoader, MockMediaEncoder
+from ltx_worker.engine.ltx import LTXGenerationEngine
+from ltx_worker.engine.output import OutputManager
 from ltx_worker.schemas.api import (
     GenerationRequest,
     HardwareResponse,
@@ -17,6 +20,21 @@ from ltx_worker.schemas.api import (
 
 router = APIRouter()
 start_time = time.time()
+
+# Initialize Engine and JobStore
+output_manager = OutputManager(settings.output_dir)
+
+if settings.engine_type == "ltx":
+    engine = LTXGenerationEngine()
+else:
+    engine = MockGenerationEngine(
+        model_loader=MockModelLoader(),
+        lora_loader=MockLoraLoader(),
+        media_encoder=MockMediaEncoder()
+    )
+
+store.job_store = store.JobStore(engine=engine, output_manager=output_manager)
+job_store = store.job_store
 
 
 @router.get("/health", response_model=HealthResponse)
@@ -63,7 +81,7 @@ async def get_models():
 
 @router.post("/generate/text-to-video", response_model=JobStatus)
 async def text_to_video(request: GenerationRequest):
-    job_id = job_store.create_job()
+    job_id = job_store.create_job(request)
     job = job_store.get_job(job_id)
     if not job:
         raise HTTPException(status_code=500, detail="Failed to create job")
@@ -76,3 +94,11 @@ async def get_job(job_id: str):
     if not job:
         raise HTTPException(status_code=404, detail="Job not found")
     return job
+
+
+@router.post("/jobs/{job_id}/cancel")
+async def cancel_job(job_id: str):
+    success = job_store.cancel_job(job_id)
+    if not success:
+        raise HTTPException(status_code=404, detail="Job not found or already completed")
+    return {"status": "cancelled"}

@@ -9,6 +9,10 @@ class Settings(BaseSettings):
     host: str = "127.0.0.1"
     port: int = 8000
 
+    # Engine configuration
+    engine_type: str = "mock"  # "mock" or "ltx"
+    output_dir: str = "outputs"
+
     model_config = ConfigDict(env_prefix="LTX_WORKER_")
 
 
