@@ -52,6 +52,15 @@ class ProjectStudioViewModel: ObservableObject {
                 }
             }
             .store(in: &cancellables)
+
+        NotificationCenter.default.publisher(for: .openProject)
+            .receive(on: RunLoop.main)
+            .sink { [weak self] notification in
+                if let (project, scenes) = notification.object as? (Project, [Scene]) {
+                    self?.selectProject(project, scenes: scenes)
+                }
+            }
+            .store(in: &cancellables)
     }
 
     func setAppState(_ appState: AppState) {

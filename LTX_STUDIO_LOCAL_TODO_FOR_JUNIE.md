@@ -1862,14 +1862,14 @@ Create project templates for repeatable workflows.
 
 ## TODO
 
-- [ ] Add template model
-- [ ] Add default templates
-- [ ] Add LinkedIn SRE Explainer template
-- [ ] Add YouTube Tech Intro template
-- [ ] Add Book Promo template
-- [ ] Add create project from template
-- [ ] Add template preview
-- [ ] Persist selected template metadata
+- [x] Add template model
+- [x] Add default templates
+- [x] Add LinkedIn SRE Explainer template
+- [x] Add YouTube Tech Intro template
+- [x] Add Book Promo template
+- [x] Add create project from template
+- [x] Add template preview
+- [x] Persist selected template metadata
 
 ## Prompt for Junie
 

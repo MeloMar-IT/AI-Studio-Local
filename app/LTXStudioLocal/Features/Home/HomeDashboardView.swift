@@ -2,6 +2,8 @@ import SwiftUI
 
 struct HomeDashboardView: View {
     @EnvironmentObject private var appState: AppState
+    @EnvironmentObject private var router: AppRouter
+    @State private var isShowingTemplateSelection = false
 
     var body: some View {
         ScrollView {
@@ -25,13 +27,25 @@ struct HomeDashboardView: View {
                             LazyVGrid(columns: [
                                 GridItem(.adaptive(minimum: 160, maximum: 200), spacing: Spacing.medium)
                             ], spacing: Spacing.medium) {
-                                ActionCard(title: "Text to Video", icon: "text.quote", color: .purple)
-                                ActionCard(title: "Animate Image", icon: "photo.fill", color: .blue)
-                                ActionCard(title: "Audio to Video", icon: "waveform", color: .green)
+                                ActionCard(title: "Multi-Scene Story", icon: "film.stack", color: .red) {
+                                    isShowingTemplateSelection = true
+                                }
+                                ActionCard(title: "Text to Video", icon: "text.quote", color: .purple) {
+                                    createQuickProject(mode: .textToVideo)
+                                }
+                                ActionCard(title: "Animate Image", icon: "photo.fill", color: .blue) {
+                                    createQuickProject(mode: .imageToVideo)
+                                }
+                                ActionCard(title: "Audio to Video", icon: "waveform", color: .green) {
+                                    createQuickProject(mode: .audioToVideo)
+                                }
                                 ActionCard(title: "Retake Video", icon: "arrow.counterclockwise.circle.fill", color: .orange)
-                                ActionCard(title: "Multi-Scene Story", icon: "film.stack", color: .red)
-                                ActionCard(title: "Reusable Elements", icon: "person.2.fill", color: .teal)
-                                ActionCard(title: "Local Models", icon: "cpu", color: .gray)
+                                ActionCard(title: "Reusable Elements", icon: "person.2.fill", color: .teal) {
+                                    router.selectedScreen = .continuityLibrary
+                                }
+                                ActionCard(title: "Local Models", icon: "cpu", color: .gray) {
+                                    router.selectedScreen = .modelManager
+                                }
                             }
                         }
 
@@ -46,7 +60,7 @@ struct HomeDashboardView: View {
                                 icon: "clock",
                                 actionTitle: "Create New Project",
                                 action: {
-                                    // Action to create project
+                                    isShowingTemplateSelection = true
                                 }
                             )
                             .frame(height: 280)
@@ -145,7 +159,81 @@ struct HomeDashboardView: View {
             .padding(Spacing.xxxLarge)
         }
         .background(Color.App.background)
+        .sheet(isPresented: $isShowingTemplateSelection) {
+            ProjectTemplateSelectionView { template, name, useBrandKit in
+                createProjectFromTemplate(template, name: name, useBrandKit: useBrandKit)
+            }
+        }
     }
+
+    private func createQuickProject(mode: SceneMode) {
+        let name = "New \(mode.rawValue.capitalized) Project"
+        let project = Project(name: name)
+        let scene = Scene(name: "Scene 1", mode: mode)
+
+        saveAndOpenProject(project, scenes: [scene])
+    }
+
+    private func createProjectFromTemplate(_ template: ProjectTemplate, name: String, useBrandKit: Bool) {
+        var defaultBrandKitId: String? = nil
+        if useBrandKit {
+            // In a real app, we'd fetch the default brand kit from ContinuityStore
+            // For now, we'll use a placeholder or the mock if available
+            defaultBrandKitId = "default-brand-kit"
+        }
+
+        var project = Project(
+            name: name,
+            defaultBrandKitId: defaultBrandKitId,
+            aspectRatio: template.aspectRatio
+        )
+
+        var scenes: [Scene] = []
+        var clips: [TimelineClip] = []
+        var currentTime: Double = 0
+
+        for structure in template.sceneStructures {
+            let scene = Scene(
+                name: structure.name,
+                prompt: structure.defaultPrompt,
+                durationSeconds: 5.0,
+                aspectRatio: template.aspectRatio
+            )
+            scenes.append(scene)
+
+            let clip = TimelineClip(sceneId: scene.id, startTime: currentTime, duration: 5.0)
+            clips.append(clip)
+            currentTime += 5.0
+        }
+
+        project.scenes = scenes.map { $0.id }
+        project.timeline = Timeline(clips: clips)
+
+        saveAndOpenProject(project, scenes: [scenes.isEmpty ? [Scene(name: "Scene 1")] : scenes].first!)
+    }
+
+    private func saveAndOpenProject(_ project: Project, scenes: [Scene]) {
+        let store = FileProjectStore()
+        let projectURL = UserSettings.shared.projectsURL.appendingPathComponent("\(project.id).ltxproject")
+
+        do {
+            try store.save(project: project, scenes: scenes, to: projectURL)
+
+            // Navigate to Project Studio
+            // In a real app, we might want to pass the project to AppRouter
+            router.selectedProjectID = project.id
+            router.selectedScreen = .projectStudio
+
+            // Post notification for ProjectStudioViewModel to load this project
+            NotificationCenter.default.post(name: .openProject, object: (project, scenes))
+        } catch {
+            appState.activeError = AppError.projectSaveFailed(error: error)
+        }
+    }
+}
+
+extension NSNotification.Name {
+    static let openProject = NSNotification.Name("openProject")
 }
 
 // MARK: - Components
@@ -154,9 +242,10 @@ struct ActionCard: View {
     let title: String
     let icon: String
     let color: Color
+    var action: (() -> Void)? = nil
 
     var body: some View {
-        Button(action: {}) {
+        Button(action: { action?() }) {
             VStack(spacing: Spacing.medium) {
                 Image(systemName: icon)
                     .font(.system(size: 28))

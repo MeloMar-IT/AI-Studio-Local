@@ -81,4 +81,24 @@ final class DomainTests: XCTestCase {
         XCTAssertEqual(restoredKit.introCardText, "Hello World")
         XCTAssertEqual(restoredKit.brandColors, ["#FF0000"])
     }
+
+    func testProjectTemplates() throws {
+        let templates = ProjectTemplate.defaultTemplates
+        XCTAssertEqual(templates.count, 3)
+
+        let linkedin = templates.first { $0.id == "linkedin-sre-explainer" }
+        XCTAssertNotNil(linkedin)
+        XCTAssertEqual(linkedin?.aspectRatio, "4:5")
+        XCTAssertEqual(linkedin?.sceneStructures.count, 5)
+
+        let youtube = templates.first { $0.id == "youtube-tech-intro" }
+        XCTAssertNotNil(youtube)
+        XCTAssertEqual(youtube?.aspectRatio, "16:9")
+        XCTAssertEqual(youtube?.sceneStructures.count, 4)
+
+        let book = templates.first { $0.id == "book-promo-video" }
+        XCTAssertNotNil(book)
+        XCTAssertEqual(book?.aspectRatio, "9:16")
+        XCTAssertEqual(book?.sceneStructures.count, 4)
+    }
 }
