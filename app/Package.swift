@@ -7,17 +7,16 @@ let package = Package(
         .macOS(.v14)
     ],
     products: [
-        .library(
+        .executable(
             name: "LTXStudioLocal",
             targets: ["LTXStudioLocal"]),
     ],
     dependencies: [],
     targets: [
-        .target(
+        .executableTarget(
             name: "LTXStudioLocal",
             dependencies: [],
-            path: "LTXStudioLocal",
-            exclude: ["App/LTXStudioLocalApp.swift"]),
+            path: "LTXStudioLocal"),
         .testTarget(
             name: "LTXStudioLocalTests",
             dependencies: ["LTXStudioLocal"],

@@ -1,58 +1,32 @@
 import SwiftUI
 
-struct FlowLayout: View {
+struct FlowLayout<Data: RandomAccessCollection, Content: View>: View {
     var spacing: CGFloat
-    var content: [AnyView]
+    var data: Data
+    var content: (Data.Element) -> Content
 
-    init<Data: RandomAccessCollection, Content: View>(
+    init(
         _ data: Data,
         spacing: CGFloat = 8,
         @ViewBuilder content: @escaping (Data.Element) -> Content
     ) {
+        self.data = data
         self.spacing = spacing
-        self.content = data.map { AnyView(content($0)) }
-    }
-
-    // Simplified version for the specific usage in ProjectStudioView if needed
-    init(spacing: CGFloat = 8, @ViewBuilder content: () -> AnyView) {
-        self.spacing = spacing
-        self.content = [content()]
+        self.content = content
     }
 
     var body: some View {
-        ZStack(alignment: .topLeading) {
-            var width = CGFloat.zero
-            var height = CGFloat.zero
-
-            ForEach(0..<content.count, id: \.self) { index in
-                content[index]
-                    .alignmentGuide(.leading, computeValue: { d in
-                        if (abs(width - d.width) > 300) { // Simple wrap logic
-                            width = 0
-                            height -= d.height + spacing
-                        }
-                        let result = width
-                        if index == content.count - 1 {
-                            width = 0 // last item
-                        } else {
-                            width -= d.width + spacing
-                        }
-                        return result
-                    })
-                    .alignmentGuide(.top, computeValue: { d in
-                        let result = height
-                        if index == content.count - 1 {
-                            height = 0 // last item
-                        }
-                        return result
-                    })
-            }
-        }
+        FlexibleView(
+            data: data,
+            spacing: spacing,
+            alignment: .leading,
+            content: content
+        )
     }
 }
 
 // A better FlowLayout implementation for SwiftUI
-struct FlexibleView<Data: RandomAccessCollection, Content: View>: View where Data.Element: Hashable {
+struct FlexibleView<Data: RandomAccessCollection, Content: View>: View {
   let data: Data
   let spacing: CGFloat
   let alignment: HorizontalAlignment
@@ -78,7 +52,7 @@ struct FlexibleView<Data: RandomAccessCollection, Content: View>: View where Dat
   }
 }
 
-struct _FlexibleView<Data: RandomAccessCollection, Content: View>: View where Data.Element: Hashable {
+struct _FlexibleView<Data: RandomAccessCollection, Content: View>: View {
   let availableWidth: CGFloat
   let data: Data
   let spacing: CGFloat
@@ -89,16 +63,17 @@ struct _FlexibleView<Data: RandomAccessCollection, Content: View>: View where Da
     var width = CGFloat.zero
     var height = CGFloat.zero
 
-    return ZStack(alignment: Alignment(horizontal: alignment, vertical: .center)) {
-      ForEach(data, id: \.self) { element in
+    return ZStack(alignment: Alignment(horizontal: alignment, vertical: .top)) {
+      ForEach(Array(data.enumerated()), id: \.offset) { index, element in
         content(element)
+          .fixedSize(horizontal: true, vertical: false) // Ensure content doesn't get squeezed by ZStack/AlignmentGuide
           .alignmentGuide(.leading, computeValue: { d in
             if (abs(width - d.width) > availableWidth) {
               width = 0
               height -= d.height + spacing
             }
             let result = width
-            if element == data.last {
+            if index == data.count - 1 {
               width = 0
             } else {
               width -= d.width + spacing
@@ -107,7 +82,7 @@ struct _FlexibleView<Data: RandomAccessCollection, Content: View>: View where Da
           })
           .alignmentGuide(.top, computeValue: { d in
             let result = height
-            if element == data.last {
+            if index == data.count - 1 {
               height = 0
             }
             return result

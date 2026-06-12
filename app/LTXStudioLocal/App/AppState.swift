@@ -1,7 +1,9 @@
 import Foundation
 import Combine
+import OSLog
 
 class AppState: ObservableObject {
+    private let logger = Logger(subsystem: "com.ai-studio-local.app", category: "State")
     @Published var isLoading: Bool = false
     @Published var activeError: AppError?
     @Published var isWorkerAvailable: Bool = false
@@ -27,6 +29,7 @@ class AppState: ObservableObject {
         hardwareProfiler: HardwareProfilerProtocol = HardwareProfiler(),
         generationClient: GenerationClient? = nil
     ) {
+        NSLog("🔧 AppState: init started")
         self.hardwareProfiler = hardwareProfiler
 
         let client = generationClient ?? HTTPGenerationClient(baseURL: UserSettings.shared.workerBaseURL)
@@ -60,13 +63,16 @@ class AppState: ObservableObject {
     }
 
     func checkWorkerHealth() async {
+        NSLog("🏥 AppState: Checking worker health...")
         do {
             let health = try await generationClient.checkHealth()
+            NSLog("✅ AppState: Worker is online. Version: \(health.version)")
             await MainActor.run {
                 self.isWorkerAvailable = true
                 self.workerVersion = health.version
             }
         } catch {
+            NSLog("❌ AppState: Worker health check failed: \(error.localizedDescription)")
             await MainActor.run {
                 self.isWorkerAvailable = false
                 self.activeError = AppError.workerUnavailable(error: error)

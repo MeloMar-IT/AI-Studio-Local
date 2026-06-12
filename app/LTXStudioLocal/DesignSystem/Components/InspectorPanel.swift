@@ -14,6 +14,8 @@ struct InspectorPanel<Content: View>: View {
             HStack {
                 Text(title)
                     .font(.App.headline)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
 
                 Spacer()
 
@@ -33,7 +35,7 @@ struct InspectorPanel<Content: View>: View {
                 .padding(Spacing.medium)
             }
         }
-        .frame(width: 300)
+        .frame(minWidth: 300, maxWidth: 400)
         .background(Color.App.background)
         .overlay(
             Rectangle()
@@ -66,6 +68,7 @@ struct InspectorSection<Content: View>: View {
                         Text(title.uppercased())
                             .font(.system(size: 11, weight: .bold))
                             .foregroundColor(Color.App.secondaryText)
+                            .lineLimit(1)
 
                         Spacer()
 
@@ -80,6 +83,7 @@ struct InspectorSection<Content: View>: View {
                 Text(title.uppercased())
                     .font(.system(size: 11, weight: .bold))
                     .foregroundColor(Color.App.secondaryText)
+                    .lineLimit(1)
             }
 
             if isExpanded {

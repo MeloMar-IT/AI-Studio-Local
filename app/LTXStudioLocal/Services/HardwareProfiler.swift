@@ -1,4 +1,5 @@
 import Foundation
+import OSLog
 
 public enum GenerationProfile: String, Codable {
     case limited = "Limited"
@@ -41,14 +42,20 @@ public protocol HardwareProfilerProtocol {
 }
 
 public final class HardwareProfiler: HardwareProfilerProtocol {
+    private let logger = Logger(subsystem: "com.ai-studio-local.app", category: "Hardware")
     public init() {}
 
     public func getHardwareProfile() async -> HardwareProfile {
+        NSLog("💻 HardwareProfiler: Getting hardware profile...")
         // Run on background thread to avoid blocking UI
-        return await Task.detached(priority: .userInitiated) {
+        let result = await Task.detached(priority: .userInitiated) {
+            NSLog("💻 HardwareProfiler: Background task started")
             let modelName = self.getDeviceModelName()
+            NSLog("💻 HardwareProfiler: Model name: \(modelName)")
             let isAppleSilicon = self.checkAppleSilicon()
+            NSLog("💻 HardwareProfiler: Apple Silicon: \(isAppleSilicon)")
             let memoryGB = Int(ProcessInfo.processInfo.physicalMemory / (1024 * 1024 * 1024))
+            NSLog("💻 HardwareProfiler: Memory: \(memoryGB)GB")
 
             let profile: GenerationProfile
             if memoryGB >= 96 {
@@ -66,6 +73,7 @@ public final class HardwareProfiler: HardwareProfilerProtocol {
             // Local mode is ready if it's Apple Silicon and has at least 16GB RAM
             let isReady = isAppleSilicon && memoryGB >= 16
 
+            NSLog("💻 HardwareProfiler: Background task completed")
             return HardwareProfile(
                 modelName: modelName,
                 isAppleSilicon: isAppleSilicon,
@@ -74,6 +82,8 @@ public final class HardwareProfiler: HardwareProfilerProtocol {
                 isLocalModeReady: isReady
             )
         }.value
+        NSLog("💻 HardwareProfiler: Hardware profile obtained")
+        return result
     }
 
     private func getDeviceModelName() -> String {

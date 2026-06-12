@@ -1,11 +1,19 @@
 import SwiftUI
+import OSLog
 
 struct MainNavigationView: View {
+    private let logger = Logger(subsystem: "com.ai-studio-local.app", category: "View")
     @EnvironmentObject var router: AppRouter
     @EnvironmentObject var appState: AppState
 
+    @State private var columnVisibility = NavigationSplitViewVisibility.all
+
+    init() {
+        logger.info("🔍 MainNavigationView: init")
+    }
+
     var body: some View {
-        NavigationSplitView {
+        NavigationSplitView(columnVisibility: $columnVisibility) {
             List(AppScreen.allCases, selection: $router.selectedScreen) { screen in
                 NavigationLink(value: screen) {
                     Label(screen.rawValue, systemImage: screen.icon)

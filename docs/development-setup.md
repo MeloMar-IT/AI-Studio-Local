@@ -1,4 +1,4 @@
-# Development Setup
+ls app# Development Setup
 
 This guide helps you set up LTX Studio Local for local development.
 

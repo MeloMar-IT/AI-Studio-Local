@@ -133,10 +133,15 @@ public final class HTTPGenerationClient: GenerationClient {
 
     public func checkHealth() async throws -> HealthStatus {
         let url = baseURL.appendingPathComponent("health")
+        print("🌐 HTTPGenerationClient: GET \(url.absoluteString)")
         do {
-            let (data, _) = try await session.data(from: url)
+            let (data, response) = try await session.data(from: url)
+            if let httpResponse = response as? HTTPURLResponse {
+                print("🌐 HTTPGenerationClient: Health response status code: \(httpResponse.statusCode)")
+            }
             return try decoder.decode(HealthStatus.self, from: data)
         } catch {
+            print("🌐 HTTPGenerationClient: Health check failed: \(error)")
             throw GenerationClientError.workerUnavailable(error)
         }
     }
