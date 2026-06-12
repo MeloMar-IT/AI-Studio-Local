@@ -28,9 +28,8 @@ public final class FileContinuityStore: ContinuityStore {
         if let storeURL = storeURL {
             self.storeURL = storeURL
         } else {
-            // Default to Application Support/AI Studio Local/ContinuityLibrary
-            let appSupport = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-            self.storeURL = appSupport.appendingPathComponent("AI Studio Local/ContinuityLibrary", isDirectory: true)
+            // Default to the one in UserSettings
+            self.storeURL = UserSettings.shared.continuityLibraryURL
         }
 
         self.jsonEncoder = JSONEncoder()

@@ -38,9 +38,11 @@ public final class FileProjectStore: ProjectStore {
     private let fileManager: FileManager
     private let jsonEncoder: JSONEncoder
     private let jsonDecoder: JSONDecoder
+    private let settings: UserSettings
 
-    public init(fileManager: FileManager = .default) {
+    public init(fileManager: FileManager = .default, settings: UserSettings = .shared) {
         self.fileManager = fileManager
+        self.settings = settings
         self.jsonEncoder = JSONEncoder()
         self.jsonEncoder.outputFormatting = [.prettyPrinted, .sortedKeys]
         self.jsonEncoder.dateEncodingStrategy = .iso8601

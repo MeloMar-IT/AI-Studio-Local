@@ -113,7 +113,7 @@ public struct GenerationRequest: Codable {
 }
 
 public final class HTTPGenerationClient: GenerationClient {
-    private let baseURL: URL
+    private var baseURL: URL
     private let session: URLSession
     private let decoder: JSONDecoder
     private let encoder: JSONEncoder
@@ -125,6 +125,10 @@ public final class HTTPGenerationClient: GenerationClient {
         self.decoder.keyDecodingStrategy = .convertFromSnakeCase
         self.encoder = JSONEncoder()
         self.encoder.keyEncodingStrategy = .convertToSnakeCase
+    }
+
+    public func updateBaseURL(_ url: URL) {
+        self.baseURL = url
     }
 
     public func checkHealth() async throws -> HealthStatus {

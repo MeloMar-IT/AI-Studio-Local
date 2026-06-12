@@ -18,13 +18,16 @@ class AppState: ObservableObject {
     private let hardwareProfiler: HardwareProfilerProtocol
     private let generationClient: GenerationClient
     private var pollingTimer: Timer?
+    private var cancellables = Set<AnyCancellable>()
 
     init(
         hardwareProfiler: HardwareProfilerProtocol = HardwareProfiler(),
-        generationClient: GenerationClient = HTTPGenerationClient()
+        generationClient: GenerationClient? = nil
     ) {
         self.hardwareProfiler = hardwareProfiler
-        self.generationClient = generationClient
+
+        let client = generationClient ?? HTTPGenerationClient(baseURL: UserSettings.shared.workerBaseURL)
+        self.generationClient = client
 
         Task {
             let profile = await hardwareProfiler.getHardwareProfile()
@@ -35,6 +38,22 @@ class AppState: ObservableObject {
         }
 
         startPolling()
+        setupSettingsObservers()
+    }
+
+    private func setupSettingsObservers() {
+        UserSettings.shared.$workerURL
+            .receive(on: RunLoop.main)
+            .sink { [weak self] newURLString in
+                if let newURL = URL(string: newURLString),
+                   let httpClient = self?.generationClient as? HTTPGenerationClient {
+                    httpClient.updateBaseURL(newURL)
+                }
+                Task {
+                    await self?.checkWorkerHealth()
+                }
+            }
+            .store(in: &cancellables)
     }
 
     func checkWorkerHealth() async {

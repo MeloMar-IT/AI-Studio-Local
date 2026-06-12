@@ -1676,14 +1676,14 @@ Make local-first behaviour explicit and configurable.
 
 ## TODO
 
-- [ ] Add settings screen sections
-- [ ] Add local mode status
-- [ ] Add worker URL setting
-- [ ] Add project storage location setting
-- [ ] Add continuity library location setting
-- [ ] Add model folder setting
-- [ ] Add telemetry disabled statement
-- [ ] Add cloud fallback placeholder disabled by default
+- [x] Add settings screen sections
+- [x] Add local mode status
+- [x] Add worker URL setting
+- [x] Add project storage location setting
+- [x] Add continuity library location setting
+- [x] Add model folder setting
+- [x] Add telemetry disabled statement
+- [x] Add cloud fallback placeholder disabled by default
 
 ## Prompt for Junie
 
