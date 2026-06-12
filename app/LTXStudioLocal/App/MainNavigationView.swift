@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MainNavigationView: View {
     @EnvironmentObject var router: AppRouter
+    @EnvironmentObject var appState: AppState
 
     var body: some View {
         NavigationSplitView {
@@ -28,7 +29,23 @@ struct MainNavigationView: View {
                 case .settings:
                     SettingsView()
                 }
+
+                if let error = appState.activeError {
+                    ZStack {
+                        Color.black.opacity(0.4)
+                            .edgesIgnoringSafeArea(.all)
+                            .onTapGesture {
+                                appState.activeError = nil
+                            }
+
+                        AppErrorView(error: error) {
+                            appState.activeError = nil
+                        }
+                    }
+                    .transition(.opacity.combined(with: .scale(scale: 0.95)))
+                }
             }
+            .animation(.easeOut(duration: 0.2), value: appState.activeError != nil)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(NSColor.windowBackgroundColor))
         }

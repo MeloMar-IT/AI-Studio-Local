@@ -8,6 +8,27 @@ public protocol GenerationClient {
     func cancelJob(jobId: String) async throws
 }
 
+public enum GenerationClientError: Error {
+    case workerUnavailable(Error?)
+    case jobNotFound(String)
+    case invalidRequest(String)
+    case workerError(String)
+    case decodingError(Error)
+
+    public var asAppError: AppError {
+        switch self {
+        case .workerUnavailable(let error):
+            return AppError.workerUnavailable(error: error)
+        case .workerError(let message):
+            return AppError.generationFailed(details: message)
+        case .invalidRequest(let message):
+            return AppError.generationFailed(details: "Invalid request: \(message)")
+        default:
+            return AppError.generationFailed(details: self.localizedDescription)
+        }
+    }
+}
+
 public struct HealthStatus: Codable {
     public let status: String
     public let version: String
@@ -85,20 +106,28 @@ public final class HTTPGenerationClient: GenerationClient {
 
     public func checkHealth() async throws -> HealthStatus {
         let url = baseURL.appendingPathComponent("health")
-        let (data, _) = try await session.data(from: url)
-        return try decoder.decode(HealthStatus.self, from: data)
+        do {
+            let (data, _) = try await session.data(from: url)
+            return try decoder.decode(HealthStatus.self, from: data)
+        } catch {
+            throw GenerationClientError.workerUnavailable(error)
+        }
     }
 
     public func fetchModels() async throws -> [ModelProfile] {
         let url = baseURL.appendingPathComponent("models")
-        let (data, _) = try await session.data(from: url)
+        do {
+            let (data, _) = try await session.data(from: url)
 
-        struct ModelsResponse: Codable {
-            let models: [ModelProfile]
+            struct ModelsResponse: Codable {
+                let models: [ModelProfile]
+            }
+
+            let response = try decoder.decode(ModelsResponse.self, from: data)
+            return response.models
+        } catch {
+            throw GenerationClientError.workerUnavailable(error)
         }
-
-        let response = try decoder.decode(ModelsResponse.self, from: data)
-        return response.models
     }
 
     public func submitTextToVideo(request: GenerationRequest) async throws -> String {
@@ -106,50 +135,70 @@ public final class HTTPGenerationClient: GenerationClient {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        urlRequest.httpBody = try encoder.encode(request)
+        do {
+            urlRequest.httpBody = try encoder.encode(request)
 
-        let (data, _) = try await session.data(for: urlRequest)
+            let (data, response) = try await session.data(for: urlRequest)
 
-        struct JobResponse: Codable {
-            let jobId: String
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 400 {
+                throw GenerationClientError.invalidRequest("Server returned 400")
+            }
+
+            struct JobResponse: Codable {
+                let jobId: String
+            }
+
+            let responseData = try decoder.decode(JobResponse.self, from: data)
+            return responseData.jobId
+        } catch let error as GenerationClientError {
+            throw error
+        } catch {
+            throw GenerationClientError.workerUnavailable(error)
         }
-
-        let response = try decoder.decode(JobResponse.self, from: data)
-        return response.jobId
     }
 
     public func getJobStatus(jobId: String) async throws -> GenerationJob {
         let url = baseURL.appendingPathComponent("jobs/\(jobId)")
-        let (data, _) = try await session.data(from: url)
+        do {
+            let (data, response) = try await session.data(from: url)
 
-        // The worker returns a slightly different structure for job status
-        // we need to map it to our GenerationJob domain model
-        struct WorkerJobStatus: Codable {
-            let jobId: String
-            let status: String
-            let progress: Double
-            let message: String
-            let resultUrl: String?
-            let error: String?
-            let projectId: String?
-            let sceneId: String?
-            let startedAt: Date?
-            let completedAt: Date?
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 404 {
+                throw GenerationClientError.jobNotFound(jobId)
+            }
+
+            // The worker returns a slightly different structure for job status
+            // we need to map it to our GenerationJob domain model
+            struct WorkerJobStatus: Codable {
+                let jobId: String
+                let status: String
+                let progress: Double
+                let message: String
+                let resultUrl: String?
+                let error: String?
+                let projectId: String?
+                let sceneId: String?
+                let startedAt: Date?
+                let completedAt: Date?
+            }
+
+            let workerStatus = try decoder.decode(WorkerJobStatus.self, from: data)
+
+            return GenerationJob(
+                id: workerStatus.jobId,
+                projectId: workerStatus.projectId ?? "unknown",
+                sceneId: workerStatus.sceneId ?? "unknown",
+                status: JobStatus(rawValue: workerStatus.status) ?? .queued,
+                progress: workerStatus.progress,
+                startedAt: workerStatus.startedAt,
+                completedAt: workerStatus.completedAt,
+                outputPaths: workerStatus.resultUrl.map { JobOutputPaths(video: $0) },
+                errorInformation: workerStatus.error.map { JobErrorInformation(code: "worker_error", message: $0) }
+            )
+        } catch let error as GenerationClientError {
+            throw error
+        } catch {
+            throw GenerationClientError.workerUnavailable(error)
         }
-
-        let workerStatus = try decoder.decode(WorkerJobStatus.self, from: data)
-
-        return GenerationJob(
-            id: workerStatus.jobId,
-            projectId: workerStatus.projectId ?? "unknown",
-            sceneId: workerStatus.sceneId ?? "unknown",
-            status: JobStatus(rawValue: workerStatus.status) ?? .queued,
-            progress: workerStatus.progress,
-            startedAt: workerStatus.startedAt,
-            completedAt: workerStatus.completedAt,
-            outputPaths: workerStatus.resultUrl.map { JobOutputPaths(video: $0) },
-            errorInformation: workerStatus.error.map { JobErrorInformation(code: "worker_error", message: $0) }
-        )
     }
 
     public func cancelJob(jobId: String) async throws {
@@ -157,11 +206,17 @@ public final class HTTPGenerationClient: GenerationClient {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
 
-        let (_, response) = try await session.data(for: urlRequest)
+        do {
+            let (_, response) = try await session.data(for: urlRequest)
 
-        guard let httpResponse = response as? HTTPURLResponse,
-              (200...299).contains(httpResponse.statusCode) else {
-            throw NSError(domain: "GenerationClient", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to cancel job"])
+            guard let httpResponse = response as? HTTPURLResponse,
+                  (200...299).contains(httpResponse.statusCode) else {
+                throw GenerationClientError.workerError("Failed to cancel job")
+            }
+        } catch let error as GenerationClientError {
+            throw error
+        } catch {
+            throw GenerationClientError.workerUnavailable(error)
         }
     }
 }

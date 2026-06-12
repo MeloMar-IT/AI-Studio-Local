@@ -164,7 +164,7 @@ class ProjectStudioViewModel: ObservableObject {
             } catch {
                 await MainActor.run {
                     self.isExporting = false
-                    self.appState?.errorMessage = "Export failed: \(error.localizedDescription)"
+                    self.appState?.activeError = AppError.exportFailed(error: error)
                 }
             }
         }
@@ -212,7 +212,17 @@ class ProjectStudioViewModel: ObservableObject {
     }
 
     func generateScene() {
-        guard let scene = selectedScene, let project = project else { return }
+        guard let scene = selectedScene, let project = project, let appState = appState else { return }
+
+        if !appState.isWorkerAvailable {
+            appState.activeError = AppError.workerUnavailable()
+            return
+        }
+
+        if !appState.hardwareProfile.isLocalModeReady {
+            appState.activeError = AppError.unsupportedMac(reason: "Insufficient memory or non-Apple Silicon hardware.")
+            return
+        }
 
         isGenerating = true
         let composed = composePrompt(for: scene)
@@ -242,14 +252,20 @@ class ProjectStudioViewModel: ObservableObject {
                 )
 
                 await MainActor.run {
-                    appState?.addJob(job)
+                    appState.addJob(job)
                     isGenerating = false
                 }
-            } catch {
-                print("Failed to submit generation job: \(error)")
+            } catch let error as GenerationClientError {
                 await MainActor.run {
                     isGenerating = false
-                    // Handle error (e.g., show an alert)
+                    appState.activeError = error.asAppError
+                }
+            } catch {
+                await MainActor.run {
+                    isGenerating = false
+                    appState.activeError = AppError.generationFailed(details: error.localizedDescription) { [weak self] in
+                        self?.generateScene()
+                    }
                 }
             }
         }

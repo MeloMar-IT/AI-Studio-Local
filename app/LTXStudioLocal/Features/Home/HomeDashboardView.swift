@@ -75,6 +75,20 @@ struct HomeDashboardView: View {
                                     value: appState.isWorkerAvailable ? "Online (\(appState.workerVersion))" : "Offline",
                                     status: appState.isWorkerAvailable ? .success : .error
                                 )
+
+                                if !appState.isWorkerAvailable {
+                                    Button(action: {
+                                        Task {
+                                            await appState.checkWorkerHealth()
+                                        }
+                                    }) {
+                                        Label("Retry Connection", systemImage: "arrow.clockwise")
+                                            .font(.App.caption)
+                                            .foregroundColor(Color.App.accent)
+                                    }
+                                    .buttonStyle(.plain)
+                                    .padding(.top, Spacing.xxSmall)
+                                }
                             }
                         }
 

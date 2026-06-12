@@ -8,6 +8,23 @@ public protocol ProjectStore {
     func saveExportMetadata(_ metadata: ExportMetadata, to projectURL: URL) throws
 }
 
+extension ProjectStoreError {
+    public var asAppError: AppError {
+        switch self {
+        case .invalidProjectFolder:
+            return AppError.projectLoadFailed(error: self)
+        case .missingProjectFile, .missingTimelineFile:
+            return AppError.projectLoadFailed(error: self)
+        case .decodingError(let error):
+            return AppError.projectLoadFailed(error: error)
+        case .encodingError(let error):
+            return AppError.projectSaveFailed(error: error)
+        case .fileSystemError(let error):
+            return AppError.projectSaveFailed(error: error)
+        }
+    }
+}
+
 public enum ProjectStoreError: Error {
     case invalidProjectFolder
     case missingProjectFile

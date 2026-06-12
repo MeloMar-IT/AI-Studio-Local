@@ -1299,15 +1299,15 @@ Make failures useful to users.
 
 ## TODO
 
-- [ ] Define error model
-- [ ] Add user-facing error messages
-- [ ] Add technical details disclosure
-- [ ] Add worker unavailable message
-- [ ] Add missing model message
-- [ ] Add insufficient memory message
-- [ ] Add generation failed message
-- [ ] Add retry actions
-- [ ] Add tests for error mapping
+- [x] Define error model
+- [x] Add user-facing error messages
+- [x] Add technical details disclosure
+- [x] Add worker unavailable message
+- [x] Add missing model message
+- [x] Add insufficient memory message
+- [x] Add generation failed message
+- [x] Add retry actions
+- [x] Add tests for error mapping
 
 ## Prompt for Junie
 

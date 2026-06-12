@@ -3,7 +3,7 @@ import Combine
 
 class AppState: ObservableObject {
     @Published var isLoading: Bool = false
-    @Published var errorMessage: String?
+    @Published var activeError: AppError?
     @Published var isWorkerAvailable: Bool = false
     @Published var workerVersion: String = ""
 
@@ -47,7 +47,7 @@ class AppState: ObservableObject {
         } catch {
             await MainActor.run {
                 self.isWorkerAvailable = false
-                self.errorMessage = "Worker is unavailable. Please make sure the Python worker is running."
+                self.activeError = AppError.workerUnavailable(error: error)
             }
         }
     }
