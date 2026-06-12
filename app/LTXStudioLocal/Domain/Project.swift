@@ -27,8 +27,11 @@ public struct Timeline: Codable, Equatable {
 }
 
 public struct Project: Codable, Identifiable, Equatable {
+    public static let currentSchemaVersion = 1
+
     public let id: String
     public var name: String
+    public var schemaVersion: Int
     public var createdAt: Date
     public var modifiedAt: Date
     public var defaultBrandKitId: String?
@@ -39,6 +42,7 @@ public struct Project: Codable, Identifiable, Equatable {
     public init(
         id: String = UUID().uuidString,
         name: String,
+        schemaVersion: Int = Project.currentSchemaVersion,
         createdAt: Date = Date(),
         modifiedAt: Date = Date(),
         defaultBrandKitId: String? = nil,
@@ -48,6 +52,7 @@ public struct Project: Codable, Identifiable, Equatable {
     ) {
         self.id = id
         self.name = name
+        self.schemaVersion = schemaVersion
         self.createdAt = createdAt
         self.modifiedAt = modifiedAt
         self.defaultBrandKitId = defaultBrandKitId
@@ -59,6 +64,7 @@ public struct Project: Codable, Identifiable, Equatable {
     enum CodingKeys: String, CodingKey {
         case id
         case name
+        case schemaVersion = "schema_version"
         case createdAt = "created_at"
         case modifiedAt = "modified_at"
         case defaultBrandKitId = "default_brand_kit_id"

@@ -103,13 +103,101 @@ final class ProjectStoreTests: XCTestCase {
     func testLoadMissingProjectThrowsError() {
         let projectURL = tempDirectory.appendingPathComponent("NonExistent.ltxproject")
         XCTAssertThrowsError(try projectStore.load(from: projectURL)) { error in
+            XCTEqualStoreError(error as? ProjectStoreError, .invalidProjectFolder)
+        }
+    }
+
+    func testValidateProjectFolder() throws {
+        let projectURL = tempDirectory.appendingPathComponent("Valid.ltxproject")
+        try projectStore.save(project: Project.mock, scenes: [], to: projectURL)
+
+        // Should not throw
+        try projectStore.validateProjectFolder(at: projectURL)
+
+        // Test missing .ltxproject extension
+        let invalidExtensionURL = tempDirectory.appendingPathComponent("InvalidExtension")
+        try fileManager.createDirectory(at: invalidExtensionURL, withIntermediateDirectories: true)
+        XCTAssertThrowsError(try projectStore.validateProjectFolder(at: invalidExtensionURL)) { error in
+            XCTEqualStoreError(error as? ProjectStoreError, .invalidProjectFolder)
+        }
+
+        // Test missing project.json
+        let missingFileURL = tempDirectory.appendingPathComponent("MissingFile.ltxproject")
+        try fileManager.createDirectory(at: missingFileURL, withIntermediateDirectories: true)
+        XCTAssertThrowsError(try projectStore.validateProjectFolder(at: missingFileURL)) { error in
             XCTEqualStoreError(error as? ProjectStoreError, .missingProjectFile)
+        }
+    }
+
+    func testDetectCorruptProject() throws {
+        let projectURL = tempDirectory.appendingPathComponent("Corrupt.ltxproject")
+        try fileManager.createDirectory(at: projectURL, withIntermediateDirectories: true)
+
+        XCTAssertTrue(projectStore.detectCorruptProject(at: projectURL))
+
+        try projectStore.save(project: Project.mock, scenes: [], to: projectURL)
+        XCTAssertFalse(projectStore.detectCorruptProject(at: projectURL))
+    }
+
+    func testSchemaVersionAndMigration() throws {
+        let projectURL = tempDirectory.appendingPathComponent("OldProject.ltxproject")
+
+        // Create an old project manually
+        try projectStore.save(project: Project.mock, scenes: [], to: projectURL)
+
+        let projectFileURL = projectURL.appendingPathComponent("project.json")
+        var projectData = try Data(contentsOf: projectFileURL)
+
+        // Manually lower the version in JSON using the same decoder configuration
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        var project = try decoder.decode(Project.self, from: projectData)
+        project.schemaVersion = 0
+
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        projectData = try encoder.encode(project)
+        try projectData.write(to: projectFileURL)
+
+        // Loading should trigger migration
+        let (loadedProject, _) = try projectStore.load(from: projectURL)
+
+        XCTAssertEqual(loadedProject.schemaVersion, Project.currentSchemaVersion)
+
+        // Verify it was saved back to disk
+        let updatedData = try Data(contentsOf: projectFileURL)
+        let updatedProject = try decoder.decode(Project.self, from: updatedData)
+        XCTAssertEqual(updatedProject.schemaVersion, Project.currentSchemaVersion)
+    }
+
+    func testIncompatibleVersion() throws {
+        let projectURL = tempDirectory.appendingPathComponent("FutureProject.ltxproject")
+        try projectStore.save(project: Project.mock, scenes: [], to: projectURL)
+
+        let projectFileURL = projectURL.appendingPathComponent("project.json")
+        var projectData = try Data(contentsOf: projectFileURL)
+
+        // Manually increase the version in JSON
+        var json = try JSONSerialization.jsonObject(with: projectData) as! [String: Any]
+        json["schema_version"] = 999
+        projectData = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+        try projectData.write(to: projectFileURL)
+
+        XCTAssertThrowsError(try projectStore.load(from: projectURL)) { error in
+            if case .incompatibleVersion(let version) = error as? ProjectStoreError {
+                XCTAssertEqual(version, 999)
+            } else {
+                XCTFail("Expected incompatibleVersion error, got \(error)")
+            }
         }
     }
 
     private func XCTEqualStoreError(_ lhs: ProjectStoreError?, _ rhs: ProjectStoreError?) {
         switch (lhs, rhs) {
         case (.missingProjectFile, .missingProjectFile): break
+        case (.invalidProjectFolder, .invalidProjectFolder): break
+        case (.missingTimelineFile, .missingTimelineFile): break
+        case (.incompatibleVersion, .incompatibleVersion): break
         default: XCTFail("\(String(describing: lhs)) is not equal to \(String(describing: rhs))")
         }
     }
@@ -121,6 +209,7 @@ extension ProjectStoreError: Equatable {
         case (.invalidProjectFolder, .invalidProjectFolder): return true
         case (.missingProjectFile, .missingProjectFile): return true
         case (.missingTimelineFile, .missingTimelineFile): return true
+        case (.incompatibleVersion(let v1), .incompatibleVersion(let v2)): return v1 == v2
         case (.decodingError, .decodingError): return true
         case (.encodingError, .encodingError): return true
         case (.fileSystemError, .fileSystemError): return true

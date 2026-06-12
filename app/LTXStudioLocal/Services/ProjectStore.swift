@@ -6,6 +6,11 @@ public protocol ProjectStore {
     func saveGenerationMetadata(_ job: GenerationJob, for sceneId: String, composedPrompt: String?, to projectURL: URL) throws
     func loadGenerationMetadata(for sceneId: String, generationId: String, from projectURL: URL) throws -> GenerationJob
     func saveExportMetadata(_ metadata: ExportMetadata, to projectURL: URL) throws
+
+    // New validation and migration methods
+    func validateProjectFolder(at url: URL) throws
+    func detectCorruptProject(at url: URL) -> Bool
+    func migrateProject(at url: URL) throws
 }
 
 extension ProjectStoreError {
@@ -15,6 +20,12 @@ extension ProjectStoreError {
             return AppError.projectLoadFailed(error: self)
         case .missingProjectFile, .missingTimelineFile:
             return AppError.projectLoadFailed(error: self)
+        case .incompatibleVersion(let version):
+            return AppError(
+                title: "Incompatible Project Version",
+                message: "This project was created with a newer version of AI Studio (v\(version)). Please update your app.",
+                suggestedActions: ["Check for updates", "Restore from a backup"]
+            )
         case .decodingError(let error):
             return AppError.projectLoadFailed(error: error)
         case .encodingError(let error):
@@ -29,6 +40,7 @@ public enum ProjectStoreError: Error {
     case invalidProjectFolder
     case missingProjectFile
     case missingTimelineFile
+    case incompatibleVersion(Int)
     case decodingError(Error)
     case encodingError(Error)
     case fileSystemError(Error)
@@ -81,16 +93,26 @@ public final class FileProjectStore: ProjectStore {
     }
 
     public func load(from url: URL) throws -> (Project, [Scene]) {
+        try validateProjectFolder(at: url)
+
         let projectFileURL = url.appendingPathComponent("project.json")
         let timelineFileURL = url.appendingPathComponent("timeline.json")
-
-        guard fileManager.fileExists(atPath: projectFileURL.path) else {
-            throw ProjectStoreError.missingProjectFile
-        }
 
         do {
             let projectData = try Data(contentsOf: projectFileURL)
             var project = try jsonDecoder.decode(Project.self, from: projectData)
+
+            // Version check
+            if project.schemaVersion > Project.currentSchemaVersion {
+                throw ProjectStoreError.incompatibleVersion(project.schemaVersion)
+            }
+
+            // Migration check
+            if project.schemaVersion < Project.currentSchemaVersion {
+                try migrateProject(at: url)
+                // Reload after migration
+                return try load(from: url)
+            }
 
             if fileManager.fileExists(atPath: timelineFileURL.path) {
                 let timelineData = try Data(contentsOf: timelineFileURL)
@@ -103,18 +125,73 @@ public final class FileProjectStore: ProjectStore {
             if fileManager.fileExists(atPath: scenesDirectory.path) {
                 let sceneFolders = try fileManager.contentsOfDirectory(at: scenesDirectory, includingPropertiesForKeys: nil)
                 for folderURL in sceneFolders {
-                    if let scene = try? loadScene(from: folderURL) {
-                        scenes.append(scene)
+                    // Only process directories that look like scenes (UUID or scene-xxx)
+                    var isDir: ObjCBool = false
+                    if fileManager.fileExists(atPath: folderURL.path, isDirectory: &isDir), isDir.boolValue {
+                        if let scene = try? loadScene(from: folderURL) {
+                            scenes.append(scene)
+                        }
                     }
                 }
             }
 
             return (project, scenes)
 
+        } catch let error as ProjectStoreError {
+            throw error
         } catch let error as DecodingError {
             throw ProjectStoreError.decodingError(error)
         } catch {
             throw ProjectStoreError.fileSystemError(error)
+        }
+    }
+
+    public func validateProjectFolder(at url: URL) throws {
+        // Must end with .ltxproject
+        guard url.pathExtension == "ltxproject" else {
+            throw ProjectStoreError.invalidProjectFolder
+        }
+
+        // Must be a directory
+        var isDir: ObjCBool = false
+        guard fileManager.fileExists(atPath: url.path, isDirectory: &isDir), isDir.boolValue else {
+            throw ProjectStoreError.invalidProjectFolder
+        }
+
+        // Must contain project.json
+        let projectFileURL = url.appendingPathComponent("project.json")
+        guard fileManager.fileExists(atPath: projectFileURL.path) else {
+            throw ProjectStoreError.missingProjectFile
+        }
+
+        // Must contain timeline.json
+        let timelineFileURL = url.appendingPathComponent("timeline.json")
+        guard fileManager.fileExists(atPath: timelineFileURL.path) else {
+            throw ProjectStoreError.missingTimelineFile
+        }
+    }
+
+    public func detectCorruptProject(at url: URL) -> Bool {
+        do {
+            try validateProjectFolder(at: url)
+            return false
+        } catch {
+            return true
+        }
+    }
+
+    public func migrateProject(at url: URL) throws {
+        // Placeholder for future migrations
+        // For now, if schemaVersion < current, we could just re-save it with current version
+        // in a real app this would handle structural changes.
+        let projectFileURL = url.appendingPathComponent("project.json")
+        let projectData = try Data(contentsOf: projectFileURL)
+        var project = try jsonDecoder.decode(Project.self, from: projectData)
+
+        if project.schemaVersion < Project.currentSchemaVersion {
+            project.schemaVersion = Project.currentSchemaVersion
+            let updatedData = try jsonEncoder.encode(project)
+            try updatedData.write(to: projectFileURL)
         }
     }
 
