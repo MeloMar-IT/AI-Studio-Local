@@ -79,7 +79,26 @@ We use `swiftlint` for Swift and `ruff` for Python. Use the scripts in `scripts/
 ./scripts/lint.sh
 ```
 
-## 8. Troubleshooting
+## 8. Git Hygiene for Large Files
+
+AI Studio Local deals with large binary files (models, videos, audio). To keep the repository responsive and small, follow these rules:
+
+### Do Not Commit Models
+Model files (`.safetensors`, `.ckpt`, `.bin`, `.pt`, `.gguf`) are strictly excluded via `.gitignore`. Store your models in a dedicated `models/` directory outside the repo or in the ignored `models/` folder in the root.
+
+### Generated Media
+Generated videos and audio are ignored by default. If you need to share generated results via the repository, use **Git LFS**. A template `.gitattributes` is provided in the root.
+
+### Project Folders
+While `.ltxproject` folders are Git-friendly, their internal `generations/`, `assets/`, and `exports/` folders are ignored. This ensures that only the project structure and scene definitions are tracked.
+
+### Summary of Rules
+1. **Never** commit model weights.
+2. **Avoid** committing generated media unless using LFS.
+3. **Keep** local assets outside the repository when possible.
+4. **Always** check `git status` before committing to ensure no large binaries are staged.
+
+## 9. Troubleshooting
 
 ### Worker connection issues
 - Ensure the worker is running (`./scripts/run-worker.sh`).

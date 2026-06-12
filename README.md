@@ -49,6 +49,15 @@ Open `app/LTXStudioLocal.xcodeproj` in Xcode and run the application.
 
 ## Core Concepts
 
+### Git Hygiene & Large Files
+
+This project is designed to be Git-friendly. However, AI models and generated media are large and should generally **not** be committed to the repository.
+
+1. **Do not commit models**: Model weights (`.safetensors`, `.ckpt`, etc.) are ignored by default.
+2. **Do not commit generated media**: Videos and audio are ignored. Only commit them if you intentionally use Git LFS.
+3. **Keep project metadata Git-friendly**: Project files (`.json`, `.md`) are small and structured for clean diffs.
+4. **Store large assets externally**: Keep large local datasets or reference assets outside the repository when possible.
+
 ### Continuity Library
 Reusable creative blocks (Characters, Locations, Styles) that can be attached to scenes to maintain visual consistency across a project.
 

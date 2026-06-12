@@ -1717,12 +1717,12 @@ Prevent accidental commits of models and generated videos.
 
 ## TODO
 
-- [ ] Update `.gitignore`
-- [ ] Add `.gitattributes` for Git LFS examples
-- [ ] Document model storage
-- [ ] Document generated media storage
-- [ ] Add pre-commit guidance
-- [ ] Add warning in README
+- [x] Update `.gitignore`
+- [x] Add `.gitattributes` for Git LFS examples
+- [x] Document model storage
+- [x] Document generated media storage
+- [x] Add pre-commit guidance
+- [x] Add warning in README
 
 ## Prompt for Junie
 

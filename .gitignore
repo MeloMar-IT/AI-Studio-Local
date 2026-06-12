@@ -42,20 +42,39 @@ venv/
 ENV/
 
 # Local Models & Large Assets
+models/
+checkpoints/
 *.safetensors
 *.ckpt
 *.bin
 *.pt
 *.pth
+*.gguf
+*.mlmodelc
+
+# Media & Generated Outputs
 *.mp4
 *.mov
 *.wav
 *.mp3
+*.png
+*.jpg
+*.jpeg
+outputs/
+temp/
+renders/
 
 # Project specific
 *.ltxproject/generations/
 *.ltxproject/assets/
 *.ltxproject/exports/
+
+# Cache
+.cache/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
 
 # IDE
 .idea/
