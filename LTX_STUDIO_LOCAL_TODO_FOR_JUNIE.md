@@ -1596,13 +1596,13 @@ Prepare UI and API for future retake support.
 
 ## TODO
 
-- [ ] Add retake mode to scene/generation schema
-- [ ] Add timeline range selection placeholder
-- [ ] Add retake prompt field
-- [ ] Add lock controls
-- [ ] Add worker endpoint placeholder
-- [ ] Add mock retake job
-- [ ] Add documentation
+- [✓] Add retake mode to scene/generation schema
+- [✓] Add timeline range selection placeholder
+- [✓] Add retake prompt field
+- [✓] Add lock controls
+- [✓] Add worker endpoint placeholder
+- [✓] Add mock retake job
+- [✓] Add documentation
 
 ## Prompt for Junie
 

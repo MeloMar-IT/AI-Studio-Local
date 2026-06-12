@@ -55,9 +55,9 @@ To ensure the App and Worker speak the same language, we use shared JSON schemas
 
 1. **User Action**: User clicks "Generate" in the Project Studio.
 2. **Prompt Composition**: `PromptComposer` builds the final prompt.
-3. **Request**: `GenerationClient` sends a POST request to `/generate/text-to-video`.
+3. **Request**: `GenerationClient` sends a POST request to `/generate/text-to-video` or `/generate/retake`.
 4. **Queue**: Worker receives the request, creates a job ID, and returns it immediately.
-5. **Background Work**: Worker begins the mock generation process, updating its job status over time.
+5. **Background Work**: Worker begins the generation process (mocked or real), updating its job status over time.
 6. **Polling**: App polls `/jobs/{id}` to update the progress bar in the Render Queue.
 7. **Completion**: Once finished, the worker saves the output file, and the app reflects the completed state.
 

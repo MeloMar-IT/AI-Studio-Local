@@ -12,6 +12,11 @@ class ProjectStudioViewModel: ObservableObject {
     @Published var improvedPrompt: ImprovedPrompt?
     @Published var isShowingPromptComparison: Bool = false
 
+    // Retake state
+    @Published var retakeStartSeconds: Double = 0
+    @Published var retakeEndSeconds: Double = 5
+    @Published var retakePrompt: String = ""
+
     private let promptComposer: PromptComposer = DefaultPromptComposer()
     private let promptImprovementHelper: PromptImprovementHelper = DefaultPromptImprovementHelper()
     private let continuityStore: ContinuityStore = FileContinuityStore()
@@ -242,20 +247,25 @@ class ProjectStudioViewModel: ObservableObject {
         let composed = composePrompt(for: scene)
 
         let request = GenerationRequest(
-            prompt: composed.prompt,
+            prompt: scene.mode == .retake ? retakePrompt : composed.prompt,
             negativePrompt: composed.negativePrompt,
             modelId: "ltx-video-v1", // Default model for now
             projectId: project.id,
             sceneId: scene.id,
-            imagePath: scene.mode == .imageToVideo ? scene.referenceImagePath : nil
+            imagePath: scene.mode == .imageToVideo ? scene.referenceImagePath : nil,
+            retakeStartSeconds: scene.mode == .retake ? retakeStartSeconds : nil,
+            retakeEndSeconds: scene.mode == .retake ? retakeEndSeconds : nil
         )
 
         Task {
             do {
                 let jobId: String
-                if scene.mode == .imageToVideo {
+                switch scene.mode {
+                case .imageToVideo:
                     jobId = try await generationClient.submitImageToVideo(request: request)
-                } else {
+                case .retake:
+                    jobId = try await generationClient.submitRetake(request: request)
+                default:
                     jobId = try await generationClient.submitTextToVideo(request: request)
                 }
 

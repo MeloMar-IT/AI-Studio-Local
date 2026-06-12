@@ -28,6 +28,8 @@
     "input_image_path": { "type": "string" },
     "input_audio_path": { "type": "string" },
     "input_video_path": { "type": "string" },
+    "retake_start_seconds": { "type": "number" },
+    "retake_end_seconds": { "type": "number" },
     "output_directory": { "type": "string" }
   },
   "required": ["project_id", "scene_id", "mode", "model_id", "prompt", "output_directory"]

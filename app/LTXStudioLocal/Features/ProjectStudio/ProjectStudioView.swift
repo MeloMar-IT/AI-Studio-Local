@@ -410,6 +410,18 @@ struct ProjectStudioView: View {
                     Text("Preview Canvas")
                         .font(.App.subheadline)
                         .foregroundColor(Color.App.secondaryText)
+
+                    if scene.mode != .retake {
+                        Button {
+                            viewModel.updateSceneMode(scene.id, mode: .retake)
+                        } label: {
+                            Label("Retake", systemImage: "arrow.counterclockwise.circle")
+                                .font(.App.body)
+                                .foregroundColor(Color.App.accent)
+                        }
+                        .buttonStyle(.plain)
+                        .padding(.top, Spacing.medium)
+                    }
                 }
             } else {
                 Text("Select a scene to preview")
@@ -563,7 +575,45 @@ struct ProjectStudioView: View {
                     }
                 }
 
-                InspectorSection(title: "Prompt") {
+                if scene.mode == .retake {
+                    InspectorSection(title: "Retake Configuration") {
+                        VStack(alignment: .leading, spacing: Spacing.small) {
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text("Start (s)")
+                                        .font(.App.caption)
+                                    TextField("0.0", value: $viewModel.retakeStartSeconds, format: .number)
+                                        .textFieldStyle(.roundedBorder)
+                                }
+                                VStack(alignment: .leading) {
+                                    Text("End (s)")
+                                        .font(.App.caption)
+                                    TextField("5.0", value: $viewModel.retakeEndSeconds, format: .number)
+                                        .textFieldStyle(.roundedBorder)
+                                }
+                            }
+
+                            Text("Retake Prompt")
+                                .font(.App.caption)
+                            TextEditor(text: $viewModel.retakePrompt)
+                                .frame(height: 60)
+                                .padding(4)
+                                .background(RoundedRectangle(cornerRadius: 4).stroke(Color.App.border))
+
+                            HStack {
+                                PrimaryButton("Generate Retake", icon: "sparkles") {
+                                    viewModel.generateScene()
+                                }
+                                .disabled(viewModel.isGenerating)
+
+                                SecondaryButton("Cancel") {
+                                    viewModel.updateSceneMode(scene.id, mode: .textToVideo)
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    InspectorSection(title: "Prompt") {
                     VStack(alignment: .leading, spacing: Spacing.small) {
                         TextEditor(text: Binding(
                             get: { scene.prompt },

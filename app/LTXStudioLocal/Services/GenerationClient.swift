@@ -5,6 +5,7 @@ public protocol GenerationClient {
     func fetchModels() async throws -> [ModelProfile]
     func submitTextToVideo(request: GenerationRequest) async throws -> String // returns job_id
     func submitImageToVideo(request: GenerationRequest) async throws -> String // returns job_id
+    func submitRetake(request: GenerationRequest) async throws -> String // returns job_id
     func getJobStatus(jobId: String) async throws -> GenerationJob
     func cancelJob(jobId: String) async throws
 }
@@ -49,6 +50,9 @@ public struct GenerationRequest: Codable {
     public let projectId: String
     public let sceneId: String
     public let imagePath: String?
+    public let videoPath: String?
+    public let retakeStartSeconds: Double?
+    public let retakeEndSeconds: Double?
 
     public init(
         prompt: String,
@@ -62,7 +66,10 @@ public struct GenerationRequest: Codable {
         modelId: String,
         projectId: String,
         sceneId: String,
-        imagePath: String? = nil
+        imagePath: String? = nil,
+        videoPath: String? = nil,
+        retakeStartSeconds: Double? = nil,
+        retakeEndSeconds: Double? = nil
     ) {
         self.prompt = prompt
         self.negativePrompt = negativePrompt
@@ -76,6 +83,9 @@ public struct GenerationRequest: Codable {
         self.projectId = projectId
         self.sceneId = sceneId
         self.imagePath = imagePath
+        self.videoPath = videoPath
+        self.retakeStartSeconds = retakeStartSeconds
+        self.retakeEndSeconds = retakeEndSeconds
     }
 
     enum CodingKeys: String, CodingKey {
@@ -91,6 +101,9 @@ public struct GenerationRequest: Codable {
         case projectId = "project_id"
         case sceneId = "scene_id"
         case imagePath = "image_path"
+        case videoPath = "video_path"
+        case retakeStartSeconds = "retake_start_seconds"
+        case retakeEndSeconds = "retake_end_seconds"
     }
 }
 
@@ -141,6 +154,10 @@ public final class HTTPGenerationClient: GenerationClient {
 
     public func submitImageToVideo(request: GenerationRequest) async throws -> String {
         return try await submitGeneration(request: request, endpoint: "generate/image-to-video")
+    }
+
+    public func submitRetake(request: GenerationRequest) async throws -> String {
+        return try await submitGeneration(request: request, endpoint: "generate/retake")
     }
 
     private func submitGeneration(request: GenerationRequest, endpoint: String) async throws -> String {

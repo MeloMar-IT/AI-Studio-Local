@@ -42,6 +42,9 @@ class GenerationRequest(BaseModel):
     project_id: Optional[str] = None
     scene_id: Optional[str] = None
     image_path: Optional[str] = None
+    video_path: Optional[str] = None
+    retake_start_seconds: Optional[float] = None
+    retake_end_seconds: Optional[float] = None
 
 
 class JobStatus(BaseModel):
