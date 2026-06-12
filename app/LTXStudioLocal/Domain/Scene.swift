@@ -63,6 +63,13 @@ public struct ConsistencyLocks: Codable, Equatable {
     }
 }
 
+public enum AudioMode: String, Codable, CaseIterable {
+    case generate = "generate"
+    case mute = "mute"
+    case imported = "imported"
+    case voiceover = "voiceover"
+}
+
 public struct Scene: Codable, Identifiable, Equatable {
     public let id: String
     public var name: String
@@ -73,6 +80,8 @@ public struct Scene: Codable, Identifiable, Equatable {
     public var aspectRatio: String?
     public var resolution: SceneResolution?
     public var referenceImagePath: String?
+    public var audioMode: AudioMode
+    public var audioReferencePath: String?
     public var attachedContinuityElements: [AttachedContinuityElement]
     public var consistencyLocks: ConsistencyLocks
     public var generations: [SceneGeneration]
@@ -87,6 +96,8 @@ public struct Scene: Codable, Identifiable, Equatable {
         aspectRatio: String? = nil,
         resolution: SceneResolution? = nil,
         referenceImagePath: String? = nil,
+        audioMode: AudioMode = .generate,
+        audioReferencePath: String? = nil,
         attachedContinuityElements: [AttachedContinuityElement] = [],
         consistencyLocks: ConsistencyLocks = ConsistencyLocks(),
         generations: [SceneGeneration] = []
@@ -100,6 +111,8 @@ public struct Scene: Codable, Identifiable, Equatable {
         self.aspectRatio = aspectRatio
         self.resolution = resolution
         self.referenceImagePath = referenceImagePath
+        self.audioMode = audioMode
+        self.audioReferencePath = audioReferencePath
         self.attachedContinuityElements = attachedContinuityElements
         self.consistencyLocks = consistencyLocks
         self.generations = generations
@@ -115,6 +128,8 @@ public struct Scene: Codable, Identifiable, Equatable {
         case aspectRatio = "aspect_ratio"
         case resolution
         case referenceImagePath = "reference_image_path"
+        case audioMode = "audio_mode"
+        case audioReferencePath = "audio_reference_path"
         case attachedContinuityElements = "attached_continuity_elements"
         case consistencyLocks = "consistency_locks"
         case generations

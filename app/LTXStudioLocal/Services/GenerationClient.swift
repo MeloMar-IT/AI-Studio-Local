@@ -5,6 +5,7 @@ public protocol GenerationClient {
     func fetchModels() async throws -> [ModelProfile]
     func submitTextToVideo(request: GenerationRequest) async throws -> String // returns job_id
     func submitImageToVideo(request: GenerationRequest) async throws -> String // returns job_id
+    func submitAudioToVideo(request: GenerationRequest) async throws -> String // returns job_id
     func submitRetake(request: GenerationRequest) async throws -> String // returns job_id
     func getJobStatus(jobId: String) async throws -> GenerationJob
     func cancelJob(jobId: String) async throws
@@ -50,6 +51,7 @@ public struct GenerationRequest: Codable {
     public let projectId: String
     public let sceneId: String
     public let imagePath: String?
+    public let audioPath: String?
     public let videoPath: String?
     public let retakeStartSeconds: Double?
     public let retakeEndSeconds: Double?
@@ -67,6 +69,7 @@ public struct GenerationRequest: Codable {
         projectId: String,
         sceneId: String,
         imagePath: String? = nil,
+        audioPath: String? = nil,
         videoPath: String? = nil,
         retakeStartSeconds: Double? = nil,
         retakeEndSeconds: Double? = nil
@@ -83,6 +86,7 @@ public struct GenerationRequest: Codable {
         self.projectId = projectId
         self.sceneId = sceneId
         self.imagePath = imagePath
+        self.audioPath = audioPath
         self.videoPath = videoPath
         self.retakeStartSeconds = retakeStartSeconds
         self.retakeEndSeconds = retakeEndSeconds
@@ -101,6 +105,7 @@ public struct GenerationRequest: Codable {
         case projectId = "project_id"
         case sceneId = "scene_id"
         case imagePath = "image_path"
+        case audioPath = "audio_path"
         case videoPath = "video_path"
         case retakeStartSeconds = "retake_start_seconds"
         case retakeEndSeconds = "retake_end_seconds"
@@ -154,6 +159,10 @@ public final class HTTPGenerationClient: GenerationClient {
 
     public func submitImageToVideo(request: GenerationRequest) async throws -> String {
         return try await submitGeneration(request: request, endpoint: "generate/image-to-video")
+    }
+
+    public func submitAudioToVideo(request: GenerationRequest) async throws -> String {
+        return try await submitGeneration(request: request, endpoint: "generate/audio-to-video")
     }
 
     public func submitRetake(request: GenerationRequest) async throws -> String {

@@ -113,6 +113,20 @@ class ProjectStudioViewModel: ObservableObject {
         }
     }
 
+    func updateAudioMode(_ sceneId: String, mode: AudioMode) {
+        if let index = scenes.firstIndex(where: { $0.id == sceneId }) {
+            scenes[index].audioMode = mode
+            updateProject()
+        }
+    }
+
+    func updateAudioReference(_ sceneId: String, path: String?) {
+        if let index = scenes.firstIndex(where: { $0.id == sceneId }) {
+            scenes[index].audioReferencePath = path
+            updateProject()
+        }
+    }
+
     func improvePrompt(for sceneId: String) {
         guard let index = scenes.firstIndex(where: { $0.id == sceneId }) else { return }
         let currentPrompt = scenes[index].prompt
@@ -253,6 +267,7 @@ class ProjectStudioViewModel: ObservableObject {
             projectId: project.id,
             sceneId: scene.id,
             imagePath: scene.mode == .imageToVideo ? scene.referenceImagePath : nil,
+            audioPath: (scene.mode == .audioToVideo || scene.audioMode == .imported || scene.audioMode == .voiceover) ? scene.audioReferencePath : nil,
             retakeStartSeconds: scene.mode == .retake ? retakeStartSeconds : nil,
             retakeEndSeconds: scene.mode == .retake ? retakeEndSeconds : nil
         )
@@ -261,12 +276,14 @@ class ProjectStudioViewModel: ObservableObject {
             do {
                 let jobId: String
                 switch scene.mode {
+                case .textToVideo:
+                    jobId = try await generationClient.submitTextToVideo(request: request)
                 case .imageToVideo:
                     jobId = try await generationClient.submitImageToVideo(request: request)
+                case .audioToVideo:
+                    jobId = try await generationClient.submitAudioToVideo(request: request)
                 case .retake:
                     jobId = try await generationClient.submitRetake(request: request)
-                default:
-                    jobId = try await generationClient.submitTextToVideo(request: request)
                 }
 
                 let job = GenerationJob(

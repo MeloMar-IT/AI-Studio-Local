@@ -100,6 +100,17 @@ async def image_to_video(request: GenerationRequest):
     return job
 
 
+@router.post("/generate/audio-to-video", response_model=JobStatus)
+async def audio_to_video(request: GenerationRequest):
+    # For MVP, real audio-to-video generation is planned later.
+    # Currently it just mocks a job.
+    job_id = job_store.create_job(request)
+    job = job_store.get_job(job_id)
+    if not job:
+        raise HTTPException(status_code=500, detail="Failed to create job")
+    return job
+
+
 @router.post("/generate/retake", response_model=JobStatus)
 async def generate_retake(request: GenerationRequest):
     # For MVP, real retake generation is planned later.

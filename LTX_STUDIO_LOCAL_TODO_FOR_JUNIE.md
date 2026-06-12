@@ -1635,13 +1635,13 @@ Prepare audio-led workflows.
 
 ## TODO
 
-- [ ] Add audio identity element editor
-- [ ] Add audio input to scene
-- [ ] Add generated audio toggle
-- [ ] Add mute toggle
-- [ ] Add voiceover placeholder
-- [ ] Add audio-to-video endpoint placeholder
-- [ ] Add mock audio-to-video job
+- [x] Add audio identity element editor
+- [x] Add audio input to scene
+- [x] Add generated audio toggle
+- [x] Add mute toggle
+- [x] Add voiceover placeholder
+- [x] Add audio-to-video endpoint placeholder
+- [x] Add mock audio-to-video job
 
 ## Prompt for Junie
 

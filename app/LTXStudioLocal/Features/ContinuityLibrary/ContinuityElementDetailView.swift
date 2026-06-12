@@ -29,6 +29,30 @@ struct ContinuityElementDetailView: View {
                     Divider()
                 }
 
+                if editedElement.type == .audio {
+                    // Audio Specific Editor (simplistic for now)
+                    VStack(alignment: .leading, spacing: Spacing.medium) {
+                        Text("Audio Identity Settings")
+                            .font(.App.headline)
+
+                        Text("Configure how this audio identity influences generation.")
+                            .font(.App.caption)
+                            .foregroundColor(.secondary)
+
+                        // Placeholder for more complex audio settings
+                        HStack {
+                            Image(systemName: "info.circle")
+                            Text("Audio identities currently focus on prompt-based style guidance.")
+                        }
+                        .font(.App.caption)
+                        .foregroundColor(Color.App.accent)
+                        .padding(Spacing.small)
+                        .background(Color.App.accent.opacity(0.1))
+                        .cornerRadius(4)
+                    }
+                    Divider()
+                }
+
                 VStack(alignment: .leading, spacing: Spacing.medium) {
                     Text("Details")
                         .font(.App.headline)

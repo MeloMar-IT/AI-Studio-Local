@@ -518,8 +518,118 @@ struct ProjectStudioView: View {
                         )) {
                             Text("Text to Video").tag(SceneMode.textToVideo)
                             Text("Image to Video").tag(SceneMode.imageToVideo)
+                            Text("Audio to Video").tag(SceneMode.audioToVideo)
                         }
                         .pickerStyle(.segmented)
+                    }
+                }
+
+                InspectorSection(title: "Audio") {
+                    VStack(alignment: .leading, spacing: Spacing.small) {
+                        Text("Audio Mode")
+                            .font(.App.caption)
+                            .foregroundColor(Color.App.secondaryText)
+
+                        Picker("Audio Mode", selection: Binding(
+                            get: { scene.audioMode },
+                            set: { viewModel.updateAudioMode(scene.id, mode: $0) }
+                        )) {
+                            Text("Generate").tag(AudioMode.generate)
+                            Text("Mute").tag(AudioMode.mute)
+                            Text("Imported").tag(AudioMode.imported)
+                            Text("Voiceover").tag(AudioMode.voiceover)
+                        }
+                        .pickerStyle(.menu)
+
+                        if scene.audioMode == .imported || scene.audioMode == .voiceover {
+                            VStack(alignment: .leading, spacing: Spacing.xSmall) {
+                                Text(scene.audioMode == .imported ? "Imported Audio" : "Voiceover Script/File")
+                                    .font(.App.caption)
+                                    .foregroundColor(Color.App.secondaryText)
+
+                                if let audioPath = scene.audioReferencePath {
+                                    HStack {
+                                        Image(systemName: "waveform")
+                                        Text(URL(fileURLWithPath: audioPath).lastPathComponent)
+                                            .lineLimit(1)
+                                        Spacer()
+                                        Button(action: { viewModel.updateAudioReference(scene.id, path: nil) }) {
+                                            Image(systemName: "xmark.circle.fill")
+                                                .foregroundColor(Color.App.secondaryText)
+                                        }
+                                        .buttonStyle(.plain)
+                                    }
+                                    .padding(Spacing.small)
+                                    .background(Color.App.background)
+                                    .cornerRadius(4)
+                                } else {
+                                    RoundedRectangle(cornerRadius: 4)
+                                        .stroke(Color.App.border, style: StrokeStyle(lineWidth: 1, dash: [4]))
+                                        .frame(height: 60)
+                                        .overlay(
+                                            VStack(spacing: 4) {
+                                                Image(systemName: "music.note.list")
+                                                Text("Drop audio here")
+                                                    .font(.App.caption)
+                                            }
+                                            .foregroundColor(Color.App.secondaryText)
+                                        )
+                                        .onDrop(of: ["public.file-url"], isTargeted: nil) { providers in
+                                            if let provider = providers.first {
+                                                provider.loadDataRepresentation(forTypeIdentifier: "public.file-url") { data, error in
+                                                    if let data = data, let path = String(data: data, encoding: .utf8), let url = URL(string: path) {
+                                                        DispatchQueue.main.async {
+                                                            viewModel.updateAudioReference(scene.id, path: url.path)
+                                                        }
+                                                    }
+                                                }
+                                                return true
+                                            }
+                                            return false
+                                        }
+                                }
+                            }
+                        }
+
+                        // Audio Identity Chips
+                        VStack(alignment: .leading, spacing: Spacing.xSmall) {
+                            Text("Audio Identity")
+                                .font(.App.caption)
+                                .foregroundColor(Color.App.secondaryText)
+
+                            let audioElements = scene.attachedContinuityElements.filter { $0.type == .audio }
+
+                            if audioElements.isEmpty {
+                                Text("No audio identity attached")
+                                    .font(.App.caption)
+                                    .foregroundColor(Color.App.secondaryText)
+                                    .italic()
+                            } else {
+                                FlowLayout(spacing: 4) {
+                                    ForEach(audioElements, id: \.elementId) { attached in
+                                        if let element = appState.continuityElements.first(where: { $0.id == attached.elementId }) {
+                                            ElementChip(element: element) {
+                                                selectedElementForDetail = element
+                                            } onRemove: {
+                                                viewModel.detachElement(scene.id, elementId: element.id)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            Button(action: { isShowingElementPicker = true }) {
+                                HStack {
+                                    Image(systemName: "plus")
+                                    Text("Add Identity")
+                                }
+                                .font(.App.caption)
+                                .foregroundColor(Color.App.accent)
+                            }
+                            .buttonStyle(.plain)
+                            .padding(.top, 4)
+                        }
+                        .padding(.top, Spacing.small)
                     }
                 }
 
