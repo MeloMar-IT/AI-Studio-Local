@@ -810,15 +810,15 @@ Compose final generation prompts from scene prompts and reusable elements.
 
 ## TODO
 
-- [ ] Create `PromptComposer` service
-- [ ] Combine scene prompt with element prompt blocks
-- [ ] Combine negative prompts
-- [ ] Respect element order
-- [ ] Include camera and audio instructions
-- [ ] Add “View Composed Prompt” UI
-- [ ] Add copy button
-- [ ] Add tests for composition
-- [ ] Document prompt composition
+- [x] Create `PromptComposer` service
+- [x] Combine scene prompt with element prompt blocks
+- [x] Combine negative prompts
+- [x] Respect element order
+- [x] Include camera and audio instructions
+- [x] Add “View Composed Prompt” UI
+- [x] Add copy button
+- [x] Add tests for composition
+- [x] Document prompt composition
 
 ## Prompt for Junie
 

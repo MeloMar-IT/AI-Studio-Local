@@ -7,8 +7,19 @@ class ProjectStudioViewModel: ObservableObject {
     @Published var scenes: [Scene] = []
     @Published var selectedSceneId: String?
 
+    private let promptComposer: PromptComposer = DefaultPromptComposer()
+    private let continuityStore: ContinuityStore = FileContinuityStore()
+
     var selectedScene: Scene? {
         scenes.first { $0.id == selectedSceneId }
+    }
+
+    func composePrompt(for scene: Scene) -> ComposedPrompt {
+        let elementIds = scene.attachedContinuityElements.map { $0.elementId }
+        let allElements = (try? continuityStore.loadAll()) ?? []
+        let attachedElements = allElements.filter { elementIds.contains($0.id) }
+
+        return promptComposer.compose(scene: scene, elements: attachedElements)
     }
 
     func selectProject(_ project: Project, scenes: [Scene]) {

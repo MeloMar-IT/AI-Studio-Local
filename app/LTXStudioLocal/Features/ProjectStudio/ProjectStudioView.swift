@@ -6,6 +6,7 @@ struct ProjectStudioView: View {
     @State private var newSceneName: String = ""
     @State private var isShowingElementPicker = false
     @State private var selectedElementForDetail: ContinuityElement?
+    @State private var isShowingComposedPrompt = false
 
     var body: some View {
         Group {
@@ -31,6 +32,11 @@ struct ProjectStudioView: View {
         .sheet(item: $selectedElementForDetail) { element in
             elementDetailSheet(element)
         }
+        .sheet(isPresented: $isShowingComposedPrompt) {
+            if let scene = viewModel.selectedScene {
+                composedPromptSheet(scene)
+            }
+        }
     }
 
     private func elementDetailSheet(_ element: ContinuityElement) -> some View {
@@ -51,6 +57,109 @@ struct ProjectStudioView: View {
             ContinuityElementDetailView(viewModel: ContinuityLibraryViewModel(), element: element)
         }
         .frame(width: 500, height: 600)
+    }
+
+    private func composedPromptSheet(_ scene: Scene) -> some View {
+        let composed = viewModel.composePrompt(for: scene)
+
+        return VStack(spacing: 0) {
+            HStack {
+                Text("Composed Prompt")
+                    .font(.App.headline)
+                Spacer()
+                Button("Done") {
+                    isShowingComposedPrompt = false
+                }
+                .buttonStyle(.plain)
+                .foregroundColor(Color.App.accent)
+            }
+            .padding()
+            .background(Color.App.surface)
+
+            ScrollView {
+                VStack(alignment: .leading, spacing: Spacing.large) {
+                    VStack(alignment: .leading, spacing: Spacing.small) {
+                        HStack {
+                            Text("PROMPT")
+                                .font(.App.caption)
+                                .foregroundColor(Color.App.secondaryText)
+                            Spacer()
+                            Button {
+                                NSPasteboard.general.clearContents()
+                                NSPasteboard.general.setString(composed.prompt, forType: .string)
+                            } label: {
+                                Label("Copy", systemImage: "doc.on.doc")
+                                    .font(.App.caption)
+                            }
+                            .buttonStyle(.plain)
+                            .foregroundColor(Color.App.accent)
+                        }
+
+                        Text(composed.prompt)
+                            .font(.App.body)
+                            .padding(Spacing.medium)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(RoundedRectangle(cornerRadius: 8).fill(Color.App.background))
+                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.App.border))
+                    }
+
+                    if !composed.negativePrompt.isEmpty {
+                        VStack(alignment: .leading, spacing: Spacing.small) {
+                            HStack {
+                                Text("NEGATIVE PROMPT")
+                                    .font(.App.caption)
+                                    .foregroundColor(Color.App.secondaryText)
+                                Spacer()
+                                Button {
+                                    NSPasteboard.general.clearContents()
+                                    NSPasteboard.general.setString(composed.negativePrompt, forType: .string)
+                                } label: {
+                                    Label("Copy", systemImage: "doc.on.doc")
+                                        .font(.App.caption)
+                                }
+                                .buttonStyle(.plain)
+                                .foregroundColor(Color.App.accent)
+                            }
+
+                            Text(composed.negativePrompt)
+                                .font(.App.body)
+                                .padding(Spacing.medium)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .background(RoundedRectangle(cornerRadius: 8).fill(Color.App.background))
+                                .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.App.border))
+                        }
+                    }
+
+                    VStack(alignment: .leading, spacing: Spacing.small) {
+                        Text("METADATA")
+                            .font(.App.caption)
+                            .foregroundColor(Color.App.secondaryText)
+
+                        VStack(alignment: .leading, spacing: 4) {
+                            ForEach(composed.metadata.sorted(by: { $0.key < $1.key }), id: \.key) { key, value in
+                                HStack {
+                                    Text(key)
+                                        .fontWeight(.medium)
+                                    Spacer()
+                                    Text(value)
+                                        .foregroundColor(Color.App.secondaryText)
+                                }
+                                .font(.system(size: 11, design: .monospaced))
+                            }
+                        }
+                        .padding(Spacing.medium)
+                        .background(RoundedRectangle(cornerRadius: 8).fill(Color.App.background))
+                    }
+
+                    Text("This is the exact prompt and data that will be sent to the generation worker.")
+                        .font(.App.caption)
+                        .foregroundColor(Color.App.secondaryText)
+                        .italic()
+                }
+                .padding(Spacing.large)
+            }
+        }
+        .frame(width: 600, height: 700)
     }
 
     private var studioContent: some View {
@@ -201,13 +310,25 @@ struct ProjectStudioView: View {
                 }
 
                 InspectorSection(title: "Prompt") {
-                    TextEditor(text: Binding(
-                        get: { scene.prompt },
-                        set: { viewModel.updateScenePrompt(scene.id, prompt: $0) }
-                    ))
-                    .frame(height: 100)
-                    .padding(4)
-                    .background(RoundedRectangle(cornerRadius: 4).stroke(Color.App.border))
+                    VStack(alignment: .leading, spacing: Spacing.small) {
+                        TextEditor(text: Binding(
+                            get: { scene.prompt },
+                            set: { viewModel.updateScenePrompt(scene.id, prompt: $0) }
+                        ))
+                        .frame(height: 100)
+                        .padding(4)
+                        .background(RoundedRectangle(cornerRadius: 4).stroke(Color.App.border))
+
+                        Button(action: { isShowingComposedPrompt = true }) {
+                            HStack {
+                                Image(systemName: "eye")
+                                Text("View Composed Prompt")
+                            }
+                            .font(.App.caption)
+                            .foregroundColor(Color.App.accent)
+                        }
+                        .buttonStyle(.plain)
+                    }
                 }
 
                 InspectorSection(title: "Continuity Elements") {
