@@ -2,10 +2,13 @@ import Foundation
 
 public protocol ContinuityStore {
     func loadAll() throws -> [ContinuityElement]
+    func loadAll(type: ContinuityElementType) throws -> [ContinuityElement]
     func save(_ element: ContinuityElement) throws
-    func delete(elementId: String) throws
+    func delete(elementId: String, type: ContinuityElementType) throws
+    func search(query: String?, type: ContinuityElementType?, tags: [String]?) throws -> [ContinuityElement]
     func loadDefaultElements() throws
     func validateElement(from data: Data) throws -> ContinuityElement
+    func importLibrary(from url: URL) throws
     func export(elements: [ContinuityElement], to url: URL) throws
 }
 
@@ -16,6 +19,24 @@ public enum ContinuityStoreError: Error {
     case fileWriteFailed(Error)
     case fileDeleteFailed(Error)
     case elementNotFound
+    case invalidSchema
+    case assetMissing(String)
+}
+
+extension ContinuityElementType {
+    var folderName: String {
+        switch self {
+        case .character: return "characters"
+        case .location: return "locations"
+        case .style: return "styles"
+        case .camera: return "camera-presets"
+        case .audio: return "audio-identities"
+        case .brand: return "brand-kits"
+        case .promptBlock: return "prompt-blocks"
+        case .lora: return "loras"
+        case .exportTemplate: return "export-templates"
+        }
+    }
 }
 
 public final class FileContinuityStore: ContinuityStore {
@@ -41,23 +62,36 @@ public final class FileContinuityStore: ContinuityStore {
         self.jsonDecoder = JSONDecoder()
         self.jsonDecoder.dateDecodingStrategy = .iso8601
 
-        try? ensureDirectoryExists()
+        try? ensureDirectoriesExist()
     }
 
-    private func ensureDirectoryExists() throws {
-        if !fileManager.fileExists(atPath: storeURL.path) {
-            do {
-                try fileManager.createDirectory(at: storeURL, withIntermediateDirectories: true)
-            } catch {
-                throw ContinuityStoreError.directoryCreationFailed
+    private func ensureDirectoriesExist() throws {
+        for type in ContinuityElementType.allCases {
+            let typeURL = storeURL.appendingPathComponent(type.folderName)
+            if !fileManager.fileExists(atPath: typeURL.path) {
+                do {
+                    try fileManager.createDirectory(at: typeURL, withIntermediateDirectories: true)
+                } catch {
+                    throw ContinuityStoreError.directoryCreationFailed
+                }
             }
         }
     }
 
     public func loadAll() throws -> [ContinuityElement] {
-        try ensureDirectoryExists()
+        var allElements: [ContinuityElement] = []
+        for type in ContinuityElementType.allCases {
+            let elements = try loadAll(type: type)
+            allElements.append(contentsOf: elements)
+        }
+        return allElements
+    }
 
-        let fileURLs = try fileManager.contentsOfDirectory(at: storeURL, includingPropertiesForKeys: nil)
+    public func loadAll(type: ContinuityElementType) throws -> [ContinuityElement] {
+        let typeURL = storeURL.appendingPathComponent(type.folderName)
+        guard fileManager.fileExists(atPath: typeURL.path) else { return [] }
+
+        let fileURLs = try fileManager.contentsOfDirectory(at: typeURL, includingPropertiesForKeys: nil)
         let jsonFiles = fileURLs.filter { $0.pathExtension == "json" }
 
         var elements: [ContinuityElement] = []
@@ -67,7 +101,6 @@ public final class FileContinuityStore: ContinuityStore {
                 let element = try jsonDecoder.decode(ContinuityElement.self, from: data)
                 elements.append(element)
             } catch {
-                // If one fails, we log and continue
                 print("Failed to decode continuity element at \(fileURL.path): \(error)")
             }
         }
@@ -75,9 +108,12 @@ public final class FileContinuityStore: ContinuityStore {
     }
 
     public func save(_ element: ContinuityElement) throws {
-        try ensureDirectoryExists()
+        try ensureDirectoriesExist()
 
-        let fileURL = storeURL.appendingPathComponent("\(element.id).json")
+        let fileURL = storeURL
+            .appendingPathComponent(element.type.folderName)
+            .appendingPathComponent("\(element.id).json")
+
         do {
             let data = try jsonEncoder.encode(element)
             try data.write(to: fileURL)
@@ -88,8 +124,11 @@ public final class FileContinuityStore: ContinuityStore {
         }
     }
 
-    public func delete(elementId: String) throws {
-        let fileURL = storeURL.appendingPathComponent("\(elementId).json")
+    public func delete(elementId: String, type: ContinuityElementType) throws {
+        let fileURL = storeURL
+            .appendingPathComponent(type.folderName)
+            .appendingPathComponent("\(elementId).json")
+
         guard fileManager.fileExists(atPath: fileURL.path) else {
             throw ContinuityStoreError.elementNotFound
         }
@@ -98,6 +137,35 @@ public final class FileContinuityStore: ContinuityStore {
             try fileManager.removeItem(at: fileURL)
         } catch {
             throw ContinuityStoreError.fileDeleteFailed(error)
+        }
+    }
+
+    public func search(query: String?, type: ContinuityElementType?, tags: [String]?) throws -> [ContinuityElement] {
+        let elements: [ContinuityElement]
+        if let type = type {
+            elements = try loadAll(type: type)
+        } else {
+            elements = try loadAll()
+        }
+
+        return elements.filter { element in
+            var matches = true
+
+            if let query = query?.lowercased(), !query.isEmpty {
+                let inName = element.name.lowercased().contains(query)
+                let inDescription = element.description.lowercased().contains(query)
+                let inTags = element.tags.contains { $0.lowercased().contains(query) }
+                matches = matches && (inName || inDescription || inTags)
+            }
+
+            if let tags = tags, !tags.isEmpty {
+                let hasTags = tags.allSatisfy { tag in
+                    element.tags.contains { $0.lowercased() == tag.lowercased() }
+                }
+                matches = matches && hasTags
+            }
+
+            return matches
         }
     }
 
@@ -140,21 +208,46 @@ public final class FileContinuityStore: ContinuityStore {
     }
 
     public func validateElement(from data: Data) throws -> ContinuityElement {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
         do {
-            return try jsonDecoder.decode(ContinuityElement.self, from: data)
+            let element = try decoder.decode(ContinuityElement.self, from: data)
+            // Check assets
+            for asset in element.assets {
+                if !fileManager.fileExists(atPath: asset.path) {
+                    print("Warning: Asset missing for \(element.name): \(asset.path)")
+                }
+            }
+            return element
         } catch {
-            throw ContinuityStoreError.decodingFailed(error)
+            throw ContinuityStoreError.invalidSchema
+        }
+    }
+
+    public func importLibrary(from url: URL) throws {
+        let enumerator = fileManager.enumerator(at: url, includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsHiddenFiles])
+
+        while let fileURL = enumerator?.nextObject() as? URL {
+            if fileURL.pathExtension == "json" {
+                do {
+                    let data = try Data(contentsOf: fileURL)
+                    let element = try validateElement(from: data)
+                    try save(element)
+                } catch {
+                    print("Import failed for \(fileURL.lastPathComponent): \(error)")
+                }
+            }
         }
     }
 
     public func export(elements: [ContinuityElement], to url: URL) throws {
-        // Ensure the export directory exists
-        if !fileManager.fileExists(atPath: url.path) {
-            try fileManager.createDirectory(at: url, withIntermediateDirectories: true)
-        }
-
         for element in elements {
-            let fileURL = url.appendingPathComponent("\(element.id).json")
+            let typeURL = url.appendingPathComponent(element.type.folderName)
+            if !fileManager.fileExists(atPath: typeURL.path) {
+                try fileManager.createDirectory(at: typeURL, withIntermediateDirectories: true)
+            }
+
+            let fileURL = typeURL.appendingPathComponent("\(element.id).json")
             let data = try jsonEncoder.encode(element)
             try data.write(to: fileURL)
         }

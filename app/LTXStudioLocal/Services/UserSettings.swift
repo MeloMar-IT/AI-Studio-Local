@@ -38,7 +38,7 @@ public final class UserSettings: ObservableObject {
         }
 
         if continuityLibraryDirectory.isEmpty {
-            continuityLibraryDirectory = fileSystem.getApplicationSupportDirectory().appendingPathComponent("ContinuityLibrary").path
+            continuityLibraryDirectory = fileSystem.getApplicationSupportDirectory().appendingPathComponent("continuity-library").path
         }
 
         if modelsDirectory.isEmpty {

@@ -81,8 +81,9 @@ class ContinuityLibraryViewModel: ObservableObject {
     }
 
     func deleteElement(_ elementId: String) {
+        guard let element = elements.first(where: { $0.id == elementId }) else { return }
         do {
-            try store.delete(elementId: elementId)
+            try store.delete(elementId: elementId, type: element.type)
             elements.removeAll { $0.id == elementId }
             if selectedElementId == elementId {
                 selectedElementId = nil
@@ -219,6 +220,16 @@ class ContinuityLibraryViewModel: ObservableObject {
         self.importSummary = summary
         self.pendingImportElements = []
         self.showingImportConflictDialog = false
+        isLoading = false
+    }
+    func importFromFolder(url: URL) {
+        isLoading = true
+        do {
+            try store.importLibrary(from: url)
+            loadElements() // Refresh
+        } catch {
+            self.error = error
+        }
         isLoading = false
     }
 }
