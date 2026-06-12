@@ -11,12 +11,13 @@ MyProject.ltxproject/
 │
 ├── project.json            # Main project metadata and settings
 ├── timeline.json           # Timeline structure and clip ordering
+├── README.md               # Human-readable project summary
 ├── scenes/                 # All scenes in the project
-│   ├── scene-001/
-│   │   ├── scene.json      # Scene settings and prompt
-│   │   ├── prompt.md       # Human-readable prompt (optional)
+│   ├── <scene-id>/
+│   │   ├── scene.json      # Scene settings and metadata
+│   │   ├── prompt.md       # Human-readable prompt for Git diffing
 │   │   ├── generations/    # Output of generation jobs
-│   │   │   ├── gen-001/
+│   │   │   ├── <gen-id>/
 │   │   │   │   ├── output.mp4
 │   │   │   │   ├── preview.jpg
 │   │   │   │   ├── metadata.json
@@ -29,6 +30,16 @@ MyProject.ltxproject/
 │   └── video/
 └── exports/                # Final rendered outputs
 ```
+
+### File Details
+
+- **project.json**: Contains the core `Project` model, including name, IDs, and metadata.
+- **timeline.json**: Contains the `Timeline` model, defining how scenes are ordered and their durations.
+- **README.md**: Automatically generated summary of the project for easy viewing in Git platforms.
+- **scenes/<id>/scene.json**: The `Scene` model data.
+- **scenes/<id>/prompt.md**: The scene's prompt stored as a plain text file, making it easy to see changes in Git.
+- **assets/**: Organized folders for reusable media assets used within the project.
+- **exports/**: The destination for final rendered videos.
 
 ## Shared Schemas
 
@@ -60,3 +71,14 @@ The immediate acknowledgement from the Worker when a job is successfully queued.
 - **IDs:** All major entities use UUIDs for unique identification.
 - **Timestamps:** ISO 8601 format is used for all date-time fields.
 - **Local-First:** All paths are relative to the project root or local filesystem, ensuring projects remain portable.
+
+## Testing
+
+The project uses Swift Package Manager for unit testing. To run the tests:
+
+```bash
+cd app
+swift test
+```
+
+Note: `LTXStudioLocalApp.swift` is currently excluded from the SPM target as it requires full SwiftUI app lifecycle support which is better handled by Xcode or specialized testing setups.
