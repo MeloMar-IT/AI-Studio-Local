@@ -1,0 +1,10 @@
+{
+  "project_id": "project-123",
+  "scene_id": "scene-001",
+  "mode": "text-to-video",
+  "model_id": "ltx-video-v1-balanced",
+  "prompt": "A futuristic city at sunset",
+  "duration_seconds": 5.0,
+  "aspect_ratio": "16:9",
+  "output_directory": "projects/MyEpicVideo.ltxproject/scenes/scene-001/generations/gen-002"
+}

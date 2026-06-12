@@ -1,0 +1,12 @@
+{
+  "id": "char-001",
+  "type": "character",
+  "name": "Alex the Explorer",
+  "description": "A rugged adventurer with a blue jacket",
+  "prompt_block": "a rugged adventurer wearing a weathered blue jacket and leather boots",
+  "negative_prompt": "glasses, beard",
+  "tags": ["hero", "adventure"],
+  "assets": [],
+  "created_at": "2024-06-12T10:00:00Z",
+  "modified_at": "2024-06-12T10:00:00Z"
+}

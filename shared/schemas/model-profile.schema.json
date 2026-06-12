@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Model Profile",
+  "description": "Configuration and details for a local model",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "model_family": {
+      "type": "string",
+      "enum": ["LTX-Video", "Stable Video Diffusion", "Other"]
+    },
+    "version": {
+      "type": "string"
+    },
+    "local_path": {
+      "type": "string"
+    },
+    "memory_requirement": {
+      "type": "integer",
+      "description": "Required unified memory in GB"
+    },
+    "quality_level": {
+      "type": "string",
+      "enum": ["Fast Draft", "Balanced", "Production"]
+    },
+    "installed": {
+      "type": "boolean"
+    },
+    "recommended": {
+      "type": "boolean"
+    }
+  },
+  "required": ["id", "name", "model_family", "quality_level", "installed"]
+}

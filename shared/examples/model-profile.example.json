@@ -1,0 +1,11 @@
+{
+  "id": "ltx-video-v1-fast",
+  "name": "LTX Video Fast Draft",
+  "model_family": "LTX-Video",
+  "version": "1.0",
+  "local_path": "/models/ltx-video-v1-fast",
+  "memory_requirement": 16,
+  "quality_level": "Fast Draft",
+  "installed": true,
+  "recommended": true
+}

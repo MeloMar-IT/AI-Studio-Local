@@ -1,0 +1,19 @@
+{
+  "id": "project-123",
+  "name": "My Epic Video",
+  "created_at": "2024-06-12T12:00:00Z",
+  "modified_at": "2024-06-12T12:30:00Z",
+  "aspect_ratio": "16:9",
+  "scenes": [
+    "scenes/scene-001/scene.json"
+  ],
+  "timeline": {
+    "clips": [
+      {
+        "scene_id": "scene-001",
+        "start_time": 0,
+        "duration": 5.0
+      }
+    ]
+  }
+}

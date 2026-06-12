@@ -1,0 +1,26 @@
+{
+  "id": "scene-001",
+  "name": "The Opening Shot",
+  "mode": "text-to-video",
+  "prompt": "A futuristic city at sunset",
+  "negative_prompt": "blurry, low quality",
+  "duration_seconds": 5.0,
+  "aspect_ratio": "16:9",
+  "resolution": {
+    "width": 1280,
+    "height": 720
+  },
+  "attached_continuity_elements": [
+    {
+      "element_id": "element-style-001",
+      "type": "style"
+    }
+  ],
+  "consistency_locks": {
+    "style": true,
+    "seed": false
+  },
+  "generations": [
+    "generations/gen-001/metadata.json"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "job-555",
+  "project_id": "project-123",
+  "scene_id": "scene-001",
+  "status": "generating_video",
+  "mode": "text-to-video",
+  "model_profile": {
+    "id": "ltx-video-v1-balanced",
+    "name": "LTX Video Balanced"
+  },
+  "request": {
+    "prompt": "A futuristic city at sunset"
+  },
+  "progress": 0.45,
+  "output_paths": {
+    "video": "projects/MyEpicVideo.ltxproject/scenes/scene-001/generations/gen-002/output.mp4"
+  }
+}

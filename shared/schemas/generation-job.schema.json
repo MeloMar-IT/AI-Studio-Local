@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generation Job",
+  "description": "A background generation task",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "scene_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "preparing_prompt",
+        "checking_hardware",
+        "loading_model",
+        "preparing_inputs",
+        "generating_video",
+        "generating_audio",
+        "upscaling",
+        "encoding_output",
+        "saving_metadata",
+        "completed",
+        "failed",
+        "cancelled"
+      ]
+    },
+    "mode": {
+      "type": "string",
+      "enum": ["text-to-video", "image-to-video", "audio-to-video", "retake"]
+    },
+    "model_profile": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" }
+      }
+    },
+    "request": {
+      "type": "object",
+      "description": "The original generation request"
+    },
+    "progress": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "output_paths": {
+      "type": "object",
+      "properties": {
+        "video": { "type": "string" },
+        "preview": { "type": "string" },
+        "metadata": { "type": "string" }
+      }
+    },
+    "error_information": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "message": { "type": "string" },
+        "technical_detail": { "type": "string" },
+        "suggested_action": { "type": "string" }
+      }
+    }
+  },
+  "required": ["id", "project_id", "scene_id", "status", "mode"]
+}

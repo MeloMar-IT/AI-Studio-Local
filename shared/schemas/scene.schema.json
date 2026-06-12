@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Scene",
+  "description": "A scene within a project",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "name": {
+      "type": "string"
+    },
+    "mode": {
+      "type": "string",
+      "enum": ["text-to-video", "image-to-video", "audio-to-video", "retake"]
+    },
+    "prompt": {
+      "type": "string"
+    },
+    "negative_prompt": {
+      "type": "string"
+    },
+    "duration_seconds": {
+      "type": "number",
+      "minimum": 1
+    },
+    "aspect_ratio": {
+      "type": "string"
+    },
+    "resolution": {
+      "type": "object",
+      "properties": {
+        "width": { "type": "integer" },
+        "height": { "type": "integer" }
+      }
+    },
+    "attached_continuity_elements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "element_id": { "type": "string" },
+          "type": { "type": "string" }
+        },
+        "required": ["element_id", "type"]
+      }
+    },
+    "consistency_locks": {
+      "type": "object",
+      "properties": {
+        "character": { "type": "boolean" },
+        "clothing": { "type": "boolean" },
+        "location": { "type": "boolean" },
+        "style": { "type": "boolean" },
+        "brand": { "type": "boolean" },
+        "audio": { "type": "boolean" },
+        "seed": { "type": "boolean" },
+        "camera": { "type": "boolean" }
+      }
+    },
+    "generations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "ID or path to generation metadata"
+      }
+    }
+  },
+  "required": ["id", "name", "mode", "prompt", "duration_seconds"]
+}

@@ -161,28 +161,28 @@ Create a working Python worker with mock endpoints. This gives the Swift app som
 
 ## TODO
 
-- [ ] Create `worker/pyproject.toml`
-- [ ] Use Python 3.11 or newer
-- [ ] Add FastAPI
-- [ ] Add Uvicorn
-- [ ] Add Pydantic
-- [ ] Add pytest
-- [ ] Add ruff
-- [ ] Add basic package structure
-- [ ] Add `ltx_worker/main.py`
-- [ ] Add `/health` endpoint
-- [ ] Add `/hardware` endpoint with mocked Apple Silicon info
-- [ ] Add `/models` endpoint with mocked LTX model profiles
-- [ ] Add `/generate/text-to-video` endpoint returning a mock job
-- [ ] Add `/jobs/{job_id}` endpoint
-- [ ] Add in-memory job store
-- [ ] Add simulated progress
-- [ ] Add structured logging
-- [ ] Add tests for `/health`
-- [ ] Add tests for `/models`
-- [ ] Add tests for mock generation job creation
-- [ ] Add `scripts/run-worker.sh`
-- [ ] Add `scripts/test.sh`
+- [x] Create `worker/pyproject.toml`
+- [x] Use Python 3.11 or newer
+- [x] Add FastAPI
+- [x] Add Uvicorn
+- [x] Add Pydantic
+- [x] Add pytest
+- [x] Add ruff
+- [x] Add basic package structure
+- [x] Add `ltx_worker/main.py`
+- [x] Add `/health` endpoint
+- [x] Add `/hardware` endpoint with mocked Apple Silicon info
+- [x] Add `/models` endpoint with mocked LTX model profiles
+- [x] Add `/generate/text-to-video` endpoint returning a mock job
+- [x] Add `/jobs/{job_id}` endpoint
+- [x] Add in-memory job store
+- [x] Add simulated progress
+- [x] Add structured logging
+- [x] Add tests for `/health`
+- [x] Add tests for `/models`
+- [x] Add tests for mock generation job creation
+- [x] Add `scripts/run-worker.sh`
+- [x] Add `scripts/test.sh`
 
 ## Worker folder structure
 
@@ -244,15 +244,15 @@ Define stable JSON contracts shared between the SwiftUI app and Python worker.
 
 ## TODO
 
-- [ ] Create `project.schema.json`
-- [ ] Create `scene.schema.json`
-- [ ] Create `continuity-element.schema.json`
-- [ ] Create `generation-job.schema.json`
-- [ ] Create `model-profile.schema.json`
-- [ ] Create `generation-request.schema.json`
-- [ ] Create `generation-response.schema.json`
-- [ ] Document schema purpose in `docs/project-format.md`
-- [ ] Add examples in `shared/examples/`
+- [x] Create `project.schema.json`
+- [x] Create `scene.schema.json`
+- [x] Create `continuity-element.schema.json`
+- [x] Create `generation-job.schema.json`
+- [x] Create `model-profile.schema.json`
+- [x] Create `generation-request.schema.json`
+- [x] Create `generation-response.schema.json`
+- [x] Document schema purpose in `docs/project-format.md`
+- [x] Add examples in `shared/examples/`
 
 ## Prompt for Junie
 

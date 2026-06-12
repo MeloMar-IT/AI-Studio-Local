@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Project",
+  "description": "A project in LTX Studio Local",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "name": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "modified_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "default_brand_kit_id": {
+      "type": ["string", "null"]
+    },
+    "aspect_ratio": {
+      "type": "string",
+      "enum": ["16:9", "9:16", "1:1", "4:3", "21:9"]
+    },
+    "scenes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Path to scene.json or scene ID"
+      }
+    },
+    "timeline": {
+      "type": "object",
+      "properties": {
+        "clips": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "scene_id": { "type": "string" },
+              "start_time": { "type": "number" },
+              "duration": { "type": "number" }
+            },
+            "required": ["scene_id"]
+          }
+        }
+      }
+    }
+  },
+  "required": ["id", "name", "created_at", "modified_at", "aspect_ratio"]
+}
