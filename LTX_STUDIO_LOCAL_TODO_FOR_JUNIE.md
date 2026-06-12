@@ -1401,13 +1401,13 @@ Add basic automation for a Git-maintained project.
 
 ## TODO
 
-- [ ] Add GitHub Action for Python tests
-- [ ] Add GitHub Action for Python lint
-- [ ] Add GitHub Action for schema validation if practical
-- [ ] Add Swift lint workflow if practical
-- [ ] Add PR template checklist
-- [ ] Add issue labels doc
-- [ ] Add release checklist
+- [x] Add GitHub Action for Python tests
+- [x] Add GitHub Action for Python lint
+- [x] Add GitHub Action for schema validation if practical
+- [x] Add Swift lint workflow if practical
+- [x] Add PR template checklist
+- [x] Add issue labels doc
+- [x] Add release checklist
 
 ## Prompt for Junie
 
