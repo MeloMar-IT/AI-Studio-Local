@@ -1,0 +1,8 @@
+# CHANGELOG
+
+All notable changes to this project will be documented in this file.
+
+## [Unreleased]
+
+### Added
+- Initial repository structure and documentation (Phase 0).

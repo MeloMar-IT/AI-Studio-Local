@@ -1,0 +1,64 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Xcode
+build/
+DerivedData/
+*.xcodeproj/project.xcworkspace/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+.LSOverride
+!default.mode1v3
+!default.mode2v3
+!default.perspectivev3
+xcuserdata/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.venv
+venv/
+ENV/
+
+# Local Models & Large Assets
+*.safetensors
+*.ckpt
+*.bin
+*.pt
+*.pth
+*.mp4
+*.mov
+*.wav
+*.mp3
+
+# Project specific
+*.ltxproject/generations/
+*.ltxproject/assets/
+*.ltxproject/exports/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo

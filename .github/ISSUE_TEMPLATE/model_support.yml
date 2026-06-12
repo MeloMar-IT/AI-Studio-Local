@@ -1,0 +1,23 @@
+name: Model support
+description: Request support for a specific MLX/LTX model
+labels: ["model-support"]
+body:
+  - type: input
+    id: model-name
+    attributes:
+      label: Model Name
+      description: Name of the model (e.g., LTX-Video v0.9)
+    validations:
+      required: true
+  - type: input
+    id: model-url
+    attributes:
+      label: Model URL
+      description: Link to the model (HuggingFace, etc.)
+    validations:
+      required: true
+  - type: textarea
+    id: model-details
+    attributes:
+      label: Model Details
+      description: Why should we support this model? What are its benefits?
