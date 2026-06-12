@@ -47,20 +47,44 @@ struct InspectorPanel<Content: View>: View {
 
 struct InspectorSection<Content: View>: View {
     let title: String
+    let isCollapsible: Bool
+    @State private var isExpanded: Bool
     let content: Content
 
-    init(title: String, @ViewBuilder content: () -> Content) {
+    init(title: String, isCollapsible: Bool = false, isExpanded: Bool = true, @ViewBuilder content: () -> Content) {
         self.title = title
+        self.isCollapsible = isCollapsible
+        self._isExpanded = State(initialValue: isExpanded)
         self.content = content()
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.medium) {
-            Text(title.uppercased())
-                .font(.system(size: 11, weight: .bold))
-                .foregroundColor(Color.App.secondaryText)
+            if isCollapsible {
+                Button(action: { withAnimation { isExpanded.toggle() } }) {
+                    HStack {
+                        Text(title.uppercased())
+                            .font(.system(size: 11, weight: .bold))
+                            .foregroundColor(Color.App.secondaryText)
 
-            content
+                        Spacer()
+
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 10, weight: .bold))
+                            .foregroundColor(Color.App.secondaryText)
+                            .rotationEffect(.degrees(isExpanded ? 90 : 0))
+                    }
+                }
+                .buttonStyle(.plain)
+            } else {
+                Text(title.uppercased())
+                    .font(.system(size: 11, weight: .bold))
+                    .foregroundColor(Color.App.secondaryText)
+            }
+
+            if isExpanded {
+                content
+            }
         }
     }
 }

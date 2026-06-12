@@ -106,6 +106,20 @@ class ProjectStudioViewModel: ObservableObject {
         }
     }
 
+    func updateSceneNegativePrompt(_ sceneId: String, prompt: String) {
+        if let index = scenes.firstIndex(where: { $0.id == sceneId }) {
+            scenes[index].negativePrompt = prompt.isEmpty ? nil : prompt
+            updateProject()
+        }
+    }
+
+    func updateSceneDuration(_ sceneId: String, duration: Double) {
+        if let index = scenes.firstIndex(where: { $0.id == sceneId }) {
+            scenes[index].durationSeconds = duration
+            updateProject()
+        }
+    }
+
     func updateReferenceImage(_ sceneId: String, path: String?) {
         if let index = scenes.firstIndex(where: { $0.id == sceneId }) {
             scenes[index].referenceImagePath = path

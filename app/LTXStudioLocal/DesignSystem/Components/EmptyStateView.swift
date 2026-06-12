@@ -17,28 +17,38 @@ struct EmptyStateView: View {
 
     var body: some View {
         VStack(spacing: Spacing.medium) {
-            Image(systemName: icon)
-                .font(.system(size: 48))
-                .foregroundColor(Color.App.secondaryText.opacity(0.5))
+            ZStack {
+                Circle()
+                    .fill(Color.App.accent.opacity(0.1))
+                    .frame(width: 80, height: 80)
+
+                Image(systemName: icon)
+                    .font(.system(size: 32, weight: .medium))
+                    .foregroundColor(Color.App.accent)
+            }
+            .padding(.bottom, Spacing.small)
 
             VStack(spacing: Spacing.xSmall) {
                 Text(title)
-                    .font(.App.headline)
+                    .font(.App.title3)
+                    .foregroundColor(Color.App.text)
 
                 Text(message)
-                    .font(.App.subheadline)
+                    .font(.App.body)
                     .foregroundColor(Color.App.secondaryText)
                     .multilineTextAlignment(.center)
-                    .frame(maxWidth: 300)
+                    .frame(maxWidth: 320)
             }
 
             if let actionTitle = actionTitle, let action = action {
                 PrimaryButton(actionTitle, action: action)
-                    .padding(.top, Spacing.small)
+                    .padding(.top, Spacing.medium)
+                    .controlSize(.large)
             }
         }
         .padding(Spacing.xxxLarge)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.App.background)
     }
 }
 

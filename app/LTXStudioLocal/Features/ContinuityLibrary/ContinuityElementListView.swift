@@ -57,22 +57,16 @@ struct ContinuityElementListView: View {
     }
 
     private var emptyState: some View {
-        VStack(spacing: Spacing.medium) {
-            Spacer()
-            Image(systemName: "doc.text.magnifyingglass")
-                .font(.system(size: 40))
-                .foregroundColor(.secondary.opacity(0.5))
-
-            Text("No elements found")
-                .font(.App.headline)
-
-            Text("Try a different search or category.")
-                .font(.App.subheadline)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
-
-            Spacer()
-        }
-        .padding()
+        EmptyStateView(
+            title: "No elements found",
+            message: viewModel.searchText.isEmpty
+                ? "This category is empty. Create your first element to get started."
+                : "No elements match \"\(viewModel.searchText)\". Try a different search.",
+            icon: "square.grid.2x2",
+            actionTitle: viewModel.searchText.isEmpty ? "Add Element" : nil,
+            action: viewModel.searchText.isEmpty ? {
+                viewModel.createNewElement(type: viewModel.selectedCategory ?? .character)
+            } : nil
+        )
     }
 }

@@ -1765,18 +1765,18 @@ Make the app feel easy and professional.
 
 ## TODO
 
-- [ ] Review empty states
-- [ ] Review labels
-- [ ] Review button hierarchy
-- [ ] Review spacing
-- [ ] Review sidebar clarity
-- [ ] Review inspector layout
-- [ ] Review onboarding flow
-- [ ] Add tooltips
-- [ ] Add keyboard shortcuts
-- [ ] Add loading states
-- [ ] Add disabled states
-- [ ] Add accessibility labels
+- [x] Review empty states
+- [x] Review labels
+- [x] Review button hierarchy
+- [x] Review spacing
+- [x] Review sidebar clarity
+- [x] Review inspector layout
+- [x] Review onboarding flow
+- [x] Add tooltips
+- [x] Add keyboard shortcuts
+- [x] Add loading states
+- [x] Add disabled states
+- [x] Add accessibility labels
 
 ## Prompt for Junie
 

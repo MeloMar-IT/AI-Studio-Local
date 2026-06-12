@@ -43,9 +43,13 @@ struct HomeDashboardView: View {
                             EmptyStateView(
                                 title: "No Recent Projects",
                                 message: "Your recently edited projects will appear here.",
-                                icon: "clock"
+                                icon: "clock",
+                                actionTitle: "Create New Project",
+                                action: {
+                                    // Action to create project
+                                }
                             )
-                            .frame(height: 160)
+                            .frame(height: 280)
                             .background(Color.App.surface)
                             .cornerRadius(Spacing.cornerRadiusLarge)
                             .overlay(

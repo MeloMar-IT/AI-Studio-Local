@@ -36,22 +36,16 @@ struct RenderQueueView: View {
     }
 
     private var emptyState: some View {
-        VStack(spacing: Spacing.medium) {
-            Spacer(minLength: 100)
-            Image(systemName: "tray.and.arrow.down")
-                .font(.system(size: 80))
-                .foregroundColor(Color.App.secondaryText.opacity(0.3))
-
-            Text("No active or completed jobs")
-                .font(.App.headline)
-                .foregroundColor(Color.App.secondaryText)
-
-            Text("When you generate scenes, they will appear here.")
-                .font(.App.body)
-                .foregroundColor(Color.App.secondaryText.opacity(0.7))
-            Spacer()
-        }
-        .frame(maxWidth: .infinity)
+        EmptyStateView(
+            title: "No active or completed jobs",
+            message: "When you generate scenes, they will appear here.",
+            icon: "tray.and.arrow.down",
+            actionTitle: "Create First Scene",
+            action: {
+                router.selectedScreen = .projectStudio
+            }
+        )
+        .frame(minHeight: 400)
     }
 
     private var jobsList: some View {

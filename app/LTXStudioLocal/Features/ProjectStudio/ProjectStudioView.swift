@@ -506,6 +506,7 @@ struct ProjectStudioView: View {
                             set: { viewModel.renameScene(scene.id, newName: $0) }
                         ))
                         .textFieldStyle(.roundedBorder)
+                        .accessibilityLabel("Scene Name")
 
                         Text("Mode")
                             .font(.App.caption)
@@ -521,10 +522,11 @@ struct ProjectStudioView: View {
                             Text("Audio to Video").tag(SceneMode.audioToVideo)
                         }
                         .pickerStyle(.segmented)
+                        .accessibilityLabel("Generation Mode")
                     }
                 }
 
-                InspectorSection(title: "Audio") {
+                InspectorSection(title: "Audio", isCollapsible: true) {
                     VStack(alignment: .leading, spacing: Spacing.small) {
                         Text("Audio Mode")
                             .font(.App.caption)
@@ -540,6 +542,7 @@ struct ProjectStudioView: View {
                             Text("Voiceover").tag(AudioMode.voiceover)
                         }
                         .pickerStyle(.menu)
+                        .accessibilityLabel("Audio Generation Mode")
 
                         if scene.audioMode == .imported || scene.audioMode == .voiceover {
                             VStack(alignment: .leading, spacing: Spacing.xSmall) {
@@ -634,7 +637,7 @@ struct ProjectStudioView: View {
                 }
 
                 if scene.mode == .imageToVideo {
-                    InspectorSection(title: "Reference Image") {
+                    InspectorSection(title: "Reference Image", isCollapsible: true) {
                         VStack(alignment: .leading, spacing: Spacing.small) {
                             if let imagePath = scene.referenceImagePath,
                                let image = NSImage(contentsOfFile: imagePath) {
@@ -686,7 +689,7 @@ struct ProjectStudioView: View {
                 }
 
                 if scene.mode == .retake {
-                    InspectorSection(title: "Retake Configuration") {
+                    InspectorSection(title: "Retake Configuration", isCollapsible: true) {
                         VStack(alignment: .leading, spacing: Spacing.small) {
                             HStack {
                                 VStack(alignment: .leading) {
@@ -732,6 +735,7 @@ struct ProjectStudioView: View {
                         .frame(height: 100)
                         .padding(4)
                         .background(RoundedRectangle(cornerRadius: 4).stroke(Color.App.border))
+                        .accessibilityLabel("Scene Prompt")
 
                         HStack(spacing: Spacing.medium) {
                             Button(action: { viewModel.improvePrompt(for: scene.id) }) {
@@ -743,26 +747,29 @@ struct ProjectStudioView: View {
                                 .foregroundColor(Color.App.accent)
                             }
                             .buttonStyle(.plain)
+                            .help("Enhance your prompt using AI")
 
                             Button(action: { isShowingComposedPrompt = true }) {
                                 HStack {
                                     Image(systemName: "eye")
-                                    Text("View Composed Prompt")
+                                    Text("View Full Prompt")
                                 }
                                 .font(.App.caption)
                                 .foregroundColor(Color.App.accent)
                             }
                             .buttonStyle(.plain)
+                            .help("See the final prompt with all elements combined")
                         }
                     }
                 }
 
-                InspectorSection(title: "Continuity Elements") {
+                InspectorSection(title: "Continuity Elements", isCollapsible: true) {
                     VStack(alignment: .leading, spacing: Spacing.small) {
                         if scene.attachedContinuityElements.isEmpty {
                             Text("No elements attached")
                                 .font(.App.caption)
                                 .foregroundColor(Color.App.secondaryText)
+                                .italic()
                         } else {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: Spacing.xxSmall) {
@@ -794,10 +801,11 @@ struct ProjectStudioView: View {
                             .foregroundColor(Color.App.accent)
                         }
                         .buttonStyle(.plain)
+                        .help("Attach characters, locations, or styles from your library")
                     }
                 }
 
-                InspectorSection(title: "Consistency Locks") {
+                InspectorSection(title: "Consistency Locks", isCollapsible: true, isExpanded: false) {
                     VStack(spacing: Spacing.xxSmall) {
                         LockToggle(label: "Character Identity", isOn: Binding(
                             get: { scene.consistencyLocks.character },
@@ -819,14 +827,56 @@ struct ProjectStudioView: View {
                             get: { scene.consistencyLocks.audio },
                             set: { _ in viewModel.toggleLock(scene.id, keyPath: \.audio) }
                         ))
-                        LockToggle(label: "Seed", isOn: Binding(
-                            get: { scene.consistencyLocks.seed },
-                            set: { _ in viewModel.toggleLock(scene.id, keyPath: \.seed) }
-                        ))
                     }
                 }
 
-                InspectorSection(title: "History") {
+                InspectorSection(title: "Advanced Settings", isCollapsible: true, isExpanded: false) {
+                    VStack(alignment: .leading, spacing: Spacing.small) {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Negative Prompt")
+                                .font(.App.caption)
+                                .foregroundColor(Color.App.secondaryText)
+
+                            TextEditor(text: Binding(
+                                get: { scene.negativePrompt ?? "" },
+                                set: { viewModel.updateSceneNegativePrompt(scene.id, prompt: $0) }
+                            ))
+                            .frame(height: 60)
+                            .padding(4)
+                            .background(RoundedRectangle(cornerRadius: 4).stroke(Color.App.border))
+                        }
+
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Duration")
+                                .font(.App.caption)
+                                .foregroundColor(Color.App.secondaryText)
+
+                            HStack {
+                                Slider(value: Binding(
+                                    get: { scene.durationSeconds },
+                                    set: { viewModel.updateSceneDuration(scene.id, duration: $0) }
+                                ), in: 1...10, step: 0.5)
+
+                                Text("\(String(format: "%.1f", scene.durationSeconds))s")
+                                    .font(.App.caption)
+                                    .frame(width: 40)
+                            }
+                        }
+
+                        LockToggle(label: "Lock Seed", isOn: Binding(
+                            get: { scene.consistencyLocks.seed },
+                            set: { _ in viewModel.toggleLock(scene.id, keyPath: \.seed) }
+                        ))
+
+                        Text("Additional expert controls will appear here in Phase 32.")
+                            .font(.App.footnote)
+                            .foregroundColor(Color.App.secondaryText)
+                            .italic()
+                            .padding(.top, 4)
+                    }
+                }
+
+                InspectorSection(title: "History", isCollapsible: true, isExpanded: false) {
                     SceneHistoryView(
                         generations: scene.generations,
                         onUse: { viewModel.useGeneration($0) },
