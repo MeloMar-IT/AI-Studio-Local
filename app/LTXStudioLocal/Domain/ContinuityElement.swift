@@ -36,6 +36,20 @@ public struct ContinuityElement: Codable, Identifiable, Equatable {
     public let createdAt: Date
     public var modifiedAt: Date
 
+    public var iconName: String {
+        switch type {
+        case .character: return "person.fill"
+        case .location: return "mappin.and.ellipse"
+        case .style: return "paintpalette.fill"
+        case .camera: return "video.fill"
+        case .audio: return "waveform"
+        case .brand: return "briefcase.fill"
+        case .promptBlock: return "text.alignleft"
+        case .lora: return "cpu"
+        case .exportTemplate: return "square.and.arrow.up.fill"
+        }
+    }
+
     public init(
         id: String = UUID().uuidString,
         type: ContinuityElementType,

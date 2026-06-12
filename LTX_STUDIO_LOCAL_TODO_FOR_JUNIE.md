@@ -701,19 +701,19 @@ Create reusable elements across projects.
 
 ## TODO
 
-- [ ] Create `ContinuityStore` protocol
-- [ ] Create file-based global continuity store
-- [ ] Add category sidebar
-- [ ] Add element list
-- [ ] Add element detail editor
-- [ ] Add create element action
-- [ ] Add edit element action
-- [ ] Add delete element action
-- [ ] Add search
-- [ ] Add tag filtering
-- [ ] Add default sample elements
+- [x] Create `ContinuityStore` protocol
+- [x] Create file-based global continuity store
+- [x] Add category sidebar
+- [x] Add element list
+- [x] Add element detail editor
+- [x] Add create element action
+- [x] Add edit element action
+- [x] Add delete element action
+- [x] Add search
+- [x] Add tag filtering
+- [x] Add default sample elements
 - [ ] Add import/export library folder
-- [ ] Add tests for continuity storage
+- [x] Add tests for continuity storage
 
 ## Prompt for Junie
 
