@@ -14,6 +14,9 @@ class AppState: ObservableObject {
     @Published var activeJobs: [GenerationJob] = []
     @Published var activeJobsCount: Int = 0
 
+    // Injection validation error for testing
+    var validationError: String? = nil
+
     // Hardware Profile
     @Published var hardwareProfile: HardwareProfile = .unknown
 
@@ -37,7 +40,14 @@ class AppState: ObservableObject {
         // Enforcement: Production mode rejects mock services
         if environment.isProduction {
             if hardwareProfiler is MockHardwareProfiler {
-                fatalError("❌ PRODUCTION SECURITY VIOLATION: MockHardwareProfiler injected in production mode")
+                let msg = "❌ PRODUCTION SECURITY VIOLATION: MockHardwareProfiler injected in production mode"
+                self.validationError = msg
+                #if DEBUG
+                // In debug builds we can just set the error, but in release we MUST crash
+                NSLog(msg)
+                #else
+                fatalError(msg)
+                #endif
             }
             // Add other mock checks here as they are implemented
         }

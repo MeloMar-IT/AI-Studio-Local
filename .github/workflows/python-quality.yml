@@ -39,3 +39,8 @@ jobs:
     - name: Test with pytest
       run: |
         cd worker && pytest
+
+    - name: Check production/mock boundary
+      run: |
+        chmod +x scripts/check-production-imports.sh
+        ./scripts/check-production-imports.sh

@@ -6,7 +6,6 @@ from fastapi import APIRouter, HTTPException
 
 from ltx_worker.config import settings
 import ltx_worker.jobs.store as store
-from ltx_worker.engine.mock import MockGenerationEngine, MockModelLoader, MockLoraLoader, MockMediaEncoder
 from ltx_worker.engine.ltx import LTXGenerationEngine
 from ltx_worker.engine.output import OutputManager
 from ltx_worker.schemas.api import (
@@ -33,6 +32,13 @@ else:
             "❌ PRODUCTION SECURITY VIOLATION: Mock engine requested in production mode. "
             "Set LTX_WORKER_ENGINE_TYPE=ltx or change LTX_WORKER_ENVIRONMENT."
         )
+
+    from ltx_worker.engine.mock import (
+        MockGenerationEngine,
+        MockModelLoader,
+        MockLoraLoader,
+        MockMediaEncoder,
+    )
 
     engine = MockGenerationEngine(
         model_loader=MockModelLoader(),

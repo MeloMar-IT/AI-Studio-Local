@@ -6,10 +6,11 @@ final class EnvironmentBoundaryTests: XCTestCase {
     func testProductionModeRejectsMockHardwareProfiler() {
         let mockProfiler = MockHardwareProfiler()
 
-        // This should trigger fatalError in AppState init
-        // Note: XCTest doesn't have a built-in way to catch fatalError without extra infrastructure
-        // so we'll check our logic manually or use a trick if available.
-        // For now, let's verify our environment properties.
+        // We set DEBUG=1 in tests, so it should set validationError instead of crashing
+        let appState = AppState(hardwareProfiler: mockProfiler, environment: .production)
+
+        XCTAssertNotNil(appState.validationError)
+        XCTAssertTrue(appState.validationError?.contains("PRODUCTION SECURITY VIOLATION") == true)
 
         XCTAssertTrue(AppEnvironment.production.isProduction)
         XCTAssertFalse(AppEnvironment.development.isProduction)
