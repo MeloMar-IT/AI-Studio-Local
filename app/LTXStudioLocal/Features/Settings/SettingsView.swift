@@ -23,9 +23,9 @@ struct SettingsView: View {
                     Text("Worker Status:")
                     Spacer()
                     if appState.isWorkerAvailable {
-                        StatusBadge(text: "Connected", color: .green)
+                        StatusBadge(label: "Connected", color: .green)
                     } else {
-                        StatusBadge(text: "Disconnected", color: .red)
+                        StatusBadge(label: "Disconnected", color: .red)
                     }
                 }
 

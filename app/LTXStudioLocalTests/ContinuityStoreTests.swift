@@ -61,4 +61,34 @@ final class ContinuityStoreTests: XCTestCase {
         XCTAssertTrue(types.contains(.style))
         XCTAssertTrue(types.contains(.camera))
     }
+
+    func testValidateElement() throws {
+        let element = ContinuityElement(
+            type: .character,
+            name: "Validation Test",
+            promptBlock: "Validate me"
+        )
+        let data = try JSONEncoder().encode(element)
+
+        let validated = try store.validateElement(from: data)
+        XCTAssertEqual(validated.id, element.id)
+        XCTAssertEqual(validated.name, element.name)
+    }
+
+    func testExport() throws {
+        let elements = [
+            ContinuityElement(type: .character, name: "E1", promptBlock: "P1"),
+            ContinuityElement(type: .location, name: "E2", promptBlock: "P2")
+        ]
+
+        let exportDir = tempDirectory.appendingPathComponent("export")
+        try store.export(elements: elements, to: exportDir)
+
+        let files = try fileManager.contentsOfDirectory(at: exportDir, includingPropertiesForKeys: nil)
+        XCTAssertEqual(files.count, 2)
+
+        let fileNames = Set(files.map { $0.lastPathComponent })
+        XCTAssertTrue(fileNames.contains("\(elements[0].id).json"))
+        XCTAssertTrue(fileNames.contains("\(elements[1].id).json"))
+    }
 }

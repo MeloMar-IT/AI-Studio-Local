@@ -42,10 +42,10 @@ class AppState: ObservableObject {
     }
 
     private func setupSettingsObservers() {
-        UserSettings.shared.$workerURL
+        UserSettings.shared.objectWillChange
             .receive(on: RunLoop.main)
-            .sink { [weak self] newURLString in
-                if let newURL = URL(string: newURLString),
+            .sink { [weak self] _ in
+                if let newURL = URL(string: UserSettings.shared.workerURL),
                    let httpClient = self?.generationClient as? HTTPGenerationClient {
                     httpClient.updateBaseURL(newURL)
                 }

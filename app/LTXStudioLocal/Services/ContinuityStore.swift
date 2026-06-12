@@ -5,6 +5,8 @@ public protocol ContinuityStore {
     func save(_ element: ContinuityElement) throws
     func delete(elementId: String) throws
     func loadDefaultElements() throws
+    func validateElement(from data: Data) throws -> ContinuityElement
+    func export(elements: [ContinuityElement], to url: URL) throws
 }
 
 public enum ContinuityStoreError: Error {
@@ -134,6 +136,27 @@ public final class FileContinuityStore: ContinuityStore {
 
         for element in defaults {
             try save(element)
+        }
+    }
+
+    public func validateElement(from data: Data) throws -> ContinuityElement {
+        do {
+            return try jsonDecoder.decode(ContinuityElement.self, from: data)
+        } catch {
+            throw ContinuityStoreError.decodingFailed(error)
+        }
+    }
+
+    public func export(elements: [ContinuityElement], to url: URL) throws {
+        // Ensure the export directory exists
+        if !fileManager.fileExists(atPath: url.path) {
+            try fileManager.createDirectory(at: url, withIntermediateDirectories: true)
+        }
+
+        for element in elements {
+            let fileURL = url.appendingPathComponent("\(element.id).json")
+            let data = try jsonEncoder.encode(element)
+            try data.write(to: fileURL)
         }
     }
 }

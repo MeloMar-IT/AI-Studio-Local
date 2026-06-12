@@ -50,12 +50,11 @@ struct ContinuityElementPicker: View {
                 Text("All Categories")
                     .tag(nil as ContinuityElementType?)
 
-                ForEach([ContinuityElementType.character, .location, .style, .camera, .audio, .brand, .promptBlock], id: \.self) { type in
-                    HStack {
-                        Image(systemName: type.iconName)
-                        Text(type.rawValue.capitalized)
+                Section {
+                    ForEach([ContinuityElementType.character, .location, .style, .camera, .audio, .brand, .promptBlock], id: \.self) { type in
+                        Label(type.rawValue.capitalized, systemImage: type.iconName)
+                            .tag(type as ContinuityElementType?)
                     }
-                    .tag(type as ContinuityElementType?)
                 }
             }
             .listStyle(.sidebar)
