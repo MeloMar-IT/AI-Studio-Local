@@ -1129,16 +1129,16 @@ Create a simple scene-based timeline.
 
 ## TODO
 
-- [ ] Add timeline data model
-- [ ] Add timeline clip model
-- [ ] Add scene clips to timeline
-- [ ] Show clips visually
-- [ ] Allow reorder
-- [ ] Allow select clip
-- [ ] Allow remove clip
-- [ ] Allow duplicate clip
-- [ ] Add basic duration display
-- [ ] Persist timeline
+- [x] Add timeline data model
+- [x] Add timeline clip model
+- [x] Add scene clips to timeline
+- [x] Show clips visually
+- [x] Allow reorder
+- [x] Allow select clip
+- [x] Allow remove clip
+- [x] Allow duplicate clip
+- [x] Add basic duration display
+- [x] Persist timeline
 
 ## Prompt for Junie
 

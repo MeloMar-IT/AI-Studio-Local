@@ -224,7 +224,7 @@ struct ProjectStudioView: View {
 
             VStack(spacing: 0) {
                 mainCanvas
-                timelinePlaceholder
+                timeline
             }
 
             inspector
@@ -264,12 +264,14 @@ struct ProjectStudioView: View {
                             editingSceneId = nil
                         },
                         onDelete: { viewModel.deleteScene(scene.id) },
+                        onDuplicate: { viewModel.duplicateScene(scene.id) },
                         startEditing: {
                             editingSceneId = scene.id
                             newSceneName = scene.name
                         }
                     )
                 }
+                .onMove(perform: viewModel.moveScene)
 
                 Button(action: viewModel.addScene) {
                     HStack {
@@ -320,30 +322,52 @@ struct ProjectStudioView: View {
     }
 
     // MARK: - Timeline
-    private var timelinePlaceholder: some View {
-        VStack(alignment: .leading, spacing: Spacing.small) {
+    private var timeline: some View {
+        VStack(alignment: .leading, spacing: 0) {
             Divider()
 
-            Text("TIMELINE")
-                .font(.system(size: 11, weight: .bold))
-                .foregroundColor(Color.App.secondaryText)
-                .padding(.horizontal, Spacing.medium)
-                .padding(.top, Spacing.small)
+            HStack {
+                Text("TIMELINE")
+                    .font(.system(size: 11, weight: .bold))
+                    .foregroundColor(Color.App.secondaryText)
 
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: Spacing.small) {
+                Spacer()
+
+                if let project = viewModel.project {
+                    let totalDuration = viewModel.scenes.reduce(0.0) { $0 + $1.durationSeconds }
+                    Text(String(format: "%.1fs", totalDuration))
+                        .font(.system(size: 11, design: .monospaced))
+                        .foregroundColor(Color.App.secondaryText)
+                }
+            }
+            .padding(.horizontal, Spacing.medium)
+            .padding(.vertical, Spacing.small)
+
+            ScrollView(.horizontal, showsIndicators: true) {
+                HStack(spacing: Spacing.xxSmall) {
                     ForEach(viewModel.scenes) { scene in
-                        TimelineClipView(scene: scene, isSelected: viewModel.selectedSceneId == scene.id)
-                            .onTapGesture {
-                                viewModel.selectedSceneId = scene.id
+                        TimelineClipView(
+                            scene: scene,
+                            isSelected: viewModel.selectedSceneId == scene.id
+                        )
+                        .onTapGesture {
+                            viewModel.selectedSceneId = scene.id
+                        }
+                        .contextMenu {
+                            Button("Duplicate") {
+                                viewModel.duplicateScene(scene.id)
                             }
+                            Button("Delete", role: .destructive) {
+                                viewModel.deleteScene(scene.id)
+                            }
+                        }
                     }
                 }
                 .padding(.horizontal, Spacing.medium)
                 .padding(.bottom, Spacing.medium)
             }
         }
-        .frame(height: 120)
+        .frame(height: 140)
         .background(Color.App.surface)
     }
 
@@ -491,6 +515,7 @@ struct SceneSidebarItem: View {
     let onSelect: () -> Void
     let onRename: (String) -> Void
     let onDelete: () -> Void
+    let onDuplicate: () -> Void
     let startEditing: () -> Void
 
     @State private var nameText: String = ""
@@ -512,6 +537,7 @@ struct SceneSidebarItem: View {
                 if isSelected {
                     Menu {
                         Button("Rename", action: startEditing)
+                        Button("Duplicate", action: onDuplicate)
                         Button("Delete", role: .destructive, action: onDelete)
                     } label: {
                         Image(systemName: "ellipsis.circle")
@@ -535,22 +561,34 @@ struct TimelineClipView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            RoundedRectangle(cornerRadius: 4)
-                .fill(isSelected ? Color.App.accent.opacity(0.2) : Color.App.secondaryBackground)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 4)
-                        .stroke(isSelected ? Color.App.accent : Color.App.border, lineWidth: isSelected ? 2 : 1)
-                )
-                .frame(width: 120, height: 60)
-                .overlay(
-                    Image(systemName: "video.fill")
-                        .foregroundColor(Color.App.secondaryText.opacity(0.5))
-                )
+            ZStack(alignment: .bottomTrailing) {
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(isSelected ? Color.App.accent.opacity(0.1) : Color.App.secondaryBackground)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 4)
+                            .stroke(isSelected ? Color.App.accent : Color.App.border, lineWidth: isSelected ? 2 : 1)
+                    )
+                    .frame(width: 140, height: 80)
+
+                Text(String(format: "%.1fs", scene.durationSeconds))
+                    .font(.system(size: 9, weight: .bold, design: .monospaced))
+                    .padding(.horizontal, 4)
+                    .padding(.vertical, 2)
+                    .background(Color.black.opacity(0.6))
+                    .foregroundColor(.white)
+                    .cornerRadius(2)
+                    .padding(4)
+            }
+            .overlay(
+                Image(systemName: "video.fill")
+                    .foregroundColor(Color.App.secondaryText.opacity(0.3))
+            )
 
             Text(scene.name)
-                .font(.system(size: 10))
+                .font(.system(size: 11))
                 .lineLimit(1)
-                .frame(width: 120, alignment: .leading)
+                .frame(width: 140, alignment: .leading)
+                .foregroundColor(isSelected ? .primary : .secondary)
         }
     }
 }

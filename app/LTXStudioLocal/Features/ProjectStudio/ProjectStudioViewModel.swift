@@ -113,10 +113,44 @@ class ProjectStudioViewModel: ObservableObject {
         }
     }
 
+    func duplicateScene(_ sceneId: String) {
+        if let index = scenes.firstIndex(where: { $0.id == sceneId }) {
+            var newScene = scenes[index]
+            newScene = Scene(
+                name: "\(newScene.name) (Copy)",
+                mode: newScene.mode,
+                prompt: newScene.prompt,
+                negativePrompt: newScene.negativePrompt,
+                durationSeconds: newScene.durationSeconds,
+                aspectRatio: newScene.aspectRatio,
+                resolution: newScene.resolution,
+                attachedContinuityElements: newScene.attachedContinuityElements,
+                consistencyLocks: newScene.consistencyLocks,
+                generations: [] // Do not duplicate generations
+            )
+            scenes.insert(newScene, at: index + 1)
+            selectedSceneId = newScene.id
+            updateProject()
+        }
+    }
+
+    func moveScene(from source: IndexSet, to destination: Int) {
+        scenes.move(fromOffsets: source, toOffset: destination)
+        updateProject()
+    }
+
     private func updateProject() {
         project?.scenes = scenes.map { $0.id }
-        // In a real app, we would also update the timeline here if needed
-        // and trigger a save via ProjectStore
+
+        // Sync timeline
+        var currentTime: Double = 0
+        let clips = scenes.map { scene -> TimelineClip in
+            let clip = TimelineClip(sceneId: scene.id, startTime: currentTime, duration: scene.durationSeconds)
+            currentTime += scene.durationSeconds
+            return clip
+        }
+        project?.timeline = Timeline(clips: clips)
+
         project?.modifiedAt = Date()
     }
 
