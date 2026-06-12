@@ -393,22 +393,22 @@ Create reusable design components so the app stays visually consistent.
 
 ## TODO
 
-- [ ] Add semantic colours
-- [ ] Add typography tokens
-- [ ] Add spacing tokens
-- [ ] Add reusable button styles
-- [ ] Add `PrimaryButton`
-- [ ] Add `SecondaryButton`
-- [ ] Add `IconButton`
-- [ ] Add `ElementChip`
-- [ ] Add `ProjectCard`
-- [ ] Add `SceneCard`
-- [ ] Add `ModelCard`
-- [ ] Add `ProgressCard`
-- [ ] Add `EmptyStateView`
-- [ ] Add `InspectorPanel`
-- [ ] Add `StatusBadge`
-- [ ] Replace temporary UI elements with design system components
+- [x] Add semantic colours
+- [x] Add typography tokens
+- [x] Add spacing tokens
+- [x] Add reusable button styles
+- [x] Add `PrimaryButton`
+- [x] Add `SecondaryButton`
+- [x] Add `IconButton`
+- [x] Add `ElementChip`
+- [x] Add `ProjectCard`
+- [x] Add `SceneCard`
+- [x] Add `ModelCard`
+- [x] Add `ProgressCard`
+- [x] Add `EmptyStateView`
+- [x] Add `InspectorPanel`
+- [x] Add `StatusBadge`
+- [x] Replace temporary UI elements with design system components
 
 ## Prompt for Junie
 
@@ -457,23 +457,23 @@ Create the Swift domain models used by the app.
 
 ## TODO
 
-- [ ] Add `Project.swift`
-- [ ] Add `Scene.swift`
-- [ ] Add `GenerationJob.swift`
-- [ ] Add `ContinuityElement.swift`
-- [ ] Add `CharacterElement.swift`
-- [ ] Add `LocationElement.swift`
-- [ ] Add `StyleElement.swift`
-- [ ] Add `CameraPreset.swift`
-- [ ] Add `AudioIdentity.swift`
-- [ ] Add `BrandKit.swift`
-- [ ] Add `PromptBlock.swift`
-- [ ] Add `LoraReference.swift`
-- [ ] Add `ExportTemplate.swift`
-- [ ] Add `ModelProfile.swift`
-- [ ] Add Codable support
-- [ ] Add sample fixtures
-- [ ] Add unit tests for encoding/decoding
+- [x] Add `Project.swift`
+- [x] Add `Scene.swift`
+- [x] Add `GenerationJob.swift`
+- [x] Add `ContinuityElement.swift`
+- [x] Add `CharacterElement.swift`
+- [x] Add `LocationElement.swift`
+- [x] Add `StyleElement.swift`
+- [x] Add `CameraPreset.swift`
+- [x] Add `AudioIdentity.swift`
+- [x] Add `BrandKit.swift`
+- [x] Add `PromptBlock.swift`
+- [x] Add `LoraReference.swift`
+- [x] Add `ExportTemplate.swift`
+- [x] Add `ModelProfile.swift`
+- [x] Add Codable support
+- [x] Add sample fixtures
+- [x] Add unit tests for encoding/decoding
 
 ## Prompt for Junie
 
