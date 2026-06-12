@@ -522,17 +522,17 @@ Implement Git-friendly project folder persistence.
 
 ## TODO
 
-- [ ] Create `ProjectStore` protocol
-- [ ] Create `FileProjectStore`
-- [ ] Save project as folder
-- [ ] Save `project.json`
-- [ ] Save scenes under `scenes/`
-- [ ] Save prompts as Markdown
-- [ ] Save generation metadata
-- [ ] Load project from folder
-- [ ] Validate missing files gracefully
-- [ ] Add project README generation
-- [ ] Add tests for save/load
+- [x] Create `ProjectStore` protocol
+- [x] Create `FileProjectStore`
+- [x] Save project as folder
+- [x] Save `project.json`
+- [x] Save scenes under `scenes/`
+- [x] Save prompts as Markdown
+- [x] Save generation metadata
+- [x] Load project from folder
+- [x] Validate missing files gracefully
+- [x] Add project README generation
+- [x] Add tests for save/load
 
 ## Project folder example
 

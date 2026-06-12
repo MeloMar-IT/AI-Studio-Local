@@ -60,6 +60,46 @@ final class ProjectStoreTests: XCTestCase {
         XCTAssertEqual(loadedSceneIds, originalSceneIds)
     }
 
+    func testSaveAndLoadGenerationMetadata() throws {
+        let projectURL = tempDirectory.appendingPathComponent("MetadataProject.ltxproject")
+        let scene = Scene.mock
+        let job = GenerationJob(
+            id: "gen-123",
+            projectId: "mock-project",
+            sceneId: scene.id,
+            status: .completed,
+            progress: 1.0
+        )
+        let composedPrompt = "Composed: A man walking through a futuristic city with consistent character"
+
+        // 1. Setup project structure
+        try projectStore.save(project: Project.mock, scenes: [scene], to: projectURL)
+
+        // 2. Save metadata
+        try projectStore.saveGenerationMetadata(job, for: scene.id, composedPrompt: composedPrompt, to: projectURL)
+
+        // 3. Verify files
+        let genDir = projectURL
+            .appendingPathComponent("scenes")
+            .appendingPathComponent(scene.id)
+            .appendingPathComponent("generations")
+            .appendingPathComponent(job.id)
+
+        XCTAssertTrue(fileManager.fileExists(atPath: genDir.appendingPathComponent("metadata.json").path))
+        XCTAssertTrue(fileManager.fileExists(atPath: genDir.appendingPathComponent("composed-prompt.md").path))
+
+        // 4. Load metadata
+        let loadedJob = try projectStore.loadGenerationMetadata(for: scene.id, generationId: job.id, from: projectURL)
+
+        // 5. Verify content
+        XCTAssertEqual(loadedJob.id, job.id)
+        XCTAssertEqual(loadedJob.status, .completed)
+        XCTAssertEqual(loadedJob.progress, 1.0)
+
+        let loadedComposedPrompt = try String(contentsOf: genDir.appendingPathComponent("composed-prompt.md"), encoding: .utf8)
+        XCTAssertEqual(loadedComposedPrompt, composedPrompt)
+    }
+
     func testLoadMissingProjectThrowsError() {
         let projectURL = tempDirectory.appendingPathComponent("NonExistent.ltxproject")
         XCTAssertThrowsError(try projectStore.load(from: projectURL)) { error in

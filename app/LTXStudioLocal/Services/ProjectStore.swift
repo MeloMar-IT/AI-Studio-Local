@@ -3,6 +3,8 @@ import Foundation
 public protocol ProjectStore {
     func save(project: Project, scenes: [Scene], to url: URL) throws
     func load(from url: URL) throws -> (Project, [Scene])
+    func saveGenerationMetadata(_ job: GenerationJob, for sceneId: String, composedPrompt: String?, to projectURL: URL) throws
+    func loadGenerationMetadata(for sceneId: String, generationId: String, from projectURL: URL) throws -> GenerationJob
 }
 
 public enum ProjectStoreError: Error {
@@ -93,6 +95,49 @@ public final class FileProjectStore: ProjectStore {
             throw ProjectStoreError.decodingError(error)
         } catch {
             throw ProjectStoreError.fileSystemError(error)
+        }
+    }
+
+    public func saveGenerationMetadata(_ job: GenerationJob, for sceneId: String, composedPrompt: String?, to projectURL: URL) throws {
+        let generationDirectory = projectURL
+            .appendingPathComponent("scenes")
+            .appendingPathComponent(sceneId)
+            .appendingPathComponent("generations")
+            .appendingPathComponent(job.id)
+
+        do {
+            try fileManager.createDirectory(at: generationDirectory, withIntermediateDirectories: true)
+
+            // Save metadata.json
+            let metadataData = try jsonEncoder.encode(job)
+            try metadataData.write(to: generationDirectory.appendingPathComponent("metadata.json"))
+
+            // Save composed-prompt.md if provided
+            if let composedPrompt = composedPrompt {
+                try composedPrompt.write(to: generationDirectory.appendingPathComponent("composed-prompt.md"), atomically: true, encoding: .utf8)
+            }
+        } catch {
+            throw ProjectStoreError.fileSystemError(error)
+        }
+    }
+
+    public func loadGenerationMetadata(for sceneId: String, generationId: String, from projectURL: URL) throws -> GenerationJob {
+        let metadataURL = projectURL
+            .appendingPathComponent("scenes")
+            .appendingPathComponent(sceneId)
+            .appendingPathComponent("generations")
+            .appendingPathComponent(generationId)
+            .appendingPathComponent("metadata.json")
+
+        guard fileManager.fileExists(atPath: metadataURL.path) else {
+            throw ProjectStoreError.fileSystemError(NSError(domain: "ProjectStore", code: 404, userInfo: [NSLocalizedDescriptionKey: "Metadata not found"]))
+        }
+
+        do {
+            let data = try Data(contentsOf: metadataURL)
+            return try jsonDecoder.decode(GenerationJob.self, from: data)
+        } catch {
+            throw ProjectStoreError.decodingError(error)
         }
     }
 
