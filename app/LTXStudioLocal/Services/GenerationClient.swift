@@ -4,6 +4,7 @@ public protocol GenerationClient {
     func checkHealth() async throws -> HealthStatus
     func fetchModels() async throws -> [ModelProfile]
     func submitTextToVideo(request: GenerationRequest) async throws -> String // returns job_id
+    func submitImageToVideo(request: GenerationRequest) async throws -> String // returns job_id
     func getJobStatus(jobId: String) async throws -> GenerationJob
     func cancelJob(jobId: String) async throws
 }
@@ -47,6 +48,7 @@ public struct GenerationRequest: Codable {
     public let modelId: String
     public let projectId: String
     public let sceneId: String
+    public let imagePath: String?
 
     public init(
         prompt: String,
@@ -59,7 +61,8 @@ public struct GenerationRequest: Codable {
         seed: Int? = nil,
         modelId: String,
         projectId: String,
-        sceneId: String
+        sceneId: String,
+        imagePath: String? = nil
     ) {
         self.prompt = prompt
         self.negativePrompt = negativePrompt
@@ -72,6 +75,7 @@ public struct GenerationRequest: Codable {
         self.modelId = modelId
         self.projectId = projectId
         self.sceneId = sceneId
+        self.imagePath = imagePath
     }
 
     enum CodingKeys: String, CodingKey {
@@ -86,6 +90,7 @@ public struct GenerationRequest: Codable {
         case modelId = "model_id"
         case projectId = "project_id"
         case sceneId = "scene_id"
+        case imagePath = "image_path"
     }
 }
 
@@ -131,7 +136,15 @@ public final class HTTPGenerationClient: GenerationClient {
     }
 
     public func submitTextToVideo(request: GenerationRequest) async throws -> String {
-        let url = baseURL.appendingPathComponent("generate/text-to-video")
+        return try await submitGeneration(request: request, endpoint: "generate/text-to-video")
+    }
+
+    public func submitImageToVideo(request: GenerationRequest) async throws -> String {
+        return try await submitGeneration(request: request, endpoint: "generate/image-to-video")
+    }
+
+    private func submitGeneration(request: GenerationRequest, endpoint: String) async throws -> String {
+        let url = baseURL.appendingPathComponent(endpoint)
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")

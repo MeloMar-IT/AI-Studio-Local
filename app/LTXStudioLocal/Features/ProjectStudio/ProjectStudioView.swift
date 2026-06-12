@@ -494,6 +494,72 @@ struct ProjectStudioView: View {
                             set: { viewModel.renameScene(scene.id, newName: $0) }
                         ))
                         .textFieldStyle(.roundedBorder)
+
+                        Text("Mode")
+                            .font(.App.caption)
+                            .foregroundColor(Color.App.secondaryText)
+                            .padding(.top, Spacing.xSmall)
+
+                        Picker("Scene Mode", selection: Binding(
+                            get: { scene.mode },
+                            set: { viewModel.updateSceneMode(scene.id, mode: $0) }
+                        )) {
+                            Text("Text to Video").tag(SceneMode.textToVideo)
+                            Text("Image to Video").tag(SceneMode.imageToVideo)
+                        }
+                        .pickerStyle(.segmented)
+                    }
+                }
+
+                if scene.mode == .imageToVideo {
+                    InspectorSection(title: "Reference Image") {
+                        VStack(alignment: .leading, spacing: Spacing.small) {
+                            if let imagePath = scene.referenceImagePath,
+                               let image = NSImage(contentsOfFile: imagePath) {
+                                Image(nsImage: image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 120)
+                                    .cornerRadius(4)
+                                    .overlay(
+                                        Button(action: { viewModel.updateReferenceImage(scene.id, path: nil) }) {
+                                            Image(systemName: "xmark.circle.fill")
+                                                .foregroundColor(.white)
+                                                .background(Color.black.opacity(0.5).clipShape(Circle()))
+                                        }
+                                        .buttonStyle(.plain)
+                                        .padding(4),
+                                        alignment: .topTrailing
+                                    )
+                            } else {
+                                RoundedRectangle(cornerRadius: 4)
+                                    .stroke(Color.App.border, style: StrokeStyle(lineWidth: 1, dash: [4]))
+                                    .frame(height: 120)
+                                    .overlay(
+                                        VStack(spacing: Spacing.xSmall) {
+                                            Image(systemName: "photo.on.rectangle.angled")
+                                                .font(.system(size: 24))
+                                            Text("Drop image here")
+                                                .font(.App.caption)
+                                        }
+                                        .foregroundColor(Color.App.secondaryText)
+                                    )
+                                    .onDrop(of: ["public.file-url"], isTargeted: nil) { providers in
+                                        if let provider = providers.first {
+                                            provider.loadDataRepresentation(forTypeIdentifier: "public.file-url") { data, error in
+                                                if let data = data, let path = String(data: data, encoding: .utf8), let url = URL(string: path) {
+                                                    DispatchQueue.main.async {
+                                                        viewModel.updateReferenceImage(scene.id, path: url.path)
+                                                    }
+                                                }
+                                            }
+                                            return true
+                                        }
+                                        return false
+                                    }
+                            }
+                        }
                     }
                 }
 

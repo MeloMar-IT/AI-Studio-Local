@@ -88,6 +88,18 @@ async def text_to_video(request: GenerationRequest):
     return job
 
 
+@router.post("/generate/image-to-video", response_model=JobStatus)
+async def image_to_video(request: GenerationRequest):
+    if not request.image_path:
+        raise HTTPException(status_code=400, detail="image_path is required for image-to-video")
+
+    job_id = job_store.create_job(request)
+    job = job_store.get_job(job_id)
+    if not job:
+        raise HTTPException(status_code=500, detail="Failed to create job")
+    return job
+
+
 @router.get("/jobs/{job_id}", response_model=JobStatus)
 async def get_job(job_id: str):
     job = job_store.get_job(job_id)

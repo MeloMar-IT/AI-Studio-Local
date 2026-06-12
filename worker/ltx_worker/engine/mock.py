@@ -64,6 +64,10 @@ class MockGenerationEngine(GenerationEngine):
             ("encoding_output", 0.9, "Encoding final MP4..."),
         ]
 
+        if getattr(request, "image_path", None):
+            logger.info(f"Mock image-to-video using image: {request.image_path}")
+            stages.insert(3, ("processing_image", 0.35, "Processing input image..."))
+
         for status, progress, message in stages:
             if progress_callback:
                 progress_callback(status, progress, message)

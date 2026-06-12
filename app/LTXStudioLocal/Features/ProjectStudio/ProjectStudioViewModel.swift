@@ -94,6 +94,20 @@ class ProjectStudioViewModel: ObservableObject {
         }
     }
 
+    func updateSceneMode(_ sceneId: String, mode: SceneMode) {
+        if let index = scenes.firstIndex(where: { $0.id == sceneId }) {
+            scenes[index].mode = mode
+            updateProject()
+        }
+    }
+
+    func updateReferenceImage(_ sceneId: String, path: String?) {
+        if let index = scenes.firstIndex(where: { $0.id == sceneId }) {
+            scenes[index].referenceImagePath = path
+            updateProject()
+        }
+    }
+
     func improvePrompt(for sceneId: String) {
         guard let index = scenes.firstIndex(where: { $0.id == sceneId }) else { return }
         let currentPrompt = scenes[index].prompt
@@ -232,12 +246,18 @@ class ProjectStudioViewModel: ObservableObject {
             negativePrompt: composed.negativePrompt,
             modelId: "ltx-video-v1", // Default model for now
             projectId: project.id,
-            sceneId: scene.id
+            sceneId: scene.id,
+            imagePath: scene.mode == .imageToVideo ? scene.referenceImagePath : nil
         )
 
         Task {
             do {
-                let jobId = try await generationClient.submitTextToVideo(request: request)
+                let jobId: String
+                if scene.mode == .imageToVideo {
+                    jobId = try await generationClient.submitImageToVideo(request: request)
+                } else {
+                    jobId = try await generationClient.submitTextToVideo(request: request)
+                }
 
                 let job = GenerationJob(
                     id: jobId,

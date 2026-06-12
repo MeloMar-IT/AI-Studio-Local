@@ -1553,15 +1553,15 @@ Add image animation workflow.
 
 ## TODO
 
-- [ ] Add image input to scene model
-- [ ] Add drag/drop image area
-- [ ] Add image preview
-- [ ] Add image-to-video request schema
-- [ ] Add worker endpoint if not present
-- [ ] Add mock image-to-video job
+- [x] Add image input to scene model
+- [x] Add drag/drop image area
+- [x] Add image preview
+- [x] Add image-to-video request schema
+- [x] Add worker endpoint if not present
+- [x] Add mock image-to-video job
 - [ ] Add real image-to-video behind engine later
-- [ ] Save input image reference
-- [ ] Save metadata
+- [x] Save input image reference
+- [x] Save metadata
 
 ## Prompt for Junie
 

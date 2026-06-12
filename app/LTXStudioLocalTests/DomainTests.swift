@@ -27,11 +27,17 @@ final class DomainTests: XCTestCase {
     }
 
     func testSceneEncodingDecoding() throws {
-        let scene = Scene.mock
+        var scene = Scene.mock
+        scene.mode = .imageToVideo
+        scene.referenceImagePath = "/path/to/image.jpg"
+
         let data = try encoder.encode(scene)
         let decoded = try decoder.decode(Scene.self, from: data)
+
         XCTAssertEqual(scene.id, decoded.id)
         XCTAssertEqual(scene.name, decoded.name)
+        XCTAssertEqual(scene.mode, decoded.mode)
+        XCTAssertEqual(scene.referenceImagePath, decoded.referenceImagePath)
         XCTAssertEqual(scene.attachedContinuityElements.count, decoded.attachedContinuityElements.count)
     }
 

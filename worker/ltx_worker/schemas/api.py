@@ -39,6 +39,9 @@ class GenerationRequest(BaseModel):
     guidance_scale: float = 3.0
     seed: Optional[int] = None
     model_id: str
+    project_id: Optional[str] = None
+    scene_id: Optional[str] = None
+    image_path: Optional[str] = None
 
 
 class JobStatus(BaseModel):

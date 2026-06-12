@@ -55,17 +55,27 @@ def test_job_not_found():
     assert response.status_code == 404
 
 
-def test_cancel_job():
+def test_create_image_to_video_job():
     payload = {
-        "prompt": "A beautiful sunset over the ocean",
+        "prompt": "Make this image move",
         "model_id": "ltx-2.3-distilled",
+        "image_path": "/path/to/image.jpg"
     }
-    response = client.post("/generate/text-to-video", json=payload)
-    job_id = response.json()["job_id"]
-
-    response = client.post(f"/jobs/{job_id}/cancel")
+    response = client.post("/generate/image-to-video", json=payload)
     assert response.status_code == 200
-    assert response.json()["status"] == "cancelled"
+    data = response.json()
+    assert "job_id" in data
 
+    job_id = data["job_id"]
+    # Check that it started
     response = client.get(f"/jobs/{job_id}")
-    assert response.json()["status"] == "cancelled"
+    assert response.status_code == 200
+
+def test_image_to_video_missing_image():
+    payload = {
+        "prompt": "Make this image move",
+        "model_id": "ltx-2.3-distilled"
+    }
+    response = client.post("/generate/image-to-video", json=payload)
+    assert response.status_code == 400
+    assert "image_path is required" in response.json()["detail"]

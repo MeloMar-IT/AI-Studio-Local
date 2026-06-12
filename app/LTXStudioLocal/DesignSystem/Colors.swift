@@ -17,5 +17,6 @@ extension Color {
 
         static let border = Color.secondary.opacity(0.2)
         static let shadow = Color.black.opacity(0.1)
+        static let cardBackground = Color(NSColor.controlBackgroundColor)
     }
 }

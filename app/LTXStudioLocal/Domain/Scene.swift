@@ -72,6 +72,7 @@ public struct Scene: Codable, Identifiable, Equatable {
     public var durationSeconds: Double
     public var aspectRatio: String?
     public var resolution: SceneResolution?
+    public var referenceImagePath: String?
     public var attachedContinuityElements: [AttachedContinuityElement]
     public var consistencyLocks: ConsistencyLocks
     public var generations: [SceneGeneration]
@@ -85,6 +86,7 @@ public struct Scene: Codable, Identifiable, Equatable {
         durationSeconds: Double = 5.0,
         aspectRatio: String? = nil,
         resolution: SceneResolution? = nil,
+        referenceImagePath: String? = nil,
         attachedContinuityElements: [AttachedContinuityElement] = [],
         consistencyLocks: ConsistencyLocks = ConsistencyLocks(),
         generations: [SceneGeneration] = []
@@ -97,6 +99,7 @@ public struct Scene: Codable, Identifiable, Equatable {
         self.durationSeconds = durationSeconds
         self.aspectRatio = aspectRatio
         self.resolution = resolution
+        self.referenceImagePath = referenceImagePath
         self.attachedContinuityElements = attachedContinuityElements
         self.consistencyLocks = consistencyLocks
         self.generations = generations
@@ -111,6 +114,7 @@ public struct Scene: Codable, Identifiable, Equatable {
         case durationSeconds = "duration_seconds"
         case aspectRatio = "aspect_ratio"
         case resolution
+        case referenceImagePath = "reference_image_path"
         case attachedContinuityElements = "attached_continuity_elements"
         case consistencyLocks = "consistency_locks"
         case generations
