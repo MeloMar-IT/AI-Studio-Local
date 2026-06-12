@@ -5,6 +5,7 @@ public protocol GenerationClient {
     func fetchModels() async throws -> [ModelProfile]
     func submitTextToVideo(request: GenerationRequest) async throws -> String // returns job_id
     func getJobStatus(jobId: String) async throws -> GenerationJob
+    func cancelJob(jobId: String) async throws
 }
 
 public struct HealthStatus: Codable {
@@ -132,6 +133,8 @@ public final class HTTPGenerationClient: GenerationClient {
             let error: String?
             let projectId: String?
             let sceneId: String?
+            let startedAt: Date?
+            let completedAt: Date?
         }
 
         let workerStatus = try decoder.decode(WorkerJobStatus.self, from: data)
@@ -142,8 +145,23 @@ public final class HTTPGenerationClient: GenerationClient {
             sceneId: workerStatus.sceneId ?? "unknown",
             status: JobStatus(rawValue: workerStatus.status) ?? .queued,
             progress: workerStatus.progress,
+            startedAt: workerStatus.startedAt,
+            completedAt: workerStatus.completedAt,
             outputPaths: workerStatus.resultUrl.map { JobOutputPaths(video: $0) },
             errorInformation: workerStatus.error.map { JobErrorInformation(code: "worker_error", message: $0) }
         )
+    }
+
+    public func cancelJob(jobId: String) async throws {
+        let url = baseURL.appendingPathComponent("jobs/\(jobId)/cancel")
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+
+        let (_, response) = try await session.data(for: urlRequest)
+
+        guard let httpResponse = response as? HTTPURLResponse,
+              (200...299).contains(httpResponse.statusCode) else {
+            throw NSError(domain: "GenerationClient", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to cancel job"])
+        }
     }
 }

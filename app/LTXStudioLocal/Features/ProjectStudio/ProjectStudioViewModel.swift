@@ -27,6 +27,15 @@ class ProjectStudioViewModel: ObservableObject {
                 }
             }
             .store(in: &cancellables)
+
+        NotificationCenter.default.publisher(for: .selectScene)
+            .receive(on: RunLoop.main)
+            .sink { [weak self] notification in
+                if let sceneId = notification.object as? String {
+                    self?.selectedSceneId = sceneId
+                }
+            }
+            .store(in: &cancellables)
     }
 
     func setAppState(_ appState: AppState) {
@@ -136,7 +145,9 @@ class ProjectStudioViewModel: ObservableObject {
                     status: .queued,
                     mode: scene.mode,
                     modelProfile: ModelProfileSummary(id: "ltx-video-v1", name: "LTX Video v1"),
-                    progress: 0
+                    progress: 0,
+                    startedAt: Date(),
+                    sceneName: scene.name
                 )
 
                 await MainActor.run {

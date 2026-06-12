@@ -55,8 +55,36 @@ class AppState: ObservableObject {
     func addJob(_ job: GenerationJob) {
         DispatchQueue.main.async {
             self.activeJobs.append(job)
-            self.activeJobsCount = self.activeJobs.filter { $0.status != .completed && $0.status != .failed && $0.status != .cancelled }.count
+            self.updateActiveJobsCount()
         }
+    }
+
+    func cancelJob(_ job: GenerationJob) {
+        Task {
+            do {
+                try await generationClient.cancelJob(jobId: job.id)
+                await MainActor.run {
+                    if let index = self.activeJobs.firstIndex(where: { $0.id == job.id }) {
+                        self.activeJobs[index].status = .cancelled
+                        self.activeJobs[index].completedAt = Date()
+                        self.updateActiveJobsCount()
+                    }
+                }
+            } catch {
+                print("Failed to cancel job: \(error)")
+            }
+        }
+    }
+
+    func clearCompletedJobs() {
+        DispatchQueue.main.async {
+            self.activeJobs.removeAll { $0.status == .completed || $0.status == .failed || $0.status == .cancelled }
+            self.updateActiveJobsCount()
+        }
+    }
+
+    private func updateActiveJobsCount() {
+        self.activeJobsCount = self.activeJobs.filter { $0.status != .completed && $0.status != .failed && $0.status != .cancelled }.count
     }
 
     private func startPolling() {
@@ -74,12 +102,21 @@ class AppState: ObservableObject {
                     let updatedJob = try await generationClient.getJobStatus(jobId: job.id)
                     await MainActor.run {
                         if let index = self.activeJobs.firstIndex(where: { $0.id == job.id }) {
-                            self.activeJobs[index] = updatedJob
-                            self.activeJobsCount = self.activeJobs.filter { $0.status != .completed && $0.status != .failed && $0.status != .cancelled }.count
+                            var updatedJobWithLocalData = updatedJob
+                            // Preserve local data if worker doesn't return it
+                            updatedJobWithLocalData.sceneName = updatedJob.sceneName ?? self.activeJobs[index].sceneName
+                            updatedJobWithLocalData.startedAt = updatedJob.startedAt ?? self.activeJobs[index].startedAt
+
+                            if updatedJob.status == .completed || updatedJob.status == .failed || updatedJob.status == .cancelled {
+                                updatedJobWithLocalData.completedAt = updatedJob.completedAt ?? Date()
+                            }
+
+                            self.activeJobs[index] = updatedJobWithLocalData
+                            self.updateActiveJobsCount()
 
                             if updatedJob.status == .completed {
                                 // In a real app, we might want to notify the ProjectStore or Scene here
-                                NotificationCenter.default.post(name: .generationCompleted, object: updatedJob)
+                                NotificationCenter.default.post(name: .generationCompleted, object: updatedJobWithLocalData)
                             }
                         }
                     }

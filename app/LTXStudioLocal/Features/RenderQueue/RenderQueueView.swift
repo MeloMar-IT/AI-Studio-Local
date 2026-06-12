@@ -2,13 +2,26 @@ import SwiftUI
 
 struct RenderQueueView: View {
     @EnvironmentObject var appState: AppState
+    @EnvironmentObject var router: AppRouter
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: Spacing.large) {
-                Text("Render Queue")
-                    .font(.App.largeTitle)
-                    .padding(.bottom, Spacing.small)
+                HStack {
+                    Text("Render Queue")
+                        .font(.App.largeTitle)
+
+                    Spacer()
+
+                    if !appState.activeJobs.isEmpty {
+                        Button(action: { appState.clearCompletedJobs() }) {
+                            Label("Clear Finished", systemImage: "trash")
+                        }
+                        .buttonStyle(.plain)
+                        .foregroundColor(Color.App.secondaryText)
+                    }
+                }
+                .padding(.bottom, Spacing.small)
 
                 if appState.activeJobs.isEmpty {
                     emptyState
@@ -45,12 +58,34 @@ struct RenderQueueView: View {
         VStack(spacing: Spacing.medium) {
             ForEach(appState.activeJobs.reversed()) { job in
                 ProgressCard(
-                    title: "Scene \(job.sceneId)", // Ideally we'd have the scene name here
-                    subtitle: job.mode.rawValue.capitalized,
+                    title: job.sceneName ?? "Scene \(job.sceneId)",
+                    subtitle: "\(job.mode.rawValue.capitalized) • \(job.modelProfile?.name ?? "Default Model")",
                     progress: job.progress,
-                    status: job.status.rawValue.replacingOccurrences(of: "_", with: " ").capitalized
+                    status: job.status.rawValue.replacingOccurrences(of: "_", with: " ").capitalized,
+                    startedAt: job.startedAt,
+                    completedAt: job.completedAt,
+                    errorInformation: job.errorInformation,
+                    jobStatus: job.status,
+                    onCancel: {
+                        appState.cancelJob(job)
+                    },
+                    onRetry: {
+                        // In a real app, this would trigger a new generation in ProjectStudioViewModel
+                        // For MVP, we can just print or show an alert
+                        print("Retry job \(job.id)")
+                    },
+                    onOpenScene: {
+                        router.selectedProjectID = job.projectId
+                        router.selectedScreen = .projectStudio
+                        // We might need a way to pass the selected scene to the ProjectStudioView
+                        NotificationCenter.default.post(name: .selectScene, object: job.sceneId)
+                    }
                 )
             }
         }
     }
+}
+
+extension NSNotification.Name {
+    static let selectScene = NSNotification.Name("selectScene")
 }

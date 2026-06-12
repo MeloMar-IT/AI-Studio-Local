@@ -57,6 +57,9 @@ public struct GenerationJob: Codable, Identifiable, Equatable {
     public var mode: SceneMode
     public var modelProfile: ModelProfileSummary?
     public var progress: Double
+    public var startedAt: Date?
+    public var completedAt: Date?
+    public var sceneName: String?
     public var outputPaths: JobOutputPaths?
     public var errorInformation: JobErrorInformation?
 
@@ -68,6 +71,9 @@ public struct GenerationJob: Codable, Identifiable, Equatable {
         mode: SceneMode = .textToVideo,
         modelProfile: ModelProfileSummary? = nil,
         progress: Double = 0,
+        startedAt: Date? = nil,
+        completedAt: Date? = nil,
+        sceneName: String? = nil,
         outputPaths: JobOutputPaths? = nil,
         errorInformation: JobErrorInformation? = nil
     ) {
@@ -78,6 +84,9 @@ public struct GenerationJob: Codable, Identifiable, Equatable {
         self.mode = mode
         self.modelProfile = modelProfile
         self.progress = progress
+        self.startedAt = startedAt
+        self.completedAt = completedAt
+        self.sceneName = sceneName
         self.outputPaths = outputPaths
         self.errorInformation = errorInformation
     }
@@ -90,6 +99,9 @@ public struct GenerationJob: Codable, Identifiable, Equatable {
         case mode
         case modelProfile = "model_profile"
         case progress
+        case startedAt = "started_at"
+        case completedAt = "completed_at"
+        case sceneName = "scene_name"
         case outputPaths = "output_paths"
         case errorInformation = "error_information"
     }

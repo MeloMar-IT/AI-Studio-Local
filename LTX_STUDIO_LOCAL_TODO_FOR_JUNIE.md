@@ -1014,7 +1014,7 @@ Do not implement real LTX generation yet.
 
 ---
 
-# Phase 15 — Render Queue UX
+# Phase 15 — Render Queue UX ✓
 
 ## Goal
 
@@ -1022,16 +1022,16 @@ Make generation progress clear and trustworthy.
 
 ## TODO
 
-- [ ] Create render queue screen
-- [ ] Show active jobs
-- [ ] Show completed jobs
-- [ ] Show failed jobs
-- [ ] Show stage and percentage
-- [ ] Add cancel button
-- [ ] Add retry button for failed jobs
-- [ ] Add open scene button
-- [ ] Add clear completed button
-- [ ] Add helpful failure messages
+- [✓] Create render queue screen
+- [✓] Show active jobs
+- [✓] Show completed jobs
+- [✓] Show failed jobs
+- [✓] Show stage and percentage
+- [✓] Add cancel button
+- [✓] Add retry button for failed jobs
+- [✓] Add open scene button
+- [✓] Add clear completed button
+- [✓] Add helpful failure messages
 
 ## Prompt for Junie
 
