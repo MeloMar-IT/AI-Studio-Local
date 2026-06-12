@@ -31,6 +31,7 @@ struct ElementChip: View {
             RoundedRectangle(cornerRadius: Spacing.xxxLarge)
                 .stroke(Color.App.border, lineWidth: 1)
         )
+        .contentShape(Rectangle()) // Ensure the whole area is tappable
         .onTapGesture {
             action?()
         }

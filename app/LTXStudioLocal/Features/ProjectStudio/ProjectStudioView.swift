@@ -4,6 +4,8 @@ struct ProjectStudioView: View {
     @StateObject private var viewModel = ProjectStudioViewModel()
     @State private var editingSceneId: String?
     @State private var newSceneName: String = ""
+    @State private var isShowingElementPicker = false
+    @State private var selectedElementForDetail: ContinuityElement?
 
     var body: some View {
         Group {
@@ -19,6 +21,36 @@ struct ProjectStudioView: View {
                 viewModel.selectProject(.mock, scenes: [.mock, Scene(name: "Scene 2", prompt: "A robot in a garden")])
             }
         }
+        .sheet(isPresented: $isShowingElementPicker) {
+            if let sceneId = viewModel.selectedSceneId {
+                ContinuityElementPicker { element in
+                    viewModel.attachElement(sceneId, elementId: element.id, type: element.type)
+                }
+            }
+        }
+        .sheet(item: $selectedElementForDetail) { element in
+            elementDetailSheet(element)
+        }
+    }
+
+    private func elementDetailSheet(_ element: ContinuityElement) -> some View {
+        VStack(spacing: 0) {
+            HStack {
+                Text("Element Details")
+                    .font(.App.headline)
+                Spacer()
+                Button("Done") {
+                    selectedElementForDetail = nil
+                }
+                .buttonStyle(.plain)
+                .foregroundColor(Color.App.accent)
+            }
+            .padding()
+            .background(Color.App.surface)
+
+            ContinuityElementDetailView(viewModel: ContinuityLibraryViewModel(), element: element)
+        }
+        .frame(width: 500, height: 600)
     }
 
     private var studioContent: some View {
@@ -179,24 +211,48 @@ struct ProjectStudioView: View {
                 }
 
                 InspectorSection(title: "Continuity Elements") {
-                    if scene.attachedContinuityElements.isEmpty {
-                        Text("No elements attached")
-                            .font(.App.caption)
-                            .foregroundColor(Color.App.secondaryText)
-                    } else {
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: Spacing.xxSmall) {
-                                ForEach(scene.attachedContinuityElements, id: \.elementId) { element in
-                                    ElementChip(element.elementId, icon: element.type.iconName)
+                    VStack(alignment: .leading, spacing: Spacing.small) {
+                        if scene.attachedContinuityElements.isEmpty {
+                            Text("No elements attached")
+                                .font(.App.caption)
+                                .foregroundColor(Color.App.secondaryText)
+                        } else {
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: Spacing.xxSmall) {
+                                    ForEach(scene.attachedContinuityElements, id: \.elementId) { element in
+                                        ElementChip(element.elementId, icon: element.type.iconName) {
+                                            // Open detail
+                                            if let found = try? FileContinuityStore().loadAll().first(where: { $0.id == element.elementId }) {
+                                                selectedElementForDetail = found
+                                            }
+                                        }
+                                        .contextMenu {
+                                            Button(role: .destructive) {
+                                                viewModel.removeElement(scene.id, elementId: element.elementId)
+                                            } label: {
+                                                Label("Remove", systemImage: "trash")
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
+
+                        Button(action: { isShowingElementPicker = true }) {
+                            HStack {
+                                Image(systemName: "plus.circle")
+                                Text("Add reusable element")
+                            }
+                            .font(.App.caption)
+                            .foregroundColor(Color.App.accent)
+                        }
+                        .buttonStyle(.plain)
                     }
                 }
 
                 InspectorSection(title: "Consistency Locks") {
                     VStack(spacing: Spacing.xxSmall) {
-                        LockToggle(label: "Character", isOn: Binding(
+                        LockToggle(label: "Character Identity", isOn: Binding(
                             get: { scene.consistencyLocks.character },
                             set: { _ in viewModel.toggleLock(scene.id, keyPath: \.character) }
                         ))
@@ -208,9 +264,17 @@ struct ProjectStudioView: View {
                             get: { scene.consistencyLocks.style },
                             set: { _ in viewModel.toggleLock(scene.id, keyPath: \.style) }
                         ))
-                        LockToggle(label: "Camera", isOn: Binding(
-                            get: { scene.consistencyLocks.camera },
-                            set: { _ in viewModel.toggleLock(scene.id, keyPath: \.camera) }
+                        LockToggle(label: "Brand", isOn: Binding(
+                            get: { scene.consistencyLocks.brand },
+                            set: { _ in viewModel.toggleLock(scene.id, keyPath: \.brand) }
+                        ))
+                        LockToggle(label: "Audio Identity", isOn: Binding(
+                            get: { scene.consistencyLocks.audio },
+                            set: { _ in viewModel.toggleLock(scene.id, keyPath: \.audio) }
+                        ))
+                        LockToggle(label: "Seed", isOn: Binding(
+                            get: { scene.consistencyLocks.seed },
+                            set: { _ in viewModel.toggleLock(scene.id, keyPath: \.seed) }
                         ))
                     }
                 }

@@ -55,6 +55,25 @@ class ProjectStudioViewModel: ObservableObject {
         }
     }
 
+    func attachElement(_ sceneId: String, elementId: String, type: ContinuityElementType) {
+        if let index = scenes.firstIndex(where: { $0.id == sceneId }) {
+            // Avoid duplicates
+            if !scenes[index].attachedContinuityElements.contains(where: { $0.elementId == elementId }) {
+                scenes[index].attachedContinuityElements.append(
+                    AttachedContinuityElement(elementId: elementId, type: type)
+                )
+                updateProject()
+            }
+        }
+    }
+
+    func removeElement(_ sceneId: String, elementId: String) {
+        if let index = scenes.firstIndex(where: { $0.id == sceneId }) {
+            scenes[index].attachedContinuityElements.removeAll { $0.elementId == elementId }
+            updateProject()
+        }
+    }
+
     private func updateProject() {
         project?.scenes = scenes.map { $0.id }
         // In a real app, we would also update the timeline here if needed

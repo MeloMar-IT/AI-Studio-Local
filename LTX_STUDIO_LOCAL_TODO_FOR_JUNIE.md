@@ -762,15 +762,15 @@ Allow users to attach reusable elements to scenes.
 
 ## TODO
 
-- [ ] Add “Add reusable element” button in Scene Inspector
-- [ ] Add element picker sheet
-- [ ] Filter by element type
-- [ ] Attach selected element to scene
-- [ ] Remove attached element
-- [ ] Show attached elements as chips
-- [ ] Click chip to open element detail
-- [ ] Add consistency lock UI
-- [ ] Persist attachments in project folder
+- [x] Add “Add reusable element” button in Scene Inspector
+- [x] Add element picker sheet
+- [x] Filter by element type
+- [x] Attach selected element to scene
+- [x] Remove attached element
+- [x] Show attached elements as chips
+- [x] Click chip to open element detail
+- [x] Add consistency lock UI
+- [x] Persist attachments in project folder
 
 ## Prompt for Junie
 
