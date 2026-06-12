@@ -975,15 +975,15 @@ Connect the SwiftUI app to the Python worker.
 
 ## TODO
 
-- [ ] Create `GenerationClient` protocol
-- [ ] Create HTTP implementation
-- [ ] Add worker health check
-- [ ] Add model fetch
-- [ ] Add text-to-video mock job submission
-- [ ] Add job polling
-- [ ] Add progress display
-- [ ] Add cancel placeholder
-- [ ] Show helpful error when worker unavailable
+- [x] Create `GenerationClient` protocol
+- [x] Create HTTP implementation
+- [x] Add worker health check
+- [x] Add model fetch
+- [x] Add text-to-video mock job submission
+- [x] Add job polling
+- [x] Add progress display
+- [x] Add cancel placeholder
+- [x] Show helpful error when worker unavailable
 
 ## Prompt for Junie
 
