@@ -13,6 +13,7 @@ public final class UserSettings: ObservableObject {
     @AppStorage("exportDirectory") public var exportDirectory: String = ""
     @AppStorage("isLocalModeEnabled") public var isLocalModeEnabled: Bool = true
     @AppStorage("isCloudFallbackEnabled") public var isCloudFallbackEnabled: Bool = false
+    @AppStorage("appEnvironment") public var appEnvironment: AppEnvironment = .development
 
     private init() {
         NSLog("⚙️ UserSettings: init started")

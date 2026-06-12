@@ -27,6 +27,13 @@ output_manager = OutputManager(settings.output_dir)
 if settings.engine_type == "ltx":
     engine = LTXGenerationEngine()
 else:
+    # Production mode must fail fast if any mock service is injected
+    if settings.environment == "production":
+        raise RuntimeError(
+            "❌ PRODUCTION SECURITY VIOLATION: Mock engine requested in production mode. "
+            "Set LTX_WORKER_ENGINE_TYPE=ltx or change LTX_WORKER_ENVIRONMENT."
+        )
+
     engine = MockGenerationEngine(
         model_loader=MockModelLoader(),
         lora_loader=MockLoraLoader(),

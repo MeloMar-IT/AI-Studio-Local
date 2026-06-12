@@ -65,3 +65,19 @@ To ensure the App and Worker speak the same language, we use shared JSON schemas
 - All project data is stored in user-accessible folders.
 - All generation happens on the local machine (no cloud dependency).
 - Privacy is guaranteed by never sending prompts or media to external servers.
+
+## Environment Modes & Mock Boundaries
+
+The application and worker support three environment modes to ensure stability and security:
+
+- **development**: Allows the use of mock engines, mock services, and preview fixtures. Default mode for local development.
+- **test**: Used for automated testing. Allows mocks and test fixtures.
+- **production**: Strict mode for real users.
+
+### Boundary Enforcement
+
+To prevent accidental use of mocks in production:
+1. **Swift App**: `AppState` init will `fatalError` if a mock service (e.g., `MockHardwareProfiler`) is injected while `appEnvironment` is set to `.production`.
+2. **Python Worker**: The worker will raise a `RuntimeError` during startup if `engine_type` is set to `mock` while `environment` is `production`.
+
+Mocks and fake data must only exist in `development` or `test` modes.

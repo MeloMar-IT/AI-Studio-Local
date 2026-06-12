@@ -22,14 +22,26 @@ class AppState: ObservableObject {
 
     private let hardwareProfiler: HardwareProfilerProtocol
     private let generationClient: GenerationClient
+    private let environment: AppEnvironment
     private var pollingTimer: Timer?
     private var cancellables = Set<AnyCancellable>()
 
     init(
         hardwareProfiler: HardwareProfilerProtocol = HardwareProfiler(),
-        generationClient: GenerationClient? = nil
+        generationClient: GenerationClient? = nil,
+        environment: AppEnvironment = UserSettings.shared.appEnvironment
     ) {
-        NSLog("🔧 AppState: init started")
+        NSLog("🔧 AppState: init started (env: \(environment.rawValue))")
+        self.environment = environment
+
+        // Enforcement: Production mode rejects mock services
+        if environment.isProduction {
+            if hardwareProfiler is MockHardwareProfiler {
+                fatalError("❌ PRODUCTION SECURITY VIOLATION: MockHardwareProfiler injected in production mode")
+            }
+            // Add other mock checks here as they are implemented
+        }
+
         self.hardwareProfiler = hardwareProfiler
 
         let client = generationClient ?? HTTPGenerationClient(baseURL: UserSettings.shared.workerBaseURL)

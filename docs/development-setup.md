@@ -49,7 +49,24 @@ If you modify the data structures shared between the App and the Worker, update 
 - Python models in `worker/ltx_worker/schemas/api.py` use these schemas via Pydantic.
 - Swift models in `app/LTXStudioLocal/Domain/` must be manually updated to match the schemas.
 
-## 5. Mock Generation Flow
+## 5. Environment Modes
+The application and worker support three environment modes: `development`, `test`, and `production`.
+
+### Setting Environment Mode
+- **Swift App**: The environment is controlled by the `appEnvironment` setting in `UserSettings` (defaults to `development`).
+- **Python Worker**: Use the `LTX_WORKER_ENVIRONMENT` environment variable (defaults to `development`).
+
+### Production Mode Safeguards
+Production mode strictly forbids the use of mock engines or mock services. If you try to run in production with a mock engine, the system will fail fast with a clear error.
+
+To run the worker in production mode (requires real MLX/LTX engine):
+```bash
+export LTX_WORKER_ENVIRONMENT=production
+export LTX_WORKER_ENGINE_TYPE=ltx
+./scripts/run-worker.sh
+```
+
+## 6. Mock Generation Flow
 
 In the current MVP phase, the worker does not perform real MLX inference. It simulates a generation process:
 1. Receives a generation request.

@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     api_prefix: str = ""
     host: str = "127.0.0.1"
     port: int = 8000
+    environment: str = "development"  # "development", "test", "production"
 
     # Engine configuration
     engine_type: str = "mock"  # "mock" or "ltx"
