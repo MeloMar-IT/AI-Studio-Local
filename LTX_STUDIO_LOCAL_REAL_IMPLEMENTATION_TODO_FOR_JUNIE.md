@@ -288,11 +288,11 @@ Add tests with temporary directories proving projects can be created, saved, loa
 
 ### TODO
 
-- [ ] Generate project README.
-- [ ] Generate project `.gitignore`.
-- [ ] Generate optional `.gitattributes` for Git LFS.
-- [ ] Store metadata as readable JSON.
-- [ ] Store prompts as Markdown.
+- [x] Generate project README.
+- [x] Generate project `.gitignore`.
+- [x] Generate optional `.gitattributes` for Git LFS.
+- [x] Store metadata as readable JSON.
+- [x] Store prompts as Markdown.
 
 ### Junie prompt
 
@@ -317,9 +317,9 @@ Add tests proving:
 
 ### Tests to prove it
 
-- [ ] Project README generation test.
-- [ ] Project `.gitignore` generation test.
-- [ ] Prompt Markdown save/load test.
+- [x] Project README generation test.
+- [x] Project `.gitignore` generation test.
+- [x] Prompt Markdown save/load test.
 
 ---
 

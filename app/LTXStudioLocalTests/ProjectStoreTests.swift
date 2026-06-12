@@ -31,6 +31,8 @@ final class ProjectStoreTests: XCTestCase {
         XCTAssertTrue(fileManager.fileExists(atPath: projectURL.appendingPathComponent("project.json").path))
         XCTAssertTrue(fileManager.fileExists(atPath: projectURL.appendingPathComponent("timeline.json").path))
         XCTAssertTrue(fileManager.fileExists(atPath: projectURL.appendingPathComponent("README.md").path))
+        XCTAssertTrue(fileManager.fileExists(atPath: projectURL.appendingPathComponent(".gitignore").path))
+        XCTAssertTrue(fileManager.fileExists(atPath: projectURL.appendingPathComponent(".gitattributes").path))
         XCTAssertTrue(fileManager.fileExists(atPath: projectURL.appendingPathComponent("scenes").path))
         XCTAssertTrue(fileManager.fileExists(atPath: projectURL.appendingPathComponent("assets/images").path))
 
@@ -190,6 +192,40 @@ final class ProjectStoreTests: XCTestCase {
                 XCTFail("Expected incompatibleVersion error, got \(error)")
             }
         }
+    }
+
+    func testGitFriendlyFilesContent() throws {
+        let project = Project.mock
+        let projectURL = tempDirectory.appendingPathComponent("GitProject.ltxproject")
+        try projectStore.save(project: project, scenes: [], to: projectURL)
+
+        // Verify README
+        let readmeContent = try String(contentsOf: projectURL.appendingPathComponent("README.md"), encoding: .utf8)
+        XCTAssertTrue(readmeContent.contains(project.name))
+        XCTAssertTrue(readmeContent.contains("Git Compatibility"))
+
+        // Verify .gitignore
+        let gitignoreContent = try String(contentsOf: projectURL.appendingPathComponent(".gitignore"), encoding: .utf8)
+        XCTAssertTrue(gitignoreContent.contains("scenes/*/generations/*/output.mp4"))
+        XCTAssertTrue(gitignoreContent.contains("exports/*.mp4"))
+
+        // Verify .gitattributes
+        let gitattributesContent = try String(contentsOf: projectURL.appendingPathComponent(".gitattributes"), encoding: .utf8)
+        XCTAssertTrue(gitattributesContent.contains("*.mp4 filter=lfs"))
+    }
+
+    func testPrettyPrintedJSON() throws {
+        let project = Project.mock
+        let projectURL = tempDirectory.appendingPathComponent("PrettyJSON.ltxproject")
+        try projectStore.save(project: project, scenes: [], to: projectURL)
+
+        let projectJSONPath = projectURL.appendingPathComponent("project.json").path
+        let jsonString = try String(contentsOfFile: projectJSONPath, encoding: .utf8)
+
+        // Basic check for pretty printing: should contain newlines and indentation
+        XCTAssertTrue(jsonString.contains("\n"))
+        XCTAssertTrue(jsonString.contains("  ")) // Assuming 2-space indentation
+        XCTAssertTrue(jsonString.contains("\"id\" : \"\(project.id)\""))
     }
 
     private func XCTEqualStoreError(_ lhs: ProjectStoreError?, _ rhs: ProjectStoreError?) {

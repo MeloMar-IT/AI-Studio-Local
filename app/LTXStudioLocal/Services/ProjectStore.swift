@@ -85,6 +85,12 @@ public final class FileProjectStore: ProjectStore {
             // 5. Generate README.md
             try generateReadme(for: project, at: url)
 
+            // 6. Generate .gitignore
+            try generateGitIgnore(at: url)
+
+            // 7. Generate .gitattributes
+            try generateGitAttributes(at: url)
+
         } catch let error as ProjectStoreError {
             throw error
         } catch {
@@ -291,7 +297,17 @@ public final class FileProjectStore: ProjectStore {
     private func loadScene(from directory: URL) throws -> Scene {
         let sceneFileURL = directory.appendingPathComponent("scene.json")
         let sceneData = try Data(contentsOf: sceneFileURL)
-        return try jsonDecoder.decode(Scene.self, from: sceneData)
+        var scene = try jsonDecoder.decode(Scene.self, from: sceneData)
+
+        // Load prompt from prompt.md to ensure they stay in sync
+        let promptURL = directory.appendingPathComponent("prompt.md")
+        if fileManager.fileExists(atPath: promptURL.path) {
+            if let prompt = try? String(contentsOf: promptURL, encoding: .utf8) {
+                scene.prompt = prompt
+            }
+        }
+
+        return scene
     }
 
     private func generateReadme(for project: Project, at url: URL) throws {
@@ -312,8 +328,54 @@ public final class FileProjectStore: ProjectStore {
         - `scenes/`: Individual scenes and their generations.
         - `assets/`: Project-specific assets (images, audio, video).
         - `exports/`: Rendered video files.
+
+        ## Git Compatibility
+        This project is designed to be Git-friendly.
+        - Metadata is stored as pretty-printed JSON.
+        - Prompts are stored as Markdown.
+        - Large media files are ignored by default via `.gitignore`.
+        - Git LFS is recommended for tracking assets.
         """
 
         try readmeContent.write(to: url.appendingPathComponent("README.md"), atomically: true, encoding: .utf8)
+    }
+
+    private func generateGitIgnore(at url: URL) throws {
+        let content = """
+        # LTX Studio Local - Project GitIgnore
+        # Ignore generated media and large assets by default
+
+        # Scenes generations
+        scenes/*/generations/*/output.mp4
+        scenes/*/generations/*/preview.jpg
+
+        # Exported files
+        exports/*.mp4
+
+        # Cache and temporary files
+        .DS_Store
+        *.tmp
+        *.log
+
+        # Assets (Recommended to use Git LFS instead of tracking directly)
+        # assets/images/*
+        # assets/audio/*
+        # assets/video/*
+        """
+        try content.write(to: url.appendingPathComponent(".gitignore"), atomically: true, encoding: .utf8)
+    }
+
+    private func generateGitAttributes(at url: URL) throws {
+        let content = """
+        # LTX Studio Local - Project GitAttributes
+        # Recommending Git LFS for video/audio/image assets
+
+        *.mp4 filter=lfs diff=lfs merge=lfs -text
+        *.jpg filter=lfs diff=lfs merge=lfs -text
+        *.png filter=lfs diff=lfs merge=lfs -text
+        *.wav filter=lfs diff=lfs merge=lfs -text
+        *.mp3 filter=lfs diff=lfs merge=lfs -text
+        """
+        try content.write(to: url.appendingPathComponent(".gitattributes"), atomically: true, encoding: .utf8)
     }
 }
