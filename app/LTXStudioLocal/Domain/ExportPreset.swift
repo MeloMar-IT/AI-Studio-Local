@@ -77,6 +77,7 @@ public struct ExportMetadata: Codable, Identifiable {
     public let timestamp: Date
     public let preset: ExportPreset
     public let clips: [ExportClipMetadata]
+    public let brandKit: BrandKit?
     public let outputPath: String
 
     public init(
@@ -86,6 +87,7 @@ public struct ExportMetadata: Codable, Identifiable {
         timestamp: Date = Date(),
         preset: ExportPreset,
         clips: [ExportClipMetadata],
+        brandKit: BrandKit? = nil,
         outputPath: String
     ) {
         self.id = id
@@ -94,6 +96,7 @@ public struct ExportMetadata: Codable, Identifiable {
         self.timestamp = timestamp
         self.preset = preset
         self.clips = clips
+        self.brandKit = brandKit
         self.outputPath = outputPath
     }
 }

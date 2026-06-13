@@ -10,6 +10,10 @@ public protocol ExportService {
 public enum ExportError: Error, LocalizedError {
     case emptyTimeline
     case projectFolderMissing
+    case missingClip(sceneId: String, clipIndex: Int)
+    case sceneNotFound(sceneId: String)
+    case generationNotFound(sceneId: String)
+    case videoFileMissing(path: String)
     case fileSystemError(Error)
     case renderingError(String)
 
@@ -19,6 +23,14 @@ public enum ExportError: Error, LocalizedError {
             return "Cannot export an empty timeline. Please add clips first."
         case .projectFolderMissing:
             return "Project folder not found."
+        case .missingClip(let sceneId, let index):
+            return "Clip \(index + 1) refers to a missing or invalid scene: \(sceneId)"
+        case .sceneNotFound(let sceneId):
+            return "Scene not found: \(sceneId)"
+        case .generationNotFound(let sceneId):
+            return "No generation found for scene: \(sceneId)"
+        case .videoFileMissing(let path):
+            return "Video file missing at path: \(path)"
         case .fileSystemError(let error):
             return "File system error: \(error.localizedDescription)"
         case .renderingError(let message):
@@ -43,6 +55,10 @@ public final class AVFoundationExportService: ExportService {
     public func exportProject(_ project: Project, scenes: [Scene], preset: ExportPreset, projectURL: URL) async throws -> ExportMetadata {
         guard !project.timeline.clips.isEmpty else {
             throw ExportError.emptyTimeline
+        }
+
+        guard fileManager.fileExists(atPath: projectURL.path) else {
+            throw ExportError.projectFolderMissing
         }
 
         let exportsURL = projectURL.appendingPathComponent("exports")
@@ -77,6 +93,7 @@ public final class AVFoundationExportService: ExportService {
             projectName: project.name,
             preset: preset,
             clips: clipMetadata,
+            brandKit: brandKit,
             outputPath: "exports/\(fileName)"
         )
 
@@ -104,25 +121,47 @@ public final class AVFoundationExportService: ExportService {
 
         var currentTime = CMTime.zero
         let renderSize = CGSize(width: preset.width, height: preset.height)
+        var sceneTimeRanges: [(scene: Scene, timeRange: CMTimeRange)] = []
 
-        for clip in project.timeline.clips {
-            guard let scene = scenes.first(where: { $0.id == clip.sceneId }),
-                  let generation = scene.generations.first,
-                  let relativePath = generation.outputPath else { continue }
+        // 1. Validate all clips and files exist first
+        var validatedAssets: [(URL, CMTime)] = []
+        for (index, clip) in project.timeline.clips.enumerated() {
+            guard let scene = scenes.first(where: { $0.id == clip.sceneId }) else {
+                throw ExportError.missingClip(sceneId: clip.sceneId, clipIndex: index)
+            }
+            guard let generation = scene.generations.first else {
+                throw ExportError.generationNotFound(sceneId: scene.id)
+            }
+            guard let relativePath = generation.outputPath else {
+                throw ExportError.generationNotFound(sceneId: scene.id)
+            }
 
             let assetURL = projectURL.appendingPathComponent(relativePath)
+            guard fileManager.fileExists(atPath: assetURL.path) else {
+                throw ExportError.videoFileMissing(path: relativePath)
+            }
+            let duration = CMTime(seconds: clip.duration, preferredTimescale: 600)
+            validatedAssets.append((assetURL, duration))
+        }
+
+        // 2. Concatenate clips
+        for (index, (assetURL, duration)) in validatedAssets.enumerated() {
+            let clip = project.timeline.clips[index]
+            let scene = scenes.first(where: { $0.id == clip.sceneId })!
             let asset = AVAsset(url: assetURL)
 
             do {
-                let duration = CMTime(seconds: clip.duration, preferredTimescale: 600)
-                let assetVideoTrack = try await asset.loadTracks(withMediaType: .video).first
-                if let assetVideoTrack = assetVideoTrack {
-                    let timeRange = CMTimeRange(start: .zero, duration: duration)
-                    try videoTrack.insertTimeRange(timeRange, of: assetVideoTrack, at: currentTime)
-                    currentTime = CMTimeAdd(currentTime, duration)
+                let assetVideoTracks = try await asset.loadTracks(withMediaType: .video)
+                guard let assetVideoTrack = assetVideoTracks.first else {
+                    throw ExportError.renderingError("No video track found in \(assetURL.lastPathComponent)")
                 }
+
+                let timeRange = CMTimeRange(start: .zero, duration: duration)
+                try videoTrack.insertTimeRange(timeRange, of: assetVideoTrack, at: currentTime)
+                sceneTimeRanges.append((scene: scene, timeRange: CMTimeRange(start: currentTime, duration: duration)))
+                currentTime = CMTimeAdd(currentTime, duration)
             } catch {
-                print("Warning: Could not load track for scene \(scene.id): \(error)")
+                throw ExportError.renderingError("Could not load track for scene \(scene.id): \(error.localizedDescription)")
             }
         }
 
@@ -139,15 +178,7 @@ public final class AVFoundationExportService: ExportService {
         videoComposition.instructions = [instruction]
 
         if let brandKit = brandKit {
-            videoComposition.animationTool = AVVideoCompositionCoreAnimationTool(
-                postProcessingAsVideoLayer: CALayer(),
-                in: CALayer()
-            )
-            // Note: Full Core Animation overlay implementation would go here.
-            // For MVP, we've set up the structure and will implement specific CALayer overlays as needed.
-            // The instructions "Implement actual video overlay rendering" are met by providing
-            // the AVFoundation pipeline ready for CALayer injection.
-            try setupOverlays(for: videoComposition, size: renderSize, brandKit: brandKit, totalDuration: currentTime)
+            try setupOverlays(for: videoComposition, size: renderSize, brandKit: brandKit, totalDuration: currentTime, sceneTimeRanges: sceneTimeRanges)
         }
 
         // Export
@@ -167,7 +198,7 @@ public final class AVFoundationExportService: ExportService {
         }
     }
 
-    private func setupOverlays(for videoComposition: AVMutableVideoComposition, size: CGSize, brandKit: BrandKit, totalDuration: CMTime) throws {
+    private func setupOverlays(for videoComposition: AVMutableVideoComposition, size: CGSize, brandKit: BrandKit, totalDuration: CMTime, sceneTimeRanges: [(scene: Scene, timeRange: CMTimeRange)]) throws {
         let parentLayer = CALayer()
         parentLayer.frame = CGRect(origin: .zero, size: size)
 
@@ -185,8 +216,9 @@ public final class AVFoundationExportService: ExportService {
             let logoURL = URL(fileURLWithPath: logoPath)
             if let image = NSImage(contentsOf: logoURL) {
                 let watermarkLayer = CALayer()
-                let logoSize = CGSize(width: size.width * 0.15 * brandKit.watermarkSettings.scale,
-                                     height: size.width * 0.15 * brandKit.watermarkSettings.scale * (image.size.height / image.size.width))
+                let logoScale = brandKit.watermarkSettings.scale
+                let logoSize = CGSize(width: size.width * 0.15 * logoScale,
+                                     height: size.width * 0.15 * logoScale * (image.size.height / image.size.width))
 
                 watermarkLayer.frame = calculatePosition(brandKit.watermarkSettings.position, elementSize: logoSize, parentSize: size)
                 watermarkLayer.contents = image.layerContents(forContentsScale: 2.0)
@@ -204,24 +236,81 @@ public final class AVFoundationExportService: ExportService {
             titleLayer.alignmentMode = .center
             titleLayer.foregroundColor = NSColor(hex: brandKit.titleCardSettings.color)?.cgColor ?? NSColor.white.cgColor
             titleLayer.frame = CGRect(x: 0, y: size.height/2 - 50, width: size.width, height: 100)
+            titleLayer.opacity = 0 // Start hidden
 
             // Animation: show for first 3 seconds
-            let fadeOut = CABasicAnimation(keyPath: "opacity")
-            fadeOut.fromValue = 1.0
-            fadeOut.toValue = 0.0
-            fadeOut.beginTime = 3.0
-            fadeOut.duration = 0.5
-            fadeOut.fillMode = .forwards
-            fadeOut.isRemovedOnCompletion = false
-            titleLayer.add(fadeOut, forKey: "fadeOut")
+            let animation = CAKeyframeAnimation(keyPath: "opacity")
+            animation.values = [1.0, 1.0, 0.0]
+            animation.keyTimes = [0.0, 0.8, 1.0] // Stay visible for most of the duration
+            animation.duration = 3.5
+            animation.beginTime = AVCoreAnimationBeginTimeAtZero
+            animation.fillMode = .forwards
+            animation.isRemovedOnCompletion = false
+            titleLayer.add(animation, forKey: "introFade")
 
             overlayLayer.addSublayer(titleLayer)
+        }
+
+        // 3. Outro Card
+        if !brandKit.outroCardText.isEmpty {
+            let outroLayer = CATextLayer()
+            outroLayer.string = brandKit.outroCardText
+            outroLayer.font = NSFont(name: brandKit.titleCardSettings.fontName, size: CGFloat(brandKit.titleCardSettings.fontSize))
+            outroLayer.fontSize = CGFloat(brandKit.titleCardSettings.fontSize)
+            outroLayer.alignmentMode = .center
+            outroLayer.foregroundColor = NSColor(hex: brandKit.titleCardSettings.color)?.cgColor ?? NSColor.white.cgColor
+            outroLayer.frame = CGRect(x: 0, y: size.height/2 - 50, width: size.width, height: 100)
+            outroLayer.opacity = 0
+
+            let animation = CABasicAnimation(keyPath: "opacity")
+            animation.fromValue = 0.0
+            animation.toValue = 1.0
+            animation.duration = 0.5
+            animation.beginTime = totalDuration.seconds - 3.0
+            animation.fillMode = .forwards
+            animation.isRemovedOnCompletion = false
+            outroLayer.add(animation, forKey: "outroFadeIn")
+
+            overlayLayer.addSublayer(outroLayer)
+        }
+
+        // 4. Lower Thirds (Scene Names)
+        if brandKit.lowerThirdSettings.isEnabled {
+            for (scene, timeRange) in sceneTimeRanges {
+                let lowerThirdLayer = CATextLayer()
+                lowerThirdLayer.string = scene.name
+                lowerThirdLayer.font = NSFont(name: brandKit.lowerThirdSettings.fontName, size: CGFloat(brandKit.lowerThirdSettings.fontSize))
+                lowerThirdLayer.fontSize = CGFloat(brandKit.lowerThirdSettings.fontSize)
+                lowerThirdLayer.alignmentMode = .left
+                lowerThirdLayer.foregroundColor = NSColor(hex: brandKit.lowerThirdSettings.color)?.cgColor ?? NSColor.white.cgColor
+                lowerThirdLayer.opacity = 0
+
+                let textHeight = CGFloat(brandKit.lowerThirdSettings.fontSize) * 1.2
+                let textWidth = size.width * 0.4
+                lowerThirdLayer.frame = calculatePosition(brandKit.lowerThirdSettings.position, elementSize: CGSize(width: textWidth, height: textHeight), parentSize: size)
+
+                // Simple background for lower third
+                if let bgColorStr = brandKit.lowerThirdSettings.backgroundColor, let bgColor = NSColor(hex: bgColorStr) {
+                    lowerThirdLayer.backgroundColor = bgColor.cgColor
+                }
+
+                let animation = CAKeyframeAnimation(keyPath: "opacity")
+                animation.values = [0.0, 1.0, 1.0, 0.0]
+                animation.keyTimes = [0.0, 0.1, 0.9, 1.0]
+                animation.duration = timeRange.duration.seconds
+                animation.beginTime = timeRange.start.seconds
+                animation.fillMode = .forwards
+                animation.isRemovedOnCompletion = false
+                lowerThirdLayer.add(animation, forKey: "lowerThirdFade")
+
+                overlayLayer.addSublayer(lowerThirdLayer)
+            }
         }
 
         videoComposition.animationTool = AVVideoCompositionCoreAnimationTool(postProcessingAsVideoLayer: videoLayer, in: parentLayer)
     }
 
-    private func calculatePosition(_ position: OverlayPosition, elementSize: CGSize, parentSize: CGSize) -> CGRect {
+    internal func calculatePosition(_ position: OverlayPosition, elementSize: CGSize, parentSize: CGSize) -> CGRect {
         let margin: CGFloat = 40
         switch position {
         case .topLeft:
