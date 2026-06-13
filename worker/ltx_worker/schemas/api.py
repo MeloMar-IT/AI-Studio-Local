@@ -107,3 +107,11 @@ class ModelImportRequest(BaseModel):
     path: str
     copy: bool = True
     model_id: Optional[str] = None
+
+
+class ProgressEvent(BaseModel):
+    job_id: str
+    stage: str
+    percentage: Optional[float] = None
+    message: str
+    timestamp: datetime

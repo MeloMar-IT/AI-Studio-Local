@@ -27,6 +27,7 @@ class AppState: ObservableObject {
     private let generationClient: GenerationClient
     private let environment: AppEnvironment
     private var pollingTimer: Timer?
+    private var jobSubscriptions: [String: Task<Void, Never>] = [:]
     private var cancellables = Set<AnyCancellable>()
 
     init(
@@ -106,7 +107,44 @@ class AppState: ObservableObject {
         DispatchQueue.main.async {
             self.activeJobs.append(job)
             self.updateActiveJobsCount()
+            self.subscribeToJob(jobId: job.id)
         }
+    }
+
+    private func subscribeToJob(jobId: String) {
+        guard jobSubscriptions[jobId] == nil else { return }
+
+        let task = Task {
+            do {
+                for try await event in generationClient.subscribeToJob(jobId: jobId) {
+                    await MainActor.run {
+                        if let index = self.activeJobs.firstIndex(where: { $0.id == jobId }) {
+                            self.activeJobs[index].status = JobStatus(rawValue: event.stage) ?? self.activeJobs[index].status
+                            self.activeJobs[index].progress = event.percentage ?? self.activeJobs[index].progress
+                            // We don't have a direct 'message' field in GenerationJob but we could add it if needed
+                            // For now we just update status and progress
+
+                            if self.activeJobs[index].status == .completed ||
+                               self.activeJobs[index].status == .failed ||
+                               self.activeJobs[index].status == .cancelled {
+                                self.activeJobs[index].completedAt = Date()
+                                self.updateActiveJobsCount()
+                                if self.activeJobs[index].status == .completed {
+                                    NotificationCenter.default.post(name: .generationCompleted, object: self.activeJobs[index])
+                                }
+                                self.jobSubscriptions[jobId]?.cancel()
+                                self.jobSubscriptions.removeValue(forKey: jobId)
+                            }
+                        }
+                    }
+                }
+            } catch {
+                print("Error in job subscription for \(jobId): \(error)")
+                // Fallback to polling if SSE fails
+                self.jobSubscriptions.removeValue(forKey: jobId)
+            }
+        }
+        jobSubscriptions[jobId] = task
     }
 
     func cancelJob(_ job: GenerationJob) {
@@ -128,6 +166,10 @@ class AppState: ObservableObject {
 
     func clearCompletedJobs() {
         DispatchQueue.main.async {
+            for job in self.activeJobs where job.status == .completed || job.status == .failed || job.status == .cancelled {
+                self.jobSubscriptions[job.id]?.cancel()
+                self.jobSubscriptions.removeValue(forKey: job.id)
+            }
             self.activeJobs.removeAll { $0.status == .completed || $0.status == .failed || $0.status == .cancelled }
             self.updateActiveJobsCount()
         }
@@ -144,7 +186,12 @@ class AppState: ObservableObject {
     }
 
     private func pollJobs() {
-        let jobsToPoll = activeJobs.filter { $0.status != .completed && $0.status != .failed && $0.status != .cancelled }
+        let jobsToPoll = activeJobs.filter {
+            $0.status != .completed &&
+            $0.status != .failed &&
+            $0.status != .cancelled &&
+            self.jobSubscriptions[$0.id] == nil // Only poll if not subscribed
+        }
 
         for job in jobsToPoll {
             Task {

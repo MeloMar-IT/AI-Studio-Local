@@ -16,6 +16,7 @@ class JobStore:
         self.cancellation_tokens: Dict[str, CancellationToken] = {}
         self.engine = engine
         self.output_manager = output_manager
+        self.listeners: Dict[str, List[asyncio.Queue]] = {}
         self._recover_jobs()
 
     def _recover_jobs(self):
@@ -105,6 +106,46 @@ class JobStore:
     def get_job(self, job_id: str) -> Optional[JobStatus]:
         return self.jobs.get(job_id)
 
+    async def subscribe(self, job_id: str):
+        """Subscribe to progress events for a job."""
+        queue = asyncio.Queue()
+        if job_id not in self.listeners:
+            self.listeners[job_id] = []
+        self.listeners[job_id].append(queue)
+
+        try:
+            # Yield current state as first event if job exists
+            job = self.get_job(job_id)
+            if job:
+                yield {
+                    "job_id": job_id,
+                    "stage": job.status,
+                    "percentage": job.progress,
+                    "message": job.message,
+                    "timestamp": job.updated_at.isoformat()
+                }
+
+            # If job is already terminal, we're done
+            if job and job.status in ["completed", "failed", "cancelled", "interrupted"]:
+                return
+
+            while True:
+                try:
+                    event = await asyncio.wait_for(queue.get(), timeout=0.1)
+                    yield event
+                    if event["stage"] in ["completed", "failed", "cancelled", "interrupted"]:
+                        break
+                except asyncio.TimeoutError:
+                    # Check if job was removed or something while waiting
+                    if job_id not in self.listeners:
+                        break
+                    continue
+        finally:
+            if job_id in self.listeners:
+                self.listeners[job_id].remove(queue)
+                if not self.listeners[job_id]:
+                    del self.listeners[job_id]
+
     def cancel_job(self, job_id: str) -> bool:
         if job_id in self.cancellation_tokens:
             token = self.cancellation_tokens[job_id]
@@ -147,6 +188,18 @@ class JobStore:
                 job.message = message
                 job.updated_at = datetime.now()
                 logger.info(f"Job {job_id} progress: {status} ({progress*100}%)")
+
+                # Notify listeners
+                if job_id in self.listeners:
+                    event = {
+                        "job_id": job_id,
+                        "stage": status,
+                        "percentage": progress,
+                        "message": message,
+                        "timestamp": job.updated_at.isoformat()
+                    }
+                    for queue in self.listeners[job_id]:
+                        queue.put_nowait(event)
 
                 # Update metadata with progress
                 try:

@@ -9,6 +9,7 @@ public protocol GenerationClient {
     func submitRetake(request: GenerationRequest) async throws -> String // returns job_id
     func getJobStatus(jobId: String) async throws -> GenerationJob
     func cancelJob(jobId: String) async throws
+    func subscribeToJob(jobId: String) -> AsyncThrowingStream<ProgressEvent, Error>
     func validateModelFolder(path: String) async throws -> ModelValidationResponse
     func importModel(path: String, copy: Bool, modelId: String?) async throws -> ModelImportResponse
 }
@@ -38,6 +39,22 @@ public struct ModelImportResponse: Codable {
         case success
         case message
         case targetPath = "target_path"
+    }
+}
+
+public struct ProgressEvent: Codable {
+    public let jobId: String
+    public let stage: String
+    public let percentage: Double?
+    public let message: String
+    public let timestamp: String
+
+    enum CodingKeys: String, CodingKey {
+        case jobId = "job_id"
+        case stage
+        case percentage
+        case message
+        case timestamp
     }
 }
 
@@ -314,6 +331,48 @@ public final class HTTPGenerationClient: GenerationClient {
             throw error
         } catch {
             throw GenerationClientError.workerUnavailable(error)
+        }
+    }
+
+    public func subscribeToJob(jobId: String) -> AsyncThrowingStream<ProgressEvent, Error> {
+        let url = baseURL.appendingPathComponent("jobs/\(jobId)/events")
+
+        return AsyncThrowingStream { continuation in
+            let task = Task {
+                do {
+                    let (bytes, response) = try await session.bytes(for: URLRequest(url: url))
+
+                    guard let httpResponse = response as? HTTPURLResponse,
+                          (200...299).contains(httpResponse.statusCode) else {
+                        continuation.finish(throwing: GenerationClientError.workerError("Failed to connect to event stream"))
+                        return
+                    }
+
+                    for try await line in bytes.lines {
+                        if line.hasPrefix("data: ") {
+                            let jsonString = String(line.dropFirst(6))
+                            if let data = jsonString.data(using: .utf8) {
+                                let event = try decoder.decode(ProgressEvent.self, from: data)
+                                continuation.yield(event)
+
+                                // Terminal stages
+                                let terminalStages = ["completed", "failed", "cancelled", "interrupted"]
+                                if terminalStages.contains(event.stage) {
+                                    continuation.finish()
+                                    return
+                                }
+                            }
+                        }
+                    }
+                    continuation.finish()
+                } catch {
+                    continuation.finish(throwing: error)
+                }
+            }
+
+            continuation.onTermination = { @Sendable _ in
+                task.cancel()
+            }
         }
     }
 

@@ -1,11 +1,13 @@
 import platform
 import time
 import os
+import json
+import asyncio
 from datetime import datetime
 
 from ltx_worker.utils.profiler import get_hardware_profile
 from fastapi import APIRouter, HTTPException, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 
 from ltx_worker.config import settings
 import ltx_worker.jobs.store as store
@@ -319,6 +321,20 @@ async def get_job(job_id: str):
     if not job:
         raise HTTPException(status_code=404, detail="Job not found")
     return job
+
+
+@router.get("/jobs/{job_id}/events")
+async def job_events(job_id: str):
+    """Stream job progress events using SSE."""
+    job = job_store.get_job(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail="Job not found")
+
+    async def event_generator():
+        async for event in job_store.subscribe(job_id):
+            yield f"data: {json.dumps(event)}\n\n"
+
+    return StreamingResponse(event_generator(), media_type="text/event-stream")
 
 
 @router.post("/jobs/{job_id}/cancel")
