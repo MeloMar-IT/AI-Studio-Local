@@ -55,6 +55,15 @@ The Continuity Library UI is accessible from the main navigation and provides:
 - **Prompt Editor**: Specialized fields for editing prompt blocks and negative prompts.
 - **Empty States**: Helpful guidance when no elements are found or selected.
 
+### Creating Continuity Elements
+
+1. Navigate to the **Continuity Library** in the sidebar.
+2. Select a category (e.g., Characters).
+3. Click the **+** button or **Add Element**.
+4. Fill in the name, description, and the specific prompt fragment that defines this element.
+5. Add relevant tags.
+6. The element is automatically saved to `~/Library/Application Support/LTX Studio Local/ContinuityLibrary/`.
+
 ## Integration with Scenes
 
 When a user is in the Project Studio, they can attach elements from the library to any scene. These attachments are stored in the project's `scene.json` file as references (by ID).

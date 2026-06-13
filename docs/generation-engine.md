@@ -39,14 +39,20 @@ The `MLXLTXAdapter` encapsulates the following:
 
 ## Capabilities
 
-The engine currently defines the following generation capabilities:
+The engine defines the following generation capabilities. Status reflects the current implementation:
 
 | Capability | Description | Status |
 |------------|-------------|--------|
-| `text-to-video` | Generate video from text prompts | Supported |
-| `image-to-video` | Generate video from an initial image | Supported |
-| `audio-to-video` | Generate video synchronized with audio | Planned |
-| `retake` | Regenerate a specific portion of a video | Planned |
+| `text-to-video` | Generate video from text prompts | ✅ Supported (MLX & Mock) |
+| `image-to-video` | Generate video from an initial image | ✅ Supported (MLX & Mock) |
+| `audio-to-video` | Generate video synchronized with audio | 🔄 API Placeholder |
+| `retake` | Regenerate a specific portion of a video | 🔄 API Placeholder |
+
+## Implementation Progress
+
+As of v0.1.0:
+- **Mock Engine**: Fully functional for testing the end-to-end UI flow without GPU requirements.
+- **MLX Engine**: Implementation is in progress. Basic `text-to-video` and `image-to-video` pipelines are structured but require valid weights and environment setup to execute.
 
 ## Configuration
 

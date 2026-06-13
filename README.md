@@ -72,9 +72,13 @@ A service that automatically combines scene prompts with attached continuity ele
 - [Architecture Overview](docs/architecture.md)
 - [User Experience](docs/user-experience.md)
 - [Development Setup](docs/development-setup.md)
+- [Testing Strategy](docs/testing.md)
 - [Continuity Library](docs/continuity-library.md)
 - [Project Format](docs/project-format.md)
 - [Model Manager](docs/model-manager.md)
+- [Generation Engine](docs/generation-engine.md)
+- [API Contract](docs/api-contract.md)
+- [Manual Real-Model Test Checklist](docs/manual-real-model-test-checklist.md)
 
 ## Goals
 

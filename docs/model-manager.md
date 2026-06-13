@@ -20,20 +20,30 @@ The Model Manager integrates with the **Hardware Profiler** to recommend the bes
 
 ## Mock vs. Real Status
 
-| Feature | Current Status (v0.1.0) | Planned |
-|---------|-------------------------|---------|
-| Profile Listing | ✅ Implemented (Mock) | Real model detection |
-| Hardware Detection | ✅ Implemented (Mock info) | Real `psutil`/`platform` calls |
-| Model Loading | 🔄 Mock stages | Real MLX model loading |
-| Model Downloading | ❌ Not implemented | HuggingFace integration |
-| Disk Usage Info | ✅ Implemented (Mock) | Real filesystem checks |
+| Feature | Current Status (v0.1.0) | Implementation |
+|---------|-------------------------|----------------|
+| Profile Listing | ✅ Functional | `ModelStore` (Swift) & `/models` (Python) |
+| Hardware Detection | ✅ Functional | `HardwareProfiler` (Swift) & `/hardware` (Python) |
+| Model Loading | 🔄 In Progress | `MLXLTXAdapter` (Python) |
+| Model Downloading | ❌ Not implemented | Planned for v0.2.0 |
+| Disk Usage Info | ✅ Functional | `FileSystemService` |
 
 ## Model Storage
 
-Models are stored in the user's Application Support directory:
-`~/Library/Application Support/AI Studio Local/Models/`
+The application uses standard macOS directories for model storage.
 
-The application expects models to follow a specific folder structure if managed manually, but the goal is for the app to handle all model downloads and organization.
+**Default Path:**
+`~/Library/Application Support/LTX Studio Local/Models/`
+
+The Python worker can be configured to point to any directory using the `LTX_WORKER_MODELS_DIR` environment variable. By default, it looks for a `models/` directory in its current working directory.
+
+### Manual Model Import
+
+To manually add a model for the real MLX engine:
+1. Download the MLX-compatible LTX-Video weights.
+2. Create a folder named after the model version (e.g., `ltx-video-v0.1-mlx`) in the `models/` directory.
+3. Place the `.safetensors` files, `config.json`, and any required tokenizer files inside that folder.
+4. Restart the worker. The model should now be listed in the **Model Manager** if the ID matches a known profile.
 
 ## Compatibility
 

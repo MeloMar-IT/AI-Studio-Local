@@ -45,31 +45,29 @@ This document provides a checklist for manually testing LTX Studio Local with re
 To run with real models, the worker must be started with the correct environment variables:
 
 ```bash
+# Optional: Set to production mode to enforce real engine and disable mocks
 export LTX_WORKER_ENVIRONMENT=production
+
+# Required: Enable the real LTX engine
 export LTX_WORKER_ENGINE_TYPE=ltx
+
+# Optional: Path to your models directory (defaults to 'models' in worker root)
 export LTX_WORKER_MODELS_DIR=../models
+
 ./scripts/run-worker.sh
 ```
 
-## 5. Text-to-Video Test
+## 5. End-to-End Real Model Smoke Test
 
-- [ ] **Action**: Submit a text-to-video request through the App or via `curl`.
-- [ ] **Test Prompt**: `"A cinematic shot of a futuristic city with flying vehicles, sunset background, high detail."`
-- [ ] **Command (curl)**:
-  ```bash
-  curl -X POST http://localhost:8000/api/v1/generate/text-to-video \
-    -H "Content-Type: application/json" \
-    -d '{
-      "prompt": "A cinematic shot of a futuristic city with flying vehicles, sunset background, high detail.",
-      "width": 768,
-      "height": 512,
-      "num_frames": 24,
-      "steps": 20
-    }'
-  ```
-- [ ] **Monitor Logs**: Watch the worker logs for stages: `loading_model`, `generating_video`, `encoding_output`.
+1. **Verify Engine**: Check the logs to ensure `LTXGenerationEngine` is using `MLXLTXAdapter`.
+2. **Load Model**: The first generation request will trigger model loading. Monitor memory usage.
+3. **Text-to-Video**:
+   - Prompt: `"A fast-moving stream in a lush green forest, sunbeams through the leaves, 4k cinematic."`
+   - Command: Use the App's **Generate** button.
+4. **Observe Progress**: Ensure stages `loading_model` and `generating_video` are reported.
+5. **Verify Output**: Play the resulting `output.mp4` in the App's preview player.
 
-## 6. Image-to-Video Test
+## 6. CLI-based Generation Test (curl)
 
 - [ ] **Action**: Submit an image-to-video request.
 - [ ] **Input Image**: Use a clear 768x512 JPEG/PNG image.

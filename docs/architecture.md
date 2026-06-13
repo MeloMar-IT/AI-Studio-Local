@@ -24,9 +24,9 @@ Local Python Worker (FastAPI)
         │
         ├── Job Queue (Async execution)
         ├── Job Store (State persistence)
-        ├── MLX Runtime (Planned)
-        ├── LTX Pipeline (Planned)
-        └── Media Encoder (Mock)
+        ├── MLX Runtime (Implementation in progress)
+        ├── LTX Pipeline (Implementation in progress)
+        └── Media Encoder (FFmpeg)
 ```
 
 ## Component Descriptions
@@ -49,8 +49,8 @@ The frontend responsible for the user experience. It follows a clean architectur
 ### 3. Local Python Worker (`worker/`)
 A background service that executes the computationally intensive generation tasks.
 - **FastAPI**: Provides a REST API for the App to submit jobs and check status.
-- **Job Store**: A simple in-memory (for now) store to track the status of background jobs.
-- **MLX/LTX Engine**: (Planned) The integration with MLX to run LTX video models on Apple Silicon.
+- **Job Store**: Manages persistence and recovery of background jobs across restarts.
+- **MLX/LTX Engine**: The integration with MLX to run LTX video models on Apple Silicon. Supports both real generation and mock mode for development.
 
 ### 4. Shared Schemas (`shared/schemas/`)
 To ensure the App and Worker speak the same language, we use shared JSON schemas. These schemas are used to generate Pydantic models in Python and are manually mirrored in Swift `Codable` models. For details on the stable API contract, see [API Contract](api-contract.md).

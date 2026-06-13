@@ -22,7 +22,7 @@ cd ai-studio-local
 
 ## 2. Set Up the Python Worker
 
-The worker handles the AI generation logic.
+The worker handles the AI generation logic using MLX on Apple Silicon.
 
 ```bash
 cd worker
@@ -31,8 +31,14 @@ source venv/bin/activate
 pip install -e .
 ```
 
-To run the worker:
+To run the worker in development mode (with mock engine):
 ```bash
+./scripts/run-worker.sh
+```
+
+To run the worker with the real MLX/LTX engine:
+```bash
+export LTX_WORKER_ENGINE_TYPE=ltx
 ./scripts/run-worker.sh
 ```
 The worker starts a FastAPI server at `http://localhost:8000` by default.
@@ -43,7 +49,18 @@ The worker starts a FastAPI server at `http://localhost:8000` by default.
 2. Select the `LTXStudioLocal` scheme and a "My Mac" destination.
 3. Build and Run (`Cmd + R`).
 
-## 4. Shared Schemas
+The app will attempt to connect to the worker at `http://localhost:8000`. Ensure the worker is started first.
+
+## 4. Model Setup (for Real Generation)
+
+If you are using the real LTX engine (`LTX_WORKER_ENGINE_TYPE=ltx`), you need to provide model weights.
+
+1. Create a `models/` directory in the project root.
+2. Place your MLX-compatible LTX-Video model files in this directory.
+3. The worker expects a folder structure like: `models/ltx-video-0.1-mlx/` containing the `.safetensors` and config files.
+4. You can configure the model directory via `LTX_WORKER_MODELS_DIR`.
+
+## 5. Shared Schemas
 
 If you modify the data structures shared between the App and the Worker, update the JSON schemas in `shared/schemas/`.
 - Python models in `worker/ltx_worker/schemas/api.py` use these schemas via Pydantic.
