@@ -1,8 +1,21 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @ObservedObject var settings = UserSettings.shared
     @EnvironmentObject var appState: AppState
+
+    var body: some View {
+        SettingsContentView(viewModel: SettingsViewModel(appState: appState))
+    }
+}
+
+struct SettingsContentView: View {
+    @StateObject var viewModel: SettingsViewModel
+    @ObservedObject var settings: UserSettings
+
+    init(viewModel: SettingsViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+        self.settings = viewModel.settings
+    }
 
     var body: some View {
         Form {
@@ -25,9 +38,7 @@ struct SettingsView: View {
                     HStack {
                         TextField("Script Path", text: $settings.workerScriptPath)
                         Button("Select...") {
-                            selectFile { path in
-                                settings.workerScriptPath = path
-                            }
+                            viewModel.selectFile(for: \.workerScriptPath)
                         }
                     }
                 }
@@ -36,35 +47,35 @@ struct SettingsView: View {
                     Text("Process Status:")
                     Spacer()
                     StatusBadge(
-                        label: appState.workerStatus.rawValue.capitalized,
-                        color: appState.workerStatus == .running ? .green : (appState.workerStatus == .starting ? .orange : .red)
+                        label: viewModel.workerStatus.rawValue.capitalized,
+                        color: viewModel.workerStatus == .running ? .green : (viewModel.workerStatus == .starting ? .orange : .red)
                     )
                 }
 
                 HStack {
                     Text("API Status:")
                     Spacer()
-                    if appState.isWorkerAvailable {
+                    if viewModel.isWorkerAvailable {
                         StatusBadge(label: "Connected", color: .green)
                     } else {
                         StatusBadge(label: "Disconnected", color: .red)
                     }
                 }
 
-                if appState.workerStatus == .stopped || appState.workerStatus == .failed {
+                if viewModel.workerStatus == .stopped || viewModel.workerStatus == .failed {
                     Button("Start Worker") {
                         Task {
-                            await appState.startWorker()
+                            await viewModel.startWorker()
                         }
                     }
-                } else if appState.workerStatus == .running {
+                } else if viewModel.workerStatus == .running {
                     Button("Stop Worker", role: .destructive) {
-                        appState.stopWorker()
+                        viewModel.stopWorker()
                     }
                 }
 
-                if !appState.workerVersion.isEmpty {
-                    LabeledContent("Worker Version", value: appState.workerVersion)
+                if !viewModel.workerVersion.isEmpty {
+                    LabeledContent("Worker Version", value: viewModel.workerVersion)
                 }
             }
 
@@ -75,9 +86,7 @@ struct SettingsView: View {
                     HStack {
                         TextField("Projects Path", text: $settings.projectsDirectory)
                         Button("Select...") {
-                            selectFolder { path in
-                                settings.projectsDirectory = path
-                            }
+                            viewModel.selectFolder(for: \.projectsDirectory)
                         }
                     }
                 }
@@ -88,9 +97,7 @@ struct SettingsView: View {
                     HStack {
                         TextField("Library Path", text: $settings.continuityLibraryDirectory)
                         Button("Select...") {
-                            selectFolder { path in
-                                settings.continuityLibraryDirectory = path
-                            }
+                            viewModel.selectFolder(for: \.continuityLibraryDirectory)
                         }
                     }
                 }
@@ -101,9 +108,7 @@ struct SettingsView: View {
                     HStack {
                         TextField("Models Path", text: $settings.modelsDirectory)
                         Button("Select...") {
-                            selectFolder { path in
-                                settings.modelsDirectory = path
-                            }
+                            viewModel.selectFolder(for: \.modelsDirectory)
                         }
                     }
                 }
@@ -114,9 +119,7 @@ struct SettingsView: View {
                     HStack {
                         TextField("Export Path", text: $settings.exportDirectory)
                         Button("Select...") {
-                            selectFolder { path in
-                                settings.exportDirectory = path
-                            }
+                            viewModel.selectFolder(for: \.exportDirectory)
                         }
                     }
                 }
@@ -139,32 +142,5 @@ struct SettingsView: View {
         .formStyle(.grouped)
         .navigationTitle("Settings")
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-
-    private func selectFolder(completion: @escaping (String) -> Void) {
-        let panel = NSOpenPanel()
-        panel.canChooseFiles = false
-        panel.canChooseDirectories = true
-        panel.allowsMultipleSelection = false
-        panel.canCreateDirectories = true
-
-        if panel.runModal() == .OK {
-            if let url = panel.url {
-                completion(url.path)
-            }
-        }
-    }
-
-    private func selectFile(completion: @escaping (String) -> Void) {
-        let panel = NSOpenPanel()
-        panel.canChooseFiles = true
-        panel.canChooseDirectories = false
-        panel.allowsMultipleSelection = false
-
-        if panel.runModal() == .OK {
-            if let url = panel.url {
-                completion(url.path)
-            }
-        }
     }
 }

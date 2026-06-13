@@ -15,12 +15,7 @@ public final class RemoteModelStore: ModelStore {
     }
 
     public func fetchModels() async throws -> [ModelProfile] {
-        do {
-            return try await generationClient.fetchModels()
-        } catch {
-            // Fallback to mocks if worker is offline or error occurs
-            return ModelProfile.mocks
-        }
+        return try await generationClient.fetchModels()
     }
 
     public func validateModelFolder(path: String) async throws -> ModelValidationResponse {

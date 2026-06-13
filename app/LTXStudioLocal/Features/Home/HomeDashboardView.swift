@@ -3,6 +3,7 @@ import SwiftUI
 struct HomeDashboardView: View {
     @EnvironmentObject private var appState: AppState
     @EnvironmentObject private var router: AppRouter
+    @StateObject private var viewModel = HomeDashboardViewModel()
     @State private var isShowingTemplateSelection = false
     @State private var isShowingLogViewer = false
 
@@ -52,25 +53,44 @@ struct HomeDashboardView: View {
 
                         // 3. Recent Projects Section
                         VStack(alignment: .leading, spacing: Spacing.medium) {
-                            Text("Recent Projects")
-                                .font(.App.headline)
-
-                            EmptyStateView(
-                                title: "No Recent Projects",
-                                message: "Your recently edited projects will appear here.",
-                                icon: "clock",
-                                actionTitle: "Create New Project",
-                                action: {
-                                    isShowingTemplateSelection = true
+                            HStack {
+                                Text("Recent Projects")
+                                    .font(.App.headline)
+                                Spacer()
+                                if viewModel.isLoading {
+                                    ProgressView()
+                                        .scaleEffect(0.5)
                                 }
-                            )
-                            .frame(height: 280)
-                            .background(Color.App.surface)
-                            .cornerRadius(Spacing.cornerRadiusLarge)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: Spacing.cornerRadiusLarge)
-                                    .stroke(Color.App.border, style: StrokeStyle(lineWidth: 1, dash: [5]))
-                            )
+                            }
+
+                            if viewModel.recentProjects.isEmpty {
+                                EmptyStateView(
+                                    title: "No Recent Projects",
+                                    message: "Your recently edited projects will appear here.",
+                                    icon: "clock",
+                                    actionTitle: "Create New Project",
+                                    action: {
+                                        isShowingTemplateSelection = true
+                                    }
+                                )
+                                .frame(height: 280)
+                                .background(Color.App.surface)
+                                .cornerRadius(Spacing.cornerRadiusLarge)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: Spacing.cornerRadiusLarge)
+                                        .stroke(Color.App.border, style: StrokeStyle(lineWidth: 1, dash: [5]))
+                                )
+                            } else {
+                                LazyVGrid(columns: [
+                                    GridItem(.adaptive(minimum: 280, maximum: 350), spacing: Spacing.medium)
+                                ], spacing: Spacing.medium) {
+                                    ForEach(viewModel.recentProjects) { project in
+                                        ProjectCard(project: project) {
+                                            openProject(project)
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
 
