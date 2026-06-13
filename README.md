@@ -79,6 +79,7 @@ A service that automatically combines scene prompts with attached continuity ele
 - [Generation Engine](docs/generation-engine.md)
 - [API Contract](docs/api-contract.md)
 - [Manual Real-Model Test Checklist](docs/manual-real-model-test-checklist.md)
+- [Release Candidate Checklist](docs/release-candidate-checklist.md)
 
 ## Goals
 
