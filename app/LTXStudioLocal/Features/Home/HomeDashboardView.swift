@@ -85,7 +85,12 @@ struct HomeDashboardView: View {
                                     GridItem(.adaptive(minimum: 280, maximum: 350), spacing: Spacing.medium)
                                 ], spacing: Spacing.medium) {
                                     ForEach(viewModel.recentProjects) { project in
-                                        ProjectCard(project: project) {
+                                        ProjectCard(
+                                            title: project.name,
+                                            description: "Last modified \(relativeDateString(for: project.modifiedAt))",
+                                            lastModified: relativeDateString(for: project.modifiedAt),
+                                            thumbnail: nil
+                                        ) {
                                             openProject(project)
                                         }
                                     }
@@ -227,6 +232,28 @@ struct HomeDashboardView: View {
         .sheet(isPresented: $isShowingLogViewer) {
             WorkerLogView(logs: appState.workerLogs)
         }
+    }
+
+    private func openProject(_ project: Project) {
+        let store = FileProjectStore()
+        let projectURL = UserSettings.shared.projectsURL.appendingPathComponent("\(project.id).ltxproject")
+
+        do {
+            let (project, scenes) = try store.load(from: projectURL)
+
+            router.selectedProjectID = project.id
+            router.selectedScreen = .projectStudio
+
+            NotificationCenter.default.post(name: .openProject, object: (project, scenes))
+        } catch {
+            appState.activeError = AppError.projectLoadFailed(error: error)
+        }
+    }
+
+    private func relativeDateString(for date: Date) -> String {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .full
+        return formatter.localizedString(for: date, relativeTo: Date())
     }
 
     private func createQuickProject(mode: SceneMode) {

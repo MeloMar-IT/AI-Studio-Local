@@ -26,7 +26,7 @@ class HomeDashboardViewModel: ObservableObject {
             let fileManager = FileManager.default
 
             do {
-                let projectFolders = try fileManager.contentsOfDirectory(at: projectsURL, includingPropertiesForKeys: [.contentModificationDateKey], options: .skippingHiddenFiles)
+                let projectFolders = try fileManager.contentsOfDirectory(at: projectsURL, includingPropertiesForKeys: [.contentModificationDateKey], options: .skipsHiddenFiles)
 
                 var loadedProjects: [Project] = []
 

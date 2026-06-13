@@ -17,8 +17,14 @@ source venv/bin/activate
 echo "Installing dependencies..."
 pip install -e ".[dev]"
 
-# Run tests
-echo "Running tests..."
+# Run worker tests
+echo "Running worker tests..."
 export PYTHONPATH=.
 export LTX_WORKER_ENVIRONMENT=test
 pytest tests/
+
+# Run app tests
+echo ""
+echo "Running app tests..."
+cd ../app
+swift test
