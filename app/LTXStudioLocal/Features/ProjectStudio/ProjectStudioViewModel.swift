@@ -5,7 +5,13 @@ import Combine
 class ProjectStudioViewModel: ObservableObject {
     @Published var project: Project?
     @Published var scenes: [Scene] = []
-    @Published var selectedSceneId: String?
+    @Published var selectedSceneId: String? {
+        didSet {
+            // Reset active generation when scene changes
+            activeGenerationId = scenes.first(where: { $0.id == selectedSceneId })?.generations.last?.id
+        }
+    }
+    @Published var activeGenerationId: String?
     @Published var isGenerating: Bool = false
     @Published var isExporting: Bool = false
     @Published var lastExport: ExportMetadata?
@@ -454,8 +460,7 @@ class ProjectStudioViewModel: ObservableObject {
     }
 
     func useGeneration(_ generation: SceneGeneration) {
-        // In a real app, this might update the scene's current output reference
-        // For MVP, we'll just log it
+        activeGenerationId = generation.id
         print("Using generation: \(generation.id)")
     }
 
@@ -523,6 +528,12 @@ class ProjectStudioViewModel: ObservableObject {
 
             if !scenes[index].generations.contains(where: { $0.id == job.id }) {
                 scenes[index].generations.append(newGeneration)
+
+                // If it's the current scene, set it as active
+                if job.sceneId == selectedSceneId {
+                    activeGenerationId = newGeneration.id
+                }
+
                 updateProject()
             }
         }

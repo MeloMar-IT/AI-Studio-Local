@@ -101,4 +101,15 @@ final class DomainTests: XCTestCase {
         XCTAssertEqual(book?.aspectRatio, "9:16")
         XCTAssertEqual(book?.sceneStructures.count, 4)
     }
+    func testSceneGenerationEncodingDecoding() throws {
+        let generation = SceneGeneration.mock
+        let data = try encoder.encode(generation)
+        let decoded = try decoder.decode(SceneGeneration.self, from: data)
+
+        XCTAssertEqual(generation.id, decoded.id)
+        XCTAssertEqual(generation.sceneId, decoded.sceneId)
+        XCTAssertEqual(generation.outputPath, decoded.outputPath)
+        XCTAssertEqual(generation.previewImagePath, decoded.previewImagePath)
+        XCTAssertEqual(generation.metadataPath, decoded.metadataPath)
+    }
 }

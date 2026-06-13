@@ -419,18 +419,16 @@ struct ProjectStudioView: View {
             Color.black.opacity(0.05)
 
             if let scene = viewModel.selectedScene {
-                VStack {
-                    Text(scene.name)
-                        .font(.App.headline)
-                        .foregroundColor(Color.App.secondaryText)
+                VStack(spacing: Spacing.medium) {
+                    let activeGen = scene.generations.first { $0.id == viewModel.activeGenerationId }
 
-                    Image(systemName: "play.rectangle.fill")
-                        .font(.system(size: 64))
-                        .foregroundColor(Color.App.border)
-
-                    Text("Preview Canvas")
-                        .font(.App.subheadline)
-                        .foregroundColor(Color.App.secondaryText)
+                    PreviewPlayer(
+                        videoURL: activeGen?.outputPath.flatMap { URL(fileURLWithPath: $0) },
+                        previewImageURL: activeGen?.previewImagePath.flatMap { URL(fileURLWithPath: $0) }
+                    )
+                    .aspectRatio(16/9, contentMode: .fit)
+                    .frame(maxWidth: 800)
+                    .shadow(color: Color.App.shadow, radius: 20)
 
                     if scene.mode != .retake {
                         Button {
@@ -441,17 +439,20 @@ struct ProjectStudioView: View {
                                 appState.showError(AppError.generationFailed(details: "The selected model does not support retake."))
                             }
                         } label: {
-                            Label("Retake", systemImage: "arrow.counterclockwise.circle")
+                            Label("Retake Scene", systemImage: "arrow.counterclockwise.circle")
                                 .font(.App.body)
                                 .foregroundColor(Color.App.accent)
                         }
                         .buttonStyle(.plain)
-                        .padding(.top, Spacing.medium)
                     }
                 }
+                .padding(Spacing.large)
             } else {
-                Text("Select a scene to preview")
-                    .foregroundColor(Color.App.secondaryText)
+                EmptyStateView(
+                    title: "No Scene Selected",
+                    message: "Select a scene from the timeline to preview and edit.",
+                    icon: "video.fill"
+                )
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
