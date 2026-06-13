@@ -19,13 +19,47 @@ struct SettingsView: View {
             Section(header: Text("Worker Configuration")) {
                 TextField("Worker URL", text: $settings.workerURL)
 
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Worker Script Path")
+                        .font(.subheadline)
+                    HStack {
+                        TextField("Script Path", text: $settings.workerScriptPath)
+                        Button("Select...") {
+                            selectFile { path in
+                                settings.workerScriptPath = path
+                            }
+                        }
+                    }
+                }
+
                 HStack {
-                    Text("Worker Status:")
+                    Text("Process Status:")
+                    Spacer()
+                    StatusBadge(
+                        label: appState.workerStatus.rawValue.capitalized,
+                        color: appState.workerStatus == .running ? .green : (appState.workerStatus == .starting ? .orange : .red)
+                    )
+                }
+
+                HStack {
+                    Text("API Status:")
                     Spacer()
                     if appState.isWorkerAvailable {
                         StatusBadge(label: "Connected", color: .green)
                     } else {
                         StatusBadge(label: "Disconnected", color: .red)
+                    }
+                }
+
+                if appState.workerStatus == .stopped || appState.workerStatus == .failed {
+                    Button("Start Worker") {
+                        Task {
+                            await appState.startWorker()
+                        }
+                    }
+                } else if appState.workerStatus == .running {
+                    Button("Stop Worker", role: .destructive) {
+                        appState.stopWorker()
                     }
                 }
 
@@ -113,6 +147,19 @@ struct SettingsView: View {
         panel.canChooseDirectories = true
         panel.allowsMultipleSelection = false
         panel.canCreateDirectories = true
+
+        if panel.runModal() == .OK {
+            if let url = panel.url {
+                completion(url.path)
+            }
+        }
+    }
+
+    private func selectFile(completion: @escaping (String) -> Void) {
+        let panel = NSOpenPanel()
+        panel.canChooseFiles = true
+        panel.canChooseDirectories = false
+        panel.allowsMultipleSelection = false
 
         if panel.runModal() == .OK {
             if let url = panel.url {

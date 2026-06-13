@@ -4,6 +4,7 @@ struct HomeDashboardView: View {
     @EnvironmentObject private var appState: AppState
     @EnvironmentObject private var router: AppRouter
     @State private var isShowingTemplateSelection = false
+    @State private var isShowingLogViewer = false
 
     var body: some View {
         ScrollView {
@@ -90,21 +91,60 @@ struct HomeDashboardView: View {
                                 )
                                 StatusItem(
                                     label: "Worker",
-                                    value: appState.isWorkerAvailable ? "Online (\(appState.workerVersion))" : "Offline",
-                                    status: appState.isWorkerAvailable ? .success : .error
+                                    value: appState.isWorkerAvailable ? "Online (\(appState.workerVersion))" : (appState.workerStatus == .starting ? "Starting..." : "Offline"),
+                                    status: appState.isWorkerAvailable ? .success : (appState.workerStatus == .starting ? .warning : .error)
                                 )
 
                                 if !appState.isWorkerAvailable {
-                                    Button(action: {
-                                        Task {
-                                            await appState.checkWorkerHealth()
+                                    VStack(alignment: .leading, spacing: Spacing.small) {
+                                        if appState.workerStatus == .stopped || appState.workerStatus == .failed {
+                                            Button(action: {
+                                                Task {
+                                                    await appState.startWorker()
+                                                }
+                                            }) {
+                                                Label("Start Worker", systemImage: "play.fill")
+                                                    .font(.App.caption)
+                                                    .foregroundColor(Color.App.accent)
+                                            }
+                                            .buttonStyle(.plain)
                                         }
-                                    }) {
-                                        Label("Retry Connection", systemImage: "arrow.clockwise")
-                                            .font(.App.caption)
-                                            .foregroundColor(Color.App.accent)
+
+                                        Button(action: {
+                                            Task {
+                                                await appState.checkWorkerHealth()
+                                            }
+                                        }) {
+                                            Label("Retry Connection", systemImage: "arrow.clockwise")
+                                                .font(.App.caption)
+                                                .foregroundColor(Color.App.accent)
+                                        }
+                                        .buttonStyle(.plain)
+
+                                        Button(action: {
+                                            // Open setup instructions URL or local file
+                                            if let url = URL(string: "https://github.com/your-repo/ai-studio-local/blob/main/docs/development-setup.md") {
+                                                NSWorkspace.shared.open(url)
+                                            }
+                                        }) {
+                                            Label("Setup Instructions", systemImage: "questionmark.circle")
+                                                .font(.App.caption)
+                                                .foregroundColor(Color.App.secondaryText)
+                                        }
+                                        .buttonStyle(.plain)
+
+                                        if !appState.workerLogs.isEmpty {
+                                            Button(action: {
+                                                // We'll implement a log viewer sheet or similar
+                                                isShowingLogViewer = true
+                                            }) {
+                                                Label("View Logs", systemImage: "doc.text")
+                                                    .font(.App.caption)
+                                                    .foregroundColor(Color.App.secondaryText)
+                                            }
+                                            .buttonStyle(.plain)
+                                        }
                                     }
-                                    .buttonStyle(.plain)
                                     .padding(.top, Spacing.xxSmall)
                                 }
                             }
@@ -163,6 +203,9 @@ struct HomeDashboardView: View {
             ProjectTemplateSelectionView { template, name, useBrandKit in
                 createProjectFromTemplate(template, name: name, useBrandKit: useBrandKit)
             }
+        }
+        .sheet(isPresented: $isShowingLogViewer) {
+            WorkerLogView(logs: appState.workerLogs)
         }
     }
 
@@ -332,6 +375,38 @@ struct StatusItem: View {
                 .fontWeight(.bold)
                 .foregroundColor(status.color)
         }
+    }
+}
+
+struct WorkerLogView: View {
+    let logs: String
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack {
+                Text("Worker Logs")
+                    .font(.App.headline)
+                Spacer()
+                Button("Done") {
+                    dismiss()
+                }
+                .buttonStyle(.bordered)
+            }
+            .padding()
+            .background(Color.App.surface)
+
+            Divider()
+
+            ScrollView {
+                Text(logs)
+                    .font(.system(.caption, design: .monospaced))
+                    .padding()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .background(Color.black)
+        }
+        .frame(minWidth: 600, minHeight: 400)
     }
 }
 

@@ -54,6 +54,28 @@ public final class FileSystemService {
         let docs = paths.first ?? URL(fileURLWithPath: "~/Documents").resolvingSymlinksInPath()
         return docs.appendingPathComponent("LTX Studio Local/Projects")
     }
+
+    /// Returns the default worker script path based on the app bundle or project structure.
+    public func getDefaultWorkerScriptPath() -> String {
+        // In development, we look for the scripts folder relative to the project root
+        // This is a heuristic for Junie environment and local dev
+        let possiblePaths = [
+            "../../../scripts/run-worker.sh",
+            "../../scripts/run-worker.sh",
+            "scripts/run-worker.sh"
+        ]
+
+        let currentPath = URL(fileURLWithPath: fileManager.currentDirectoryPath)
+        for path in possiblePaths {
+            let fullPath = currentPath.appendingPathComponent(path).path
+            if fileManager.fileExists(atPath: fullPath) {
+                return fullPath
+            }
+        }
+
+        // Fallback to a placeholder
+        return "/usr/local/bin/run-ltx-worker.sh"
+    }
 }
 
 public enum FileSystemError: LocalizedError {

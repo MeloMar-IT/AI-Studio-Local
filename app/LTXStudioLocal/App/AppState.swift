@@ -8,6 +8,8 @@ class AppState: ObservableObject {
     @Published var activeError: AppError?
     @Published var isWorkerAvailable: Bool = false
     @Published var workerVersion: String = ""
+    @Published var workerStatus: WorkerStatus = .stopped
+    @Published var workerLogs: String = ""
 
     // Mock data indicators
     @Published var isModelLoaded: Bool = false
@@ -25,6 +27,7 @@ class AppState: ObservableObject {
 
     private let hardwareProfiler: HardwareProfilerProtocol
     private let generationClient: GenerationClient
+    private let workerManager: WorkerManagerProtocol
     private let environment: AppEnvironment
     private var pollingTimer: Timer?
     private var jobSubscriptions: [String: Task<Void, Never>] = [:]
@@ -33,6 +36,7 @@ class AppState: ObservableObject {
     init(
         hardwareProfiler: HardwareProfilerProtocol = HardwareProfiler(),
         generationClient: GenerationClient? = nil,
+        workerManager: WorkerManagerProtocol = WorkerManager(),
         environment: AppEnvironment = UserSettings.shared.appEnvironment
     ) {
         NSLog("🔧 AppState: init started (env: \(environment.rawValue))")
@@ -54,9 +58,12 @@ class AppState: ObservableObject {
         }
 
         self.hardwareProfiler = hardwareProfiler
+        self.workerManager = workerManager
 
         let client = generationClient ?? HTTPGenerationClient(baseURL: UserSettings.shared.workerBaseURL)
         self.generationClient = client
+
+        setupWorkerObservers()
 
         Task {
             let profile = await hardwareProfiler.getHardwareProfile()
@@ -68,6 +75,45 @@ class AppState: ObservableObject {
 
         startPolling()
         setupSettingsObservers()
+    }
+
+    private func setupWorkerObservers() {
+        workerManager.statusPublisher
+            .receive(on: RunLoop.main)
+            .sink { [weak self] status in
+                self?.workerStatus = status
+                if status == .running || status == .starting {
+                    Task {
+                        await self?.checkWorkerHealth()
+                    }
+                }
+            }
+            .store(in: &cancellables)
+
+        workerManager.logsPublisher
+            .receive(on: RunLoop.main)
+            .sink { [weak self] logs in
+                self?.workerLogs = logs
+            }
+            .store(in: &cancellables)
+    }
+
+    public func startWorker() async {
+        do {
+            try await workerManager.startWorker()
+        } catch {
+            await MainActor.run {
+                self.activeError = AppError(
+                    title: "Failed to Start Worker",
+                    message: error.localizedDescription,
+                    suggestedActions: ["Check worker script path in Settings", "Open Setup Instructions"]
+                )
+            }
+        }
+    }
+
+    public func stopWorker() {
+        workerManager.stopWorker()
     }
 
     private func setupSettingsObservers() {
@@ -93,11 +139,17 @@ class AppState: ObservableObject {
             await MainActor.run {
                 self.isWorkerAvailable = true
                 self.workerVersion = health.version
+                if self.workerStatus == .starting {
+                    self.workerStatus = .running
+                }
             }
         } catch {
             NSLog("❌ AppState: Worker health check failed: \(error.localizedDescription)")
             await MainActor.run {
                 self.isWorkerAvailable = false
+                if self.workerStatus == .running {
+                    self.workerStatus = .stopped
+                }
                 self.activeError = AppError.workerUnavailable(error: error)
             }
         }

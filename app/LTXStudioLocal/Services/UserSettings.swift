@@ -24,6 +24,7 @@ public final class UserSettings: ObservableObject {
     @AppStorage("appEnvironment") public var appEnvironment: AppEnvironment = .development
     @AppStorage("logLevel") public var logLevel: LogLevel = .info
     @AppStorage("defaultGenerationProfile") public var defaultGenerationProfile: String = "ltx-2.3-distilled"
+    @AppStorage("workerScriptPath") public var workerScriptPath: String = ""
 
     private init() {
         NSLog("⚙️ UserSettings: init started")
@@ -47,6 +48,10 @@ public final class UserSettings: ObservableObject {
 
         if exportDirectory.isEmpty {
             exportDirectory = fileSystem.getMoviesDirectory().path
+        }
+
+        if workerScriptPath.isEmpty {
+            workerScriptPath = fileSystem.getDefaultWorkerScriptPath()
         }
     }
 
