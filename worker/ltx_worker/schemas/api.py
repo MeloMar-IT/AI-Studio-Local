@@ -31,11 +31,22 @@ class ModelProfile(BaseModel):
     id: str
     name: str
     description: str
+    family: str
+    version: Optional[str] = None
+    expected_files: List[str]
+    memory_requirement_gb: Optional[int] = None
+    supported_modes: List[str]
+    recommended_hardware: Optional[str] = None
+    local_path: Optional[str] = None
+    installed: bool = False
     recommended: bool = False
+    missing_files: List[str] = []
+    status: str = "missing" # installed, missing, partial, error
 
 
 class ModelsResponse(BaseModel):
     models: List[ModelProfile]
+    models_dir: str
 
 
 class ErrorDetail(BaseModel):

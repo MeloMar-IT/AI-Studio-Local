@@ -1,5 +1,6 @@
 import platform
 import time
+import os
 from datetime import datetime
 
 from ltx_worker.utils.profiler import get_hardware_profile
@@ -10,6 +11,7 @@ from ltx_worker.config import settings
 import ltx_worker.jobs.store as store
 from ltx_worker.engine.ltx import LTXGenerationEngine
 from ltx_worker.engine.output import OutputManager
+from ltx_worker.utils.models import scan_models
 from ltx_worker.schemas.api import (
     ErrorDetail,
     ErrorResponse,
@@ -17,7 +19,6 @@ from ltx_worker.schemas.api import (
     HardwareResponse,
     HealthResponse,
     JobStatus,
-    ModelProfile,
     ModelsResponse,
 )
 
@@ -100,23 +101,10 @@ async def hardware():
 
 @router.get("/models", response_model=ModelsResponse)
 async def get_models():
+    models = scan_models(settings.models_dir)
     return ModelsResponse(
-        models=[
-            ModelProfile(
-                id="ltx-2.3-distilled",
-                name="LTX-2.3 Distilled",
-                description="Fast draft generation",
-                recommended=True,
-            ),
-            ModelProfile(
-                id="ltx-2.3-dev", name="LTX-2.3 Dev", description="Production quality"
-            ),
-            ModelProfile(
-                id="ltx-2.3-quantized",
-                name="LTX-2.3 Quantized",
-                description="Memory optimized",
-            ),
-        ]
+        models=models,
+        models_dir=os.path.abspath(settings.models_dir)
     )
 
 

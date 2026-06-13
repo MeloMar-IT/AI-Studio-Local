@@ -1,0 +1,98 @@
+{
+  "profiles": [
+    {
+      "id": "ltx-2.3-distilled",
+      "name": "LTX-2.3 Distilled",
+      "description": "Fast draft generation",
+      "family": "LTX-Video",
+      "version": "2.3",
+      "expected_files": [
+        "ltx_video_2.3_distilled.safetensors",
+        "config.json"
+      ],
+      "memory_requirement_gb": 16,
+      "supported_modes": ["text-to-video", "image-to-video"],
+      "recommended_hardware": "Apple M1 Pro 16GB or better"
+    },
+    {
+      "id": "ltx-2.3-dev",
+      "name": "LTX-2.3 Dev",
+      "description": "Production quality",
+      "family": "LTX-Video",
+      "version": "2.3",
+      "expected_files": [
+        "ltx_video_2.3_dev.safetensors",
+        "config.json"
+      ],
+      "memory_requirement_gb": 32,
+      "supported_modes": ["text-to-video", "image-to-video"],
+      "recommended_hardware": "Apple M2 Max 32GB or better"
+    },
+    {
+      "id": "ltx-2.3-quantized",
+      "name": "LTX-2.3 Quantized",
+      "description": "Memory optimized",
+      "family": "LTX-Video",
+      "version": "2.3",
+      "expected_files": [
+        "ltx_video_2.3_quantized.safetensors",
+        "config.json"
+      ],
+      "memory_requirement_gb": 8,
+      "supported_modes": ["text-to-video", "image-to-video"],
+      "recommended_hardware": "Apple M1 8GB or better"
+    },
+    {
+      "id": "spatial-upscaler",
+      "name": "Spatial Upscaler",
+      "description": "Enhances resolution",
+      "family": "Upscaler",
+      "version": "1.0",
+      "expected_files": [
+        "spatial_upscaler.safetensors"
+      ],
+      "memory_requirement_gb": 16,
+      "supported_modes": ["upscale"],
+      "recommended_hardware": "Apple M1 Pro 16GB or better"
+    },
+    {
+      "id": "temporal-upscaler",
+      "name": "Temporal Upscaler",
+      "description": "Improves motion smoothness",
+      "family": "Upscaler",
+      "version": "1.0",
+      "expected_files": [
+        "temporal_upscaler.safetensors"
+      ],
+      "memory_requirement_gb": 16,
+      "supported_modes": ["upscale"],
+      "recommended_hardware": "Apple M1 Pro 16GB or better"
+    },
+    {
+      "id": "camera-control-lora",
+      "name": "Camera Control LoRA",
+      "description": "Precise camera movement control",
+      "family": "LoRA",
+      "version": "1.0",
+      "expected_files": [
+        "camera_control.safetensors"
+      ],
+      "memory_requirement_gb": 0,
+      "supported_modes": ["lora"],
+      "recommended_hardware": "Any"
+    },
+    {
+      "id": "pose-control-lora",
+      "name": "Pose Control LoRA",
+      "description": "Character pose consistency",
+      "family": "LoRA",
+      "version": "1.0",
+      "expected_files": [
+        "pose_control.safetensors"
+      ],
+      "memory_requirement_gb": 0,
+      "supported_modes": ["lora"],
+      "recommended_hardware": "Any"
+    }
+  ]
+}

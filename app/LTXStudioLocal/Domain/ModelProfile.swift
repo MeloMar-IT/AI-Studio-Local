@@ -4,6 +4,7 @@ public enum ModelFamily: String, Codable, CaseIterable {
     case ltxVideo = "LTX-Video"
     case stableVideoDiffusion = "Stable Video Diffusion"
     case upscaler = "Upscaler"
+    case lora = "LoRA"
     case other = "Other"
 }
 
@@ -17,50 +18,66 @@ public enum QualityLevel: String, Codable, CaseIterable {
 public struct ModelProfile: Codable, Identifiable, Equatable, Hashable {
     public let id: String
     public var name: String
-    public var purpose: String
-    public var modelFamily: ModelFamily
+    public var description: String
+    public var family: ModelFamily
     public var version: String?
+    public var expectedFiles: [String]
+    public var memoryRequirementGB: Int?
+    public var supportedModes: [String]
+    public var recommendedHardware: String?
     public var localPath: String?
-    public var memoryRequirement: Int? // Required unified memory in GB
-    public var qualityLevel: QualityLevel
     public var installed: Bool
     public var recommended: Bool
+    public var missingFiles: [String]
+    public var status: String
 
     public init(
         id: String,
         name: String,
-        purpose: String,
-        modelFamily: ModelFamily = .ltxVideo,
+        description: String,
+        family: ModelFamily = .ltxVideo,
         version: String? = nil,
+        expectedFiles: [String] = [],
+        memoryRequirementGB: Int? = nil,
+        supportedModes: [String] = [],
+        recommendedHardware: String? = nil,
         localPath: String? = nil,
-        memoryRequirement: Int? = nil,
-        qualityLevel: QualityLevel = .balanced,
         installed: Bool = false,
-        recommended: Bool = false
+        recommended: Bool = false,
+        missingFiles: [String] = [],
+        status: String = "missing"
     ) {
         self.id = id
         self.name = name
-        self.purpose = purpose
-        self.modelFamily = modelFamily
+        self.description = description
+        self.family = family
         self.version = version
+        self.expectedFiles = expectedFiles
+        self.memoryRequirementGB = memoryRequirementGB
+        self.supportedModes = supportedModes
+        self.recommendedHardware = recommendedHardware
         self.localPath = localPath
-        self.memoryRequirement = memoryRequirement
-        self.qualityLevel = qualityLevel
         self.installed = installed
         self.recommended = recommended
+        self.missingFiles = missingFiles
+        self.status = status
     }
 
     enum CodingKeys: String, CodingKey {
         case id
         case name
-        case purpose
-        case modelFamily = "model_family"
+        case description
+        case family
         case version
+        case expectedFiles = "expected_files"
+        case memoryRequirementGB = "memory_requirement_gb"
+        case supportedModes = "supported_modes"
+        case recommendedHardware = "recommended_hardware"
         case localPath = "local_path"
-        case memoryRequirement = "memory_requirement"
-        case qualityLevel = "quality_level"
         case installed
         case recommended
+        case missingFiles = "missing_files"
+        case status
     }
 }
 
@@ -68,15 +85,18 @@ public struct ModelProfile: Codable, Identifiable, Equatable, Hashable {
 extension ModelProfile {
     public static var mock: ModelProfile {
         ModelProfile(
-            id: "ltx-video-v1-balanced",
-            name: "LTX Video v1 Balanced",
-            purpose: "General purpose video generation",
-            modelFamily: .ltxVideo,
-            version: "1.0",
-            memoryRequirement: 16,
-            qualityLevel: .balanced,
+            id: "ltx-2.3-distilled",
+            name: "LTX-2.3 Distilled",
+            description: "Fast draft generation",
+            family: .ltxVideo,
+            version: "2.3",
+            expectedFiles: ["ltx_video_2.3_distilled.safetensors", "config.json"],
+            memoryRequirementGB: 16,
+            supportedModes: ["text-to-video", "image-to-video"],
+            recommendedHardware: "Apple M1 Pro 16GB or better",
             installed: true,
-            recommended: true
+            recommended: true,
+            status: "installed"
         )
     }
 
@@ -85,57 +105,44 @@ extension ModelProfile {
             ModelProfile(
                 id: "ltx-2.3-distilled",
                 name: "LTX-2.3 Distilled",
-                purpose: "Fast, high-quality video generation (recommended for most users)",
-                modelFamily: .ltxVideo,
+                description: "Fast draft generation",
+                family: .ltxVideo,
                 version: "2.3",
-                memoryRequirement: 16,
-                qualityLevel: .fastDraft,
+                expectedFiles: ["ltx_video_2.3_distilled.safetensors", "config.json"],
+                memoryRequirementGB: 16,
+                supportedModes: ["text-to-video", "image-to-video"],
+                recommendedHardware: "Apple M1 Pro 16GB or better",
                 installed: true,
-                recommended: true
+                recommended: true,
+                status: "installed"
             ),
             ModelProfile(
                 id: "ltx-2.3-dev",
                 name: "LTX-2.3 Dev",
-                purpose: "Full precision model for maximum quality and creative control",
-                modelFamily: .ltxVideo,
+                description: "Production quality",
+                family: .ltxVideo,
                 version: "2.3",
-                memoryRequirement: 32,
-                qualityLevel: .production,
+                expectedFiles: ["ltx_video_2.3_dev.safetensors", "config.json"],
+                memoryRequirementGB: 32,
+                supportedModes: ["text-to-video", "image-to-video"],
+                recommendedHardware: "Apple M2 Max 32GB or better",
                 installed: false,
-                recommended: false
-            ),
-            ModelProfile(
-                id: "ltx-2.3-quantized",
-                name: "LTX-2.3 Quantized",
-                purpose: "Memory-efficient version for 8GB or 16GB Macs",
-                modelFamily: .ltxVideo,
-                version: "2.3",
-                memoryRequirement: 8,
-                qualityLevel: .balanced,
-                installed: false,
-                recommended: false
+                recommended: false,
+                status: "missing"
             ),
             ModelProfile(
                 id: "spatial-upscaler",
                 name: "Spatial Upscaler",
-                purpose: "Enhances resolution and fine details of generated clips",
-                modelFamily: .upscaler,
+                description: "Enhances resolution",
+                family: .upscaler,
                 version: "1.0",
-                memoryRequirement: 16,
-                qualityLevel: .production,
+                expectedFiles: ["spatial_upscaler.safetensors"],
+                memoryRequirementGB: 16,
+                supportedModes: ["upscale"],
+                recommendedHardware: "Apple M1 Pro 16GB or better",
                 installed: true,
-                recommended: true
-            ),
-            ModelProfile(
-                id: "temporal-upscaler",
-                name: "Temporal Upscaler",
-                purpose: "Improves motion smoothness and frame consistency",
-                modelFamily: .upscaler,
-                version: "1.0",
-                memoryRequirement: 16,
-                qualityLevel: .production,
-                installed: false,
-                recommended: true
+                recommended: true,
+                status: "installed"
             )
         ]
     }
