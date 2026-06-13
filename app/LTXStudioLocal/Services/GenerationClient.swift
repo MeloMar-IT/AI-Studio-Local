@@ -107,6 +107,19 @@ public enum GenerationClientError: Error {
             if code == "insufficient_memory" {
                 return AppError.insufficientMemory()
             }
+            if code == "mlx_missing" {
+                return AppError.mlxMissing()
+            }
+            if code == "ffmpeg_missing" {
+                return AppError.ffmpegMissing()
+            }
+            if code == "unsupported_mac" {
+                return AppError.unsupportedMac(reason: message)
+            }
+            if code == "generation_cancelled" {
+                return AppError.generationCancelled()
+            }
+
             var actions = ["Check worker logs"]
             if let action = action {
                 actions.append(action)
@@ -120,7 +133,7 @@ public enum GenerationClientError: Error {
         case .invalidRequest(let message):
             return AppError.generationFailed(details: "Invalid request: \(message)")
         case .unsupportedCapability(let capability):
-            return AppError.generationFailed(details: "This feature (\(capability)) is not supported by the current model.")
+            return AppError.generationUnsupported(reason: "This feature (\(capability)) is not supported by the current model.")
         case .missingModel(let modelId):
             return AppError.modelNotInstalled(modelName: modelId)
         case .decodingError(let error):

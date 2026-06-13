@@ -18,23 +18,43 @@ public enum ExportError: Error, LocalizedError {
     case renderingError(String)
 
     public var errorDescription: String? {
+        asAppError.message
+    }
+
+    public var asAppError: AppError {
         switch self {
         case .emptyTimeline:
-            return "Cannot export an empty timeline. Please add clips first."
+            return AppError(
+                title: "Empty Timeline",
+                message: "Cannot export an empty timeline. Please add clips first.",
+                suggestedActions: ["Add scenes to the timeline"]
+            )
         case .projectFolderMissing:
-            return "Project folder not found."
+            return AppError.projectLoadFailed(error: self)
         case .missingClip(let sceneId, let index):
-            return "Clip \(index + 1) refers to a missing or invalid scene: \(sceneId)"
+            return AppError(
+                title: "Missing Clip",
+                message: "Clip \(index + 1) refers to a missing or invalid scene: \(sceneId)",
+                suggestedActions: ["Remove and re-add the scene to the timeline"]
+            )
         case .sceneNotFound(let sceneId):
-            return "Scene not found: \(sceneId)"
+            return AppError(
+                title: "Scene Not Found",
+                message: "Scene not found: \(sceneId)",
+                suggestedActions: ["Verify the project structure"]
+            )
         case .generationNotFound(let sceneId):
-            return "No generation found for scene: \(sceneId)"
+            return AppError(
+                title: "No Generation Found",
+                message: "No generation found for scene: \(sceneId)",
+                suggestedActions: ["Generate a video for this scene before exporting"]
+            )
         case .videoFileMissing(let path):
-            return "Video file missing at path: \(path)"
+            return AppError.missingMediaFile(path: path)
         case .fileSystemError(let error):
-            return "File system error: \(error.localizedDescription)"
+            return AppError.exportFailed(error: error)
         case .renderingError(let message):
-            return "Rendering error: \(message)"
+            return AppError.exportFailed(error: NSError(domain: "Export", code: -1, userInfo: [NSLocalizedDescriptionKey: message]))
         }
     }
 }

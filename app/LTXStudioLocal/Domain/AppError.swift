@@ -7,6 +7,7 @@ public struct AppError: Identifiable, Equatable {
     public let message: String
     public let technicalDetails: String?
     public let suggestedActions: [String]
+    public let documentationURL: URL?
     public let retryAction: (() -> Void)?
 
     public init(
@@ -15,6 +16,7 @@ public struct AppError: Identifiable, Equatable {
         message: String,
         technicalDetails: String? = nil,
         suggestedActions: [String] = [],
+        documentationURL: URL? = nil,
         retryAction: (() -> Void)? = nil
     ) {
         self.id = id
@@ -22,6 +24,7 @@ public struct AppError: Identifiable, Equatable {
         self.message = message
         self.technicalDetails = technicalDetails
         self.suggestedActions = suggestedActions
+        self.documentationURL = documentationURL
         self.retryAction = retryAction
     }
 
@@ -75,6 +78,88 @@ extension AppError {
                 "Lower the resolution to 720p or less",
                 "Reduce the duration of the clip",
                 "Close other memory-heavy applications"
+            ],
+            documentationURL: URL(string: "https://docs.ltx.local/memory-optimization")
+        )
+    }
+
+    public static func mlxMissing() -> AppError {
+        AppError(
+            title: "MLX Not Found",
+            message: "The MLX framework, required for Apple Silicon AI acceleration, is missing.",
+            suggestedActions: [
+                "Run 'scripts/bootstrap.sh' to install dependencies",
+                "Ensure you have Xcode Command Line Tools installed",
+                "Verify your Python environment has 'mlx' installed"
+            ],
+            documentationURL: URL(string: "https://docs.ltx.local/setup")
+        )
+    }
+
+    public static func ffmpegMissing() -> AppError {
+        AppError(
+            title: "FFmpeg Not Found",
+            message: "FFmpeg is required for encoding video files but was not found on your system.",
+            suggestedActions: [
+                "Install FFmpeg via Homebrew: 'brew install ffmpeg'",
+                "Ensure ffmpeg is in your PATH"
+            ],
+            documentationURL: URL(string: "https://docs.ltx.local/dependencies")
+        )
+    }
+
+    public static func modelIncomplete(modelName: String, missingFiles: [String]) -> AppError {
+        AppError(
+            title: "Model Incomplete",
+            message: "The model '\(modelName)' is missing some required files.",
+            technicalDetails: "Missing: \(missingFiles.joined(separator: ", "))",
+            suggestedActions: [
+                "Redownload the model in Model Manager",
+                "Check for interrupted downloads"
+            ]
+        )
+    }
+
+    public static func generationUnsupported(reason: String) -> AppError {
+        AppError(
+            title: "Generation Not Supported",
+            message: "The current model cannot perform this type of generation.",
+            technicalDetails: reason,
+            suggestedActions: [
+                "Try a different model profile",
+                "Check if the model supports image-to-video or audio-to-video"
+            ]
+        )
+    }
+
+    public static func generationCancelled() -> AppError {
+        AppError(
+            title: "Generation Cancelled",
+            message: "The video generation job was cancelled.",
+            suggestedActions: [
+                "You can start a new generation whenever you're ready"
+            ]
+        )
+    }
+
+    public static func missingContinuityElement(name: String, type: String) -> AppError {
+        AppError(
+            title: "Missing Continuity Element",
+            message: "The \(type) '\(name)' referenced in this scene could not be found.",
+            suggestedActions: [
+                "Ensure the Continuity Library is properly loaded",
+                "Re-attach the element in the Scene Inspector"
+            ]
+        )
+    }
+
+    public static func missingMediaFile(path: String) -> AppError {
+        AppError(
+            title: "Missing Media File",
+            message: "A required media file is missing: \(path)",
+            suggestedActions: [
+                "Check if the file was moved or deleted",
+                "Locate the file and relink it"
             ]
         )
     }

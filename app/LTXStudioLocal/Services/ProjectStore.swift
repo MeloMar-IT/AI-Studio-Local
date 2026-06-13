@@ -32,6 +32,10 @@ extension ProjectStoreError {
             return AppError.projectSaveFailed(error: error)
         case .fileSystemError(let error):
             return AppError.projectSaveFailed(error: error)
+        case .missingContinuityElement(let name, let type):
+            return AppError.missingContinuityElement(name: name, type: type)
+        case .missingMediaFile(let path):
+            return AppError.missingMediaFile(path: path)
         }
     }
 }
@@ -44,6 +48,8 @@ public enum ProjectStoreError: Error {
     case decodingError(Error)
     case encodingError(Error)
     case fileSystemError(Error)
+    case missingContinuityElement(name: String, type: String)
+    case missingMediaFile(path: String)
 }
 
 public final class FileProjectStore: ProjectStore {
