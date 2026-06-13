@@ -1,5 +1,11 @@
 import Foundation
 
+public enum ModelQualityProfile: String, Codable, CaseIterable {
+    case fastDraft = "Fast Draft"
+    case balanced = "Balanced"
+    case production = "Production"
+}
+
 public enum ModelFamily: String, Codable, CaseIterable {
     case ltxVideo = "LTX-Video"
     case stableVideoDiffusion = "Stable Video Diffusion"
@@ -30,6 +36,18 @@ public struct ModelProfile: Codable, Identifiable, Equatable, Hashable {
     public var recommended: Bool
     public var missingFiles: [String]
     public var status: String
+
+    public var modelFamily: ModelFamily { family }
+    public var purpose: String { description }
+    public var memoryRequirement: Int? { memoryRequirementGB }
+    public var qualityLevel: ModelQualityProfile {
+        if id.contains("distilled") || id.contains("fast") {
+            return .fastDraft
+        } else if id.contains("production") || id.contains("high") {
+            return .production
+        }
+        return .balanced
+    }
 
     public init(
         id: String,

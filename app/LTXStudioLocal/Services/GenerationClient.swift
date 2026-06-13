@@ -2,6 +2,7 @@ import Foundation
 
 public protocol GenerationClient {
     func checkHealth() async throws -> HealthStatus
+    func fetchHardware() async throws -> WorkerHardwareProfile
     func fetchModels() async throws -> [ModelProfile]
     func submitTextToVideo(request: GenerationRequest) async throws -> String // returns job_id
     func submitImageToVideo(request: GenerationRequest) async throws -> String // returns job_id
@@ -12,6 +13,30 @@ public protocol GenerationClient {
     func subscribeToJob(jobId: String) -> AsyncThrowingStream<ProgressEvent, Error>
     func validateModelFolder(path: String) async throws -> ModelValidationResponse
     func importModel(path: String, copy: Bool, modelId: String?) async throws -> ModelImportResponse
+}
+
+public struct WorkerHardwareProfile: Codable, Equatable {
+    public let device: String
+    public let chip: String
+    public let totalMemoryGb: Double
+    public let freeMemoryGb: Double
+    public let osName: String
+    public let osVersion: String
+    public let mlxAvailable: Bool
+    public let status: String
+    public let messages: [String]
+
+    enum CodingKeys: String, CodingKey {
+        case device
+        case chip
+        case totalMemoryGb = "total_memory_gb"
+        case freeMemoryGb = "free_memory_gb"
+        case osName = "os_name"
+        case osVersion = "os_version"
+        case mlxAvailable = "mlx_available"
+        case status
+        case messages
+    }
 }
 
 public struct ModelValidationResponse: Codable {
@@ -60,22 +85,46 @@ public struct ProgressEvent: Codable {
 
 public enum GenerationClientError: Error {
     case workerUnavailable(Error?)
+    case workerUnhealthy(String)
     case jobNotFound(String)
     case invalidRequest(String)
-    case workerError(String)
+    case workerError(code: String, message: String, action: String? = nil)
     case decodingError(Error)
     case unsupportedCapability(String)
+    case missingModel(String)
 
     public var asAppError: AppError {
         switch self {
         case .workerUnavailable(let error):
             return AppError.workerUnavailable(error: error)
-        case .workerError(let message):
-            return AppError.generationFailed(details: message)
+        case .workerUnhealthy(let message):
+            return AppError(
+                title: "Worker Unhealthy",
+                message: "The worker is running but reported an issue: \(message)",
+                suggestedActions: ["Check worker logs", "Restart the worker"]
+            )
+        case .workerError(let code, let message, let action):
+            if code == "insufficient_memory" {
+                return AppError.insufficientMemory()
+            }
+            var actions = ["Check worker logs"]
+            if let action = action {
+                actions.append(action)
+            }
+            return AppError(
+                title: "Worker Error",
+                message: message,
+                technicalDetails: "Error code: \(code)",
+                suggestedActions: actions
+            )
         case .invalidRequest(let message):
             return AppError.generationFailed(details: "Invalid request: \(message)")
         case .unsupportedCapability(let capability):
             return AppError.generationFailed(details: "This feature (\(capability)) is not supported by the current model.")
+        case .missingModel(let modelId):
+            return AppError.modelNotInstalled(modelName: modelId)
+        case .decodingError(let error):
+            return AppError.generationFailed(details: "Failed to parse worker response: \(error.localizedDescription)")
         default:
             return AppError.generationFailed(details: self.localizedDescription)
         }
@@ -172,7 +221,8 @@ public final class HTTPGenerationClient: GenerationClient {
         self.baseURL = baseURL
         self.session = session
         self.decoder = JSONDecoder()
-        self.decoder.keyDecodingStrategy = .convertFromSnakeCase
+        // We use explicit CodingKeys in our domain models to match the worker's snake_case
+        self.decoder.keyDecodingStrategy = .useDefaultKeys
         self.encoder = JSONEncoder()
         self.encoder.keyEncodingStrategy = .convertToSnakeCase
     }
@@ -183,15 +233,28 @@ public final class HTTPGenerationClient: GenerationClient {
 
     public func checkHealth() async throws -> HealthStatus {
         let url = baseURL.appendingPathComponent("health")
-        print("🌐 HTTPGenerationClient: GET \(url.absoluteString)")
         do {
             let (data, response) = try await session.data(from: url)
-            if let httpResponse = response as? HTTPURLResponse {
-                print("🌐 HTTPGenerationClient: Health response status code: \(httpResponse.statusCode)")
+            guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+                throw GenerationClientError.workerUnhealthy("Server returned non-200 status")
             }
             return try decoder.decode(HealthStatus.self, from: data)
+        } catch let error as GenerationClientError {
+            throw error
         } catch {
-            print("🌐 HTTPGenerationClient: Health check failed: \(error)")
+            throw GenerationClientError.workerUnavailable(error)
+        }
+    }
+
+    public func fetchHardware() async throws -> WorkerHardwareProfile {
+        let url = baseURL.appendingPathComponent("hardware")
+        do {
+            let (data, response) = try await session.data(from: url)
+            guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+                throw GenerationClientError.workerError(code: "hardware_fetch_failed", message: "Failed to fetch hardware profile")
+            }
+            return try decoder.decode(WorkerHardwareProfile.self, from: data)
+        } catch {
             throw GenerationClientError.workerUnavailable(error)
         }
     }
@@ -238,28 +301,40 @@ public final class HTTPGenerationClient: GenerationClient {
 
             let (data, response) = try await session.data(for: urlRequest)
 
-            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 400 {
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode >= 400 {
                 // Try to parse structured error
                 struct WorkerErrorResponse: Codable {
                     struct ErrorDetail: Codable {
                         let code: String
                         let message: String
+                        let action: String?
                     }
                     let error: ErrorDetail
                 }
 
                 if let workerError = try? decoder.decode(WorkerErrorResponse.self, from: data) {
-                    if workerError.error.code == "unsupported_capability" {
-                        throw GenerationClientError.unsupportedCapability(workerError.error.message)
+                    let code = workerError.error.code
+                    let msg = workerError.error.message
+                    let action = workerError.error.action
+
+                    if code == "unsupported_capability" {
+                        throw GenerationClientError.unsupportedCapability(msg)
                     }
-                    throw GenerationClientError.invalidRequest(workerError.error.message)
+                    if code == "model_not_found" || code == "model_not_installed" {
+                        throw GenerationClientError.missingModel(request.modelId)
+                    }
+                    throw GenerationClientError.workerError(code: code, message: msg, action: action)
                 }
 
-                throw GenerationClientError.invalidRequest("Server returned 400")
+                throw GenerationClientError.workerError(code: "http_\(httpResponse.statusCode)", message: "Server returned \(httpResponse.statusCode)")
             }
 
             struct JobResponse: Codable {
                 let jobId: String
+
+                enum CodingKeys: String, CodingKey {
+                    case jobId = "job_id"
+                }
             }
 
             let responseData = try decoder.decode(JobResponse.self, from: data)
@@ -325,7 +400,7 @@ public final class HTTPGenerationClient: GenerationClient {
 
             guard let httpResponse = response as? HTTPURLResponse,
                   (200...299).contains(httpResponse.statusCode) else {
-                throw GenerationClientError.workerError("Failed to cancel job")
+                throw GenerationClientError.workerError(code: "cancel_failed", message: "Failed to cancel job")
             }
         } catch let error as GenerationClientError {
             throw error
@@ -344,7 +419,7 @@ public final class HTTPGenerationClient: GenerationClient {
 
                     guard let httpResponse = response as? HTTPURLResponse,
                           (200...299).contains(httpResponse.statusCode) else {
-                        continuation.finish(throwing: GenerationClientError.workerError("Failed to connect to event stream"))
+                        continuation.finish(throwing: GenerationClientError.workerError(code: "event_stream_failed", message: "Failed to connect to event stream"))
                         return
                     }
 
@@ -414,9 +489,9 @@ public final class HTTPGenerationClient: GenerationClient {
                 let detail: String
             }
             if let error = try? decoder.decode(WorkerError.self, from: data) {
-                throw GenerationClientError.workerError(error.detail)
+                throw GenerationClientError.workerError(code: "import_failed", message: error.detail)
             }
-            throw GenerationClientError.workerError("Server returned \(httpResponse.statusCode)")
+            throw GenerationClientError.workerError(code: "http_\(httpResponse.statusCode)", message: "Server returned \(httpResponse.statusCode)")
         }
 
         return try decoder.decode(ModelImportResponse.self, from: data)

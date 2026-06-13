@@ -35,6 +35,7 @@ public struct Project: Codable, Identifiable, Equatable {
     public var createdAt: Date
     public var modifiedAt: Date
     public var defaultBrandKitId: String?
+    public var modelProfileId: String?
     public var aspectRatio: String
     public var scenes: [String] // Path to scene.json or scene ID
     public var timeline: Timeline
@@ -46,6 +47,7 @@ public struct Project: Codable, Identifiable, Equatable {
         createdAt: Date = Date(),
         modifiedAt: Date = Date(),
         defaultBrandKitId: String? = nil,
+        modelProfileId: String? = nil,
         aspectRatio: String = "16:9",
         scenes: [String] = [],
         timeline: Timeline = Timeline()
@@ -56,6 +58,7 @@ public struct Project: Codable, Identifiable, Equatable {
         self.createdAt = createdAt
         self.modifiedAt = modifiedAt
         self.defaultBrandKitId = defaultBrandKitId
+        self.modelProfileId = modelProfileId
         self.aspectRatio = aspectRatio
         self.scenes = scenes
         self.timeline = timeline
@@ -68,6 +71,7 @@ public struct Project: Codable, Identifiable, Equatable {
         case createdAt = "created_at"
         case modifiedAt = "modified_at"
         case defaultBrandKitId = "default_brand_kit_id"
+        case modelProfileId = "model_profile_id"
         case aspectRatio = "aspect_ratio"
         case scenes
         case timeline

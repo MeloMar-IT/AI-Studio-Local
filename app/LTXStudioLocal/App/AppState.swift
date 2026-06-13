@@ -103,6 +103,12 @@ class AppState: ObservableObject {
         }
     }
 
+    func showError(_ error: AppError) {
+        DispatchQueue.main.async {
+            self.activeError = error
+        }
+    }
+
     func addJob(_ job: GenerationJob) {
         DispatchQueue.main.async {
             self.activeJobs.append(job)
