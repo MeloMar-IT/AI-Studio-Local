@@ -8,6 +8,7 @@ from ltx_worker.engine.base import (
     MediaEncoder,
     ProgressCallback,
     CancellationToken,
+    UnsupportedCapabilityError,
 )
 from ltx_worker.logging_config import logger
 
@@ -49,7 +50,7 @@ class MockGenerationEngine(GenerationEngine):
         self.media_encoder = media_encoder
 
     def capabilities(self) -> List[str]:
-        return ["text-to-video", "image-to-video", "audio-to-video", "retake"]
+        return ["text-to-video", "image-to-video"]
 
     async def load_model(self, model_profile: Any) -> Any:
         model_id = getattr(model_profile, "id", str(model_profile))
@@ -83,7 +84,7 @@ class MockGenerationEngine(GenerationEngine):
         progress_callback: Optional[ProgressCallback] = None,
         cancellation_token: Optional[CancellationToken] = None,
     ) -> str:
-        return await self.generate(request, output_path, progress_callback, cancellation_token)
+        raise UnsupportedCapabilityError("audio-to-video")
 
     async def generate_retake(
         self,
@@ -92,7 +93,7 @@ class MockGenerationEngine(GenerationEngine):
         progress_callback: Optional[ProgressCallback] = None,
         cancellation_token: Optional[CancellationToken] = None,
     ) -> str:
-        return await self.generate(request, output_path, progress_callback, cancellation_token)
+        raise UnsupportedCapabilityError("retake")
 
     async def generate(
         self,

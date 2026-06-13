@@ -238,3 +238,28 @@ def test_ltx_engine_explicit_error():
 
     finally:
         api.job_store.engine = original_engine
+
+def test_audio_to_video_unsupported():
+    payload = {
+        "prompt": "Sync with this music",
+        "model_id": "ltx-2.3-distilled",
+        "audio_path": "/path/to/audio.mp3"
+    }
+    response = client.post("/generate/audio-to-video", json=payload)
+    assert response.status_code == 400
+    data = response.json()
+    assert "error" in data
+    assert data["error"]["code"] == "unsupported_capability"
+    assert "audio-to-video" in data["error"]["message"]
+
+def test_retake_unsupported():
+    payload = {
+        "prompt": "Retake this part",
+        "model_id": "ltx-2.3-distilled"
+    }
+    response = client.post("/generate/retake", json=payload)
+    assert response.status_code == 400
+    data = response.json()
+    assert "error" in data
+    assert data["error"]["code"] == "unsupported_capability"
+    assert "retake" in data["error"]["message"]

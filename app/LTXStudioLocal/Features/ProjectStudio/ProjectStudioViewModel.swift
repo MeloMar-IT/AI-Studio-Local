@@ -152,6 +152,23 @@ class ProjectStudioViewModel: ObservableObject {
 
     func updateSceneMode(_ sceneId: String, mode: SceneMode) {
         if let index = scenes.firstIndex(where: { $0.id == sceneId }) {
+            // Check if mode is supported by selected model
+            if let modelId = project?.modelProfileId,
+               let model = availableModels.first(where: { $0.id == modelId }) {
+                let modeString: String
+                switch mode {
+                case .textToVideo: modeString = "text-to-video"
+                case .imageToVideo: modeString = "image-to-video"
+                case .audioToVideo: modeString = "audio-to-video"
+                case .retake: modeString = "retake"
+                }
+
+                if !model.supportedModes.contains(modeString) {
+                    appState?.showError(AppError.generationFailed(details: "The selected model does not support \(modeString)."))
+                    return
+                }
+            }
+
             scenes[index].mode = mode
             updateProject()
         }

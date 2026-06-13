@@ -434,7 +434,12 @@ struct ProjectStudioView: View {
 
                     if scene.mode != .retake {
                         Button {
-                            viewModel.updateSceneMode(scene.id, mode: .retake)
+                            let isRetakeSupported = viewModel.availableModels.first(where: { $0.id == (viewModel.project?.modelProfileId ?? "") })?.supportedModes.contains("retake") ?? false
+                            if isRetakeSupported {
+                                viewModel.updateSceneMode(scene.id, mode: .retake)
+                            } else {
+                                appState.showError(AppError.generationFailed(details: "The selected model does not support retake."))
+                            }
                         } label: {
                             Label("Retake", systemImage: "arrow.counterclockwise.circle")
                                 .font(.App.body)
@@ -540,7 +545,10 @@ struct ProjectStudioView: View {
                         )) {
                             Text("Text to Video").tag(SceneMode.textToVideo)
                             Text("Image to Video").tag(SceneMode.imageToVideo)
-                            Text("Audio to Video").tag(SceneMode.audioToVideo)
+
+                            let isAudioSupported = viewModel.availableModels.first(where: { $0.id == (viewModel.project?.modelProfileId ?? "") })?.supportedModes.contains("audio-to-video") ?? false
+                            Text("Audio to Video" + (isAudioSupported ? "" : " (Unsupported)"))
+                                .tag(SceneMode.audioToVideo)
                         }
                         .pickerStyle(.segmented)
                         .accessibilityLabel("Generation Mode")
@@ -709,37 +717,61 @@ struct ProjectStudioView: View {
 
                 if scene.mode == .retake {
                     InspectorSection(title: "Retake Configuration", isCollapsible: true) {
-                        VStack(alignment: .leading, spacing: Spacing.small) {
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    Text("Start (s)")
-                                        .font(.App.caption)
-                                    TextField("0.0", value: $viewModel.retakeStartSeconds, format: .number)
-                                        .textFieldStyle(.roundedBorder)
-                                }
-                                VStack(alignment: .leading) {
-                                    Text("End (s)")
-                                        .font(.App.caption)
-                                    TextField("5.0", value: $viewModel.retakeEndSeconds, format: .number)
-                                        .textFieldStyle(.roundedBorder)
-                                }
-                            }
+                        let isRetakeSupported = viewModel.availableModels.first(where: { $0.id == (viewModel.project?.modelProfileId ?? "") })?.supportedModes.contains("retake") ?? false
 
-                            Text("Retake Prompt")
-                                .font(.App.caption)
-                            TextEditor(text: $viewModel.retakePrompt)
-                                .frame(height: 60)
-                                .padding(4)
-                                .background(RoundedRectangle(cornerRadius: 4).stroke(Color.App.border))
-
-                            HStack {
-                                PrimaryButton("Generate Retake", icon: "sparkles") {
-                                    viewModel.generateScene()
+                        if !isRetakeSupported {
+                            VStack(alignment: .leading, spacing: Spacing.small) {
+                                HStack {
+                                    Image(systemName: "exclamationmark.triangle")
+                                        .foregroundColor(.orange)
+                                    Text("Feature Unsupported")
+                                        .font(.App.headline)
                                 }
-                                .disabled(viewModel.isGenerating)
 
-                                SecondaryButton("Cancel") {
+                                Text("The selected model profile does not support the retake capability. Please switch to a compatible model or use standard generation.")
+                                    .font(.App.caption)
+                                    .foregroundColor(Color.App.secondaryText)
+
+                                SecondaryButton("Switch to Text to Video") {
                                     viewModel.updateSceneMode(scene.id, mode: .textToVideo)
+                                }
+                                .padding(.top, Spacing.small)
+                            }
+                            .padding(Spacing.small)
+                            .background(RoundedRectangle(cornerRadius: 8).fill(Color.orange.opacity(0.1)))
+                        } else {
+                            VStack(alignment: .leading, spacing: Spacing.small) {
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        Text("Start (s)")
+                                            .font(.App.caption)
+                                        TextField("0.0", value: $viewModel.retakeStartSeconds, format: .number)
+                                            .textFieldStyle(.roundedBorder)
+                                    }
+                                    VStack(alignment: .leading) {
+                                        Text("End (s)")
+                                            .font(.App.caption)
+                                        TextField("5.0", value: $viewModel.retakeEndSeconds, format: .number)
+                                            .textFieldStyle(.roundedBorder)
+                                    }
+                                }
+
+                                Text("Retake Prompt")
+                                    .font(.App.caption)
+                                TextEditor(text: $viewModel.retakePrompt)
+                                    .frame(height: 60)
+                                    .padding(4)
+                                    .background(RoundedRectangle(cornerRadius: 4).stroke(Color.App.border))
+
+                                HStack {
+                                    PrimaryButton("Generate Retake", icon: "sparkles") {
+                                        viewModel.generateScene()
+                                    }
+                                    .disabled(viewModel.isGenerating)
+
+                                    SecondaryButton("Cancel") {
+                                        viewModel.updateSceneMode(scene.id, mode: .textToVideo)
+                                    }
                                 }
                             }
                         }

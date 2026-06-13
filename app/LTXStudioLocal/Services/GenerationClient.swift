@@ -47,6 +47,7 @@ public enum GenerationClientError: Error {
     case invalidRequest(String)
     case workerError(String)
     case decodingError(Error)
+    case unsupportedCapability(String)
 
     public var asAppError: AppError {
         switch self {
@@ -56,6 +57,8 @@ public enum GenerationClientError: Error {
             return AppError.generationFailed(details: message)
         case .invalidRequest(let message):
             return AppError.generationFailed(details: "Invalid request: \(message)")
+        case .unsupportedCapability(let capability):
+            return AppError.generationFailed(details: "This feature (\(capability)) is not supported by the current model.")
         default:
             return AppError.generationFailed(details: self.localizedDescription)
         }
@@ -219,6 +222,22 @@ public final class HTTPGenerationClient: GenerationClient {
             let (data, response) = try await session.data(for: urlRequest)
 
             if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 400 {
+                // Try to parse structured error
+                struct WorkerErrorResponse: Codable {
+                    struct ErrorDetail: Codable {
+                        let code: String
+                        let message: String
+                    }
+                    let error: ErrorDetail
+                }
+
+                if let workerError = try? decoder.decode(WorkerErrorResponse.self, from: data) {
+                    if workerError.error.code == "unsupported_capability" {
+                        throw GenerationClientError.unsupportedCapability(workerError.error.message)
+                    }
+                    throw GenerationClientError.invalidRequest(workerError.error.message)
+                }
+
                 throw GenerationClientError.invalidRequest("Server returned 400")
             }
 

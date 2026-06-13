@@ -276,7 +276,15 @@ async def image_to_video(request: GenerationRequest):
 @router.post("/generate/audio-to-video", response_model=JobStatus)
 async def audio_to_video(request: GenerationRequest):
     if "audio-to-video" not in engine.capabilities():
-         raise HTTPException(status_code=400, detail="Current engine does not support audio-to-video")
+        raise HTTPException(
+            status_code=400,
+            detail=ErrorResponse(
+                error=ErrorDetail(
+                    code="unsupported_capability",
+                    message="Current engine does not support audio-to-video"
+                )
+            ).model_dump()
+        )
 
     job_id = job_store.create_job(request)
     job = job_store.get_job(job_id)
@@ -288,7 +296,15 @@ async def audio_to_video(request: GenerationRequest):
 @router.post("/generate/retake", response_model=JobStatus)
 async def generate_retake(request: GenerationRequest):
     if "retake" not in engine.capabilities():
-        raise HTTPException(status_code=400, detail="Current engine does not support retake")
+        raise HTTPException(
+            status_code=400,
+            detail=ErrorResponse(
+                error=ErrorDetail(
+                    code="unsupported_capability",
+                    message="Current engine does not support retake"
+                )
+            ).model_dump()
+        )
 
     job_id = job_store.create_job(request)
     job = job_store.get_job(job_id)
