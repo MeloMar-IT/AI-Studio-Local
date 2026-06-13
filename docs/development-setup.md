@@ -118,7 +118,26 @@ We use `swiftlint` for Swift and `ruff` for Python. Use the scripts in `scripts/
 ./scripts/lint.sh
 ```
 
-## 8. Git Hygiene for Large Files
+## 8. No-Mock Production Guard
+
+The project includes a CI guard that prevents production code from importing or using mock/test services. This ensures that mock logic doesn't accidentally leak into production builds.
+
+The guard scans for forbidden names/imports such as `Mock`, `Fake`, `Stub`, `SampleData`, `PreviewFixture`, and `TestAdapter`.
+
+### How to add legitimate test fixtures
+
+If you need to add a test fixture or a mock, follow these rules to avoid violating the production guard:
+
+1. **Use the correct directory**: Place test-only files in a directory named `tests`, `Tests`, or `fixtures`. Files in these directories are automatically ignored by the guard.
+2. **SwiftUI Previews**: Use `#if DEBUG` to wrap preview data or mock injections in SwiftUI views. The guard ignores code within `#if DEBUG` blocks.
+3. **Internal definitions**: If a class must contain mock data for development purposes (like the current MVP state), ensure the code is wrapped in `#if DEBUG` or the file is specifically excluded in `scripts/check-no-production-mocks.sh`.
+
+Run the guard locally to verify your changes:
+```bash
+./scripts/check-no-production-mocks.sh
+```
+
+## 9. Git Hygiene for Large Files
 
 AI Studio Local deals with large binary files (models, videos, audio). To keep the repository responsive and small, follow these rules:
 

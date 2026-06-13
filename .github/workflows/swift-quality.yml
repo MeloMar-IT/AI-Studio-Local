@@ -26,6 +26,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-spm-
 
+      - name: Production Mock Guard
+        run: ./scripts/check-no-production-mocks.sh
+
       - name: SwiftLint
         run: |
           if which swiftlint >/dev/null; then
