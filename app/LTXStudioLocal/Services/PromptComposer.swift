@@ -3,11 +3,21 @@ import Foundation
 public struct ComposedPrompt: Equatable {
     public let prompt: String
     public let negativePrompt: String
+    public let sourceElementIds: [String]
+    public let warnings: [String]
     public let metadata: [String: String]
 
-    public init(prompt: String, negativePrompt: String, metadata: [String: String]) {
+    public init(
+        prompt: String,
+        negativePrompt: String,
+        sourceElementIds: [String] = [],
+        warnings: [String] = [],
+        metadata: [String: String] = [:]
+    ) {
         self.prompt = prompt
         self.negativePrompt = negativePrompt
+        self.sourceElementIds = sourceElementIds
+        self.warnings = warnings
         self.metadata = metadata
     }
 }
@@ -20,56 +30,108 @@ public final class DefaultPromptComposer: PromptComposer {
     public init() {}
 
     public func compose(scene: Scene, elements: [ContinuityElement]) -> ComposedPrompt {
-        var promptParts: [String] = []
-        var negativePromptParts: [String] = []
+        var positiveParts: [String] = []
+        var negativeParts: [String] = []
+        var sourceElementIds: [String] = []
+        var warnings: [String] = []
         var metadata: [String: String] = [:]
 
-        // 1. Scene Prompt
-        if !scene.prompt.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            promptParts.append(scene.prompt)
+        // 1. Scene Prompt (Must come first)
+        let scenePrompt = scene.prompt.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !scenePrompt.isEmpty {
+            positiveParts.append(scenePrompt)
         }
 
-        if let sceneNegative = scene.negativePrompt, !sceneNegative.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            negativePromptParts.append(sceneNegative)
+        if let sceneNegative = scene.negativePrompt {
+            let trimmed = sceneNegative.trimmingCharacters(in: .whitespacesAndNewlines)
+            if !trimmed.isEmpty {
+                negativeParts.append(trimmed)
+            }
         }
 
-        // 2. Elements by type (Order: character, location, style, camera, audio, brand, promptBlock, lora)
-        let elementOrder: [ContinuityElementType] = [
-            .character, .location, .style, .camera, .audio, .brand, .promptBlock, .lora
+        // 2. Elements by type
+        // Required Ordering:
+        // - Character identity text must be included before style text.
+        // - Location text must be included before camera text.
+        // - Audio cues must be included near the end.
+        let typeOrder: [ContinuityElementType] = [
+            .character,
+            .style,
+            .location,
+            .camera,
+            .brand,
+            .promptBlock,
+            .lora,
+            .audio // Audio near the end
         ]
 
-        for type in elementOrder {
-            let typeElements = elements.filter { $0.type == type }
+        for type in typeOrder {
+            // Sort by name for determinism if multiple elements of same type
+            let typeElements = elements.filter { $0.type == type }.sorted(by: { $0.id < $1.id })
+
             for element in typeElements {
-                if !element.promptBlock.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                    promptParts.append(element.promptBlock)
-                    metadata[element.id] = element.name
+                sourceElementIds.append(element.id)
+                metadata[element.id] = element.name
+
+                let prompt = element.promptBlock.trimmingCharacters(in: .whitespacesAndNewlines)
+                if !prompt.isEmpty {
+                    positiveParts.append(prompt)
                 }
 
-                if let elementNegative = element.negativePrompt, !elementNegative.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                    negativePromptParts.append(elementNegative)
+                if let negative = element.negativePrompt {
+                    let trimmed = negative.trimmingCharacters(in: .whitespacesAndNewlines)
+                    if !trimmed.isEmpty {
+                        negativeParts.append(trimmed)
+                    }
                 }
             }
         }
 
-        // 3. Consistency Locks (Adding instructions for locks if they are enabled)
-        // Note: For now we just add them to metadata. In a real engine, these might affect the prompt or parameters.
-        if scene.consistencyLocks.character { metadata["lock_character"] = "true" }
+        // Check for missing elements (attached to scene but not provided in elements array)
+        let attachedIds = Set(scene.attachedContinuityElements.map { $0.elementId })
+        let providedIds = Set(elements.map { $0.id })
+        let missingIds = attachedIds.subtracting(providedIds)
+
+        for missingId in missingIds {
+            if let attached = scene.attachedContinuityElements.first(where: { $0.elementId == missingId }) {
+                warnings.append("Missing element: \(attached.type.rawValue) (\(missingId))")
+            } else {
+                warnings.append("Missing element: \(missingId)")
+            }
+        }
+
+        // 3. Consistency Locks
+        if scene.consistencyLocks.characterIdentity { metadata["lock_character"] = "true" }
         if scene.consistencyLocks.clothing { metadata["lock_clothing"] = "true" }
         if scene.consistencyLocks.location { metadata["lock_location"] = "true" }
         if scene.consistencyLocks.style { metadata["lock_style"] = "true" }
         if scene.consistencyLocks.brand { metadata["lock_brand"] = "true" }
-        if scene.consistencyLocks.audio { metadata["lock_audio"] = "true" }
+        if scene.consistencyLocks.audioIdentity { metadata["lock_audio"] = "true" }
         if scene.consistencyLocks.seed { metadata["lock_seed"] = "true" }
         if scene.consistencyLocks.camera { metadata["lock_camera"] = "true" }
 
-        let finalPrompt = promptParts.joined(separator: ", ")
-        let finalNegativePrompt = negativePromptParts.joined(separator: ", ")
+        // Deduplicate parts while preserving order
+        let finalPositive = deduplicateParts(positiveParts).joined(separator: ", ")
+        let finalNegative = deduplicateParts(negativeParts).joined(separator: ", ")
 
         return ComposedPrompt(
-            prompt: finalPrompt,
-            negativePrompt: finalNegativePrompt,
+            prompt: finalPositive,
+            negativePrompt: finalNegative,
+            sourceElementIds: sourceElementIds,
+            warnings: warnings,
             metadata: metadata
         )
+    }
+
+    private func deduplicateParts(_ parts: [String]) -> [String] {
+        var seen = Set<String>()
+        var result: [String] = []
+        for part in parts {
+            if !seen.contains(part) {
+                seen.insert(part)
+                result.append(part)
+            }
+        }
+        return result
     }
 }
