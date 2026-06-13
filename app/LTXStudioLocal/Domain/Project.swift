@@ -64,6 +64,34 @@ public struct Project: Codable, Identifiable, Equatable {
         self.timeline = timeline
     }
 
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(String.self, forKey: .id)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.schemaVersion = try container.decodeIfPresent(Int.self, forKey: .schemaVersion) ?? Project.currentSchemaVersion
+        self.createdAt = try container.decode(Date.self, forKey: .createdAt)
+        self.modifiedAt = try container.decode(Date.self, forKey: .modifiedAt)
+        self.defaultBrandKitId = try container.decodeIfPresent(String.self, forKey: .defaultBrandKitId)
+        self.modelProfileId = try container.decodeIfPresent(String.self, forKey: .modelProfileId)
+        self.aspectRatio = try container.decode(String.self, forKey: .aspectRatio)
+        self.scenes = try container.decode([String].self, forKey: .scenes)
+        self.timeline = try container.decode(Timeline.self, forKey: .timeline)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+        try container.encode(schemaVersion, forKey: .schemaVersion)
+        try container.encode(createdAt, forKey: .createdAt)
+        try container.encode(modifiedAt, forKey: .modifiedAt)
+        try container.encode(defaultBrandKitId, forKey: .defaultBrandKitId)
+        try container.encode(modelProfileId, forKey: .modelProfileId)
+        try container.encode(aspectRatio, forKey: .aspectRatio)
+        try container.encode(scenes, forKey: .scenes)
+        try container.encode(timeline, forKey: .timeline)
+    }
+
     enum CodingKeys: String, CodingKey {
         case id
         case name

@@ -73,6 +73,39 @@ public struct ConsistencyLocks: Codable, Equatable {
         case clothing
         case camera
     }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        // Decode character identity with fallback to "character"
+        if let characterIdentity = try container.decodeIfPresent(Bool.self, forKey: .characterIdentity) {
+            self.characterIdentity = characterIdentity
+        } else {
+            let altContainer = try decoder.container(keyedBy: LegacyCodingKeys.self)
+            self.characterIdentity = try altContainer.decodeIfPresent(Bool.self, forKey: .character) ?? false
+        }
+
+        self.location = try container.decodeIfPresent(Bool.self, forKey: .location) ?? false
+        self.style = try container.decodeIfPresent(Bool.self, forKey: .style) ?? false
+        self.brand = try container.decodeIfPresent(Bool.self, forKey: .brand) ?? false
+
+        // Decode audio identity with fallback to "audio"
+        if let audioIdentity = try container.decodeIfPresent(Bool.self, forKey: .audioIdentity) {
+            self.audioIdentity = audioIdentity
+        } else {
+            let altContainer = try decoder.container(keyedBy: LegacyCodingKeys.self)
+            self.audioIdentity = try altContainer.decodeIfPresent(Bool.self, forKey: .audio) ?? false
+        }
+
+        self.seed = try container.decodeIfPresent(Bool.self, forKey: .seed) ?? false
+        self.clothing = try container.decodeIfPresent(Bool.self, forKey: .clothing) ?? false
+        self.camera = try container.decodeIfPresent(Bool.self, forKey: .camera) ?? false
+    }
+
+    private enum LegacyCodingKeys: String, CodingKey {
+        case character
+        case audio
+    }
 }
 
 public enum AudioMode: String, Codable, CaseIterable {

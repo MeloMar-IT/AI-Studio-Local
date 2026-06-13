@@ -228,6 +228,88 @@ final class ProjectStoreTests: XCTestCase {
         XCTAssertTrue(jsonString.contains("\"id\" : \"\(project.id)\""))
     }
 
+    func testLoadProjectWithoutSchemaVersion() throws {
+        let projectURL = tempDirectory.appendingPathComponent("NoSchemaProject.ltxproject")
+        try fileManager.createDirectory(at: projectURL.appendingPathComponent("scenes"), withIntermediateDirectories: true)
+
+        let projectJson = """
+        {
+          "id": "test-id",
+          "name": "Test Project",
+          "created_at": "2026-06-12T19:30:55Z",
+          "modified_at": "2026-06-12T19:30:55Z",
+          "aspect_ratio": "16:9",
+          "scenes": [],
+          "timeline": { "clips": [] }
+        }
+        """
+        try projectJson.data(using: .utf8)?.write(to: projectURL.appendingPathComponent("project.json"))
+
+        let timelineJson = """
+        { "clips": [] }
+        """
+        try timelineJson.data(using: .utf8)?.write(to: projectURL.appendingPathComponent("timeline.json"))
+
+        // This should not throw if we fix it
+        let (project, _) = try projectStore.load(from: projectURL)
+        XCTAssertEqual(project.schemaVersion, 1)
+        XCTAssertEqual(project.id, "test-id")
+    }
+
+    func testLoadSceneWithDifferentConsistencyLocks() throws {
+        let projectURL = tempDirectory.appendingPathComponent("SceneLockProject.ltxproject")
+        try fileManager.createDirectory(at: projectURL.appendingPathComponent("scenes"), withIntermediateDirectories: true)
+
+        let projectJson = """
+        {
+          "id": "test-id",
+          "name": "Test Project",
+          "created_at": "2026-06-12T19:30:55Z",
+          "modified_at": "2026-06-12T19:30:55Z",
+          "aspect_ratio": "16:9",
+          "scenes": ["scene-1"],
+          "timeline": { "clips": [] }
+        }
+        """
+        try projectJson.data(using: .utf8)?.write(to: projectURL.appendingPathComponent("project.json"))
+        try "{ \"clips\": [] }".data(using: .utf8)?.write(to: projectURL.appendingPathComponent("timeline.json"))
+
+        let sceneDir = projectURL.appendingPathComponent("scenes").appendingPathComponent("scene-1")
+        try fileManager.createDirectory(at: sceneDir, withIntermediateDirectories: true)
+
+        let sceneJson = """
+        {
+          "id": "scene-1",
+          "name": "Example",
+          "mode": "text-to-video",
+          "prompt": "Test prompt",
+          "duration_seconds": 5,
+          "audio_mode": "generate",
+          "attached_continuity_elements": [],
+          "generations": [],
+          "consistency_locks": {
+            "audio": true,
+            "brand": false,
+            "camera": false,
+            "character": true,
+            "clothing": false,
+            "location": false,
+            "seed": false,
+            "style": false
+          }
+        }
+        """
+        try sceneJson.data(using: .utf8)?.write(to: sceneDir.appendingPathComponent("scene.json"))
+        try "Test prompt".data(using: .utf8)?.write(to: sceneDir.appendingPathComponent("prompt.md"))
+
+        // This might fail if ConsistencyLocks decoding is strict about keys
+        let (_, scenes) = try projectStore.load(from: projectURL)
+        XCTAssertEqual(scenes.count, 1)
+        XCTAssertEqual(scenes[0].id, "scene-1")
+        XCTAssertTrue(scenes[0].consistencyLocks.audioIdentity)
+        XCTAssertTrue(scenes[0].consistencyLocks.characterIdentity)
+    }
+
     private func XCTEqualStoreError(_ lhs: ProjectStoreError?, _ rhs: ProjectStoreError?) {
         switch (lhs, rhs) {
         case (.missingProjectFile, .missingProjectFile): break
