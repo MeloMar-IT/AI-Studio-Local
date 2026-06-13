@@ -38,9 +38,22 @@ jobs:
 
     - name: Test with pytest
       run: |
-        cd worker && pytest
-
+        cd worker && pytest --junitxml=test-results.xml
     - name: Check production/mock boundary
       run: |
         chmod +x scripts/check-production-imports.sh
         ./scripts/check-production-imports.sh
+    - name: Upload test results
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: python-test-results
+        path: worker/test-results.xml
+    - name: Upload logs
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: worker-logs
+        path: |
+          worker/*.log
+          *.log

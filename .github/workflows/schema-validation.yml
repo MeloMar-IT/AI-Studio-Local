@@ -30,10 +30,22 @@ jobs:
 
       - name: Validate Examples against Schemas
         run: |
-          ajv validate -s shared/schemas/project.schema.json -d shared/examples/project.example.json
-          ajv validate -s shared/schemas/scene.schema.json -d shared/examples/scene.example.json
-          ajv validate -s shared/schemas/generation-job.schema.json -d shared/examples/generation-job.example.json
-          ajv validate -s shared/schemas/generation-request.schema.json -d shared/examples/generation-request.example.json
-          ajv validate -s shared/schemas/generation-response.schema.json -d shared/examples/generation-response.example.json
-          ajv validate -s shared/schemas/model-profile.schema.json -d shared/examples/model-profile.example.json
-          ajv validate -s shared/schemas/continuity-element.schema.json -d shared/examples/continuity-element.example.json
+          mkdir -p validation-results
+          ajv validate -s shared/schemas/project.schema.json -d shared/examples/project.example.json > validation-results/project.txt 2>&1 || touch validation-results/failed
+          ajv validate -s shared/schemas/scene.schema.json -d shared/examples/scene.example.json > validation-results/scene.txt 2>&1 || touch validation-results/failed
+          ajv validate -s shared/schemas/generation-job.schema.json -d shared/examples/generation-job.example.json > validation-results/gen-job.txt 2>&1 || touch validation-results/failed
+          ajv validate -s shared/schemas/generation-request.schema.json -d shared/examples/generation-request.example.json > validation-results/gen-req.txt 2>&1 || touch validation-results/failed
+          ajv validate -s shared/schemas/generation-response.schema.json -d shared/examples/generation-response.example.json > validation-results/gen-res.txt 2>&1 || touch validation-results/failed
+          ajv validate -s shared/schemas/model-profile.schema.json -d shared/examples/model-profile.example.json > validation-results/model.txt 2>&1 || touch validation-results/failed
+          ajv validate -s shared/schemas/continuity-element.schema.json -d shared/examples/continuity-element.example.json > validation-results/continuity.txt 2>&1 || touch validation-results/failed
+
+          if [ -f validation-results/failed ]; then
+            cat validation-results/*.txt
+            exit 1
+          fi
+      - name: Upload validation results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: schema-validation-results
+          path: validation-results/*.txt
