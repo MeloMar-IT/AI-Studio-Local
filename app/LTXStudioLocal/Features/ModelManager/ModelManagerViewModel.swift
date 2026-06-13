@@ -8,6 +8,8 @@ class ModelManagerViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var isOffline: Bool = false
     @Published var errorMessage: String?
+    @Published var importValidationResult: ModelValidationResponse?
+    @Published var isImporting: Bool = false
 
     private let modelStore: ModelStore
     private var cancellables = Set<AnyCancellable>()
@@ -45,5 +47,44 @@ class ModelManagerViewModel: ObservableObject {
 
     func selectModel(_ model: ModelProfile) {
         selectedModel = model
+    }
+
+    func validateModelFolder(at path: String) {
+        isLoading = true
+        errorMessage = nil
+        importValidationResult = nil
+
+        Task { @MainActor in
+            do {
+                let result = try await modelStore.validateModelFolder(path: path)
+                self.importValidationResult = result
+                self.isLoading = false
+            } catch {
+                self.errorMessage = "Validation failed: \(error.localizedDescription)"
+                self.isLoading = false
+            }
+        }
+    }
+
+    func importModel(at path: String, copy: Bool, modelId: String?) {
+        isImporting = true
+        errorMessage = nil
+
+        Task { @MainActor in
+            do {
+                let result = try await modelStore.importModel(path: path, copy: copy, modelId: modelId)
+                if result.success {
+                    // Refresh models after successful import
+                    fetchModels()
+                    self.importValidationResult = nil
+                } else {
+                    self.errorMessage = result.message
+                }
+                self.isImporting = false
+            } catch {
+                self.errorMessage = "Import failed: \(error.localizedDescription)"
+                self.isImporting = false
+            }
+        }
     }
 }

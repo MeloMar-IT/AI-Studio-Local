@@ -3,6 +3,10 @@ import SwiftUI
 struct ModelManagerView: View {
     @EnvironmentObject private var appState: AppState
     @StateObject private var viewModel = ModelManagerViewModel(modelStore: RemoteModelStore())
+    @State private var showImportPicker = false
+    @State private var selectedImportPath: String?
+    @State private var showImportDialog = false
+    @State private var shouldCopy = true
 
     var body: some View {
         HStack(spacing: 0) {
@@ -14,13 +18,10 @@ struct ModelManagerView: View {
 
                     Spacer()
 
-                    Text(appState.hardwareProfile.generationProfile.rawValue)
-                        .font(.App.caption)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 2)
-                        .background(Color.App.accent.opacity(0.1))
-                        .foregroundColor(Color.App.accent)
-                        .cornerRadius(4)
+                    SecondaryButton("Import", icon: "plus") {
+                        showImportPicker = true
+                    }
+                    .controlSize(.small)
                 }
                 .padding()
 
@@ -75,6 +76,125 @@ struct ModelManagerView: View {
                 )
             }
         }
+        .fileImporter(
+            isPresented: $showImportPicker,
+            allowedContentTypes: [.folder],
+            allowsMultipleSelection: false
+        ) { result in
+            switch result {
+            case .success(let urls):
+                if let url = urls.first {
+                    selectedImportPath = url.path
+                    viewModel.validateModelFolder(at: url.path)
+                    showImportDialog = true
+                }
+            case .failure(let error):
+                viewModel.errorMessage = "Failed to select folder: \(error.localizedDescription)"
+            }
+        }
+        .sheet(isPresented: $showImportDialog) {
+            importDialogView
+        }
+        .alert("Error", isPresented: Binding(
+            get: { viewModel.errorMessage != nil },
+            set: { if !$0 { viewModel.errorMessage = nil } }
+        )) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            if let errorMessage = viewModel.errorMessage {
+                Text(errorMessage)
+            }
+        }
+    }
+
+    private var importDialogView: some View {
+        VStack(alignment: .leading, spacing: Spacing.medium) {
+            Text("Import Model")
+                .font(.App.title2)
+                .padding(.bottom, Spacing.small)
+
+            if let path = selectedImportPath {
+                Text("Source: \(path)")
+                    .font(.App.caption)
+                    .foregroundColor(.secondary)
+            }
+
+            if viewModel.isLoading {
+                HStack {
+                    ProgressView()
+                    Text("Validating model...")
+                }
+                .frame(maxWidth: .infinity, minHeight: 100)
+            } else if let result = viewModel.importValidationResult {
+                VStack(alignment: .leading, spacing: Spacing.small) {
+                    HStack {
+                        Image(systemName: result.canUse ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
+                            .foregroundColor(result.canUse ? .green : .orange)
+                        Text(result.message)
+                            .font(.App.headline)
+                    }
+
+                    if !result.missingFiles.isEmpty {
+                        Text("Missing files:")
+                            .font(.App.caption)
+                            .padding(.top, Spacing.xSmall)
+                        ForEach(result.missingFiles, id: \.self) { file in
+                            Text("• \(file)")
+                                .font(.App.caption)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+
+                    if !result.warnings.isEmpty {
+                        Text("Warnings:")
+                            .font(.App.caption)
+                            .padding(.top, Spacing.xSmall)
+                        ForEach(result.warnings, id: \.self) { warning in
+                            Text("• \(warning)")
+                                .font(.App.caption)
+                                .foregroundColor(.orange)
+                        }
+                    }
+
+                    Divider()
+                        .padding(.vertical, Spacing.small)
+
+                    Toggle("Copy files to models directory", isOn: $shouldCopy)
+                        .font(.App.body)
+
+                    Text(shouldCopy ? "Recommended. Files will be copied to the application's internal model storage." : "Advanced. A reference (symlink) will be created. Do not move the original folder.")
+                        .font(.App.caption)
+                        .foregroundColor(.secondary)
+                }
+                .padding()
+                .background(Color.App.background.opacity(0.3))
+                .cornerRadius(8)
+            }
+
+            Spacer()
+
+            HStack {
+                SecondaryButton("Cancel") {
+                    showImportDialog = false
+                }
+
+                Spacer()
+
+                PrimaryButton("Import", icon: "arrow.down.circle") {
+                    if let path = selectedImportPath {
+                        viewModel.importModel(
+                            at: path,
+                            copy: shouldCopy,
+                            modelId: viewModel.importValidationResult?.matchedProfile?.id
+                        )
+                        showImportDialog = false
+                    }
+                }
+                .disabled(!(viewModel.importValidationResult?.canUse ?? false) || viewModel.isImporting)
+            }
+        }
+        .padding(Spacing.large)
+        .frame(width: 500, height: 450)
     }
 }
 

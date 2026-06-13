@@ -11,7 +11,7 @@ from ltx_worker.config import settings
 import ltx_worker.jobs.store as store
 from ltx_worker.engine.ltx import LTXGenerationEngine
 from ltx_worker.engine.output import OutputManager
-from ltx_worker.utils.models import scan_models
+from ltx_worker.utils.models import scan_models, validate_model_folder, import_model
 from ltx_worker.schemas.api import (
     ErrorDetail,
     ErrorResponse,
@@ -20,6 +20,9 @@ from ltx_worker.schemas.api import (
     HealthResponse,
     JobStatus,
     ModelsResponse,
+    ModelValidationRequest,
+    ModelValidationResponse,
+    ModelImportRequest,
 )
 
 router = APIRouter()
@@ -106,6 +109,30 @@ async def get_models():
         models=models,
         models_dir=os.path.abspath(settings.models_dir)
     )
+
+
+@router.post("/models/validate", response_model=ModelValidationResponse)
+async def validate_model(request: ModelValidationRequest):
+    result = validate_model_folder(request.path)
+    return ModelValidationResponse(**result)
+
+
+@router.post("/models/import")
+async def import_model_endpoint(request: ModelImportRequest):
+    # If model_id not provided, try to validate first to find it
+    model_id = request.model_id
+    if not model_id:
+        validation = validate_model_folder(request.path)
+        if validation["matched_profile"]:
+            model_id = validation["matched_profile"].id
+        else:
+            raise HTTPException(status_code=400, detail="Could not identify model profile. Please provide model_id.")
+
+    result = import_model(request.path, model_id, request.copy)
+    if not result["success"]:
+        raise HTTPException(status_code=400, detail=result["message"])
+
+    return result
 
 
 @router.post("/generate/text-to-video", response_model=JobStatus)

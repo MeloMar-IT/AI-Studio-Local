@@ -88,3 +88,21 @@ class JobStatus(BaseModel):
     updated_at: datetime
     result_url: Optional[str] = None
     error: Optional[str] = None
+
+
+class ModelValidationRequest(BaseModel):
+    path: str
+
+
+class ModelValidationResponse(BaseModel):
+    matched_profile: Optional[ModelProfile] = None
+    missing_files: List[str] = []
+    warnings: List[str] = []
+    can_use: bool = False
+    message: str
+
+
+class ModelImportRequest(BaseModel):
+    path: str
+    copy: bool = True
+    model_id: Optional[str] = None

@@ -1,5 +1,6 @@
 import os
 import json
+import shutil
 from typing import List, Optional
 from ltx_worker.schemas.api import ModelProfile
 from ltx_worker.config import settings
@@ -82,3 +83,115 @@ def scan_models(models_dir: str) -> List[ModelProfile]:
         results.append(profile)
 
     return results
+
+def validate_model_folder(path: str) -> dict:
+    """Validate a folder against the model registry."""
+    if not os.path.exists(path):
+        return {
+            "can_use": False,
+            "message": f"Path does not exist: {path}",
+            "missing_files": [],
+            "warnings": [],
+            "matched_profile": None
+        }
+
+    if not os.path.isdir(path):
+        return {
+            "can_use": False,
+            "message": f"Path is not a directory: {path}",
+            "missing_files": [],
+            "warnings": [],
+            "matched_profile": None
+        }
+
+    profiles_data = load_model_registry()
+    files_in_dir = os.listdir(path)
+
+    best_match = None
+    min_missing = float('inf')
+    best_missing_files = []
+
+    for data in profiles_data:
+        expected_files = data.get("expected_files", [])
+        missing_files = [f for f in expected_files if f not in files_in_dir]
+
+        # If we found a perfect match or a better partial match
+        if len(missing_files) < min_missing:
+            min_missing = len(missing_files)
+            best_missing_files = missing_files
+
+            # Create ModelProfile for the match
+            model_id = data["id"]
+            best_match = ModelProfile(
+                id=model_id,
+                name=data["name"],
+                description=data["description"],
+                family=data["family"],
+                version=data.get("version"),
+                expected_files=expected_files,
+                memory_requirement_gb=data.get("memory_requirement_gb"),
+                supported_modes=data.get("supported_modes", []),
+                recommended_hardware=data.get("recommended_hardware"),
+                local_path=path,
+                installed=len(missing_files) == 0,
+                recommended=model_id == settings.default_model_id,
+                missing_files=missing_files,
+                status="installed" if len(missing_files) == 0 else "partial"
+            )
+
+    if best_match:
+        if min_missing == 0:
+            return {
+                "can_use": True,
+                "message": f"Valid {best_match.name} model found.",
+                "missing_files": [],
+                "warnings": [],
+                "matched_profile": best_match
+            }
+        else:
+            return {
+                "can_use": False,
+                "message": f"Folder matches {best_match.name} but is missing {min_missing} files.",
+                "missing_files": best_missing_files,
+                "warnings": [f"Missing files for {best_match.name}: {', '.join(best_missing_files)}"],
+                "matched_profile": best_match
+            }
+
+    return {
+        "can_use": False,
+        "message": "No matching model profile found in registry.",
+        "missing_files": [],
+        "warnings": ["Unknown model structure."],
+        "matched_profile": None
+    }
+
+def import_model(path: str, model_id: str, copy: bool = True) -> dict:
+    """Import a model by copying or symlinking it into the models directory."""
+    if not os.path.exists(path):
+        return {"success": False, "message": f"Source path does not exist: {path}"}
+
+    models_dir = settings.models_dir
+    if not os.path.exists(models_dir):
+        os.makedirs(models_dir, exist_ok=True)
+
+    target_path = os.path.join(models_dir, model_id)
+
+    if os.path.exists(target_path):
+        return {"success": False, "message": f"Model {model_id} already exists in {models_dir}"}
+
+    try:
+        if copy:
+            # For directories, use copytree
+            if os.path.isdir(path):
+                shutil.copytree(path, target_path)
+            else:
+                shutil.copy2(path, target_path)
+            message = f"Model {model_id} copied to {target_path}"
+        else:
+            # Create a symbolic link
+            os.symlink(os.path.abspath(path), target_path)
+            message = f"Model {model_id} symlinked to {target_path}"
+
+        return {"success": True, "message": message, "target_path": target_path}
+    except Exception as e:
+        return {"success": False, "message": f"Import failed: {str(e)}"}

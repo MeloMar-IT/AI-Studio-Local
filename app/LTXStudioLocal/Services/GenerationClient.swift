@@ -9,6 +9,36 @@ public protocol GenerationClient {
     func submitRetake(request: GenerationRequest) async throws -> String // returns job_id
     func getJobStatus(jobId: String) async throws -> GenerationJob
     func cancelJob(jobId: String) async throws
+    func validateModelFolder(path: String) async throws -> ModelValidationResponse
+    func importModel(path: String, copy: Bool, modelId: String?) async throws -> ModelImportResponse
+}
+
+public struct ModelValidationResponse: Codable {
+    public let matchedProfile: ModelProfile?
+    public let missingFiles: [String]
+    public let warnings: [String]
+    public let canUse: Bool
+    public let message: String
+
+    enum CodingKeys: String, CodingKey {
+        case matchedProfile = "matched_profile"
+        case missingFiles = "missing_files"
+        case warnings
+        case canUse = "can_use"
+        case message
+    }
+}
+
+public struct ModelImportResponse: Codable {
+    public let success: Bool
+    public let message: String
+    public let targetPath: String?
+
+    enum CodingKeys: String, CodingKey {
+        case success
+        case message
+        case targetPath = "target_path"
+    }
 }
 
 public enum GenerationClientError: Error {
@@ -266,5 +296,51 @@ public final class HTTPGenerationClient: GenerationClient {
         } catch {
             throw GenerationClientError.workerUnavailable(error)
         }
+    }
+
+    public func validateModelFolder(path: String) async throws -> ModelValidationResponse {
+        let url = baseURL.appendingPathComponent("models/validate")
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        struct ValidationRequest: Encodable {
+            let path: String
+        }
+
+        urlRequest.httpBody = try encoder.encode(ValidationRequest(path: path))
+
+        let (data, _) = try await session.data(for: urlRequest)
+        return try decoder.decode(ModelValidationResponse.self, from: data)
+    }
+
+    public func importModel(path: String, copy: Bool, modelId: String?) async throws -> ModelImportResponse {
+        let url = baseURL.appendingPathComponent("models/import")
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        struct ImportRequest: Encodable {
+            let path: String
+            let copy: Bool
+            let modelId: String?
+        }
+
+        urlRequest.httpBody = try encoder.encode(ImportRequest(path: path, copy: copy, modelId: modelId))
+
+        let (data, response) = try await session.data(for: urlRequest)
+
+        if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode >= 400 {
+            // Try to decode error message
+            struct WorkerError: Decodable {
+                let detail: String
+            }
+            if let error = try? decoder.decode(WorkerError.self, from: data) {
+                throw GenerationClientError.workerError(error.detail)
+            }
+            throw GenerationClientError.workerError("Server returned \(httpResponse.statusCode)")
+        }
+
+        return try decoder.decode(ModelImportResponse.self, from: data)
     }
 }
