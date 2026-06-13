@@ -77,7 +77,12 @@ class MockGenerationEngine(GenerationEngine):
                 logger.info("Generation cancelled")
                 return ""
 
-            await asyncio.sleep(0.5) # Balanced sleep
+            # If environment is production, we MUST NOT use mock generation.
+            from ltx_worker.config import settings
+            if settings.environment == "production":
+                 raise RuntimeError("❌ PRODUCTION SECURITY VIOLATION: Mock generation executed in production mode.")
+
+            await asyncio.sleep(0.5) # Revert to balanced sleep
 
             if status == "loading_model":
                 await self.model_loader.load_model(request.model_id)

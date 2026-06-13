@@ -1,9 +1,8 @@
 import uvicorn
-from fastapi import FastAPI
-
-from ltx_worker.api import router
+from ltx_worker.api import router, http_exception_handler, generic_exception_handler
 from ltx_worker.config import settings
 from ltx_worker.logging_config import setup_logging
+from fastapi import FastAPI, HTTPException, Request
 
 # Initialize logging
 setup_logging()
@@ -12,6 +11,9 @@ app = FastAPI(
     title=settings.app_name,
     version=settings.version,
 )
+
+app.add_exception_handler(HTTPException, http_exception_handler)
+app.add_exception_handler(Exception, generic_exception_handler)
 
 app.include_router(router, prefix=settings.api_prefix)
 

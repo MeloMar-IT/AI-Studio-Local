@@ -29,6 +29,17 @@ class ModelsResponse(BaseModel):
     models: List[ModelProfile]
 
 
+class ErrorDetail(BaseModel):
+    code: str
+    message: str
+    detail: Optional[str] = None
+    action: Optional[str] = None
+
+
+class ErrorResponse(BaseModel):
+    error: ErrorDetail
+
+
 class GenerationRequest(BaseModel):
     prompt: str
     negative_prompt: Optional[str] = None
