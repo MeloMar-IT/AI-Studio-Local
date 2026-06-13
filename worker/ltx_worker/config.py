@@ -1,11 +1,17 @@
 import logging
 from pydantic import ConfigDict, field_validator
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from typing import Literal
 import os
 
 
 class Settings(BaseSettings):
+    model_config = SettingsConfigDict(
+        env_prefix="LTX_WORKER_",
+        env_file=".env",
+        extra="ignore"
+    )
+
     app_name: str = "LTX Studio Local Worker"
     version: str = "0.1.0"
     api_prefix: str = ""

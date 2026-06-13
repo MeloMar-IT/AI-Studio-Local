@@ -10,11 +10,15 @@ help:
 	@echo "  make format       Run formatting"
 	@echo "  make run-app      Run the SwiftUI macOS app"
 	@echo "  make run-worker   Run the Python worker"
+	@echo "  make test-worker  Run Python worker tests"
 
 install:
 	./scripts/install-worker.sh
 
 test:
+	./scripts/test.sh
+
+test-worker:
 	./scripts/test.sh
 
 lint:

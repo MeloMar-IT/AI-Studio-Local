@@ -19,5 +19,6 @@ pip install -e ".[dev]"
 
 # Run tests
 echo "Running tests..."
-export PYTHONPATH=$PYTHONPATH:.
+export PYTHONPATH=.
+export LTX_WORKER_ENVIRONMENT=test
 pytest tests/

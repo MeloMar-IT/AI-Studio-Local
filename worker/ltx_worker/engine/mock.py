@@ -127,7 +127,7 @@ class MockGenerationEngine(GenerationEngine):
             # If environment is production, we MUST NOT use mock generation.
             from ltx_worker.config import settings
             if settings.environment == "production":
-                 raise RuntimeError("❌ PRODUCTION SECURITY VIOLATION: Mock generation executed in production mode.")
+                 raise RuntimeError(f"❌ PRODUCTION SECURITY VIOLATION: Mock generation executed in production mode. Environment is: {settings.environment}")
 
             # await asyncio.sleep(0.5) # Revert to balanced sleep
             # Speed up tests
