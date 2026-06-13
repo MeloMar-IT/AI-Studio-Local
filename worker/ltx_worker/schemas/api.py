@@ -15,7 +15,16 @@ class HardwareResponse(BaseModel):
     chip: str
     total_memory_gb: float
     free_memory_gb: float
+    os_name: str
     os_version: str
+    python_version: str
+    mlx_available: bool
+    pytorch_available: bool
+    ffmpeg_available: bool
+    free_disk_models_gb: float
+    free_disk_outputs_gb: float
+    status: str  # ready, warning, unsupported
+    messages: List[str]
 
 
 class ModelProfile(BaseModel):

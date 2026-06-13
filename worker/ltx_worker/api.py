@@ -2,7 +2,7 @@ import platform
 import time
 from datetime import datetime
 
-import psutil
+from ltx_worker.utils.profiler import get_hardware_profile
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import JSONResponse
 
@@ -94,15 +94,8 @@ async def health():
 
 @router.get("/hardware", response_model=HardwareResponse)
 async def hardware():
-    # Mocked Apple Silicon info as requested
-    mem = psutil.virtual_memory()
-    return HardwareResponse(
-        device="MacBook Pro",
-        chip="Apple M2 Max",
-        total_memory_gb=round(mem.total / (1024**3), 2),
-        free_memory_gb=round(mem.available / (1024**3), 2),
-        os_version=f"macOS {platform.mac_ver()[0]}",
-    )
+    profile = get_hardware_profile()
+    return HardwareResponse(**profile)
 
 
 @router.get("/models", response_model=ModelsResponse)
