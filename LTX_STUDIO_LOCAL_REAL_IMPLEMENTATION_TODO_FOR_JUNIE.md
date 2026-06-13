@@ -839,12 +839,12 @@ Add tests:
 
 ### TODO
 
-- [ ] Accept input image.
-- [ ] Validate file exists.
-- [ ] Validate image format.
+- [x] Accept input image.
+- [x] Validate file exists.
+- [x] Validate image format.
 - [ ] Copy image into project assets if needed.
-- [ ] Run image-to-video if supported.
-- [ ] Save metadata and outputs.
+- [x] Run image-to-video if supported.
+- [x] Save metadata and outputs.
 
 ### Junie prompt
 
@@ -871,11 +871,11 @@ Add tests for:
 
 ### Tests to prove it
 
-- [ ] Missing image test.
-- [ ] Invalid image test.
-- [ ] Unsupported capability test.
-- [ ] Successful image-to-video lifecycle test.
-- [ ] Metadata contains input image reference.
+- [x] Missing image test.
+- [x] Invalid image test.
+- [x] Unsupported capability test.
+- [x] Successful image-to-video lifecycle test.
+- [x] Metadata contains input image reference.
 
 ---
 

@@ -196,6 +196,35 @@ def _validate_model_for_generation(model_id: str, mode: str):
     return profile
 
 
+def _validate_image_path(image_path: str):
+    """Validates that the image exists and has a supported extension."""
+    if not os.path.exists(image_path):
+        raise HTTPException(
+            status_code=400,
+            detail=ErrorResponse(
+                error=ErrorDetail(
+                    code="image_not_found",
+                    message=f"Input image not found: {image_path}",
+                    action="Please provide a valid path to an existing image file."
+                )
+            ).model_dump()
+        )
+
+    supported_extensions = [".jpg", ".jpeg", ".png", ".webp"]
+    _, ext = os.path.splitext(image_path.lower())
+    if ext not in supported_extensions:
+        raise HTTPException(
+            status_code=400,
+            detail=ErrorResponse(
+                error=ErrorDetail(
+                    code="invalid_image_format",
+                    message=f"Unsupported image format: {ext}",
+                    detail=f"Supported formats: {', '.join(supported_extensions)}"
+                )
+            ).model_dump()
+        )
+
+
 @router.post("/generate/text-to-video", response_model=JobStatus)
 async def text_to_video(request: GenerationRequest):
     if "text-to-video" not in engine.capabilities():
@@ -213,11 +242,28 @@ async def text_to_video(request: GenerationRequest):
 @router.post("/generate/image-to-video", response_model=JobStatus)
 async def image_to_video(request: GenerationRequest):
     if "image-to-video" not in engine.capabilities():
-        raise HTTPException(status_code=400, detail="Current engine does not support image-to-video")
+        raise HTTPException(
+            status_code=400,
+            detail=ErrorResponse(
+                error=ErrorDetail(
+                    code="unsupported_capability",
+                    message="Current engine does not support image-to-video"
+                )
+            ).model_dump()
+        )
 
     if not request.image_path:
-        raise HTTPException(status_code=400, detail="image_path is required for image-to-video")
+        raise HTTPException(
+            status_code=400,
+            detail=ErrorResponse(
+                error=ErrorDetail(
+                    code="http_400",
+                    message="image_path is required for image-to-video"
+                )
+            ).model_dump()
+        )
 
+    _validate_image_path(request.image_path)
     _validate_model_for_generation(request.model_id, "image-to-video")
 
     job_id = job_store.create_job(request)

@@ -204,6 +204,17 @@ class LTXGenerationEngine(GenerationEngine):
         else:
             req_data = {}
 
+        # Calculate image hash if image_path exists
+        image_path = req_data.get("image_path")
+        image_hash = None
+        if image_path and os.path.exists(image_path):
+            try:
+                import hashlib
+                with open(image_path, "rb") as f:
+                    image_hash = hashlib.sha256(f.read()).hexdigest()
+            except Exception as e:
+                logger.warning(f"Failed to calculate image hash: {e}")
+
         metadata = {
             "generation_id": job_id,
             "project_id": req_data.get("project_id"),
@@ -222,6 +233,8 @@ class LTXGenerationEngine(GenerationEngine):
             "duration_frames": req_data.get("num_frames"),
             "steps": req_data.get("steps"),
             "guidance_scale": req_data.get("guidance_scale"),
+            "image_path": image_path,
+            "image_hash": image_hash,
             "generation_time_seconds": round(generation_time, 2),
             "output_path": str(output_path),
             "preview_path": str(Path(output_path).parent / "preview.jpg"),

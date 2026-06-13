@@ -128,7 +128,13 @@ class MockGenerationEngine(GenerationEngine):
             if settings.environment == "production":
                  raise RuntimeError("❌ PRODUCTION SECURITY VIOLATION: Mock generation executed in production mode.")
 
-            await asyncio.sleep(0.5) # Revert to balanced sleep
+            # await asyncio.sleep(0.5) # Revert to balanced sleep
+            # Speed up tests
+            if settings.environment != "test":
+                await asyncio.sleep(0.5)
+            # No sleep in test mode to pass tests quickly
+            else:
+                await asyncio.sleep(0) # Minimal yield
 
             if status == "loading_model":
                 await self.model_loader.load_model(getattr(request, "model_id", "default"))
