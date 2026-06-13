@@ -385,7 +385,7 @@ Add tests using temporary folders.
 - [ ] Missing asset warning test.
 
 ---
-
+=====================================
 ## 3.2 Attach real continuity elements to scenes
 
 ### TODO

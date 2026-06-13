@@ -6,6 +6,7 @@ struct ProjectStudioView: View {
     @State private var editingSceneId: String?
     @State private var newSceneName: String = ""
     @State private var isShowingElementPicker = false
+    @State private var elementToReplaceId: String?
     @State private var selectedElementForDetail: ContinuityElement?
     @State private var isShowingComposedPrompt = false
     @State private var selectedGenerationForPrompt: SceneGeneration?
@@ -30,7 +31,12 @@ struct ProjectStudioView: View {
         .sheet(isPresented: $isShowingElementPicker) {
             if let sceneId = viewModel.selectedSceneId {
                 ContinuityElementPicker { element in
-                    viewModel.attachElement(sceneId, elementId: element.id, type: element.type)
+                    if let oldId = elementToReplaceId {
+                        viewModel.replaceMissingElement(sceneId, oldElementId: oldId, newElementId: element.id, type: element.type)
+                        elementToReplaceId = nil
+                    } else {
+                        viewModel.attachElement(sceneId, elementId: element.id, type: element.type)
+                    }
                 }
             }
         }
@@ -317,15 +323,30 @@ struct ProjectStudioView: View {
     }
 
     private var studioContent: some View {
-        HStack(spacing: 0) {
-            sidebar
-
-            VStack(spacing: 0) {
-                mainCanvas
-                timeline
+        VStack(spacing: 0) {
+            if let warning = viewModel.missingElementsWarning {
+                HStack {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundColor(.orange)
+                    Text(warning)
+                        .font(.App.caption)
+                    Spacer()
+                }
+                .padding(.horizontal, Spacing.medium)
+                .padding(.vertical, Spacing.small)
+                .background(Color.orange.opacity(0.1))
             }
 
-            inspector
+            HStack(spacing: 0) {
+                sidebar
+
+                VStack(spacing: 0) {
+                    mainCanvas
+                    timeline
+                }
+
+                inspector
+            }
         }
         .background(Color.App.background)
     }
@@ -763,18 +784,46 @@ struct ProjectStudioView: View {
 
                 InspectorSection(title: "Continuity Elements", isCollapsible: true) {
                     VStack(alignment: .leading, spacing: Spacing.small) {
-                        if scene.attachedContinuityElements.isEmpty {
+                        let resolved = viewModel.resolvedElements[scene.id] ?? []
+
+                        if resolved.isEmpty {
                             Text("No elements attached")
                                 .font(.App.caption)
                                 .foregroundColor(Color.App.secondaryText)
                                 .italic()
                         } else {
-                            FlowLayout(scene.attachedContinuityElements, spacing: 4) { attached in
-                                if let element = appState.continuityElements.first(where: { $0.id == attached.elementId }) {
+                            FlowLayout(resolved, spacing: 4) { resolvedItem in
+                                if resolvedItem.isMissing {
+                                    HStack(spacing: 4) {
+                                        Image(systemName: "exclamationmark.triangle.fill")
+                                            .foregroundColor(.orange)
+                                        Text("Missing")
+                                            .font(.App.caption)
+
+                                        Menu {
+                                            Button("Replace...") {
+                                                elementToReplaceId = resolvedItem.reference.elementId
+                                                isShowingElementPicker = true
+                                            }
+                                            Button("Remove", role: .destructive) {
+                                                viewModel.removeMissingElement(scene.id, elementId: resolvedItem.reference.elementId)
+                                            }
+                                        } label: {
+                                            Image(systemName: "ellipsis.circle")
+                                                .foregroundColor(Color.App.secondaryText)
+                                        }
+                                        .menuStyle(.button)
+                                        .buttonStyle(.plain)
+                                    }
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 4)
+                                    .background(Color.orange.opacity(0.2))
+                                    .cornerRadius(12)
+                                } else if let element = resolvedItem.element {
                                     ElementChip(element: element) {
                                         selectedElementForDetail = element
                                     } onRemove: {
-                                        viewModel.detachElement(scene.id, elementId: attached.elementId, type: attached.type)
+                                        viewModel.detachElement(scene.id, elementId: element.id, type: element.type)
                                     }
                                 }
                             }
@@ -796,8 +845,12 @@ struct ProjectStudioView: View {
                 InspectorSection(title: "Consistency Locks", isCollapsible: true, isExpanded: false) {
                     VStack(spacing: Spacing.xxSmall) {
                         LockToggle(label: "Character Identity", isOn: Binding(
-                            get: { scene.consistencyLocks.character },
-                            set: { _ in viewModel.toggleLock(scene.id, keyPath: \.character) }
+                            get: { scene.consistencyLocks.characterIdentity },
+                            set: { _ in viewModel.toggleLock(scene.id, keyPath: \.characterIdentity) }
+                        ))
+                        LockToggle(label: "Clothing", isOn: Binding(
+                            get: { scene.consistencyLocks.clothing },
+                            set: { _ in viewModel.toggleLock(scene.id, keyPath: \.clothing) }
                         ))
                         LockToggle(label: "Location", isOn: Binding(
                             get: { scene.consistencyLocks.location },
@@ -812,8 +865,8 @@ struct ProjectStudioView: View {
                             set: { _ in viewModel.toggleLock(scene.id, keyPath: \.brand) }
                         ))
                         LockToggle(label: "Audio Identity", isOn: Binding(
-                            get: { scene.consistencyLocks.audio },
-                            set: { _ in viewModel.toggleLock(scene.id, keyPath: \.audio) }
+                            get: { scene.consistencyLocks.audioIdentity },
+                            set: { _ in viewModel.toggleLock(scene.id, keyPath: \.audioIdentity) }
                         ))
                     }
                 }

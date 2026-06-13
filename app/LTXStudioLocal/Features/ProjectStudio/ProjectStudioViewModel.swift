@@ -23,10 +23,13 @@ class ProjectStudioViewModel: ObservableObject {
     private let generationClient: GenerationClient = HTTPGenerationClient()
     private let exportService: ExportService = MockExportService()
     private let projectStore: ProjectStore = FileProjectStore()
+    private let sceneResolver: SceneResolver = DefaultSceneResolver()
     private var appState: AppState?
     private var cancellables = Set<AnyCancellable>()
 
     @Published var availableModels: [ModelProfile] = []
+    @Published var resolvedElements: [String: [ResolvedSceneElement]] = [:]
+    @Published var missingElementsWarning: String? = nil
 
     var selectedScene: Scene? {
         scenes.first { $0.id == selectedSceneId }
@@ -78,8 +81,32 @@ class ProjectStudioViewModel: ObservableObject {
     func selectProject(_ project: Project, scenes: [Scene]) {
         self.project = project
         self.scenes = scenes
+        resolveAllSceneElements()
         if self.selectedSceneId == nil {
             self.selectedSceneId = scenes.first?.id
+        }
+    }
+
+    private func resolveAllSceneElements() {
+        var newResolved: [String: [ResolvedSceneElement]] = [:]
+        var missingCount = 0
+
+        for scene in scenes {
+            do {
+                let resolved = try sceneResolver.resolve(scene: scene)
+                newResolved[scene.id] = resolved
+                missingCount += resolved.filter { $0.isMissing }.count
+            } catch {
+                print("Failed to resolve elements for scene \(scene.id): \(error)")
+            }
+        }
+
+        self.resolvedElements = newResolved
+
+        if missingCount > 0 {
+            self.missingElementsWarning = "\(missingCount) referenced continuity elements are missing from your library."
+        } else {
+            self.missingElementsWarning = nil
         }
     }
 
@@ -309,6 +336,23 @@ class ProjectStudioViewModel: ObservableObject {
         project?.timeline = Timeline(clips: clips)
 
         project?.modifiedAt = Date()
+        resolveAllSceneElements()
+    }
+
+    func removeMissingElement(_ sceneId: String, elementId: String) {
+        if let index = scenes.firstIndex(where: { $0.id == sceneId }) {
+            scenes[index].attachedContinuityElements.removeAll { $0.elementId == elementId }
+            updateProject()
+        }
+    }
+
+    func replaceMissingElement(_ sceneId: String, oldElementId: String, newElementId: String, type: ContinuityElementType) {
+        if let index = scenes.firstIndex(where: { $0.id == sceneId }) {
+            if let elementIndex = scenes[index].attachedContinuityElements.firstIndex(where: { $0.elementId == oldElementId }) {
+                scenes[index].attachedContinuityElements[elementIndex] = AttachedContinuityElement(elementId: newElementId, type: type)
+                updateProject()
+            }
+        }
     }
 
     func generateScene() {

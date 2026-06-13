@@ -33,33 +33,45 @@ public struct AttachedContinuityElement: Codable, Equatable {
 }
 
 public struct ConsistencyLocks: Codable, Equatable {
-    public var character: Bool = false
-    public var clothing: Bool = false
+    public var characterIdentity: Bool = false
     public var location: Bool = false
     public var style: Bool = false
     public var brand: Bool = false
-    public var audio: Bool = false
+    public var audioIdentity: Bool = false
     public var seed: Bool = false
+    // Keeping these as they were in the original but not explicitly requested
+    public var clothing: Bool = false
     public var camera: Bool = false
 
     public init(
-        character: Bool = false,
-        clothing: Bool = false,
+        characterIdentity: Bool = false,
         location: Bool = false,
         style: Bool = false,
         brand: Bool = false,
-        audio: Bool = false,
+        audioIdentity: Bool = false,
         seed: Bool = false,
+        clothing: Bool = false,
         camera: Bool = false
     ) {
-        self.character = character
-        self.clothing = clothing
+        self.characterIdentity = characterIdentity
         self.location = location
         self.style = style
         self.brand = brand
-        self.audio = audio
+        self.audioIdentity = audioIdentity
         self.seed = seed
+        self.clothing = clothing
         self.camera = camera
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case characterIdentity = "character_identity"
+        case location
+        case style
+        case brand
+        case audioIdentity = "audio_identity"
+        case seed
+        case clothing
+        case camera
     }
 }
 
