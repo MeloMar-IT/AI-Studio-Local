@@ -1,8 +1,19 @@
 import pytest
+import os
 from fastapi.testclient import TestClient
 from pydantic import ValidationError
 
+# Set environment to non-production and point to a temp models dir to avoid validation failures
+# Note: os.environ must be set BEFORE importing app/settings if they read it at module level
+os.environ["LTX_WORKER_ENVIRONMENT"] = "development"
+os.environ["LTX_WORKER_MODELS_DIR"] = "/tmp/fake_models"
+os.makedirs("/tmp/fake_models/ltx-2.3-distilled", exist_ok=True)
+# Create fake files to pass validation
+with open("/tmp/fake_models/ltx-2.3-distilled/ltx_video_2.3_distilled.safetensors", "w") as f: f.write("")
+with open("/tmp/fake_models/ltx-2.3-distilled/config.json", "w") as f: f.write("{}")
+
 from ltx_worker.main import app
+from ltx_worker.config import settings
 from ltx_worker.schemas.api import (
     HealthResponse,
     HardwareResponse,
@@ -10,6 +21,10 @@ from ltx_worker.schemas.api import (
     JobStatus,
     ErrorResponse
 )
+
+# Re-init settings if they were already imported elsewhere (though TestClient(app) should be fresh)
+settings.models_dir = "/tmp/fake_models"
+settings.environment = "development"
 
 client = TestClient(app)
 
@@ -54,11 +69,13 @@ def test_generate_text_to_video_schema():
     response = client.post("/generate/text-to-video", json=payload)
     validate_response(response, JobStatus)
 
-def test_generate_image_to_video_schema():
+def test_generate_image_to_video_schema(tmp_path):
+    fake_image = tmp_path / "test.jpg"
+    fake_image.write_text("fake")
     payload = {
         "prompt": "Test prompt",
         "model_id": "ltx-2.3-distilled",
-        "image_path": "/tmp/test.jpg"
+        "image_path": str(fake_image)
     }
     response = client.post("/generate/image-to-video", json=payload)
     validate_response(response, JobStatus)

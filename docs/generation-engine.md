@@ -55,6 +55,32 @@ The engine can be configured via environment variables:
 - `LTX_WORKER_ENGINE_TYPE`: Set to `ltx` for real generation or `mock` for development.
 - `LTX_WORKER_MIN_MEMORY_GB`: Minimum unified memory required (default: 16GB).
 
+## Job Management and Durability
+
+The `JobStore` and `OutputManager` handle the lifecycle and persistence of generation jobs.
+
+### Durable Metadata
+
+Every generation job is stored on disk in a dedicated directory within the `outputs/` folder. The following information is persisted in `metadata.json`:
+
+- **Identification**: `job_id`, `project_id`, `scene_id`.
+- **Status**: Current state (`preparing_prompt`, `generating_video`, `completed`, `failed`, `cancelled`, `interrupted`).
+- **Request Details**: Model profile, composed prompt path, and a summary of generation parameters.
+- **Timing**: `created_at`, `started_at`, `updated_at`, `completed_at`.
+- **Outputs**: Absolute paths to generated video and preview images.
+- **Progress History**: A log of progress events with timestamps.
+
+### Recovery and Interruption
+
+The worker is designed to be resilient to restarts:
+
+1. **Recovery**: On startup, the `JobStore` scans the output directory and loads all existing jobs.
+2. **Interruption Handling**: Any job found in a non-terminal state (e.g., `generating_video`) during recovery is automatically marked as `interrupted`. This ensures that "ghost" jobs don't stay in the queue and the user receives a clear status.
+
+### Per-Job Logging
+
+In addition to the structured metadata, each job maintains a `job.log` file within its directory. This log captures high-level events, progress updates, and detailed error messages, providing a clear audit trail for debugging and user feedback.
+
 ## Error Handling
 
 User-facing errors from the engine are designed to be actionable:

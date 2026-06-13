@@ -72,6 +72,7 @@ class GenerationRequest(BaseModel):
     model_id: str
     project_id: Optional[str] = None
     scene_id: Optional[str] = None
+    composed_prompt_path: Optional[str] = None
     image_path: Optional[str] = None
     audio_path: Optional[str] = None
     video_path: Optional[str] = None

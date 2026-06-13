@@ -16,6 +16,50 @@ class JobStore:
         self.cancellation_tokens: Dict[str, CancellationToken] = {}
         self.engine = engine
         self.output_manager = output_manager
+        self._recover_jobs()
+
+    def _recover_jobs(self):
+        """Recover existing jobs from disk and mark interrupted ones."""
+        job_ids = self.output_manager.list_jobs()
+        for job_id in job_ids:
+            try:
+                metadata_path = self.output_manager.get_metadata_path(job_id)
+                with open(metadata_path, "r") as f:
+                    metadata = json.load(f)
+
+                status = metadata.get("status", "failed")
+                # If job was in a non-terminal state, mark as interrupted
+                if status not in ["completed", "failed", "cancelled", "interrupted"]:
+                    status = "interrupted"
+                    metadata["status"] = status
+                    metadata["error"] = "Job interrupted by worker restart"
+                    metadata["updated_at"] = datetime.now()
+                    self.output_manager.save_metadata(job_id, metadata)
+                    self.output_manager.append_log(job_id, "Job marked as interrupted due to worker restart.")
+
+                created_at = metadata.get("created_at")
+                if isinstance(created_at, str):
+                    created_at = datetime.fromisoformat(created_at)
+
+                updated_at = metadata.get("updated_at")
+                if isinstance(updated_at, str):
+                    updated_at = datetime.fromisoformat(updated_at)
+                else:
+                    updated_at = created_at
+
+                job = JobStatus(
+                    job_id=job_id,
+                    status=status,
+                    progress=metadata.get("progress", 0.0),
+                    message=metadata.get("message", ""),
+                    created_at=created_at or datetime.now(),
+                    updated_at=updated_at or datetime.now(),
+                    result_url=metadata.get("result_url"),
+                    error=metadata.get("error")
+                )
+                self.jobs[job_id] = job
+            except Exception as e:
+                logger.error(f"Failed to recover job {job_id}: {e}")
 
     def create_job(self, request: GenerationRequest) -> str:
         job_id = str(uuid.uuid4())
@@ -33,11 +77,23 @@ class JobStore:
         # Write initial metadata
         metadata = {
             "job_id": job_id,
+            "project_id": request.project_id,
+            "scene_id": request.scene_id,
             "status": job.status,
-            "request": request.model_dump(),
+            "request_summary": request.model_dump(exclude={"prompt", "negative_prompt"}),
+            "model_profile": request.model_id, # In a real implementation we might store more profile info
+            "composed_prompt_path": request.composed_prompt_path,
+            "output_paths": {
+                "video": str(self.output_manager.get_video_path(job_id)),
+                "preview": str(self.output_manager.get_preview_path(job_id)),
+            },
+            "started_at": now,
             "created_at": now,
+            "updated_at": now,
+            "progress_events": []
         }
         self.output_manager.save_metadata(job_id, metadata)
+        self.output_manager.append_log(job_id, f"Job created for scene {request.scene_id} in project {request.project_id}")
 
         token = CancellationToken()
         self.cancellation_tokens[job_id] = token
@@ -72,6 +128,7 @@ class JobStore:
                                 metadata["message"] = job.message
                                 metadata["updated_at"] = job.updated_at
                                 self.output_manager.save_metadata(job_id, metadata)
+                                self.output_manager.append_log(job_id, "Job cancelled by user")
                         except Exception as e:
                             logger.error(f"Failed to update metadata for cancelled job {job_id}: {e}")
 
@@ -101,7 +158,19 @@ class JobStore:
                         metadata["progress"] = progress
                         metadata["message"] = message
                         metadata["updated_at"] = job.updated_at
+
+                        # Add progress event
+                        if "progress_events" not in metadata:
+                            metadata["progress_events"] = []
+                        metadata["progress_events"].append({
+                            "status": status,
+                            "progress": progress,
+                            "message": message,
+                            "timestamp": job.updated_at
+                        })
+
                         self.output_manager.save_metadata(job_id, metadata)
+                        self.output_manager.append_log(job_id, f"Progress: {status} ({progress*100}%) - {message}")
                 except Exception as e:
                     logger.error(f"Failed to update metadata for job {job_id}: {e}")
 
@@ -123,6 +192,9 @@ class JobStore:
             if result_path:
                 job = self.jobs[job_id]
                 job.result_url = f"/outputs/{job_id}/output.mp4"
+                job.status = "completed"
+                job.progress = 1.0
+                job.updated_at = datetime.now()
 
                 # Update final metadata
                 metadata_path = self.output_manager.get_metadata_path(job_id)
@@ -132,18 +204,21 @@ class JobStore:
                 else:
                     metadata = {
                         "job_id": job_id,
-                        "request": request.model_dump(),
+                        "project_id": request.project_id,
+                        "scene_id": request.scene_id,
                         "created_at": job.created_at,
                     }
 
                 metadata.update({
                     "status": "completed",
                     "progress": 1.0,
-                    "completed_at": datetime.now(),
+                    "completed_at": job.updated_at,
+                    "updated_at": job.updated_at,
                     "output_path": result_path,
                     "result_url": job.result_url
                 })
                 self.output_manager.save_metadata(job_id, metadata)
+                self.output_manager.append_log(job_id, "Job completed successfully")
 
                 logger.info(f"Job {job_id} completed successfully")
             else:
@@ -167,7 +242,8 @@ class JobStore:
                         else:
                             metadata = {
                                 "job_id": job_id,
-                                "request": request.model_dump(),
+                                "project_id": request.project_id,
+                                "scene_id": request.scene_id,
                                 "created_at": job.created_at,
                             }
                         metadata.update({
@@ -176,6 +252,7 @@ class JobStore:
                             "updated_at": job.updated_at
                         })
                         self.output_manager.save_metadata(job_id, metadata)
+                        self.output_manager.append_log(job_id, f"Job failed: {e}")
                     except Exception as meta_e:
                         logger.error(f"Failed to update error metadata for job {job_id}: {meta_e}")
 

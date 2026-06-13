@@ -73,7 +73,7 @@ def test_api_does_not_import_mlx_directly():
     # We expect 'mlx' not to be in sys.modules if it wasn't there before
     # or at least not imported by api.py
     # A better way is to read the file content
-    with open("worker/ltx_worker/api.py", "r") as f:
+    with open("ltx_worker/api.py", "r") as f:
         content = f.read()
         assert "import mlx" not in content
         assert "from mlx" not in content
