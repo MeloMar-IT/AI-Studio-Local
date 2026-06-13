@@ -53,7 +53,7 @@ A background service that executes the computationally intensive generation task
 - **MLX/LTX Engine**: (Planned) The integration with MLX to run LTX video models on Apple Silicon.
 
 ### 4. Shared Schemas (`shared/schemas/`)
-To ensure the App and Worker speak the same language, we use shared JSON schemas. These schemas are used to generate Pydantic models in Python and are manually mirrored in Swift `Codable` models.
+To ensure the App and Worker speak the same language, we use shared JSON schemas. These schemas are used to generate Pydantic models in Python and are manually mirrored in Swift `Codable` models. For details on the stable API contract, see [API Contract](api-contract.md).
 
 ## Communication Flow
 
