@@ -1454,16 +1454,16 @@ This test proves the wiring works. It must not be available in production mode.
 
 ---
 
-## 14.4 Add manual real-model test checklist
+## 14.4 Add manual real-model test checklist ✓
 
 ### TODO
 
-- [ ] Create manual test doc.
-- [ ] Include hardware requirements.
-- [ ] Include model installation steps.
-- [ ] Include text-to-video test.
-- [ ] Include image-to-video test.
-- [ ] Include export test.
+- [✓] Create manual test doc.
+- [✓] Include hardware requirements.
+- [✓] Include model installation steps.
+- [✓] Include text-to-video test.
+- [✓] Include image-to-video test.
+- [✓] Include export test.
 
 ### Junie prompt
 
