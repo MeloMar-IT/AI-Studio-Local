@@ -1,0 +1,51 @@
+name: Swift Quality
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'app/**'
+      - '.github/workflows/swift-quality.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'app/**'
+      - '.github/workflows/swift-quality.yml'
+
+jobs:
+  quality:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache Swift Package Manager
+        uses: actions/cache@v4
+        with:
+          path: app/.build
+          key: ${{ runner.os }}-spm-${{ hashFiles('app/Package.swift') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+
+      - name: SwiftLint
+        run: |
+          if which swiftlint >/dev/null; then
+            swiftlint lint app
+          else
+            echo "SwiftLint not installed, installing via brew"
+            brew install swiftlint
+            swiftlint lint app
+          fi
+
+      - name: Build and Test
+        run: |
+          cd app
+          swift test --enable-code-coverage
+
+      - name: Upload Test Artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: swift-test-results
+          path: |
+            app/.build/*.log
+            app/*.log
