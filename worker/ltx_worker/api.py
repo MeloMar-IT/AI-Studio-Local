@@ -137,6 +137,9 @@ async def import_model_endpoint(request: ModelImportRequest):
 
 @router.post("/generate/text-to-video", response_model=JobStatus)
 async def text_to_video(request: GenerationRequest):
+    if "text-to-video" not in engine.capabilities():
+        raise HTTPException(status_code=400, detail="Current engine does not support text-to-video")
+
     job_id = job_store.create_job(request)
     job = job_store.get_job(job_id)
     if not job:
@@ -146,6 +149,9 @@ async def text_to_video(request: GenerationRequest):
 
 @router.post("/generate/image-to-video", response_model=JobStatus)
 async def image_to_video(request: GenerationRequest):
+    if "image-to-video" not in engine.capabilities():
+        raise HTTPException(status_code=400, detail="Current engine does not support image-to-video")
+
     if not request.image_path:
         raise HTTPException(status_code=400, detail="image_path is required for image-to-video")
 
@@ -158,8 +164,9 @@ async def image_to_video(request: GenerationRequest):
 
 @router.post("/generate/audio-to-video", response_model=JobStatus)
 async def audio_to_video(request: GenerationRequest):
-    # For MVP, real audio-to-video generation is planned later.
-    # Currently it just mocks a job.
+    if "audio-to-video" not in engine.capabilities():
+         raise HTTPException(status_code=400, detail="Current engine does not support audio-to-video")
+
     job_id = job_store.create_job(request)
     job = job_store.get_job(job_id)
     if not job:
@@ -169,8 +176,9 @@ async def audio_to_video(request: GenerationRequest):
 
 @router.post("/generate/retake", response_model=JobStatus)
 async def generate_retake(request: GenerationRequest):
-    # For MVP, real retake generation is planned later.
-    # Currently it just mocks a job.
+    if "retake" not in engine.capabilities():
+        raise HTTPException(status_code=400, detail="Current engine does not support retake")
+
     job_id = job_store.create_job(request)
     job = job_store.get_job(job_id)
     if not job:

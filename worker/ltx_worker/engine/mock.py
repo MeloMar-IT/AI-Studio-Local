@@ -1,6 +1,6 @@
 import asyncio
 import os
-from typing import Any, Optional
+from typing import Any, List, Optional
 from ltx_worker.engine.base import (
     GenerationEngine,
     ModelLoader,
@@ -48,6 +48,52 @@ class MockGenerationEngine(GenerationEngine):
         self.lora_loader = lora_loader
         self.media_encoder = media_encoder
 
+    def capabilities(self) -> List[str]:
+        return ["text-to-video", "image-to-video", "audio-to-video", "retake"]
+
+    async def load_model(self, model_profile: Any) -> Any:
+        model_id = getattr(model_profile, "id", str(model_profile))
+        return await self.model_loader.load_model(model_id)
+
+    async def unload_model(self, model_id: str) -> None:
+        await self.model_loader.unload_model(model_id)
+
+    async def generate_text_to_video(
+        self,
+        request: Any,
+        output_path: str,
+        progress_callback: Optional[ProgressCallback] = None,
+        cancellation_token: Optional[CancellationToken] = None,
+    ) -> str:
+        return await self.generate(request, output_path, progress_callback, cancellation_token)
+
+    async def generate_image_to_video(
+        self,
+        request: Any,
+        output_path: str,
+        progress_callback: Optional[ProgressCallback] = None,
+        cancellation_token: Optional[CancellationToken] = None,
+    ) -> str:
+        return await self.generate(request, output_path, progress_callback, cancellation_token)
+
+    async def generate_audio_to_video(
+        self,
+        request: Any,
+        output_path: str,
+        progress_callback: Optional[ProgressCallback] = None,
+        cancellation_token: Optional[CancellationToken] = None,
+    ) -> str:
+        return await self.generate(request, output_path, progress_callback, cancellation_token)
+
+    async def generate_retake(
+        self,
+        request: Any,
+        output_path: str,
+        progress_callback: Optional[ProgressCallback] = None,
+        cancellation_token: Optional[CancellationToken] = None,
+    ) -> str:
+        return await self.generate(request, output_path, progress_callback, cancellation_token)
+
     async def generate(
         self,
         request: Any,
@@ -85,7 +131,7 @@ class MockGenerationEngine(GenerationEngine):
             await asyncio.sleep(0.5) # Revert to balanced sleep
 
             if status == "loading_model":
-                await self.model_loader.load_model(request.model_id)
+                await self.model_loader.load_model(getattr(request, "model_id", "default"))
             elif status == "encoding_output":
                 await self.media_encoder.encode_video(None, output_path)
 

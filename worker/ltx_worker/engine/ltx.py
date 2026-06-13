@@ -5,7 +5,7 @@ import platform
 import time
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 import psutil
 from ltx_worker.config import settings
@@ -13,20 +13,94 @@ from ltx_worker.engine.base import (
     CancellationToken,
     GenerationEngine,
     ProgressCallback,
+    UnsupportedCapabilityError,
+    DependencyError,
 )
+from ltx_worker.engine.adapter import LTXAdapter
 from ltx_worker.logging_config import logger
 
 
 class LTXGenerationEngine(GenerationEngine):
     """
-    Real LTX generation engine using MLX.
-    For MVP, this handles the workflow of:
-    1. Hardware validation
-    2. Model validation
-    3. Generation (with progress)
-    4. Output encoding
-    5. Metadata preservation
+    Real LTX generation engine that delegates to an adapter.
+    This class handles high-level workflow, validation, and metadata.
     """
+
+    def __init__(self, adapter: Optional[LTXAdapter] = None):
+        if adapter is None:
+            from ltx_worker.engine.mlx_adapter import MLXLTXAdapter
+            self.adapter = MLXLTXAdapter()
+        else:
+            self.adapter = adapter
+
+    def capabilities(self) -> List[str]:
+        return self.adapter.capabilities()
+
+    async def load_model(self, model_profile: Any) -> Any:
+        return await self.adapter.load_model(model_profile)
+
+    async def unload_model(self, model_id: str) -> None:
+        await self.adapter.unload_model(model_id)
+
+    async def generate_text_to_video(
+        self,
+        request: Any,
+        output_path: str,
+        progress_callback: Optional[ProgressCallback] = None,
+        cancellation_token: Optional[CancellationToken] = None,
+    ) -> str:
+        return await self._run_generation(
+            self.adapter.generate_text_to_video,
+            request,
+            output_path,
+            progress_callback,
+            cancellation_token
+        )
+
+    async def generate_image_to_video(
+        self,
+        request: Any,
+        output_path: str,
+        progress_callback: Optional[ProgressCallback] = None,
+        cancellation_token: Optional[CancellationToken] = None,
+    ) -> str:
+        return await self._run_generation(
+            self.adapter.generate_image_to_video,
+            request,
+            output_path,
+            progress_callback,
+            cancellation_token
+        )
+
+    async def generate_audio_to_video(
+        self,
+        request: Any,
+        output_path: str,
+        progress_callback: Optional[ProgressCallback] = None,
+        cancellation_token: Optional[CancellationToken] = None,
+    ) -> str:
+        return await self._run_generation(
+            self.adapter.generate_audio_to_video,
+            request,
+            output_path,
+            progress_callback,
+            cancellation_token
+        )
+
+    async def generate_retake(
+        self,
+        request: Any,
+        output_path: str,
+        progress_callback: Optional[ProgressCallback] = None,
+        cancellation_token: Optional[CancellationToken] = None,
+    ) -> str:
+        return await self._run_generation(
+            self.adapter.generate_retake,
+            request,
+            output_path,
+            progress_callback,
+            cancellation_token
+        )
 
     async def generate(
         self,
@@ -35,9 +109,19 @@ class LTXGenerationEngine(GenerationEngine):
         progress_callback: Optional[ProgressCallback] = None,
         cancellation_token: Optional[CancellationToken] = None,
     ) -> str:
-        # Debug request type
-        logger.info(f"LTXGenerationEngine.generate: request type={type(request)}")
+        # Backward compatibility / Generic entry point
+        if hasattr(request, "image_path") and request.image_path:
+             return await self.generate_image_to_video(request, output_path, progress_callback, cancellation_token)
+        return await self.generate_text_to_video(request, output_path, progress_callback, cancellation_token)
 
+    async def _run_generation(
+        self,
+        method: Any,
+        request: Any,
+        output_path: str,
+        progress_callback: Optional[ProgressCallback] = None,
+        cancellation_token: Optional[CancellationToken] = None,
+    ) -> str:
         start_time = time.time()
         job_id = Path(output_path).parent.name
 
@@ -45,44 +129,26 @@ class LTXGenerationEngine(GenerationEngine):
             # 1. Hardware Validation
             if progress_callback:
                 progress_callback("checking_hardware", 0.05, "Validating hardware compatibility...")
+            self._validate_hardware()
 
-            # self._validate_hardware() # Don't fail on CI/dev machine
-
-            # 2. Model Validation
-            if progress_callback:
-                progress_callback("loading_model", 0.1, f"Validating model: {request.model_id}...")
-
-            # model_path = self._get_model_path(request.model_id) # Don't fail on missing model during this phase
-            # self._validate_model_files(model_path)
-
-            # 3. Generation (MLX/LTX Integration Point)
-            if progress_callback:
-                progress_callback("generating_video", 0.2, "Initializing MLX LTX pipeline...")
-
-            # CRITICAL: Production rejection of fake generation engine.
-            # The worker does not need to generate final LTX video in this task yet,
-            # but it must no longer pretend to do so.
-            # If the real LTX engine is not configured, the endpoint must return a clear capability/configuration error.
-
-            # Since we haven't integrated the real MLX/LTX yet, we must raise a clear error
-            # instead of simulating progress with sleep.
-
-            raise RuntimeError(
-                "LTX Generation Engine is not yet fully configured with MLX/LTX integration. "
-                "Real video generation is coming in the next phase."
+            # 2. Generation execution via adapter
+            result_path = await method(
+                request,
+                output_path,
+                progress_callback=progress_callback,
+                cancellation_token=cancellation_token
             )
 
-            # 4. Encoding Output (Unreachable for now)
-            # if progress_callback:
-            #     progress_callback("encoding_output", 0.9, "Encoding final MP4 and saving preview...")
-            # await self._save_outputs(output_path)
+            # 3. Metadata Preservation
+            generation_time = time.time() - start_time
+            self._save_detailed_metadata(job_id, request, result_path, generation_time)
 
-            # 5. Metadata Preservation (Unreachable for now)
-            # generation_time = time.time() - start_time
-            # self._save_detailed_metadata(job_id, request, output_path, generation_time)
+            return result_path
 
-            # return output_path
-
+        except (UnsupportedCapabilityError, DependencyError) as e:
+            # Re-raise clean errors
+            logger.error(f"Generation engine error: {e}")
+            raise e
         except Exception as e:
             logger.error(f"Generation failed: {e}")
             raise e
@@ -92,8 +158,6 @@ class LTXGenerationEngine(GenerationEngine):
         # Check for Apple Silicon
         if platform.machine() != "arm64":
             logger.warning("Not running on Apple Silicon. MLX might be slow or unsupported.")
-            # We don't hard-fail here yet to allow development on other platforms if needed,
-            # but in production we might want to.
 
         # Check memory
         mem = psutil.virtual_memory()
@@ -104,36 +168,6 @@ class LTXGenerationEngine(GenerationEngine):
                 f"LTX requires at least {settings.min_memory_gb}GB."
             )
 
-    def _get_model_path(self, model_id: str) -> Path:
-        """Resolves the model ID to a local path."""
-        return Path(settings.models_dir) / model_id
-
-    def _validate_model_files(self, model_path: Path):
-        """Validates that required model files exist."""
-        if not model_path.exists():
-            raise FileNotFoundError(f"Model directory not found: {model_path}")
-
-        # In a real LTX/MLX setup, we'd check for weights.safetensors, config.json, etc.
-        # For now, we just ensure the directory exists.
-        # required_files = ["weights.safetensors", "config.json"]
-        # for f in required_files:
-        #     if not (model_path / f).exists():
-        #         raise FileNotFoundError(f"Missing required model file: {f} in {model_path}")
-
-    async def _save_outputs(self, output_path: str):
-        """Simulates saving the video and a preview image."""
-        output_path_obj = Path(output_path)
-        output_path_obj.parent.mkdir(parents=True, exist_ok=True)
-
-        # Mock video file
-        with open(output_path, "wb") as f:
-            f.write(b"REAL_LTX_VIDEO_DATA_MOCK")
-
-        # Mock preview image
-        preview_path = output_path_obj.parent / "preview.jpg"
-        with open(preview_path, "wb") as f:
-            f.write(b"REAL_LTX_PREVIEW_DATA_MOCK")
-
     def _save_detailed_metadata(
         self,
         job_id: str,
@@ -142,7 +176,7 @@ class LTXGenerationEngine(GenerationEngine):
         generation_time: float
     ):
         """Saves detailed metadata.json as required."""
-        # Ensure we can handle both dict and Pydantic models (request might be Pydantic)
+        # Ensure we can handle both dict and Pydantic models
         if hasattr(request, "model_dump"):
             req_data = request.model_dump()
         elif hasattr(request, "dict"):
@@ -150,18 +184,7 @@ class LTXGenerationEngine(GenerationEngine):
         elif isinstance(request, dict):
             req_data = request
         else:
-            # Fallback to direct attribute access if it's some other object
-            req_data = {
-                "prompt": getattr(request, "prompt", None),
-                "negative_prompt": getattr(request, "negative_prompt", None),
-                "model_id": getattr(request, "model_id", None),
-                "seed": getattr(request, "seed", None),
-                "width": getattr(request, "width", None),
-                "height": getattr(request, "height", None),
-                "num_frames": getattr(request, "num_frames", None),
-                "steps": getattr(request, "steps", None),
-                "guidance_scale": getattr(request, "guidance_scale", None),
-            }
+            req_data = {}
 
         metadata = {
             "job_id": job_id,
@@ -170,7 +193,7 @@ class LTXGenerationEngine(GenerationEngine):
             "negative_prompt": req_data.get("negative_prompt"),
             "model_id": req_data.get("model_id"),
             "seed": req_data.get("seed"),
-            "resolution": f"{req_data.get('width')}x{req_data.get('height')}",
+            "resolution": f"{req_data.get('width', 0)}x{req_data.get('height', 0)}",
             "duration_frames": req_data.get("num_frames"),
             "settings": {
                 "steps": req_data.get("steps"),

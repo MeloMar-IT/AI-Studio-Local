@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Any, Callable, Dict, Optional, Protocol
+from typing import Any, Callable, Dict, List, Optional, Protocol, Union
 from pydantic import BaseModel
 
 class ProgressCallback(Protocol):
@@ -16,6 +16,21 @@ class CancellationToken:
     @property
     def is_cancelled(self) -> bool:
         return self._cancelled
+
+class UnsupportedCapabilityError(Exception):
+    """Raised when the engine does not support a requested capability."""
+    def __init__(self, capability: str, message: str = None):
+        self.capability = capability
+        self.message = message or f"Capability '{capability}' is not supported by the current engine."
+        super().__init__(self.message)
+
+class DependencyError(Exception):
+    """Raised when a required dependency is missing."""
+    def __init__(self, dependency: str, action: str):
+        self.dependency = dependency
+        self.action = action
+        self.message = f"Missing dependency: {dependency}. {action}"
+        super().__init__(self.message)
 
 class ModelLoader(ABC):
     @abstractmethod
@@ -38,6 +53,59 @@ class MediaEncoder(ABC):
 
 class GenerationEngine(ABC):
     @abstractmethod
+    def capabilities(self) -> List[str]:
+        """Returns a list of supported generation modes."""
+        pass
+
+    @abstractmethod
+    async def load_model(self, model_profile: Any) -> Any:
+        pass
+
+    @abstractmethod
+    async def unload_model(self, model_id: str) -> None:
+        pass
+
+    @abstractmethod
+    async def generate_text_to_video(
+        self,
+        request: Any,
+        output_path: str,
+        progress_callback: Optional[ProgressCallback] = None,
+        cancellation_token: Optional[CancellationToken] = None,
+    ) -> str:
+        pass
+
+    @abstractmethod
+    async def generate_image_to_video(
+        self,
+        request: Any,
+        output_path: str,
+        progress_callback: Optional[ProgressCallback] = None,
+        cancellation_token: Optional[CancellationToken] = None,
+    ) -> str:
+        pass
+
+    @abstractmethod
+    async def generate_audio_to_video(
+        self,
+        request: Any,
+        output_path: str,
+        progress_callback: Optional[ProgressCallback] = None,
+        cancellation_token: Optional[CancellationToken] = None,
+    ) -> str:
+        pass
+
+    @abstractmethod
+    async def generate_retake(
+        self,
+        request: Any,
+        output_path: str,
+        progress_callback: Optional[ProgressCallback] = None,
+        cancellation_token: Optional[CancellationToken] = None,
+    ) -> str:
+        pass
+
+    @abstractmethod
     async def generate(
         self,
         request: Any,
@@ -45,4 +113,5 @@ class GenerationEngine(ABC):
         progress_callback: Optional[ProgressCallback] = None,
         cancellation_token: Optional[CancellationToken] = None,
     ) -> str:
+        """Deprecated: Use specific generate_* methods instead."""
         pass
