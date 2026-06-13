@@ -76,30 +76,10 @@ output_manager = OutputManager(settings.output_dir)
 if settings.engine_type == "ltx":
     engine = LTXGenerationEngine()
 else:
-    # Production mode must fail fast if any mock service is injected
-    if settings.environment == "production":
-        raise RuntimeError(
-            "❌ PRODUCTION SECURITY VIOLATION: Mock engine requested in production mode. "
-            "Set LTX_WORKER_ENGINE_TYPE=ltx or change LTX_WORKER_ENVIRONMENT."
-        )
-
-    # In non-production, we can use mock if requested, but the task says:
-    # "The worker does not need to generate final LTX video in this task yet, but it must no longer pretend to do so."
-    # AND "production rejection of fake generation engine"
-    # AND "remove production fake generation"
-
-    # Existing mock engine is still there, but LTX engine now throws if it's the real one.
-    from ltx_worker.engine.mock import (
-        MockGenerationEngine,
-        MockModelLoader,
-        MockLoraLoader,
-        MockMediaEncoder,
-    )
-
-    engine = MockGenerationEngine(
-        model_loader=MockModelLoader(),
-        lora_loader=MockLoraLoader(),
-        media_encoder=MockMediaEncoder()
+    # We no longer support mock engine in any environment to ensure real behavior
+    raise RuntimeError(
+        f"❌ ENGINE CONFIGURATION ERROR: Engine type '{settings.engine_type}' is no longer supported. "
+        "Please use 'ltx' or check your LTX_WORKER_ENGINE_TYPE environment variable."
     )
 
 from ltx_worker.jobs.store import JobStore

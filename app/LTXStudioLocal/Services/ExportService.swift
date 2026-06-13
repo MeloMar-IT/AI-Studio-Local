@@ -384,10 +384,3 @@ extension NSColor {
     }
 }
 
-public final class MockExportService: ExportService {
-    // ... preserved for compatibility if needed, but we will switch to AVFoundationExportService
-    public func exportProject(_ project: Project, scenes: [Scene], preset: ExportPreset, projectURL: URL) async throws -> ExportMetadata {
-        let realService = AVFoundationExportService()
-        return try await realService.exportProject(project, scenes: scenes, preset: preset, projectURL: projectURL)
-    }
-}

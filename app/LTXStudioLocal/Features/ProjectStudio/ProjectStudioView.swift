@@ -22,11 +22,6 @@ struct ProjectStudioView: View {
         }
         .onAppear {
             viewModel.setAppState(appState)
-            // Load mock data if nothing is selected for MVP demonstration
-            if viewModel.project == nil {
-                let mockScene = Scene(name: "Introduction Scene", prompt: "A man walking through a futuristic city", durationSeconds: 5.0, generations: [.mock])
-                viewModel.selectProject(.mock, scenes: [mockScene, Scene(name: "Scene 2", prompt: "A robot in a garden")])
-            }
         }
         .sheet(isPresented: $isShowingElementPicker) {
             if let sceneId = viewModel.selectedSceneId {

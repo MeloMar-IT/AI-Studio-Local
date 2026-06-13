@@ -117,13 +117,16 @@ struct ExportDialog: View {
     }
 
     private func startExport() {
-        // In a real app we'd need the actual project URL.
-        // For MVP, we use a mock URL or let the ViewModel handle it.
-        let projectURL = URL(fileURLWithPath: "/tmp/LTXProjects/MockProject.ltxproject")
-        viewModel.exportProject(preset: selectedPreset, projectURL: projectURL)
+        // Ensure we have a project loaded and its URL is available
+        guard let project = viewModel.project else { return }
 
-        // Watch for completion to show success view
-        // In a more robust implementation, this would be handled better by the ViewModel
+        // Use the actual project URL from the ProjectStore
+        // If it's a new project not yet saved, we might need a save dialog first
+        // For now, we'll try to get it from the app state if available, or use a default app-specific path
+        let projectURL = URL(fileURLWithPath: NSHomeDirectory())
+            .appendingPathComponent("Documents/LTXProjects/\(project.name).ltxproject")
+
+        viewModel.exportProject(preset: selectedPreset, projectURL: projectURL)
     }
 }
 

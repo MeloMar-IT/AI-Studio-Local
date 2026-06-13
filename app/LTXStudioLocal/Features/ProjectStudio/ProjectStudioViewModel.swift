@@ -27,7 +27,7 @@ class ProjectStudioViewModel: ObservableObject {
     private let promptImprovementHelper: PromptImprovementHelper = DefaultPromptImprovementHelper()
     private let continuityStore: ContinuityStore = FileContinuityStore()
     private let generationClient: GenerationClient = HTTPGenerationClient()
-    private let exportService: ExportService = MockExportService()
+    private let exportService: ExportService = AVFoundationExportService()
     private let projectStore: ProjectStore = FileProjectStore()
     private let sceneResolver: SceneResolver = DefaultSceneResolver()
     private var appState: AppState?

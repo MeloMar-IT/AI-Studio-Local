@@ -78,6 +78,7 @@ public struct Project: Codable, Identifiable, Equatable {
     }
 }
 
+#if DEBUG
 // MARK: - Mock Fixtures
 extension Project {
     public static var mock: Project {
@@ -92,3 +93,4 @@ extension Project {
         )
     }
 }
+#endif

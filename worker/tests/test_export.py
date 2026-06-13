@@ -5,9 +5,28 @@ import shutil
 import tempfile
 import asyncio
 from ltx_worker.jobs.store import JobStore
-from ltx_worker.engine.mock import MockGenerationEngine, MockModelLoader, MockLoraLoader, MockMediaEncoder
-from ltx_worker.engine.output import OutputManager
-from ltx_worker.schemas.api import GenerationRequest
+from ltx_worker.engine.ltx import LTXGenerationEngine
+from ltx_worker.engine.adapter import LTXAdapter
+from typing import List, Any, Optional
+from ltx_worker.engine.base import ProgressCallback, CancellationToken
+
+class TestAdapter(LTXAdapter):
+    def capabilities(self) -> List[str]:
+        return ["text-to-video"]
+    async def load_model(self, model_profile: Any) -> Any:
+        return None
+    async def unload_model(self, model_id: str) -> None:
+        pass
+    async def generate_text_to_video(self, request: Any, output_path: str, progress_callback: Optional[ProgressCallback] = None, cancellation_token: Optional[CancellationToken] = None) -> str:
+        with open(output_path, "wb") as f:
+            f.write(b"REAL_LTX_VIDEO_DATA_MOCK")
+        return output_path
+    async def generate_image_to_video(self, request: Any, output_path: str, progress_callback: Optional[ProgressCallback] = None, cancellation_token: Optional[CancellationToken] = None) -> str:
+        return output_path
+    async def generate_audio_to_video(self, request: Any, output_path: str, progress_callback: Optional[ProgressCallback] = None, cancellation_token: Optional[CancellationToken] = None) -> str:
+        return output_path
+    async def generate_retake(self, request: Any, output_path: str, progress_callback: Optional[ProgressCallback] = None, cancellation_token: Optional[CancellationToken] = None) -> str:
+        return output_path
 
 @pytest.fixture
 def temp_output_dir():
@@ -15,8 +34,11 @@ def temp_output_dir():
     yield dir_path
     shutil.rmtree(dir_path)
 
+from ltx_worker.engine.output import OutputManager
+from ltx_worker.schemas.api import GenerationRequest
+
 def test_job_metadata_persistence(temp_output_dir):
-    engine = MockGenerationEngine(MockModelLoader(), MockLoraLoader(), MockMediaEncoder())
+    engine = LTXGenerationEngine(adapter=TestAdapter())
     output_manager = OutputManager(temp_output_dir)
     store = JobStore(engine, output_manager)
 
@@ -50,7 +72,7 @@ def test_job_metadata_persistence(temp_output_dir):
     asyncio.run(run_test())
 
 def test_output_file_structure(temp_output_dir):
-    engine = MockGenerationEngine(MockModelLoader(), MockLoraLoader(), MockMediaEncoder())
+    engine = LTXGenerationEngine(adapter=TestAdapter())
     output_manager = OutputManager(temp_output_dir)
     store = JobStore(engine, output_manager)
 

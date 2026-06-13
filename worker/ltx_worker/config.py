@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
 
     # Engine configuration
-    engine_type: Literal["mock", "ltx"] = "mock"
+    engine_type: Literal["mock", "ltx"] = "ltx"
     output_dir: str = "outputs"
 
     # Model configuration

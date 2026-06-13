@@ -53,7 +53,7 @@ struct ModelManagerView: View {
                 if viewModel.isOffline {
                     HStack {
                         Image(systemName: "wifi.slash")
-                        Text("Offline Mode (Mock Data)")
+                        Text("Disconnected from Worker")
                             .font(.App.caption)
                     }
                     .foregroundColor(.secondary)

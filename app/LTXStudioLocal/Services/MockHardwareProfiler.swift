@@ -1,3 +1,4 @@
+#if DEBUG
 import Foundation
 
 public final class MockHardwareProfiler: HardwareProfilerProtocol {
@@ -11,3 +12,4 @@ public final class MockHardwareProfiler: HardwareProfilerProtocol {
         return mockProfile
     }
 }
+#endif
