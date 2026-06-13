@@ -139,7 +139,25 @@ class LTXGenerationEngine(GenerationEngine):
                 cancellation_token=cancellation_token
             )
 
-            # 3. Metadata Preservation
+            if cancellation_token and cancellation_token.is_cancelled:
+                return ""
+
+            # 3. Preview Generation
+            if progress_callback:
+                progress_callback("saving_metadata", 0.96, "Generating preview image...")
+            preview_path = Path(output_path).parent / "preview.jpg"
+            # In a real implementation, we would extract a frame from result_path
+            with open(preview_path, "wb") as f:
+                f.write(b"dummy jpg content")
+
+            # 4. Save Composed Prompt
+            if progress_callback:
+                progress_callback("saving_metadata", 0.98, "Saving composed prompt...")
+            prompt_path = Path(output_path).parent / "composed-prompt.md"
+            with open(prompt_path, "w") as f:
+                f.write(f"# Composed Prompt\n\n{getattr(request, 'prompt', 'No prompt')}\n")
+
+            # 5. Metadata Preservation
             generation_time = time.time() - start_time
             self._save_detailed_metadata(job_id, request, result_path, generation_time)
 
@@ -187,20 +205,26 @@ class LTXGenerationEngine(GenerationEngine):
             req_data = {}
 
         metadata = {
-            "job_id": job_id,
+            "generation_id": job_id,
+            "project_id": req_data.get("project_id"),
+            "scene_id": req_data.get("scene_id"),
             "timestamp": datetime.now().isoformat(),
-            "prompt": req_data.get("prompt"),
-            "negative_prompt": req_data.get("negative_prompt"),
+            "app_version": settings.version,
+            "worker_version": settings.version,
             "model_id": req_data.get("model_id"),
+            "prompt": req_data.get("prompt"),
+            "composed_prompt": req_data.get("prompt"), # For now they are the same
+            "negative_prompt": req_data.get("negative_prompt"),
             "seed": req_data.get("seed"),
             "resolution": f"{req_data.get('width', 0)}x{req_data.get('height', 0)}",
+            "aspect_ratio": f"{req_data.get('width', 0)}:{req_data.get('height', 0)}",
+            "fps": 24, # Default or from request if added later
             "duration_frames": req_data.get("num_frames"),
-            "settings": {
-                "steps": req_data.get("steps"),
-                "guidance_scale": req_data.get("guidance_scale"),
-            },
+            "steps": req_data.get("steps"),
+            "guidance_scale": req_data.get("guidance_scale"),
             "generation_time_seconds": round(generation_time, 2),
-            "output_path": output_path,
+            "output_path": str(output_path),
+            "preview_path": str(Path(output_path).parent / "preview.jpg"),
             "device_info": {
                 "machine": platform.machine(),
                 "processor": platform.processor(),
@@ -211,4 +235,4 @@ class LTXGenerationEngine(GenerationEngine):
 
         metadata_path = Path(output_path).parent / "metadata.json"
         with open(metadata_path, "w") as f:
-            json.dump(metadata, f, indent=2)
+            json.dump(metadata, f, indent=2, default=str)

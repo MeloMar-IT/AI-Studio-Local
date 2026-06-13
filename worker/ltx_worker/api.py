@@ -29,14 +29,29 @@ router = APIRouter()
 
 
 async def http_exception_handler(request: Request, exc: HTTPException):
-    return JSONResponse(
-        status_code=exc.status_code,
-        content=ErrorResponse(
+    # If detail is already a dict (from our ErrorDetail.model_dump()), use it
+    if isinstance(exc.detail, dict) and "error" in exc.detail:
+        content = exc.detail
+    elif isinstance(exc.detail, dict):
+        content = ErrorResponse(
+            error=ErrorDetail(
+                code=f"http_{exc.status_code}",
+                message=exc.detail.get("message", str(exc.detail)),
+                detail=str(exc.detail.get("detail", "")) if exc.detail.get("detail") else None,
+                action=exc.detail.get("action")
+            )
+        ).model_dump()
+    else:
+        content = ErrorResponse(
             error=ErrorDetail(
                 code=f"http_{exc.status_code}",
                 message=str(exc.detail),
             )
-        ).model_dump(),
+        ).model_dump()
+
+    return JSONResponse(
+        status_code=exc.status_code,
+        content=content,
     )
 
 
@@ -85,7 +100,8 @@ else:
         media_encoder=MockMediaEncoder()
     )
 
-store.job_store = store.JobStore(engine=engine, output_manager=output_manager)
+from ltx_worker.jobs.store import JobStore
+store.job_store = JobStore(engine=engine, output_manager=output_manager)
 job_store = store.job_store
 
 
@@ -135,10 +151,57 @@ async def import_model_endpoint(request: ModelImportRequest):
     return result
 
 
+def _validate_model_for_generation(model_id: str, mode: str):
+    """Validates that a model exists and supports the requested mode."""
+    models = scan_models(settings.models_dir)
+    profile = next((m for m in models if m.id == model_id), None)
+
+    if not profile:
+        raise HTTPException(
+            status_code=400,
+            detail=ErrorResponse(
+                error=ErrorDetail(
+                    code="model_not_found",
+                    message=f"Model '{model_id}' not found in registry.",
+                    action="Please import the model through the Model Manager."
+                )
+            ).model_dump()
+        )
+
+    if not profile.installed:
+        raise HTTPException(
+            status_code=400,
+            detail=ErrorResponse(
+                error=ErrorDetail(
+                    code="model_not_installed",
+                    message=f"Model '{model_id}' is not fully installed.",
+                    detail=f"Missing files: {', '.join(profile.missing_files)}",
+                    action="Please download or re-import the model."
+                )
+            ).model_dump()
+        )
+
+    if mode not in profile.supported_modes:
+        raise HTTPException(
+            status_code=400,
+            detail=ErrorResponse(
+                error=ErrorDetail(
+                    code="unsupported_mode",
+                    message=f"Model '{model_id}' does not support {mode}.",
+                    detail=f"Supported modes: {', '.join(profile.supported_modes)}"
+                )
+            ).model_dump()
+        )
+
+    return profile
+
+
 @router.post("/generate/text-to-video", response_model=JobStatus)
 async def text_to_video(request: GenerationRequest):
     if "text-to-video" not in engine.capabilities():
         raise HTTPException(status_code=400, detail="Current engine does not support text-to-video")
+
+    _validate_model_for_generation(request.model_id, "text-to-video")
 
     job_id = job_store.create_job(request)
     job = job_store.get_job(job_id)
@@ -154,6 +217,8 @@ async def image_to_video(request: GenerationRequest):
 
     if not request.image_path:
         raise HTTPException(status_code=400, detail="image_path is required for image-to-video")
+
+    _validate_model_for_generation(request.model_id, "image-to-video")
 
     job_id = job_store.create_job(request)
     job = job_store.get_job(job_id)

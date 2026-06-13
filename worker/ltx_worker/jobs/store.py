@@ -89,7 +89,7 @@ class JobStore:
                 job.progress = progress
                 job.message = message
                 job.updated_at = datetime.now()
-                logger.debug(f"Job {job_id} progress: {status} ({progress*100}%)")
+                logger.info(f"Job {job_id} progress: {status} ({progress*100}%)")
 
                 # Update metadata with progress
                 try:
