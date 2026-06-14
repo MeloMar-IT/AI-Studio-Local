@@ -25,6 +25,9 @@ struct ProjectStudioView: View {
             NSLog("🎨 ProjectStudioView: onAppear, project is \(viewModel.project?.name ?? "nil")")
             viewModel.setAppState(appState)
         }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("CloseInspector"))) { _ in
+            viewModel.selectedSceneId = nil
+        }
         .onReceive(NotificationCenter.default.publisher(for: .openProject)) { notification in
             NSLog("🎨 ProjectStudioView: Received .openProject notification")
             if let (project, scenes) = notification.object as? (Project, [Scene]) {
@@ -349,8 +352,15 @@ struct ProjectStudioView: View {
                     timeline
                 }
 
-                inspector
+                if viewModel.selectedSceneId != nil {
+                    inspector
+                        .transition(.asymmetric(
+                            insertion: .move(edge: .trailing),
+                            removal: .move(edge: .trailing)
+                        ))
+                }
             }
+            .animation(.spring(response: 0.3, dampingFraction: 0.8), value: viewModel.selectedSceneId)
         }
         .background(Color.App.background)
     }

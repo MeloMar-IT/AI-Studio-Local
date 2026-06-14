@@ -20,7 +20,7 @@ struct InspectorPanel<Content: View>: View {
                 Spacer()
 
                 IconButton(icon: "xmark") {
-                    // Action to close or handle panel
+                    NotificationCenter.default.post(name: NSNotification.Name("CloseInspector"), object: nil)
                 }
             }
             .padding(Spacing.medium)
