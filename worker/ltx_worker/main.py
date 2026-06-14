@@ -27,6 +27,12 @@ app.add_exception_handler(RequestValidationError, validation_exception_handler)
 app.include_router(router, prefix=settings.api_prefix)
 
 if __name__ == "__main__":
+    # In production, we don't want reload
+    should_reload = settings.environment == "development"
+
     uvicorn.run(
-        "ltx_worker.main:app", host=settings.host, port=settings.port, reload=True
+        "ltx_worker.main:app",
+        host=settings.host,
+        port=settings.port,
+        reload=should_reload
     )

@@ -21,7 +21,7 @@ public final class UserSettings: ObservableObject {
     @AppStorage("exportDirectory") public var exportDirectory: String = ""
     @AppStorage("isLocalModeEnabled") public var isLocalModeEnabled: Bool = true
     @AppStorage("isCloudFallbackEnabled") public var isCloudFallbackEnabled: Bool = false
-    @AppStorage("appEnvironment") public var appEnvironment: AppEnvironment = .development
+    @AppStorage("appEnvironment") public var appEnvironment: AppEnvironment = .production
     @AppStorage("logLevel") public var logLevel: LogLevel = .info
     @AppStorage("defaultGenerationProfile") public var defaultGenerationProfile: String = "ltx-2.3-distilled"
     @AppStorage("workerScriptPath") public var workerScriptPath: String = ""

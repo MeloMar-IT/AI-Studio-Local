@@ -31,12 +31,17 @@ source venv/bin/activate
 pip install -e .
 ```
 
-To run the worker in development mode (with mock engine):
+To run the worker in production mode (default):
 ```bash
 ./scripts/run-worker.sh
 ```
 
-To run the worker with the real MLX/LTX engine:
+To run the worker in development mode (with auto-reload and mock engine allowed):
+```bash
+./scripts/run-worker.sh --dev
+```
+
+To run the worker with the real MLX/LTX engine explicitly:
 ```bash
 export LTX_WORKER_ENGINE_TYPE=ltx
 ./scripts/run-worker.sh
@@ -70,8 +75,8 @@ If you modify the data structures shared between the App and the Worker, update 
 The application and worker support three environment modes: `development`, `test`, and `production`.
 
 ### Setting Environment Mode
-- **Swift App**: The environment is controlled by the `appEnvironment` setting in `UserSettings` (defaults to `development`). This is persisted in `@AppStorage`.
-- **Python Worker**: Use the `LTX_WORKER_ENVIRONMENT` environment variable (defaults to `development`).
+- **Swift App**: Default is `production`. The environment can be overridden by the `LTX_APP_ENVIRONMENT` environment variable or controlled by the `appEnvironment` setting in `UserSettings`.
+- **Python Worker**: Default is `production`. Use the `LTX_WORKER_ENVIRONMENT` environment variable or the `--dev` flag in `run-worker.sh`.
 
 ### Configuring the Application
 The application uses standard macOS directories for data storage.

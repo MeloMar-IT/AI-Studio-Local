@@ -33,11 +33,19 @@ class AppState: ObservableObject {
     private var jobSubscriptions: [String: Task<Void, Never>] = [:]
     private var cancellables = Set<AnyCancellable>()
 
+    private static func determineEnvironment() -> AppEnvironment {
+        if let envVar = ProcessInfo.processInfo.environment["LTX_APP_ENVIRONMENT"],
+           let env = AppEnvironment(rawValue: envVar.lowercased()) {
+            return env
+        }
+        return UserSettings.shared.appEnvironment
+    }
+
     init(
         hardwareProfiler: HardwareProfilerProtocol = HardwareProfiler(),
         generationClient: GenerationClient? = nil,
         workerManager: WorkerManagerProtocol = WorkerManager(),
-        environment: AppEnvironment = UserSettings.shared.appEnvironment
+        environment: AppEnvironment = determineEnvironment()
     ) {
         NSLog("🔧 AppState: init started (env: \(environment.rawValue))")
         self.environment = environment

@@ -1,4 +1,4 @@
-.PHONY: help install build test lint format run-app run-worker
+.PHONY: help install build test lint format run-app run-app-dev run-worker run-worker-dev
 
 help:
 	@echo "AI Studio Local Makefile"
@@ -8,8 +8,10 @@ help:
 	@echo "  make test         Run all tests"
 	@echo "  make lint         Run linting"
 	@echo "  make format       Run formatting"
-	@echo "  make run-app      Run the SwiftUI macOS app"
-	@echo "  make run-worker   Run the Python worker"
+	@echo "  make run-app      Run the SwiftUI macOS app (Production mode)"
+	@echo "  make run-app-dev  Run the SwiftUI macOS app (Development mode)"
+	@echo "  make run-worker   Run the Python worker (Production mode)"
+	@echo "  make run-worker-dev Run the Python worker (Development mode)"
 	@echo "  make test-worker  Run Python worker tests"
 
 install:
@@ -30,5 +32,11 @@ format:
 run-app:
 	./scripts/run-app.sh
 
+run-app-dev:
+	./scripts/run-app.sh --dev
+
 run-worker:
 	./scripts/run-worker.sh
+
+run-worker-dev:
+	./scripts/run-worker.sh --dev
