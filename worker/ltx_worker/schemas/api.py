@@ -105,7 +105,7 @@ class ModelValidationResponse(BaseModel):
 
 class ModelImportRequest(BaseModel):
     path: str
-    copy: bool = True
+    copy_files: bool = True
     model_id: Optional[str] = None
 
 

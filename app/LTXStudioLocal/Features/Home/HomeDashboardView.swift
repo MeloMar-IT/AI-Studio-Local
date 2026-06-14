@@ -1,6 +1,8 @@
 import SwiftUI
+import OSLog
 
 struct HomeDashboardView: View {
+    private let logger = Logger(subsystem: "com.ai-studio-local.app", category: "Home")
     @EnvironmentObject private var appState: AppState
     @EnvironmentObject private var router: AppRouter
     @StateObject private var viewModel = HomeDashboardViewModel()
@@ -41,7 +43,9 @@ struct HomeDashboardView: View {
                                 ActionCard(title: "Audio to Video", icon: "waveform", color: .green) {
                                     createQuickProject(mode: .audioToVideo)
                                 }
-                                ActionCard(title: "Retake Video", icon: "arrow.counterclockwise.circle.fill", color: .orange)
+                                ActionCard(title: "Retake Video", icon: "arrow.counterclockwise.circle.fill", color: .orange) {
+                                    createQuickProject(mode: .retake)
+                                }
                                 ActionCard(title: "Reusable Elements", icon: "person.2.fill", color: .teal) {
                                     router.selectedScreen = .continuityLibrary
                                 }
@@ -235,17 +239,23 @@ struct HomeDashboardView: View {
     }
 
     private func openProject(_ project: Project) {
+        logger.info("📁 openProject: starting for \(project.name) (ID: \(project.id))")
         let store = FileProjectStore()
         let projectURL = UserSettings.shared.projectsURL.appendingPathComponent("\(project.id).ltxproject")
 
         do {
+            logger.info("📁 openProject: loading from \(projectURL.path)")
             let (project, scenes) = try store.load(from: projectURL)
+            logger.info("📁 openProject: load successful")
 
             router.selectedProjectID = project.id
             router.selectedScreen = .projectStudio
+            logger.info("📁 openProject: router updated to .projectStudio")
 
             NotificationCenter.default.post(name: .openProject, object: (project, scenes))
+            logger.info("📁 openProject: .openProject notification posted")
         } catch {
+            logger.error("❌ openProject: failed with error: \(error.localizedDescription)")
             appState.activeError = AppError.projectLoadFailed(error: error)
         }
     }
@@ -257,6 +267,7 @@ struct HomeDashboardView: View {
     }
 
     private func createQuickProject(mode: SceneMode) {
+        logger.debug("HomeDashboardView: createQuickProject called for mode: \(mode.rawValue)")
         let name = "New \(mode.rawValue.capitalized) Project"
         let project = Project(name: name)
         let scene = Scene(name: "Scene 1", mode: mode)
@@ -265,6 +276,7 @@ struct HomeDashboardView: View {
     }
 
     private func createProjectFromTemplate(_ template: ProjectTemplate, name: String, useBrandKit: Bool) {
+        logger.debug("HomeDashboardView: createProjectFromTemplate called: \(name), template: \(template.name)")
         var defaultBrandKitId: String? = nil
         if useBrandKit {
             // In a real app, we'd fetch the default brand kit from ContinuityStore
@@ -303,20 +315,28 @@ struct HomeDashboardView: View {
     }
 
     private func saveAndOpenProject(_ project: Project, scenes: [Scene]) {
+        logger.info("📁 saveAndOpenProject: starting for \(project.name) (ID: \(project.id))")
         let store = FileProjectStore()
         let projectURL = UserSettings.shared.projectsURL.appendingPathComponent("\(project.id).ltxproject")
 
         do {
+            logger.info("📁 saveAndOpenProject: saving to \(projectURL.path)")
             try store.save(project: project, scenes: scenes, to: projectURL)
+            logger.info("📁 saveAndOpenProject: save successful")
 
             // Navigate to Project Studio
-            // In a real app, we might want to pass the project to AppRouter
             router.selectedProjectID = project.id
             router.selectedScreen = .projectStudio
+            logger.info("📁 saveAndOpenProject: router updated to .projectStudio")
 
-            // Post notification for ProjectStudioViewModel to load this project
-            NotificationCenter.default.post(name: .openProject, object: (project, scenes))
+            // Small delay to ensure view is swapped before posting notification
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                // Post notification for ProjectStudioViewModel to load this project
+                NotificationCenter.default.post(name: .openProject, object: (project, scenes))
+                logger.info("📁 saveAndOpenProject: .openProject notification posted after delay")
+            }
         } catch {
+            logger.error("❌ saveAndOpenProject: failed with error: \(error.localizedDescription)")
             appState.activeError = AppError.projectSaveFailed(error: error)
         }
     }
@@ -329,13 +349,17 @@ extension NSNotification.Name {
 // MARK: - Components
 
 struct ActionCard: View {
+    private let logger = Logger(subsystem: "com.ai-studio-local.app", category: "Home")
     let title: String
     let icon: String
     let color: Color
     var action: (() -> Void)? = nil
 
     var body: some View {
-        Button(action: { action?() }) {
+        Button(action: {
+            logger.debug("ActionCard: \(title) clicked")
+            action?()
+        }) {
             VStack(spacing: Spacing.medium) {
                 Image(systemName: icon)
                     .font(.system(size: 28))

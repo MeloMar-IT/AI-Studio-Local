@@ -126,7 +126,7 @@ async def import_model_endpoint(request: ModelImportRequest):
         else:
             raise HTTPException(status_code=400, detail="Could not identify model profile. Please provide model_id.")
 
-    result = import_model(request.path, model_id, request.copy)
+    result = import_model(request.path, model_id, request.copy_files)
     if not result["success"]:
         raise HTTPException(status_code=400, detail=result["message"])
 

@@ -67,7 +67,7 @@ struct ModelManagerView: View {
 
             // Detail View
             if let model = viewModel.selectedModel {
-                ModelDetailView(model: model)
+                ModelDetailView(model: model, showImportPicker: $showImportPicker)
             } else {
                 EmptyStateView(
                     title: "No Model Selected",
@@ -201,6 +201,7 @@ struct ModelManagerView: View {
 struct ModelDetailView: View {
     @EnvironmentObject private var appState: AppState
     let model: ModelProfile
+    @Binding var showImportPicker: Bool
 
     var body: some View {
         ScrollView {
@@ -272,11 +273,21 @@ struct ModelDetailView: View {
                         }
                     } else {
                         PrimaryButton("Install Model", icon: "arrow.down.circle") {
-                            // Placeholder
+                            showImportPicker = true
                         }
                     }
                 }
                 .padding(.top, Spacing.medium)
+
+                if !model.installed {
+                    HStack {
+                        Image(systemName: "info.circle")
+                        Text("To install this model, click 'Install Model' and select the folder containing the model files.")
+                            .font(.App.caption)
+                    }
+                    .foregroundColor(.secondary)
+                    .padding(.top, Spacing.small)
+                }
 
                 Spacer()
             }

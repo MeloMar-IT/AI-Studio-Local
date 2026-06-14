@@ -35,8 +35,8 @@ struct ExportDialog: View {
         .background(Color.App.background)
         .cornerRadius(Spacing.cornerRadius)
         .shadow(radius: 20)
-        .onChange(of: viewModel.isExporting) { isExporting in
-            if !isExporting && viewModel.lastExport != nil {
+        .onChange(of: viewModel.isExporting) { oldValue, newValue in
+            if !newValue && viewModel.lastExport != nil {
                 showSuccessMessage = true
             }
         }

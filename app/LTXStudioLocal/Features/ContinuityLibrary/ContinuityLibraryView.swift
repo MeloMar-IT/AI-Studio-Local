@@ -115,7 +115,7 @@ struct ContinuityLibraryView: View {
             }
 
             Button {
-                if let selectedId = viewModel.selectedElementId {
+                if viewModel.selectedElementId != nil {
                     // In a real app we might want a picker for which folder,
                     // but for now we'll just use the exporter
                     showingExportDialog = true

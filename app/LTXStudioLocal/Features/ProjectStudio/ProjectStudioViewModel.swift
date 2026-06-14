@@ -42,6 +42,7 @@ class ProjectStudioViewModel: ObservableObject {
     }
 
     init() {
+        NSLog("📁 ProjectStudioViewModel: init started")
         fetchAvailableModels()
 
         NotificationCenter.default.publisher(for: .generationCompleted)
@@ -65,8 +66,11 @@ class ProjectStudioViewModel: ObservableObject {
         NotificationCenter.default.publisher(for: .openProject)
             .receive(on: RunLoop.main)
             .sink { [weak self] notification in
+                NSLog("📁 ProjectStudioViewModel: Received .openProject notification in sink")
                 if let (project, scenes) = notification.object as? (Project, [Scene]) {
                     self?.selectProject(project, scenes: scenes)
+                } else {
+                    NSLog("📁 ProjectStudioViewModel: .openProject notification object casting failed: \(String(describing: notification.object))")
                 }
             }
             .store(in: &cancellables)
@@ -85,11 +89,13 @@ class ProjectStudioViewModel: ObservableObject {
     }
 
     func selectProject(_ project: Project, scenes: [Scene]) {
+        NSLog("📁 ProjectStudioViewModel: selectProject called for \(project.name) (ID: \(project.id)) with \(scenes.count) scenes")
         self.project = project
         self.scenes = scenes
         resolveAllSceneElements()
-        if self.selectedSceneId == nil {
+        if self.selectedSceneId == nil || !scenes.contains(where: { $0.id == self.selectedSceneId }) {
             self.selectedSceneId = scenes.first?.id
+            NSLog("📁 ProjectStudioViewModel: selectedSceneId set to \(self.selectedSceneId ?? "nil")")
         }
     }
 

@@ -56,7 +56,7 @@ def test_import_model_copy(mock_model_dir, tmp_path):
     try:
         payload = {
             "path": str(mock_model_dir),
-            "copy": True,
+            "copy_files": True,
             "model_id": "test-import-id"
         }
         response = client.post("/models/import", json=payload)
@@ -78,7 +78,7 @@ def test_import_model_reference(mock_model_dir, tmp_path):
     try:
         payload = {
             "path": str(mock_model_dir),
-            "copy": False,
+            "copy_files": False,
             "model_id": "test-ref-id"
         }
         response = client.post("/models/import", json=payload)

@@ -1,6 +1,8 @@
 import SwiftUI
+import OSLog
 
 struct ProjectTemplateSelectionView: View {
+    private let logger = Logger(subsystem: "com.ai-studio-local.app", category: "TemplateSelection")
     @Environment(\.dismiss) private var dismiss
     let templates: [ProjectTemplate] = ProjectTemplate.defaultTemplates
 
@@ -129,10 +131,13 @@ struct ProjectTemplateSelectionView: View {
                         HStack {
                             Spacer()
                             SecondaryButton("Cancel") {
+                                logger.debug("ProjectTemplateSelectionView: Cancel clicked")
                                 dismiss()
                             }
                             PrimaryButton("Create Project") {
+                                logger.debug("ProjectTemplateSelectionView: Create Project clicked for template: \(template.name)")
                                 onSelect(template, projectName, useDefaultBrandKit)
+                                logger.debug("ProjectTemplateSelectionView: onSelect called, now dismissing")
                                 dismiss()
                             }
                         }

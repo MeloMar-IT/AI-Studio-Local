@@ -13,7 +13,7 @@ struct GenerationVersionCard: View {
         VStack(alignment: .leading, spacing: 0) {
             // Preview Image Placeholder
             ZStack {
-                if let previewPath = generation.previewImagePath {
+                if generation.previewImagePath != nil {
                     // In a real app, we would load the image from the path
                     // For now, use a placeholder
                     Rectangle()

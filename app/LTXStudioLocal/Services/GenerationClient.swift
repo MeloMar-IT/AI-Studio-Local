@@ -488,11 +488,17 @@ public final class HTTPGenerationClient: GenerationClient {
 
         struct ImportRequest: Encodable {
             let path: String
-            let copy: Bool
+            let copyFiles: Bool
             let modelId: String?
+
+            enum CodingKeys: String, CodingKey {
+                case path
+                case copyFiles = "copy_files"
+                case modelId = "model_id"
+            }
         }
 
-        urlRequest.httpBody = try encoder.encode(ImportRequest(path: path, copy: copy, modelId: modelId))
+        urlRequest.httpBody = try encoder.encode(ImportRequest(path: path, copyFiles: copy, modelId: modelId))
 
         let (data, response) = try await session.data(for: urlRequest)
 

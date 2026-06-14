@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct ProjectStudioView: View {
+    @EnvironmentObject var router: AppRouter
     @EnvironmentObject var appState: AppState
     @StateObject private var viewModel = ProjectStudioViewModel()
     @State private var editingSceneId: String?
@@ -21,7 +22,15 @@ struct ProjectStudioView: View {
             }
         }
         .onAppear {
+            NSLog("🎨 ProjectStudioView: onAppear, project is \(viewModel.project?.name ?? "nil")")
             viewModel.setAppState(appState)
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .openProject)) { notification in
+            NSLog("🎨 ProjectStudioView: Received .openProject notification")
+            if let (project, scenes) = notification.object as? (Project, [Scene]) {
+                NSLog("🎨 ProjectStudioView: Manual trigger of selectProject for \(project.name)")
+                viewModel.selectProject(project, scenes: scenes)
+            }
         }
         .sheet(isPresented: $isShowingElementPicker) {
             if let sceneId = viewModel.selectedSceneId {
@@ -353,7 +362,8 @@ struct ProjectStudioView: View {
             icon: "video.badge.plus",
             actionTitle: "New Project"
         ) {
-            // New Project Action
+            // New Project Action - navigate back to home to show the templates
+            router.selectedScreen = .home
         }
     }
 
@@ -465,7 +475,7 @@ struct ProjectStudioView: View {
 
                 Spacer()
 
-                if let project = viewModel.project {
+                if viewModel.project != nil {
                     let totalDuration = viewModel.scenes.reduce(0.0) { $0 + $1.durationSeconds }
                     Text(String(format: "%.1fs", totalDuration))
                         .font(.system(size: 11, design: .monospaced))
