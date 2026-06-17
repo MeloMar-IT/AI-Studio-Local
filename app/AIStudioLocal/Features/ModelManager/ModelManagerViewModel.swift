@@ -25,6 +25,27 @@ class ModelManagerViewModel: ObservableObject {
         self.generationClient = generationClient
         fetchModels()
         checkForExistingDownloads()
+        setupNotificationObservers()
+    }
+
+    private func setupNotificationObservers() {
+        NotificationCenter.default.publisher(for: .generationCompleted)
+            .receive(on: RunLoop.main)
+            .sink { [weak self] notification in
+                guard let self = self else { return }
+                if let job = notification.object as? GenerationJob, job.mode == .modelDownload {
+                    AppLogger.shared.info("Model download completed (\(job.sceneId)), refreshing model list", category: .worker)
+                    self.fetchModels(isBackground: true)
+                }
+            }
+            .store(in: &cancellables)
+
+        NotificationCenter.default.publisher(for: .modelsUpdated)
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                self?.fetchModels(isBackground: true)
+            }
+            .store(in: &cancellables)
     }
 
     private func checkForExistingDownloads() {

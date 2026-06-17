@@ -30,6 +30,7 @@ class AppState: ObservableObject {
     private let workerManager: WorkerManagerProtocol
     private let environment: AppEnvironment
     private var pollingTimer: Timer?
+    private var healthCheckTask: Task<Void, Never>?
     private var jobSubscriptions: [String: Task<Void, Never>] = [:]
     private var cancellables = Set<AnyCancellable>()
 
@@ -94,10 +95,15 @@ class AppState: ObservableObject {
             .receive(on: RunLoop.main)
             .sink { [weak self] status in
                 self?.workerStatus = status
-                if status == .running || status == .starting {
-                    Task {
-                        await self?.checkWorkerHealth()
-                    }
+                if status == .starting {
+                    self?.startHealthCheckLoop()
+                } else if status == .running {
+                    self?.healthCheckTask?.cancel()
+                    self?.healthCheckTask = nil
+                } else if status == .stopped || status == .failed {
+                    self?.healthCheckTask?.cancel()
+                    self?.healthCheckTask = nil
+                    self?.isWorkerAvailable = false
                 }
             }
             .store(in: &cancellables)
@@ -150,7 +156,61 @@ class AppState: ObservableObject {
             .store(in: &cancellables)
     }
 
+    private func startHealthCheckLoop() {
+        healthCheckTask?.cancel()
+        healthCheckTask = Task {
+            var attempts = 0
+            let maxAttempts = 30 // 30 seconds total
+
+            while attempts < maxAttempts && !Task.isCancelled {
+                attempts += 1
+                NSLog("🏥 AppState: Checking worker health (attempt \(attempts)/\(maxAttempts))...")
+
+                do {
+                    let health = try await generationClient.checkHealth()
+                    NSLog("✅ AppState: Worker is online. Version: \(health.version)")
+                    await MainActor.run {
+                        self.isWorkerAvailable = true
+                        self.workerVersion = health.version
+                        self.workerStatus = .running
+
+                        // Clear any worker-related errors
+                        if let error = self.activeError, error.title == "Worker Unavailable" || error.title == "Failed to Start Worker" {
+                            self.activeError = nil
+                        }
+                    }
+                    return // Success, exit loop
+                } catch {
+                    // Only log every 5 attempts to avoid log spam, or if it's the last attempt
+                    if attempts % 5 == 0 || attempts == maxAttempts {
+                        NSLog("⏳ AppState: Worker health check attempt \(attempts) failed: \(error.localizedDescription)")
+                    }
+
+                    if attempts < maxAttempts {
+                        try? await Task.sleep(nanoseconds: 1_000_000_000) // Wait 1 second
+                    }
+                }
+            }
+
+            if !Task.isCancelled {
+                await MainActor.run {
+                    self.workerStatus = .failed
+                    self.activeError = AppError(
+                        title: "Worker Failed to Start",
+                        message: "The worker process started but did not respond to health checks within 30 seconds.",
+                        suggestedActions: ["Check worker logs", "Restart the application"]
+                    )
+                }
+            }
+        }
+    }
+
     func checkWorkerHealth() async {
+        if workerStatus == .starting {
+            startHealthCheckLoop()
+            return
+        }
+
         NSLog("🏥 AppState: Checking worker health...")
         do {
             let health = try await generationClient.checkHealth()
@@ -158,7 +218,7 @@ class AppState: ObservableObject {
             await MainActor.run {
                 self.isWorkerAvailable = true
                 self.workerVersion = health.version
-                if self.workerStatus == .starting || self.workerStatus == .stopped {
+                if self.workerStatus == .stopped {
                     self.workerStatus = .running
                 }
                 // Clear any worker-related errors if we successfully connected

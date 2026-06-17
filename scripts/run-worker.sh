@@ -22,9 +22,20 @@ else
     echo "Running in PRODUCTION mode..."
 fi
 
-# Install dependencies
-echo "Installing dependencies..."
-pip install -e .
+# Install dependencies if needed
+echo "Checking dependencies..."
+if [[ "$ENVIRONMENT" == "development" ]]; then
+    echo "Development mode: ensuring editable install is fresh..."
+    pip install -e .
+else
+    # In production, only install if not already installed or if forced
+    if ! pip show ai-video-worker > /dev/null 2>&1; then
+        echo "Installing ai-video-worker package..."
+        pip install .
+    else
+        echo "ai-video-worker package already installed."
+    fi
+fi
 
 # Ensure logs directory exists
 mkdir -p "$(dirname "$0")/../logs"
