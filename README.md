@@ -26,7 +26,35 @@ This is a multi-language repository:
 
 ## Getting Started
 
-### 1. Run the Python Worker
+### Quick Start (Recommended)
+
+The easiest way to get everything running is using the `Makefile`:
+
+1.  **Install dependencies**:
+    ```bash
+    make install
+    ```
+
+2.  **Start the Python Worker**:
+    ```bash
+    make run-worker
+    ```
+    *In another terminal tab:*
+    ```bash
+    make run-worker-dev  # For development mode with auto-reload and mock support
+    ```
+
+3.  **Start the SwiftUI App**:
+    ```bash
+    make run-app
+    ```
+    *Or open `app/AIStudioLocal.xcodeproj` in Xcode and run the application (Cmd+R).*
+
+### Manual Startup
+
+If you prefer to run components manually:
+
+#### 1. Python Worker
 
 The worker handles the generation requests. For now, it provides mock responses.
 
@@ -40,12 +68,17 @@ python ai_video_worker/main.py
 
 Or use the provided script:
 ```bash
-./scripts/run-worker.sh
+./scripts/run-worker.sh [--dev]
 ```
 
-### 2. Open the SwiftUI App
+#### 2. SwiftUI App
 
-Open `app/AIStudioLocal.xcodeproj` in Xcode and run the application.
+```bash
+cd app
+swift run AIStudioLocal
+```
+
+Or open `app/AIStudioLocal.xcodeproj` in Xcode.
 
 ## Core Concepts
 

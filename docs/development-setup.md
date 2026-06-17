@@ -24,6 +24,15 @@ cd ai-studio-local
 
 The worker handles the AI generation logic using MLX on Apple Silicon.
 
+### Using Makefile (Recommended)
+
+```bash
+make install
+make run-worker-dev
+```
+
+### Manual Setup
+
 ```bash
 cd worker
 python3 -m venv venv
@@ -50,9 +59,22 @@ The worker starts a FastAPI server at `http://localhost:8000` by default.
 
 ## 3. Set Up the SwiftUI App
 
+### Using Makefile (Recommended)
+
+```bash
+make run-app-dev
+```
+
+### Manual Setup
+
 1. Open `app/AIStudioLocal.xcodeproj` in Xcode.
 2. Select the `AIStudioLocal` scheme and a "My Mac" destination.
 3. Build and Run (`Cmd + R`).
+
+Alternatively, via command line:
+```bash
+./scripts/run-app.sh --dev
+```
 
 The app will attempt to connect to the worker at `http://localhost:8000`. Ensure the worker is started first.
 
