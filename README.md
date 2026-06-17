@@ -82,8 +82,30 @@ A service that automatically combines scene prompts with attached continuity ele
 - [Release Candidate Checklist](docs/release-candidate-checklist.md)
 
 ## Goals
-
 - Native macOS experience.
 - Local-first privacy and performance.
 - Reusable creative elements through a Continuity Library.
 - High-quality AI video generation using MLX on Apple Silicon.
+
+## TODO: Real Implementation & Mock Removal
+
+The following areas still use mock data or non-functional placeholders and must be replaced with real implementations:
+
+### Python Worker (Backend)
+- [ ] **Real MLX/LTX Integration**: Replace dummy MP4 generation in `mlx_adapter.py` with actual MLX-based video generation.
+- [ ] **Dependency Enforcement**: Strictly require `mlx` and related libraries in production mode (currently allowed to fail silently in `mlx_adapter.py`).
+- [ ] **Generation Engine**: Ensure `LTXGenerationEngine` handles all edge cases (memory, cancellation) using real hardware feedback.
+- [ ] **Model Manager**: Enhance model scanning to verify checksums and compatibility beyond folder presence.
+
+### SwiftUI App (Frontend)
+- [ ] **Production Services**: Ensure `HTTPGenerationClient` and `RemoteModelStore` are used exclusively in production, with no fallback to mock services.
+- [ ] **Hardware Profiler**: Use real hardware data from the worker instead of `MockHardwareProfiler` in all user-facing screens.
+- [ ] **Preview Isolation**: Ensure all `static var mock` data in domain models is strictly wrapped in `#if DEBUG`.
+- [ ] **Error Handling**: Replace generic "Worker error" messages with actionable guidance based on real worker status (e.g., OOM, missing weights).
+
+### Shared & Infrastructure
+- [ ] **Schema Validation**: Implement stricter Pydantic validation for all worker endpoints to ensure API contract integrity.
+- [ ] **Metadata Persistence**: Ensure every generation job writes a complete `metadata.json` as per the requirements in `AGENTS.md`.
+- [ ] **Automated Tests**: Replace mock-based tests with integration tests that use real (but small/fast) model weights or verifiable stubs.
+
+See [Mock Removal Audit](docs/mock-removal-audit.md) for a detailed technical list of all identified mocks.
