@@ -109,6 +109,7 @@ class JobStore:
 
     async def subscribe(self, job_id: str):
         """Subscribe to progress events for a job."""
+        logger.info(f"New subscription for job events: {job_id}")
         queue = asyncio.Queue()
         if job_id not in self.listeners:
             self.listeners[job_id] = []
@@ -128,24 +129,31 @@ class JobStore:
 
             # If job is already terminal, we're done
             if job and job.status in ["completed", "failed", "cancelled", "interrupted"]:
+                logger.info(f"Job {job_id} is already in terminal state {job.status}, finishing subscription.")
                 return
 
             while True:
                 try:
-                    event = await asyncio.wait_for(queue.get(), timeout=0.1)
+                    event = await asyncio.wait_for(queue.get(), timeout=1.0)
                     yield event
                     if event["stage"] in ["completed", "failed", "cancelled", "interrupted"]:
+                        logger.info(f"Job {job_id} reached terminal state {event['stage']}, finishing subscription.")
                         break
                 except asyncio.TimeoutError:
                     # Check if job was removed or something while waiting
                     if job_id not in self.listeners:
+                        logger.warning(f"Job {job_id} listeners entry removed, finishing subscription.")
                         break
+                    # Send a tick to the generator to allow it to yield control if needed
+                    # (Though SSE heartbeat handles the connection-level keepalive)
                     continue
         finally:
             if job_id in self.listeners:
-                self.listeners[job_id].remove(queue)
+                if queue in self.listeners[job_id]:
+                    self.listeners[job_id].remove(queue)
                 if not self.listeners[job_id]:
                     del self.listeners[job_id]
+            logger.info(f"Subscription ended for job: {job_id}")
 
     def cancel_job(self, job_id: str) -> bool:
         if job_id in self.cancellation_tokens:

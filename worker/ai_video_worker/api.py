@@ -331,8 +331,25 @@ async def job_events(job_id: str):
         raise HTTPException(status_code=404, detail="Job not found")
 
     async def event_generator():
-        async for event in job_store.subscribe(job_id):
-            yield f"data: {json.dumps(event)}\n\n"
+        # Send initial heartbeat
+        yield ": heartbeat\n\n"
+
+        async def stream():
+            async for event in job_store.subscribe(job_id):
+                yield f"data: {json.dumps(event)}\n\n"
+
+        # Combine job events with periodic heartbeats
+        stream_iter = stream().__aiter__()
+        while True:
+            try:
+                # Wait for an event from the job store with a timeout for heartbeat
+                event = await asyncio.wait_for(stream_iter.__anext__(), timeout=15.0)
+                yield event
+            except asyncio.TimeoutError:
+                # Send heartbeat if no events for a while
+                yield ": heartbeat\n\n"
+            except StopAsyncIteration:
+                break
 
     return StreamingResponse(event_generator(), media_type="text/event-stream")
 
