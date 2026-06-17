@@ -1,6 +1,6 @@
 # Issue Labels
 
-The following labels are used in the LTX Studio Local project to categorize and prioritize issues.
+The following labels are used in the AI Studio Local project to categorize and prioritize issues.
 
 ## Types
 - `bug`: Something isn't working as expected.

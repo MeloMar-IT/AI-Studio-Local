@@ -39,8 +39,8 @@ To run in development mode (with auto-reload and mock engines allowed):
 
 ## 3. Set Up the SwiftUI App
 
-1. Open `app/LTXStudioLocal.xcodeproj` in Xcode.
-2. Select the `LTXStudioLocal` scheme and a "My Mac" destination.
+1. Open `app/AIStudioLocal.xcodeproj` in Xcode.
+2. Select the `AIStudioLocal` scheme and a "My Mac" destination.
 3. Build and Run (`Cmd + R`).
 
 The app will attempt to connect to the worker at `http://localhost:8000`. Ensure the worker is started first.
@@ -58,11 +58,11 @@ The system supports three environment modes:
 Settings are managed in the **Settings** panel within the app, covering project storage paths and UI preferences.
 
 ### Python Worker
-Configured via environment variables (prefixed with `LTX_WORKER_`):
-- `LTX_WORKER_HOST`: Default `127.0.0.1`
-- `LTX_WORKER_PORT`: Default `8000`
-- `LTX_WORKER_MODELS_DIR`: Where to look for models.
-- `LTX_WORKER_ENGINE_TYPE`: `ltx` (real) or `mock`.
+Configured via environment variables (prefixed with `AI_VIDEO_WORKER_`):
+- `AI_VIDEO_WORKER_HOST`: Default `127.0.0.1`
+- `AI_VIDEO_WORKER_PORT`: Default `8000`
+- `AI_VIDEO_WORKER_MODELS_DIR`: Where to look for models.
+- `AI_VIDEO_WORKER_ENGINE_TYPE`: `ltx` (real) or `mock`.
 
 ## 6. Project Formatting and Linting
 

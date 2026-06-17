@@ -1,6 +1,6 @@
 # Model Manager
 
-The Model Manager is the central hub for handling local AI models within LTX Studio Local. It abstracts the complexity of model weights and configuration files into user-friendly "Profiles".
+The Model Manager is the central hub for handling local AI models within AI Studio Local. It abstracts the complexity of model weights and configuration files into user-friendly "Profiles".
 
 ## Model Profiles
 
@@ -33,9 +33,9 @@ The Model Manager integrates with the **Hardware Profiler** to recommend the bes
 The application uses standard macOS directories for model storage.
 
 **Default Path:**
-`~/Library/Application Support/LTX Studio Local/Models/`
+`~/Library/Application Support/AI Studio Local/Models/`
 
-The Python worker can be configured to point to any directory using the `LTX_WORKER_MODELS_DIR` environment variable. By default, it looks for a `models/` directory in its current working directory.
+The Python worker can be configured to point to any directory using the `AI_VIDEO_WORKER_MODELS_DIR` environment variable. By default, it looks for a `models/` directory in its current working directory.
 
 ### Manual Model Import
 

@@ -8,8 +8,8 @@ echo "🔍 Checking for forbidden mock/test patterns in production code..."
 
 # Define directories to check (production code)
 PROD_DIRS=(
-    "app/LTXStudioLocal"
-    "worker/ltx_worker"
+    "app/AIStudioLocal"
+    "worker/ai_video_worker"
     "shared/schemas"
 )
 

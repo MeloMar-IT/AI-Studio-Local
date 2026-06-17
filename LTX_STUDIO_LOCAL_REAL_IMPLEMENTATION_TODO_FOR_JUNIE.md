@@ -1,6 +1,6 @@
-# LTX Studio Local — Real Implementation TODO for Junie
+# AI Studio Local — Real Implementation TODO for Junie
 
-This file is the second-stage TODO list for **LTX Studio Local**.
+This file is the second-stage TODO list for **AI Studio Local**.
 
 The first project structure and mock application have already been implemented. This TODO list is for turning the application into a working product by removing mocks, replacing them with real code, and adding tests that prove every part works.
 
@@ -85,7 +85,7 @@ This phase is complete only when:
 ### Junie prompt
 
 ```text
-Read the current LTX Studio Local repository and create a complete mock-removal audit.
+Read the current AI Studio Local repository and create a complete mock-removal audit.
 
 Search for all mocks, fake data, sample-only services, placeholders, TODOs, FIXMEs, hard-coded responses, fake worker endpoints, mock model profiles, fake generation jobs, fake project data, and any preview-only data that may accidentally be used in production.
 
@@ -166,10 +166,10 @@ Update documentation to explain the boundary.
 ### Suggested config locations
 
 ```text
-~/Library/Application Support/LTX Studio Local/config.json
-~/Library/Application Support/LTX Studio Local/continuity-library/
-~/Library/Application Support/LTX Studio Local/models/
-~/Movies/LTX Studio Local/Exports/
+~/Library/Application Support/AI Studio Local/config.json
+~/Library/Application Support/AI Studio Local/continuity-library/
+~/Library/Application Support/AI Studio Local/models/
+~/Movies/AI Studio Local/Exports/
 ```
 
 ### Junie prompt
@@ -191,7 +191,7 @@ The configuration must support:
 - logging level
 - default generation profile
 
-Use sensible macOS defaults under ~/Library/Application Support/LTX Studio Local where appropriate.
+Use sensible macOS defaults under ~/Library/Application Support/AI Studio Local where appropriate.
 
 Add validation so missing or invalid config values produce clear actionable errors.
 
@@ -344,7 +344,7 @@ Replace all in-memory or sample-only Continuity Library data with real JSON-back
 
 Create a global continuity library under:
 
-~/Library/Application Support/LTX Studio Local/continuity-library/
+~/Library/Application Support/AI Studio Local/continuity-library/
 
 Use category folders:
 
@@ -1284,7 +1284,7 @@ Update docs/user-experience.md with screenshots placeholders or descriptions of 
 ### Junie prompt
 
 ```text
-Create a user-friendly error catalogue for LTX Studio Local.
+Create a user-friendly error catalogue for AI Studio Local.
 
 Map technical errors to helpful messages and recovery actions.
 
@@ -1729,7 +1729,7 @@ Use this when starting the full second-stage implementation.
 ```text
 You are Junie, acting as a senior macOS SwiftUI, Python, MLX, and AI video application engineer.
 
-The LTX Studio Local repository already contains the initial project structure and mock application shell. Your task is to turn it into a working application by removing mocks, replacing them with real code, and adding tests that prove the behaviour.
+The AI Studio Local repository already contains the initial project structure and mock application shell. Your task is to turn it into a working application by removing mocks, replacing them with real code, and adding tests that prove the behaviour.
 
 Read first:
 

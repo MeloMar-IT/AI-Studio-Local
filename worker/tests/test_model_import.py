@@ -2,8 +2,8 @@ import os
 import shutil
 import pytest
 from fastapi.testclient import TestClient
-from ltx_worker.main import app
-from ltx_worker.config import settings
+from ai_video_worker.main import app
+from ai_video_worker.config import settings
 
 client = TestClient(app)
 

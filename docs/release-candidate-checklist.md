@@ -1,6 +1,6 @@
 # Release Candidate Checklist
 
-This checklist is used to verify a release candidate for LTX Studio Local. It must be executed on an Apple Silicon Mac.
+This checklist is used to verify a release candidate for AI Studio Local. It must be executed on an Apple Silicon Mac.
 
 ## 1. Clean Environment Setup
 
@@ -30,12 +30,12 @@ This checklist is used to verify a release candidate for LTX Studio Local. It mu
   ```bash
   mkdir -p models
   # Place real models in the directory if available
-  export LTX_WORKER_MODELS_DIR=$(pwd)/models
+  export AI_VIDEO_WORKER_MODELS_DIR=$(pwd)/models
   ```
 - [ ] **Worker Startup**: Start the worker with the real engine (or mock for MVP validation).
   ```bash
   # For real model validation:
-  export LTX_WORKER_ENGINE_TYPE=ltx
+  export AI_VIDEO_WORKER_ENGINE_TYPE=ltx
   ./scripts/run-worker.sh
   ```
 - [ ] **Health Check**: Verify worker is responding.
@@ -50,7 +50,7 @@ This checklist is used to verify a release candidate for LTX Studio Local. It mu
 ## 3. Application Verification
 
 - [ ] **App Startup**: Launch the SwiftUI app from Xcode.
-  - Open `app/LTXStudioLocal.xcodeproj`.
+  - Open `app/AIStudioLocal.xcodeproj`.
   - Build and Run (`Cmd + R`).
   - Verify app connects to the worker (Status indicator should be green/active).
 - [ ] **Project Management**:

@@ -6,16 +6,16 @@ from pydantic import ValidationError
 
 # Set environment to non-production and point to a temp models dir to avoid validation failures
 # Note: os.environ must be set BEFORE importing app/settings if they read it at module level
-os.environ["LTX_WORKER_ENVIRONMENT"] = "development"
-os.environ["LTX_WORKER_MODELS_DIR"] = "/tmp/fake_models"
+os.environ["AI_VIDEO_WORKER_ENVIRONMENT"] = "development"
+os.environ["AI_VIDEO_WORKER_MODELS_DIR"] = "/tmp/fake_models"
 os.makedirs("/tmp/fake_models/ltx-2.3-distilled", exist_ok=True)
 # Create fake files to pass validation
 with open("/tmp/fake_models/ltx-2.3-distilled/ltx_video_2.3_distilled.safetensors", "w") as f: f.write("")
 with open("/tmp/fake_models/ltx-2.3-distilled/config.json", "w") as f: f.write("{}")
 
-from ltx_worker.main import app
-from ltx_worker.config import settings
-from ltx_worker.schemas.api import (
+from ai_video_worker.main import app
+from ai_video_worker.config import settings
+from ai_video_worker.schemas.api import (
     HealthResponse,
     HardwareResponse,
     ModelsResponse,
@@ -64,8 +64,8 @@ def test_models_schema():
 
 def test_generate_text_to_video_schema():
     # We mock _validate_model_for_generation because ltx-video-2b-distilled is not installed in test env
-    with patch("ltx_worker.api._validate_model_for_generation") as mock_val:
-        from ltx_worker.schemas.api import ModelProfile
+    with patch("ai_video_worker.api._validate_model_for_generation") as mock_val:
+        from ai_video_worker.schemas.api import ModelProfile
         mock_val.return_value = ModelProfile(
             id="ltx-video-2b-distilled",
             name="LTX-Video 2B Distilled",
@@ -86,8 +86,8 @@ def test_generate_image_to_video_schema(tmp_path):
     fake_image = tmp_path / "test.jpg"
     fake_image.write_text("fake")
     # We mock _validate_model_for_generation because ltx-video-2b-distilled is not installed in test env
-    with patch("ltx_worker.api._validate_model_for_generation") as mock_val:
-        from ltx_worker.schemas.api import ModelProfile
+    with patch("ai_video_worker.api._validate_model_for_generation") as mock_val:
+        from ai_video_worker.schemas.api import ModelProfile
         mock_val.return_value = ModelProfile(
             id="ltx-video-2b-distilled",
             name="LTX-Video 2B Distilled",
@@ -108,8 +108,8 @@ def test_generate_image_to_video_schema(tmp_path):
 def test_get_job_schema():
     # Create a job first
     # We mock _validate_model_for_generation because ltx-video-2b-distilled is not installed in test env
-    with patch("ltx_worker.api._validate_model_for_generation") as mock_val:
-        from ltx_worker.schemas.api import ModelProfile
+    with patch("ai_video_worker.api._validate_model_for_generation") as mock_val:
+        from ai_video_worker.schemas.api import ModelProfile
         mock_val.return_value = ModelProfile(
             id="ltx-video-2b-distilled",
             name="LTX-Video 2B Distilled",

@@ -1,6 +1,6 @@
 ls app# Development Setup
 
-This guide helps you set up LTX Studio Local for local development.
+This guide helps you set up AI Studio Local for local development.
 
 ## Current Status: MVP Foundation (v0.1.0)
 
@@ -43,66 +43,66 @@ To run the worker in development mode (with auto-reload and mock engine allowed)
 
 To run the worker with the real MLX/LTX engine explicitly:
 ```bash
-export LTX_WORKER_ENGINE_TYPE=ltx
+export AI_VIDEO_WORKER_ENGINE_TYPE=ltx
 ./scripts/run-worker.sh
 ```
 The worker starts a FastAPI server at `http://localhost:8000` by default.
 
 ## 3. Set Up the SwiftUI App
 
-1. Open `app/LTXStudioLocal.xcodeproj` in Xcode.
-2. Select the `LTXStudioLocal` scheme and a "My Mac" destination.
+1. Open `app/AIStudioLocal.xcodeproj` in Xcode.
+2. Select the `AIStudioLocal` scheme and a "My Mac" destination.
 3. Build and Run (`Cmd + R`).
 
 The app will attempt to connect to the worker at `http://localhost:8000`. Ensure the worker is started first.
 
 ## 4. Model Setup (for Real Generation)
 
-If you are using the real LTX engine (`LTX_WORKER_ENGINE_TYPE=ltx`), you need to provide model weights.
+If you are using the real LTX engine (`AI_VIDEO_WORKER_ENGINE_TYPE=ltx`), you need to provide model weights.
 
 1. Create a `models/` directory in the project root.
 2. Place your MLX-compatible LTX-Video model files in this directory.
 3. The worker expects a folder structure like: `models/ltx-video-0.1-mlx/` containing the `.safetensors` and config files.
-4. You can configure the model directory via `LTX_WORKER_MODELS_DIR`.
+4. You can configure the model directory via `AI_VIDEO_WORKER_MODELS_DIR`.
 
 ## 5. Shared Schemas
 
 If you modify the data structures shared between the App and the Worker, update the JSON schemas in `shared/schemas/`.
-- Python models in `worker/ltx_worker/schemas/api.py` use these schemas via Pydantic.
-- Swift models in `app/LTXStudioLocal/Domain/` must be manually updated to match the schemas.
+- Python models in `worker/ai_video_worker/schemas/api.py` use these schemas via Pydantic.
+- Swift models in `app/AIStudioLocal/Domain/` must be manually updated to match the schemas.
 
 ## 5. Environment Modes
 The application and worker support three environment modes: `development`, `test`, and `production`.
 
 ### Setting Environment Mode
 - **Swift App**: Default is `production`. The environment can be overridden by the `LTX_APP_ENVIRONMENT` environment variable or controlled by the `appEnvironment` setting in `UserSettings`.
-- **Python Worker**: Default is `production`. Use the `LTX_WORKER_ENVIRONMENT` environment variable or the `--dev` flag in `run-worker.sh`.
+- **Python Worker**: Default is `production`. Use the `AI_VIDEO_WORKER_ENVIRONMENT` environment variable or the `--dev` flag in `run-worker.sh`.
 
 ### Configuring the Application
 The application uses standard macOS directories for data storage.
 
 **Swift App Defaults:**
-- **App Data/Continuity**: `~/Library/Application Support/LTX Studio Local/`
-- **Projects**: `~/Documents/LTX Studio Local/Projects/`
-- **Exports**: `~/Movies/LTX Studio Local/Exports/`
+- **App Data/Continuity**: `~/Library/Application Support/AI Studio Local/`
+- **Projects**: `~/Documents/AI Studio Local/Projects/`
+- **Exports**: `~/Movies/AI Studio Local/Exports/`
 
 These can be customized in the **Settings** panel within the application.
 
 **Python Worker Configuration:**
-The worker is configured via environment variables (prefixed with `LTX_WORKER_`):
-- `LTX_WORKER_HOST`: Default `127.0.0.1`
-- `LTX_WORKER_PORT`: Default `8000`
-- `LTX_WORKER_LOG_LEVEL`: Default `INFO`
-- `LTX_WORKER_MODELS_DIR`: Default `models`
-- `LTX_WORKER_OUTPUT_DIR`: Default `outputs`
+The worker is configured via environment variables (prefixed with `AI_VIDEO_WORKER_`):
+- `AI_VIDEO_WORKER_HOST`: Default `127.0.0.1`
+- `AI_VIDEO_WORKER_PORT`: Default `8000`
+- `AI_VIDEO_WORKER_LOG_LEVEL`: Default `INFO`
+- `AI_VIDEO_WORKER_MODELS_DIR`: Default `models`
+- `AI_VIDEO_WORKER_OUTPUT_DIR`: Default `outputs`
 
 ### Production Mode Safeguards
 Production mode strictly forbids the use of mock engines or mock services. If you try to run in production with a mock engine, the system will fail fast with a clear error.
 
 To run the worker in production mode (requires real MLX/LTX engine):
 ```bash
-export LTX_WORKER_ENVIRONMENT=production
-export LTX_WORKER_ENGINE_TYPE=ltx
+export AI_VIDEO_WORKER_ENVIRONMENT=production
+export AI_VIDEO_WORKER_ENGINE_TYPE=ltx
 ./scripts/run-worker.sh
 ```
 

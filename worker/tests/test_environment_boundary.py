@@ -1,5 +1,5 @@
 import pytest
-from ltx_worker.config import Settings
+from ai_video_worker.config import Settings
 def test_engine_rejection_in_any_environment():
     # Test the logic specifically
     def check_engine_setup(engine_type):
@@ -12,14 +12,14 @@ def test_engine_rejection_in_any_environment():
         check_engine_setup("mock")
 
 def test_api_rejection_of_mock_engine(monkeypatch):
-    monkeypatch.setenv("LTX_WORKER_ENGINE_TYPE", "mock")
+    monkeypatch.setenv("AI_VIDEO_WORKER_ENGINE_TYPE", "mock")
 
     import importlib
-    import ltx_worker.config
-    import ltx_worker.api
+    import ai_video_worker.config
+    import ai_video_worker.api
 
     # Force reload config with new env vars
-    importlib.reload(ltx_worker.config)
+    importlib.reload(ai_video_worker.config)
 
     with pytest.raises(RuntimeError, match="ENGINE CONFIGURATION ERROR"):
-        importlib.reload(ltx_worker.api)
+        importlib.reload(ai_video_worker.api)

@@ -2,7 +2,7 @@ import os
 import shutil
 import tempfile
 import json
-from ltx_worker.utils.models import scan_models, load_model_registry
+from ai_video_worker.utils.models import scan_models, load_model_registry
 
 def test_load_model_registry():
     registry = load_model_registry()

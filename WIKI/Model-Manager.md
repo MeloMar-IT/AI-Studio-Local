@@ -25,7 +25,7 @@ The application uses standard macOS directories for model storage.
 **Default Path:**
 `~/Library/Application Support/AI Studio Local/Models/`
 
-The Python worker can be configured to point to any directory using the `LTX_WORKER_MODELS_DIR` environment variable.
+The Python worker can be configured to point to any directory using the `AI_VIDEO_WORKER_MODELS_DIR` environment variable.
 
 ## Hardware Requirements
 

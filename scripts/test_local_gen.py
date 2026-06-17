@@ -109,7 +109,7 @@ def run_test_generation():
 
 if __name__ == "__main__":
     if not check_worker_ready():
-        print("Worker is not running. Please start it with: LTX_WORKER_ENGINE_TYPE=ltx uvicorn ltx_worker.main:app --reload")
+        print("Worker is not running. Please start it with: AI_VIDEO_WORKER_ENGINE_TYPE=ltx uvicorn ai_video_worker.main:app --reload")
         sys.exit(1)
 
     setup_test_model()

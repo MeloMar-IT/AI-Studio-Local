@@ -1,6 +1,6 @@
 # Manual Real-Model Test Checklist
 
-This document provides a checklist for manually testing LTX Studio Local with real LTX/MLX models on an Apple Silicon Mac. These tests ensure that the end-to-end generation pipeline is working correctly in a real-world environment.
+This document provides a checklist for manually testing AI Studio Local with real LTX/MLX models on an Apple Silicon Mac. These tests ensure that the end-to-end generation pipeline is working correctly in a real-world environment.
 
 ## 1. Hardware Requirements
 
@@ -46,13 +46,13 @@ To run with real models, the worker must be started with the correct environment
 
 ```bash
 # Optional: Set to production mode to enforce real engine and disable mocks
-export LTX_WORKER_ENVIRONMENT=production
+export AI_VIDEO_WORKER_ENVIRONMENT=production
 
 # Required: Enable the real LTX engine
-export LTX_WORKER_ENGINE_TYPE=ltx
+export AI_VIDEO_WORKER_ENGINE_TYPE=ltx
 
 # Optional: Path to your models directory (defaults to 'models' in worker root)
-export LTX_WORKER_MODELS_DIR=../models
+export AI_VIDEO_WORKER_MODELS_DIR=../models
 
 ./scripts/run-worker.sh
 ```
@@ -111,7 +111,7 @@ After a successful generation, verify the following files exist in the project/s
 | :--- | :--- | :--- |
 | **Out of Memory (OOM)** | Model too large for RAM | Use a quantized model or lower resolution/frames. |
 | **Worker fails to start** | Missing dependencies | Run `pip install -e .` and check `python` version. |
-| **Model not found** | Incorrect `MODELS_DIR` | Check `LTX_WORKER_MODELS_DIR` environment variable. |
+| **Model not found** | Incorrect `MODELS_DIR` | Check `AI_VIDEO_WORKER_MODELS_DIR` environment variable. |
 | **Slow generation** | Low memory or background apps | Close other heavy applications (browser, IDE). |
 | **Invalid output** | ffmpeg missing or failing | Verify `ffmpeg` is in the system PATH. |
 | **Connection Refused** | Worker not running | Run `./scripts/run-worker.sh` and check port 8000. |

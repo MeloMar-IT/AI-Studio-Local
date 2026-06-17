@@ -4,8 +4,8 @@ from datetime import datetime
 from unittest.mock import patch
 from fastapi.testclient import TestClient
 
-from ltx_worker.main import app
-import ltx_worker.api as api
+from ai_video_worker.main import app
+import ai_video_worker.api as api
 
 client = TestClient(app)
 
@@ -39,8 +39,8 @@ def test_models():
 
 def test_create_job():
     # Mock scan_models so it doesn't fail on model existence check
-    with patch("ltx_worker.api.scan_models") as mock_scan:
-        from ltx_worker.schemas.api import ModelProfile
+    with patch("ai_video_worker.api.scan_models") as mock_scan:
+        from ai_video_worker.schemas.api import ModelProfile
         mock_scan.return_value = [
             ModelProfile(
                 id="ltx-video-2b-v0.9",
@@ -80,7 +80,7 @@ def test_job_not_found():
 
 def test_download_model():
     # Mock download_model in utils.models
-    with patch("ltx_worker.api.download_model") as mock_download:
+    with patch("ai_video_worker.api.download_model") as mock_download:
         mock_download.return_value = {
             "success": True,
             "message": "Started downloading ltx-video-2b-v0.9",
@@ -97,7 +97,7 @@ def test_download_model():
 
 
 def test_delete_model():
-    with patch("ltx_worker.api.delete_model") as mock_delete:
+    with patch("ai_video_worker.api.delete_model") as mock_delete:
         mock_delete.return_value = {
             "success": True,
             "message": "Successfully deleted model: ltx-video-2b-v0.9"
@@ -110,9 +110,9 @@ def test_delete_model():
         mock_delete.assert_called_once()
 
 def test_job_store_update_status(tmp_path):
-    from ltx_worker.jobs.store import JobStore
-    from ltx_worker.engine.output import OutputManager
-    from ltx_worker.schemas.api import JobStatus
+    from ai_video_worker.jobs.store import JobStore
+    from ai_video_worker.engine.output import OutputManager
+    from ai_video_worker.schemas.api import JobStatus
     from unittest.mock import MagicMock
 
     output_manager = OutputManager(tmp_path)
@@ -150,8 +150,8 @@ def test_create_image_to_video_job(tmp_path):
     img_path = tmp_path / "test.jpg"
     img_path.write_bytes(b"fake data")
 
-    with patch("ltx_worker.api.scan_models") as mock_scan:
-        from ltx_worker.schemas.api import ModelProfile
+    with patch("ai_video_worker.api.scan_models") as mock_scan:
+        from ai_video_worker.schemas.api import ModelProfile
         mock_scan.return_value = [
             ModelProfile(
                 id="ltx-2.3-distilled",
@@ -207,8 +207,8 @@ def test_structured_error_404():
 
 
 def test_cancel_job():
-    with patch("ltx_worker.api.scan_models") as mock_scan:
-        from ltx_worker.schemas.api import ModelProfile
+    with patch("ai_video_worker.api.scan_models") as mock_scan:
+        from ai_video_worker.schemas.api import ModelProfile
         mock_scan.return_value = [
             ModelProfile(
                 id="ltx-2.3-distilled",
@@ -247,13 +247,13 @@ def test_cancel_job():
 
 def test_ltx_engine_explicit_error():
     # Force LTX engine
-    import ltx_worker.api as api
-    from ltx_worker.engine.ltx import LTXGenerationEngine
-    from ltx_worker.config import settings
+    import ai_video_worker.api as api
+    from ai_video_worker.engine.ltx import LTXGenerationEngine
+    from ai_video_worker.config import settings
 
     original_engine = api.job_store.engine
     # Use a dummy adapter that fails immediately
-    from ltx_worker.engine.adapter import LTXAdapter
+    from ai_video_worker.engine.adapter import LTXAdapter
     class FailingAdapter(LTXAdapter):
         def capabilities(self): return ["text-to-video"]
         async def load_model(self, m): pass
@@ -267,8 +267,8 @@ def test_ltx_engine_explicit_error():
     api.job_store.engine = LTXGenerationEngine(adapter=FailingAdapter())
 
     try:
-        with patch("ltx_worker.api.scan_models") as mock_scan:
-            from ltx_worker.schemas.api import ModelProfile
+        with patch("ai_video_worker.api.scan_models") as mock_scan:
+            from ai_video_worker.schemas.api import ModelProfile
             mock_scan.return_value = [
                 ModelProfile(
                     id="ltx-2.3-distilled",

@@ -20,7 +20,7 @@ pip install -e ".[dev]"
 # Run worker tests
 echo "Running worker tests..."
 export PYTHONPATH=.
-export LTX_WORKER_ENVIRONMENT=test
+export AI_VIDEO_WORKER_ENVIRONMENT=test
 pytest tests/
 
 # Run app tests

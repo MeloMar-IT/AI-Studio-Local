@@ -17,4 +17,4 @@ fi
 # We can pass environment as an argument or env var if the app supports it
 # For now, we use an environment variable that the app might check
 export LTX_APP_ENVIRONMENT=$ENVIRONMENT
-swift run LTXStudioLocal
+swift run AIStudioLocal

@@ -1,6 +1,6 @@
 # Release Checklist
 
-This checklist must be completed before any release of LTX Studio Local.
+This checklist must be completed before any release of AI Studio Local.
 
 ## Pre-Release
 - [ ] All tests pass on `develop` branch (Swift and Python).
@@ -9,7 +9,7 @@ This checklist must be completed before any release of LTX Studio Local.
 - [ ] Documentation is up to date with the latest features and changes.
 - [ ] `CHANGELOG.md` has been updated with changes since the last release.
 - [ ] Version numbers have been bumped in:
-    - [ ] `app/LTXStudioLocal/Info.plist` (or project settings)
+    - [ ] `app/AIStudioLocal/Info.plist` (or project settings)
     - [ ] `worker/pyproject.toml`
 - [ ] All `TODO` comments related to the release version are resolved.
 

@@ -27,7 +27,7 @@ echo "Installing dependencies..."
 pip install -e .
 
 # Run the worker
-echo "Starting LTX Studio Local Worker..."
+echo "Starting AI Studio Local Worker..."
 export PYTHONPATH=$PYTHONPATH:.
-export LTX_WORKER_ENVIRONMENT=$ENVIRONMENT
-python ltx_worker/main.py
+export AI_VIDEO_WORKER_ENVIRONMENT=$ENVIRONMENT
+python ai_video_worker/main.py

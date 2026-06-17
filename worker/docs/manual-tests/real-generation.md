@@ -15,7 +15,7 @@ This document describes how to manually verify the real text-to-video generation
 Run the worker in "ltx" engine mode:
 
 ```bash
-LTX_WORKER_ENGINE_TYPE=ltx python -m ltx_worker.main
+AI_VIDEO_WORKER_ENGINE_TYPE=ltx python -m ai_video_worker.main
 ```
 
 ### 2. Verify Capabilities

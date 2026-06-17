@@ -1,6 +1,6 @@
 # AI Studio Local
 
-AI Studio Local (LTX Studio Local) is a local-first AI video creation studio for macOS. It allows users to generate, edit, retake, extend, and export AI-generated videos using LTX models on Apple Silicon through MLX.
+AI Studio Local (AI Studio Local) is a local-first AI video creation studio for macOS. It allows users to generate, edit, retake, extend, and export AI-generated videos using LTX models on Apple Silicon through MLX.
 
 The project prioritizes user experience, local-first privacy, and reusable creative elements.
 
@@ -35,7 +35,7 @@ cd worker
 python3 -m venv venv
 source venv/bin/activate
 pip install -e .
-python ltx_worker/main.py
+python ai_video_worker/main.py
 ```
 
 Or use the provided script:
@@ -45,7 +45,7 @@ Or use the provided script:
 
 ### 2. Open the SwiftUI App
 
-Open `app/LTXStudioLocal.xcodeproj` in Xcode and run the application.
+Open `app/AIStudioLocal.xcodeproj` in Xcode and run the application.
 
 ## Core Concepts
 

@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Project",
-  "description": "A project in LTX Studio Local",
+  "description": "A project in AI Studio Local",
   "type": "object",
   "properties": {
     "id": {
