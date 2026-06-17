@@ -131,6 +131,10 @@ class AppState: ObservableObject {
         workerManager.stopWorker()
     }
 
+    public func stopWorkerSync() {
+        workerManager.stopWorker()
+    }
+
     private func setupSettingsObservers() {
         UserSettings.shared.objectWillChange
             .receive(on: RunLoop.main)

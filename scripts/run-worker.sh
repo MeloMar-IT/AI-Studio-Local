@@ -29,6 +29,9 @@ pip install -e .
 # Ensure logs directory exists
 mkdir -p "$(dirname "$0")/../logs"
 
+# Trap ctrl-c
+trap 'echo "** Trapped CTRL-C / Termination"; pkill -f "ai_video_worker/main.py"; exit' INT TERM
+
 # Run the worker
 echo "Starting AI Studio Local Worker..."
 export PYTHONPATH=$PYTHONPATH:.

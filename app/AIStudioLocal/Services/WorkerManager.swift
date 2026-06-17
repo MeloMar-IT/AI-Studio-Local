@@ -38,6 +38,10 @@ public final class WorkerManager: WorkerManagerProtocol, ObservableObject {
         setupPipeObservers()
     }
 
+    deinit {
+        stopWorker()
+    }
+
     public func startWorker() async throws {
         guard status != .running && status != .starting else { return }
 
@@ -117,7 +121,13 @@ public final class WorkerManager: WorkerManagerProtocol, ObservableObject {
     }
 
     public func stopWorker() {
-        process?.terminate()
+        if let process = process, process.isRunning {
+            NSLog("🛑 WorkerManager: Terminating worker process (PID: \(process.processIdentifier))")
+            process.terminate()
+            // Wait a bit for it to terminate or we could use process.waitUntilExit()
+            // but that might block the UI thread if called from there.
+            // Since stopWorker is often called from UI or deinit, we should be careful.
+        }
         process = nil
         status = .stopped
         appendLog("Worker process stopped.")

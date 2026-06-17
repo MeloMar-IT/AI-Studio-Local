@@ -109,6 +109,69 @@ def test_delete_model():
         assert data["success"] is True
         mock_delete.assert_called_once()
 
+
+def test_job_events_sse():
+    # Mock scan_models for job creation
+    with patch("ai_video_worker.api.scan_models") as mock_scan:
+        from ai_video_worker.schemas.api import ModelProfile
+        mock_scan.return_value = [
+            ModelProfile(
+                id="ltx-video-2b-v0.9",
+                name="LTX-Video 2B v0.9",
+                description="Production quality base model",
+                family="LTX-Video",
+                version="0.9",
+                expected_files=[],
+                memory_requirement_gb=0,
+                supported_modes=["text-to-video"],
+                recommended_hardware="Any",
+                installed=True,
+                missing_files=[]
+            )
+        ]
+
+        payload = {
+            "prompt": "Test SSE events",
+            "model_id": "ltx-video-2b-v0.9",
+        }
+        create_resp = client.post("/generate/text-to-video", json=payload)
+        job_id = create_resp.json()["job_id"]
+
+        # Test the SSE endpoint
+        response = client.get(f"/jobs/{job_id}/events")
+        assert response.status_code == 200
+        assert "text/event-stream" in response.headers["content-type"]
+
+        # Read first few lines from the response text
+        lines = [line for line in response.text.split("\n") if line]
+
+        assert any("heartbeat" in l for l in lines)
+        assert any("data: " in l for l in lines)
+
+def test_download_model_logic():
+    # Test download_model without mocking the whole thing, just the registry and download
+    with patch("ai_video_worker.utils.models.load_model_registry") as mock_registry, \
+         patch("ai_video_worker.utils.models.requests.get") as mock_get:
+
+        mock_registry.return_value = [{
+            "id": "test-model",
+            "name": "Test Model",
+            "description": "Desc",
+            "family": "LTX-Video",
+            "download_urls": {"file.bin": "http://example.com/file.bin"},
+            "expected_files": ["file.bin"]
+        }]
+
+        # Mock background tasks
+        from fastapi import BackgroundTasks
+        bg = BackgroundTasks()
+
+        from ai_video_worker.utils.models import download_model
+        result = download_model("test-model", bg)
+
+        assert result["success"] is True
+        assert "job_id" in result
+
 def test_job_store_update_status(tmp_path):
     from ai_video_worker.jobs.store import JobStore
     from ai_video_worker.engine.output import OutputManager

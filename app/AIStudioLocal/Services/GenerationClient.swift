@@ -454,9 +454,15 @@ public final class HTTPGenerationClient: GenerationClient {
         let url = baseURL.appendingPathComponent("jobs/\(jobId)/events")
 
         return AsyncThrowingStream { continuation in
+            let configuration = URLSessionConfiguration.default
+            // Set longer timeouts for the event stream to avoid premature timeouts during long generation jobs
+            configuration.timeoutIntervalForRequest = 60.0
+            configuration.timeoutIntervalForResource = 3600.0 // 1 hour for long video generation
+            let streamSession = URLSession(configuration: configuration)
+
             let task = Task {
                 do {
-                    let (bytes, response) = try await session.bytes(for: URLRequest(url: url))
+                    let (bytes, response) = try await streamSession.bytes(for: URLRequest(url: url))
 
                     guard let httpResponse = response as? HTTPURLResponse,
                           (200...299).contains(httpResponse.statusCode) else {
@@ -488,6 +494,7 @@ public final class HTTPGenerationClient: GenerationClient {
 
             continuation.onTermination = { @Sendable _ in
                 task.cancel()
+                streamSession.invalidateAndCancel()
             }
         }
     }

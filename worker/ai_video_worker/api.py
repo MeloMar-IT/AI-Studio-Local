@@ -343,7 +343,8 @@ async def job_events(job_id: str):
         while True:
             try:
                 # Wait for an event from the job store with a timeout for heartbeat
-                event = await asyncio.wait_for(stream_iter.__anext__(), timeout=15.0)
+                # Reduced heartbeat interval to 5 seconds to prevent client timeouts
+                event = await asyncio.wait_for(stream_iter.__anext__(), timeout=5.0)
                 yield event
             except asyncio.TimeoutError:
                 # Send heartbeat if no events for a while
