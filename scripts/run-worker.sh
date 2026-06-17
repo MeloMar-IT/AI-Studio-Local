@@ -26,6 +26,9 @@ fi
 echo "Installing dependencies..."
 pip install -e .
 
+# Ensure logs directory exists
+mkdir -p "$(dirname "$0")/../logs"
+
 # Run the worker
 echo "Starting AI Studio Local Worker..."
 export PYTHONPATH=$PYTHONPATH:.
