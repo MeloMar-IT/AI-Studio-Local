@@ -28,6 +28,7 @@ public struct ModelProfile: Codable, Identifiable, Equatable, Hashable {
     public var family: ModelFamily
     public var version: String?
     public var expectedFiles: [String]
+    public var downloadUrls: [String: String]?
     public var memoryRequirementGB: Int?
     public var supportedModes: [String]
     public var recommendedHardware: String?
@@ -40,6 +41,7 @@ public struct ModelProfile: Codable, Identifiable, Equatable, Hashable {
     public var modelFamily: ModelFamily { family }
     public var purpose: String { description }
     public var memoryRequirement: Int? { memoryRequirementGB }
+    public var canDownload: Bool { downloadUrls != nil && !downloadUrls!.isEmpty }
     public var qualityLevel: ModelQualityProfile {
         if id.contains("distilled") || id.contains("fast") {
             return .fastDraft
@@ -56,6 +58,7 @@ public struct ModelProfile: Codable, Identifiable, Equatable, Hashable {
         family: ModelFamily = .ltxVideo,
         version: String? = nil,
         expectedFiles: [String] = [],
+        downloadUrls: [String: String]? = nil,
         memoryRequirementGB: Int? = nil,
         supportedModes: [String] = [],
         recommendedHardware: String? = nil,
@@ -71,6 +74,7 @@ public struct ModelProfile: Codable, Identifiable, Equatable, Hashable {
         self.family = family
         self.version = version
         self.expectedFiles = expectedFiles
+        self.downloadUrls = downloadUrls
         self.memoryRequirementGB = memoryRequirementGB
         self.supportedModes = supportedModes
         self.recommendedHardware = recommendedHardware
@@ -88,6 +92,7 @@ public struct ModelProfile: Codable, Identifiable, Equatable, Hashable {
         case family
         case version
         case expectedFiles = "expected_files"
+        case downloadUrls = "download_urls"
         case memoryRequirementGB = "memory_requirement_gb"
         case supportedModes = "supported_modes"
         case recommendedHardware = "recommended_hardware"

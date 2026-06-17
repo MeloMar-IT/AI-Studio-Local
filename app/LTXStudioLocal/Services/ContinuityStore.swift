@@ -101,7 +101,7 @@ public final class FileContinuityStore: ContinuityStore {
                 let element = try jsonDecoder.decode(ContinuityElement.self, from: data)
                 elements.append(element)
             } catch {
-                print("Failed to decode continuity element at \(fileURL.path): \(error)")
+                AppLogger.shared.error("Failed to decode continuity element at \(fileURL.path): \(error)", category: .project)
             }
         }
         return elements
@@ -215,7 +215,7 @@ public final class FileContinuityStore: ContinuityStore {
             // Check assets
             for asset in element.assets {
                 if !fileManager.fileExists(atPath: asset.path) {
-                    print("Warning: Asset missing for \(element.name): \(asset.path)")
+                    AppLogger.shared.info("Warning: Asset missing for \(element.name): \(asset.path)", category: .project)
                 }
             }
             return element
@@ -234,7 +234,7 @@ public final class FileContinuityStore: ContinuityStore {
                     let element = try validateElement(from: data)
                     try save(element)
                 } catch {
-                    print("Import failed for \(fileURL.lastPathComponent): \(error)")
+                    AppLogger.shared.error("Import failed for \(fileURL.lastPathComponent): \(error)", category: .project)
                 }
             }
         }

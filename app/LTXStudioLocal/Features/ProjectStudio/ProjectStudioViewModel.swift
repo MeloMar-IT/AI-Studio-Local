@@ -109,7 +109,7 @@ class ProjectStudioViewModel: ObservableObject {
                 newResolved[scene.id] = resolved
                 missingCount += resolved.filter { $0.isMissing }.count
             } catch {
-                print("Failed to resolve elements for scene \(scene.id): \(error)")
+                AppLogger.shared.error("Failed to resolve elements for scene \(scene.id): \(error)", category: .project)
             }
         }
 
@@ -467,7 +467,7 @@ class ProjectStudioViewModel: ObservableObject {
 
     func useGeneration(_ generation: SceneGeneration) {
         activeGenerationId = generation.id
-        print("Using generation: \(generation.id)")
+        AppLogger.shared.info("Using generation: \(generation.id)", category: .ui)
     }
 
     func regenerateFromSettings(_ generation: SceneGeneration) {
@@ -504,7 +504,7 @@ class ProjectStudioViewModel: ObservableObject {
                     isGenerating = false
                 }
             } catch {
-                print("Failed to submit generation job: \(error)")
+                AppLogger.shared.error("Failed to submit generation job: \(error)", category: .worker)
                 await MainActor.run {
                     isGenerating = false
                 }

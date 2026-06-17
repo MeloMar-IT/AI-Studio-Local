@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 from pydantic import BaseModel
 
@@ -34,6 +34,7 @@ class ModelProfile(BaseModel):
     family: str
     version: Optional[str] = None
     expected_files: List[str]
+    download_urls: Optional[Dict[str, str]] = None
     memory_requirement_gb: Optional[int] = None
     supported_modes: List[str]
     recommended_hardware: Optional[str] = None
@@ -107,6 +108,10 @@ class ModelImportRequest(BaseModel):
     path: str
     copy_files: bool = True
     model_id: Optional[str] = None
+
+
+class ModelDownloadRequest(BaseModel):
+    model_id: str
 
 
 class ProgressEvent(BaseModel):

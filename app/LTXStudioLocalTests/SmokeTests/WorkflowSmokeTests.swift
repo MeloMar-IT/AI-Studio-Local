@@ -227,4 +227,8 @@ class TestGenerationClient: GenerationClient {
     func importModel(path: String, copy: Bool, modelId: String?) async throws -> ModelImportResponse {
         fatalError("Not used in smoke test")
     }
+
+    func downloadModel(modelId: String) async throws -> ModelDownloadResponse {
+        return ModelDownloadResponse(success: true, message: "Started", jobId: "job1", modelId: modelId)
+    }
 }

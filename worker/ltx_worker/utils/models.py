@@ -1,9 +1,12 @@
 import os
 import json
 import shutil
+import requests
 from typing import List, Optional
-from ltx_worker.schemas.api import ModelProfile
+from ltx_worker.schemas.api import ModelProfile, ProgressEvent
 from ltx_worker.config import settings
+from datetime import datetime
+import uuid
 
 def load_model_registry() -> List[dict]:
     """Load the model registry from the shared schemas directory."""
@@ -22,6 +25,62 @@ def load_model_registry() -> List[dict]:
 
     # Fallback to a minimal registry if file not found (though it should be there)
     return []
+
+def download_model(model_id: str, background_tasks):
+    """Downloads a model by ID."""
+    registry = load_model_registry()
+    model_data = next((m for m in registry if m["id"] == model_id), None)
+
+    if not model_data:
+        return {"success": False, "message": f"Model '{model_id}' not found in registry."}
+
+    download_urls = model_data.get("download_urls")
+    if not download_urls:
+        return {"success": False, "message": f"No download URLs found for model '{model_id}'."}
+
+    # Create model directory
+    model_dir = os.path.join(settings.models_dir, model_id)
+    os.makedirs(model_dir, exist_ok=True)
+
+    job_id = str(uuid.uuid4())
+
+    def download_task():
+        try:
+            total_files = len(download_urls)
+            for i, (filename, url) in enumerate(download_urls.items()):
+                file_path = os.path.join(model_dir, filename)
+
+                # Update progress
+                logger.info(f"Downloading {filename} from {url}...")
+
+                response = requests.get(url, stream=True)
+                response.raise_for_status()
+
+                total_size = int(response.headers.get('content-length', 0))
+                downloaded_size = 0
+
+                with open(file_path, "wb") as f:
+                    for chunk in response.iter_content(chunk_size=8192):
+                        if chunk:
+                            f.write(chunk)
+                            downloaded_size += len(chunk)
+                            # Could emit progress events here if we had a websocket or event stream
+
+                logger.info(f"Finished downloading {filename}")
+
+            logger.info(f"Successfully downloaded all files for {model_id}")
+        except Exception as e:
+            logger.error(f"Failed to download model {model_id}: {str(e)}")
+            # Cleanup on failure? Maybe not, to allow resuming later if we implemented it
+
+    background_tasks.add_task(download_task)
+
+    return {
+        "success": True,
+        "message": f"Started downloading {model_id}",
+        "job_id": job_id,
+        "model_id": model_id
+    }
 
 def scan_models(models_dir: str) -> List[ModelProfile]:
     """Scan the models directory and match against the registry."""
@@ -71,6 +130,7 @@ def scan_models(models_dir: str) -> List[ModelProfile]:
             family=data["family"],
             version=data.get("version"),
             expected_files=expected_files,
+            download_urls=data.get("download_urls"),
             memory_requirement_gb=data.get("memory_requirement_gb"),
             supported_modes=data.get("supported_modes", []),
             recommended_hardware=data.get("recommended_hardware"),
@@ -129,6 +189,7 @@ def validate_model_folder(path: str) -> dict:
                 family=data["family"],
                 version=data.get("version"),
                 expected_files=expected_files,
+                download_urls=data.get("download_urls"),
                 memory_requirement_gb=data.get("memory_requirement_gb"),
                 supported_modes=data.get("supported_modes", []),
                 recommended_hardware=data.get("recommended_hardware"),

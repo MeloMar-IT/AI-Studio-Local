@@ -101,6 +101,7 @@ class JobStore:
 
         # Start generation task
         asyncio.create_task(self.run_job(job_id, request, token))
+        logger.info(f"Created job {job_id} for project {request.project_id}")
         return job_id
 
     def get_job(self, job_id: str) -> Optional[JobStatus]:

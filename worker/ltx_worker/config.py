@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     port: int = 8000
     environment: Literal["development", "test", "production"] = "production"
     log_level: str = "INFO"
+    log_file: str = "logs/worker.log"
 
     # Engine configuration
     engine_type: Literal["mock", "ltx"] = "ltx"

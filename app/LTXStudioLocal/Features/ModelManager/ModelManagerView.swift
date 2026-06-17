@@ -67,7 +67,7 @@ struct ModelManagerView: View {
 
             // Detail View
             if let model = viewModel.selectedModel {
-                ModelDetailView(model: model, showImportPicker: $showImportPicker)
+                ModelDetailView(viewModel: viewModel, model: model, showImportPicker: $showImportPicker)
             } else {
                 EmptyStateView(
                     title: "No Model Selected",
@@ -200,6 +200,7 @@ struct ModelManagerView: View {
 
 struct ModelDetailView: View {
     @EnvironmentObject private var appState: AppState
+    @ObservedObject var viewModel: ModelManagerViewModel
     let model: ModelProfile
     @Binding var showImportPicker: Bool
 
@@ -226,7 +227,7 @@ struct ModelDetailView: View {
                     Spacer()
 
                     StatusBadge(
-                        label: model.installed ? "Installed" : "Available for Download",
+                        label: model.installed ? "Installed" : (model.canDownload ? "Available for Download" : "Available to Import"),
                         color: model.installed ? .green : .blue
                     )
                 }
@@ -262,18 +263,42 @@ struct ModelDetailView: View {
                 Divider()
 
                 // Actions
-                HStack(spacing: Spacing.medium) {
-                    if model.installed {
-                        SecondaryButton("Validate", icon: "checkmark.shield") {
-                            // Placeholder
-                        }
+                VStack(alignment: .leading, spacing: Spacing.medium) {
+                    HStack(spacing: Spacing.medium) {
+                        if model.installed {
+                            SecondaryButton("Validate", icon: "checkmark.shield") {
+                                // Placeholder
+                            }
 
-                        SecondaryButton("Remove", icon: "trash", isDestructive: true) {
-                            // Placeholder
+                            SecondaryButton("Remove", icon: "trash", isDestructive: true) {
+                                // Placeholder
+                            }
+                        } else {
+                            if model.canDownload {
+                                PrimaryButton("Download Model", icon: "arrow.down.circle") {
+                                    viewModel.downloadModel(modelId: model.id)
+                                }
+                                .disabled(viewModel.isDownloading)
+
+                                SecondaryButton("Import Folder", icon: "folder.badge.plus") {
+                                    showImportPicker = true
+                                }
+                                .disabled(viewModel.isDownloading)
+                            } else {
+                                PrimaryButton("Install Model", icon: "arrow.down.circle") {
+                                    showImportPicker = true
+                                }
+                            }
                         }
-                    } else {
-                        PrimaryButton("Install Model", icon: "arrow.down.circle") {
-                            showImportPicker = true
+                    }
+
+                    if viewModel.isDownloading && viewModel.downloadJobId != nil {
+                        HStack {
+                            ProgressView()
+                                .controlSize(.small)
+                            Text("Download starting...")
+                                .font(.App.caption)
+                                .foregroundColor(.secondary)
                         }
                     }
                 }
@@ -282,7 +307,7 @@ struct ModelDetailView: View {
                 if !model.installed {
                     HStack {
                         Image(systemName: "info.circle")
-                        Text("To install this model, click 'Install Model' and select the folder containing the model files.")
+                        Text(model.canDownload ? "This model can be downloaded automatically or imported from a folder." : "To install this model, click 'Install Model' and select the folder containing the model files.")
                             .font(.App.caption)
                     }
                     .foregroundColor(.secondary)

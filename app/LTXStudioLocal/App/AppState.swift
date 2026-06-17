@@ -203,7 +203,7 @@ class AppState: ObservableObject {
                     }
                 }
             } catch {
-                print("Error in job subscription for \(jobId): \(error)")
+                AppLogger.shared.error("Error in job subscription for \(jobId): \(error)", category: .worker)
                 // Fallback to polling if SSE fails
                 self.jobSubscriptions.removeValue(forKey: jobId)
             }
@@ -223,7 +223,7 @@ class AppState: ObservableObject {
                     }
                 }
             } catch {
-                print("Failed to cancel job: \(error)")
+                AppLogger.shared.error("Failed to cancel job: \(error)", category: .worker)
             }
         }
     }
@@ -282,7 +282,7 @@ class AppState: ObservableObject {
                         }
                     }
                 } catch {
-                    print("Error polling job \(job.id): \(error)")
+                    AppLogger.shared.error("Error polling job \(job.id): \(error)", category: .worker)
                 }
             }
         }

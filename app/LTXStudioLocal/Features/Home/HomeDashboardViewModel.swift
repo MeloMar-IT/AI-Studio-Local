@@ -35,7 +35,7 @@ class HomeDashboardViewModel: ObservableObject {
                         let (project, _) = try self.projectStore.load(from: folderURL)
                         loadedProjects.append(project)
                     } catch {
-                        print("Failed to load project at \(folderURL): \(error)")
+                        AppLogger.shared.error("Failed to load project at \(folderURL): \(error)", category: .project)
                     }
                 }
 

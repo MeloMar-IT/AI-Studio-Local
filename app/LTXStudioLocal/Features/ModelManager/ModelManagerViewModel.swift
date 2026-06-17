@@ -10,6 +10,8 @@ class ModelManagerViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var importValidationResult: ModelValidationResponse?
     @Published var isImporting: Bool = false
+    @Published var isDownloading: Bool = false
+    @Published var downloadJobId: String? = nil
 
     private let modelStore: ModelStore
     private var cancellables = Set<AnyCancellable>()
@@ -84,6 +86,33 @@ class ModelManagerViewModel: ObservableObject {
             } catch {
                 self.errorMessage = "Import failed: \(error.localizedDescription)"
                 self.isImporting = false
+            }
+        }
+    }
+
+    func downloadModel(modelId: String) {
+        isDownloading = true
+        errorMessage = nil
+        downloadJobId = nil
+
+        Task { @MainActor in
+            do {
+                let result = try await modelStore.downloadModel(modelId: modelId)
+                if result.success {
+                    self.downloadJobId = result.jobId
+                    // In a real implementation, we would subscribe to job events here
+                    // to show progress. For now, we'll just show that it started.
+                    // We also refresh after some time or when user manually refreshes.
+
+                    // Show a message that download started
+                    self.errorMessage = "Download started for \(modelId). It will run in the background."
+                } else {
+                    self.errorMessage = result.message
+                }
+                self.isDownloading = false
+            } catch {
+                self.errorMessage = "Download failed: \(error.localizedDescription)"
+                self.isDownloading = false
             }
         }
     }

@@ -137,4 +137,5 @@ class MockGenerationClient: GenerationClient {
     func subscribeToJob(jobId: String) -> AsyncThrowingStream<ProgressEvent, Error> { fatalError("Not implemented") }
     func validateModelFolder(path: String) async throws -> ModelValidationResponse { fatalError("Not implemented") }
     func importModel(path: String, copy: Bool, modelId: String?) async throws -> ModelImportResponse { fatalError("Not implemented") }
+    func downloadModel(modelId: String) async throws -> ModelDownloadResponse { fatalError("Not implemented") }
 }

@@ -10,8 +10,7 @@ struct LTXStudioLocalApp: App {
     @StateObject private var appRouter = AppRouter()
 
     init() {
-        // Use NSLog for guaranteed visibility in system logs
-        NSLog("🚀 LTXStudioLocalApp: init")
+        AppLogger.shared.info("🚀 LTXStudioLocalApp: init", category: .lifecycle)
     }
 
     var body: some SwiftUI.Scene {
@@ -20,6 +19,7 @@ struct LTXStudioLocalApp: App {
                 .environmentObject(appState)
                 .environmentObject(appRouter)
                 .onAppear {
+                    AppLogger.shared.info("Application foregrounded", category: .lifecycle)
                     #if os(macOS)
                     // Ensure the app is treated as a foreground application
                     NSApp.setActivationPolicy(.regular)
@@ -39,7 +39,7 @@ struct ContentView: View {
             .preferredColorScheme(.dark)
             .frame(minWidth: 1000, minHeight: 600)
             .onAppear {
-                NSLog("✅ MainNavigationView: onAppear")
+                AppLogger.shared.info("✅ MainNavigationView: onAppear", category: .ui)
             }
     }
 }

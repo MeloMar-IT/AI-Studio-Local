@@ -5,15 +5,16 @@ import json
 import asyncio
 from datetime import datetime
 
+from ltx_worker.logging_config import logger
 from ltx_worker.utils.profiler import get_hardware_profile
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, HTTPException, Request, BackgroundTasks
 from fastapi.responses import JSONResponse, StreamingResponse
 
 from ltx_worker.config import settings
 import ltx_worker.jobs.store as store
 from ltx_worker.engine.ltx import LTXGenerationEngine
 from ltx_worker.engine.output import OutputManager
-from ltx_worker.utils.models import scan_models, validate_model_folder, import_model
+from ltx_worker.utils.models import scan_models, validate_model_folder, import_model, download_model
 from ltx_worker.schemas.api import (
     ErrorDetail,
     ErrorResponse,
@@ -25,6 +26,7 @@ from ltx_worker.schemas.api import (
     ModelValidationRequest,
     ModelValidationResponse,
     ModelImportRequest,
+    ModelDownloadRequest,
 )
 
 router = APIRouter()
@@ -133,6 +135,14 @@ async def import_model_endpoint(request: ModelImportRequest):
     return result
 
 
+@router.post("/models/download")
+async def download_model_endpoint(request: ModelDownloadRequest, background_tasks: BackgroundTasks):
+    result = download_model(request.model_id, background_tasks)
+    if not result["success"]:
+        raise HTTPException(status_code=400, detail=result["message"])
+    return result
+
+
 def _validate_model_for_generation(model_id: str, mode: str):
     """Validates that a model exists and supports the requested mode."""
     models = scan_models(settings.models_dir)
@@ -214,6 +224,7 @@ async def text_to_video(request: GenerationRequest):
 
     _validate_model_for_generation(request.model_id, "text-to-video")
 
+    logger.info(f"Creating text-to-video job for model: {request.model_id}")
     job_id = job_store.create_job(request)
     job = job_store.get_job(job_id)
     if not job:
@@ -248,6 +259,7 @@ async def image_to_video(request: GenerationRequest):
     _validate_image_path(request.image_path)
     _validate_model_for_generation(request.model_id, "image-to-video")
 
+    logger.info(f"Creating image-to-video job for model: {request.model_id}, image: {request.image_path}")
     job_id = job_store.create_job(request)
     job = job_store.get_job(job_id)
     if not job:
@@ -319,6 +331,7 @@ async def job_events(job_id: str):
 
 @router.post("/jobs/{job_id}/cancel")
 async def cancel_job(job_id: str):
+    logger.info(f"Received cancellation request for job: {job_id}")
     success = job_store.cancel_job(job_id)
     if not success:
         # Check if job exists

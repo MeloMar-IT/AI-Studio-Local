@@ -74,7 +74,7 @@ struct RenderQueueContentView: View {
                     },
                     onRetry: {
                         // In a real app, this would trigger a new generation in ProjectStudioViewModel
-                        print("Retry job \(job.id)")
+                        AppLogger.shared.info("Retrying job \(job.id)", category: .worker)
                     },
                     onOpenScene: {
                         router.selectedProjectID = job.projectId

@@ -10,6 +10,10 @@
         "ltx_video_2.3_distilled.safetensors",
         "config.json"
       ],
+      "download_urls": {
+        "ltx_video_2.3_distilled.safetensors": "https://huggingface.co/Lightricks/LTX-Video/resolve/main/ltx_video_2.3_distilled.safetensors",
+        "config.json": "https://huggingface.co/Lightricks/LTX-Video/resolve/main/config.json"
+      },
       "memory_requirement_gb": 16,
       "supported_modes": ["text-to-video", "image-to-video"],
       "recommended_hardware": "Apple M1 Pro 16GB or better"
@@ -24,6 +28,10 @@
         "ltx_video_2.3_dev.safetensors",
         "config.json"
       ],
+      "download_urls": {
+        "ltx_video_2.3_dev.safetensors": "https://huggingface.co/Lightricks/LTX-Video/resolve/main/ltx_video_2.3_dev.safetensors",
+        "config.json": "https://huggingface.co/Lightricks/LTX-Video/resolve/main/config.json"
+      },
       "memory_requirement_gb": 32,
       "supported_modes": ["text-to-video", "image-to-video"],
       "recommended_hardware": "Apple M2 Max 32GB or better"
@@ -38,6 +46,10 @@
         "ltx_video_2.3_quantized.safetensors",
         "config.json"
       ],
+      "download_urls": {
+        "ltx_video_2.3_quantized.safetensors": "https://huggingface.co/Lightricks/LTX-Video/resolve/main/ltx_video_2.3_quantized.safetensors",
+        "config.json": "https://huggingface.co/Lightricks/LTX-Video/resolve/main/config.json"
+      },
       "memory_requirement_gb": 8,
       "supported_modes": ["text-to-video", "image-to-video"],
       "recommended_hardware": "Apple M1 8GB or better"

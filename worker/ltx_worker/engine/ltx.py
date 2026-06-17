@@ -132,6 +132,7 @@ class LTXGenerationEngine(GenerationEngine):
             self._validate_hardware()
 
             # 2. Generation execution via adapter
+            logger.info(f"Starting generation for job {job_id} using {method.__name__}")
             result_path = await method(
                 request,
                 output_path,

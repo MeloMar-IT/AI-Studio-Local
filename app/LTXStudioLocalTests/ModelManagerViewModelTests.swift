@@ -76,6 +76,15 @@ final class ModelManagerViewModelTests: XCTestCase {
         XCTAssertNotNil(viewModel.importValidationResult)
         XCTAssertNil(viewModel.errorMessage)
     }
+
+    func testDownloadModel() async throws {
+        viewModel.downloadModel(modelId: "m1")
+
+        try await Task.sleep(nanoseconds: 100_000_000)
+
+        XCTAssertEqual(viewModel.downloadJobId, "job1")
+        XCTAssertFalse(viewModel.isDownloading)
+    }
 }
 
 class MockModelStore: ModelStore {
@@ -97,5 +106,10 @@ class MockModelStore: ModelStore {
     func importModel(path: String, copy: Bool, modelId: String?) async throws -> ModelImportResponse {
         if shouldFail { throw NSError(domain: "test", code: 1, userInfo: [NSLocalizedDescriptionKey: "Import failed"]) }
         return importResponse
+    }
+
+    func downloadModel(modelId: String) async throws -> ModelDownloadResponse {
+        if shouldFail { throw NSError(domain: "test", code: 1, userInfo: [NSLocalizedDescriptionKey: "Download failed"]) }
+        return ModelDownloadResponse(success: true, message: "Started", jobId: "job1", modelId: modelId)
     }
 }

@@ -13,6 +13,7 @@ public protocol GenerationClient {
     func subscribeToJob(jobId: String) -> AsyncThrowingStream<ProgressEvent, Error>
     func validateModelFolder(path: String) async throws -> ModelValidationResponse
     func importModel(path: String, copy: Bool, modelId: String?) async throws -> ModelImportResponse
+    func downloadModel(modelId: String) async throws -> ModelDownloadResponse
 }
 
 public struct WorkerHardwareProfile: Codable, Equatable {
@@ -514,5 +515,36 @@ public final class HTTPGenerationClient: GenerationClient {
         }
 
         return try decoder.decode(ModelImportResponse.self, from: data)
+    }
+
+    public func downloadModel(modelId: String) async throws -> ModelDownloadResponse {
+        let url = baseURL.appendingPathComponent("models/download")
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        struct DownloadRequest: Encodable {
+            let modelId: String
+
+            enum CodingKeys: String, CodingKey {
+                case modelId = "model_id"
+            }
+        }
+
+        urlRequest.httpBody = try encoder.encode(DownloadRequest(modelId: modelId))
+
+        let (data, response) = try await session.data(for: urlRequest)
+
+        if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode >= 400 {
+            struct WorkerError: Decodable {
+                let detail: String
+            }
+            if let error = try? decoder.decode(WorkerError.self, from: data) {
+                throw GenerationClientError.workerError(code: "download_failed", message: error.detail)
+            }
+            throw GenerationClientError.workerError(code: "http_\(httpResponse.statusCode)", message: "Server returned \(httpResponse.statusCode)")
+        }
+
+        return try decoder.decode(ModelDownloadResponse.self, from: data)
     }
 }
