@@ -14,7 +14,7 @@ from ltx_worker.config import settings
 import ltx_worker.jobs.store as store
 from ltx_worker.engine.ltx import LTXGenerationEngine
 from ltx_worker.engine.output import OutputManager
-from ltx_worker.utils.models import scan_models, validate_model_folder, import_model, download_model
+from ltx_worker.utils.models import scan_models, validate_model_folder, import_model, download_model, delete_model
 from ltx_worker.schemas.api import (
     ErrorDetail,
     ErrorResponse,
@@ -138,6 +138,14 @@ async def import_model_endpoint(request: ModelImportRequest):
 @router.post("/models/download")
 async def download_model_endpoint(request: ModelDownloadRequest, background_tasks: BackgroundTasks):
     result = download_model(request.model_id, background_tasks)
+    if not result["success"]:
+        raise HTTPException(status_code=400, detail=result["message"])
+    return result
+
+
+@router.delete("/models/{model_id}")
+async def delete_model_endpoint(model_id: str):
+    result = delete_model(model_id)
     if not result["success"]:
         raise HTTPException(status_code=400, detail=result["message"])
     return result

@@ -1,4 +1,6 @@
 import os
+import json
+from datetime import datetime
 from unittest.mock import patch
 from fastapi.testclient import TestClient
 
@@ -32,7 +34,7 @@ def test_models():
     data = response.json()
     assert "models" in data
     assert len(data["models"]) > 0
-    assert data["models"][0]["id"] == "ltx-2.3-distilled"
+    assert data["models"][0]["id"] == "ltx-video-2b-v0.9"
 
 
 def test_create_job():
@@ -41,11 +43,11 @@ def test_create_job():
         from ltx_worker.schemas.api import ModelProfile
         mock_scan.return_value = [
             ModelProfile(
-                id="ltx-2.3-distilled",
-                name="LTX-2.3 Distilled",
-                description="Fast draft generation",
+                id="ltx-video-2b-v0.9",
+                name="LTX-Video 2B v0.9",
+                description="Production quality base model",
                 family="LTX-Video",
-                version="2.3",
+                version="0.9",
                 expected_files=[],
                 memory_requirement_gb=0,
                 supported_modes=["text-to-video", "image-to-video"],
@@ -57,7 +59,7 @@ def test_create_job():
 
         payload = {
             "prompt": "A beautiful sunset over the ocean",
-            "model_id": "ltx-2.3-distilled",
+            "model_id": "ltx-video-2b-v0.9",
         }
         response = client.post("/generate/text-to-video", json=payload)
         assert response.status_code == 200, f"Response: {response.json()}"
@@ -74,6 +76,73 @@ def test_create_job():
 def test_job_not_found():
     response = client.get("/jobs/non-existent-id")
     assert response.status_code == 404
+
+
+def test_download_model():
+    # Mock download_model in utils.models
+    with patch("ltx_worker.api.download_model") as mock_download:
+        mock_download.return_value = {
+            "success": True,
+            "message": "Started downloading ltx-video-2b-v0.9",
+            "job_id": "test-job-id",
+            "model_id": "ltx-video-2b-v0.9"
+        }
+
+        response = client.post("/models/download", json={"model_id": "ltx-video-2b-v0.9"})
+        assert response.status_code == 200
+        data = response.json()
+        assert data["success"] is True
+        assert data["job_id"] == "test-job-id"
+        mock_download.assert_called_once()
+
+
+def test_delete_model():
+    with patch("ltx_worker.api.delete_model") as mock_delete:
+        mock_delete.return_value = {
+            "success": True,
+            "message": "Successfully deleted model: ltx-video-2b-v0.9"
+        }
+
+        response = client.delete("/models/ltx-video-2b-v0.9")
+        assert response.status_code == 200
+        data = response.json()
+        assert data["success"] is True
+        mock_delete.assert_called_once()
+
+def test_job_store_update_status(tmp_path):
+    from ltx_worker.jobs.store import JobStore
+    from ltx_worker.engine.output import OutputManager
+    from ltx_worker.schemas.api import JobStatus
+    from unittest.mock import MagicMock
+
+    output_manager = OutputManager(tmp_path)
+    engine = MagicMock()
+    store = JobStore(engine, output_manager)
+
+    job_id = "test-job"
+    now = datetime.now()
+    store.jobs[job_id] = JobStatus(
+        job_id=job_id,
+        status="pending",
+        progress=0.0,
+        message="Pending...",
+        created_at=now,
+        updated_at=now
+    )
+
+    store.update_job_status(job_id, "downloading", 0.5, "Downloading...")
+
+    assert store.jobs[job_id].status == "downloading"
+    assert store.jobs[job_id].progress == 0.5
+    assert store.jobs[job_id].message == "Downloading..."
+
+    # Check if metadata was saved
+    metadata_path = output_manager.get_metadata_path(job_id)
+    assert metadata_path.exists()
+    with open(metadata_path, "r") as f:
+        metadata = json.load(f)
+    assert metadata["status"] == "downloading"
+    assert metadata["progress"] == 0.5
 
 
 def test_create_image_to_video_job(tmp_path):

@@ -8,10 +8,19 @@ final class ModelManagerViewModelTests: XCTestCase {
     var mockModelStore: MockModelStore!
     var cancellables: Set<AnyCancellable>!
 
+    var appState: AppState!
+
     override func setUp() {
         super.setUp()
+        let mockProfiler = MockHardwareProfiler()
+        appState = AppState(
+            hardwareProfiler: mockProfiler,
+            generationClient: MockGenerationClient(),
+            workerManager: MockWorkerManager(),
+            environment: .development
+        )
         mockModelStore = MockModelStore()
-        viewModel = ModelManagerViewModel(modelStore: mockModelStore)
+        viewModel = ModelManagerViewModel(modelStore: mockModelStore, appState: appState)
         cancellables = []
     }
 
@@ -82,8 +91,49 @@ final class ModelManagerViewModelTests: XCTestCase {
 
         try await Task.sleep(nanoseconds: 100_000_000)
 
-        XCTAssertEqual(viewModel.downloadJobId, "job1")
-        XCTAssertFalse(viewModel.isDownloading)
+        XCTAssertTrue(viewModel.isDownloading(modelId: "m1"))
+        XCTAssertEqual(viewModel.downloadProgress(for: "m1"), 0)
+    }
+
+    func testCheckForExistingDownloads() async throws {
+        let existingJob = GenerationJob(
+            id: "existing_job",
+            projectId: "system",
+            sceneId: "m1",
+            status: .downloading,
+            mode: .modelDownload,
+            progress: 0.5,
+            startedAt: Date(),
+            sceneName: "Existing Download"
+        )
+        appState.addJob(existingJob)
+
+        // Wait for DispatchQueue.main.async in AppState.addJob
+        try await Task.sleep(nanoseconds: 100_000_000)
+
+        let newViewModel = ModelManagerViewModel(modelStore: mockModelStore, appState: appState)
+
+        XCTAssertTrue(newViewModel.isDownloading(modelId: "m1"))
+        XCTAssertEqual(newViewModel.downloadProgress(for: "m1"), 0.5)
+    }
+
+    func testMultipleDownloads() async throws {
+        viewModel.downloadModel(modelId: "m1")
+        viewModel.downloadModel(modelId: "m2")
+
+        try await Task.sleep(nanoseconds: 100_000_000)
+
+        XCTAssertTrue(viewModel.isDownloading(modelId: "m1"))
+        XCTAssertTrue(viewModel.isDownloading(modelId: "m2"))
+    }
+
+    func testDeleteModel() async throws {
+        let expectation = expectation(forNotification: .modelsUpdated, object: nil, handler: nil)
+
+        viewModel.deleteModel(modelId: "m1")
+
+        await fulfillment(of: [expectation], timeout: 2.0)
+        XCTAssertFalse(viewModel.isDeleting)
     }
 }
 
@@ -111,5 +161,10 @@ class MockModelStore: ModelStore {
     func downloadModel(modelId: String) async throws -> ModelDownloadResponse {
         if shouldFail { throw NSError(domain: "test", code: 1, userInfo: [NSLocalizedDescriptionKey: "Download failed"]) }
         return ModelDownloadResponse(success: true, message: "Started", jobId: "job1", modelId: modelId)
+    }
+
+    func deleteModel(modelId: String) async throws -> ModelDeleteResponse {
+        if shouldFail { throw NSError(domain: "test", code: 1, userInfo: [NSLocalizedDescriptionKey: "Delete failed"]) }
+        return ModelDeleteResponse(success: true, message: "Deleted")
     }
 }

@@ -231,4 +231,8 @@ class TestGenerationClient: GenerationClient {
     func downloadModel(modelId: String) async throws -> ModelDownloadResponse {
         return ModelDownloadResponse(success: true, message: "Started", jobId: "job1", modelId: modelId)
     }
+
+    func deleteModel(modelId: String) async throws -> ModelDeleteResponse {
+        return ModelDeleteResponse(success: true, message: "Deleted")
+    }
 }

@@ -14,6 +14,12 @@ public protocol GenerationClient {
     func validateModelFolder(path: String) async throws -> ModelValidationResponse
     func importModel(path: String, copy: Bool, modelId: String?) async throws -> ModelImportResponse
     func downloadModel(modelId: String) async throws -> ModelDownloadResponse
+    func deleteModel(modelId: String) async throws -> ModelDeleteResponse
+}
+
+public struct ModelDeleteResponse: Codable {
+    public let success: Bool
+    public let message: String
 }
 
 public struct WorkerHardwareProfile: Codable, Equatable {
@@ -235,6 +241,7 @@ public final class HTTPGenerationClient: GenerationClient {
         self.baseURL = baseURL
         self.session = session
         self.decoder = JSONDecoder()
+        self.decoder.dateDecodingStrategy = .iso8601
         // We use explicit CodingKeys in our domain models to match the worker's snake_case
         self.decoder.keyDecodingStrategy = .useDefaultKeys
         self.encoder = JSONEncoder()
@@ -382,18 +389,38 @@ public final class HTTPGenerationClient: GenerationClient {
                 let sceneId: String?
                 let startedAt: Date?
                 let completedAt: Date?
+
+                enum CodingKeys: String, CodingKey {
+                    case jobId = "job_id"
+                    case status
+                    case progress
+                    case message
+                    case resultUrl = "result_url"
+                    case error
+                    case projectId = "project_id"
+                    case sceneId = "scene_id"
+                    case startedAt = "started_at"
+                    case completedAt = "completed_at"
+                }
             }
 
             let workerStatus = try decoder.decode(WorkerJobStatus.self, from: data)
+
+            var mode: SceneMode = .textToVideo
+            if workerStatus.status == "downloading" {
+                mode = .modelDownload
+            }
 
             return GenerationJob(
                 id: workerStatus.jobId,
                 projectId: workerStatus.projectId ?? "unknown",
                 sceneId: workerStatus.sceneId ?? "unknown",
                 status: JobStatus(rawValue: workerStatus.status) ?? .queued,
+                mode: mode,
                 progress: workerStatus.progress,
                 startedAt: workerStatus.startedAt,
                 completedAt: workerStatus.completedAt,
+                message: workerStatus.message,
                 outputPaths: workerStatus.resultUrl.map { JobOutputPaths(video: $0) },
                 errorInformation: workerStatus.error.map { JobErrorInformation(code: "worker_error", message: $0) }
             )
@@ -546,5 +573,25 @@ public final class HTTPGenerationClient: GenerationClient {
         }
 
         return try decoder.decode(ModelDownloadResponse.self, from: data)
+    }
+
+    public func deleteModel(modelId: String) async throws -> ModelDeleteResponse {
+        let url = baseURL.appendingPathComponent("models/\(modelId)")
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "DELETE"
+
+        let (data, response) = try await session.data(for: urlRequest)
+
+        if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode >= 400 {
+            struct WorkerError: Decodable {
+                let detail: String
+            }
+            if let error = try? decoder.decode(WorkerError.self, from: data) {
+                throw GenerationClientError.workerError(code: "delete_failed", message: error.detail)
+            }
+            throw GenerationClientError.workerError(code: "http_\(httpResponse.statusCode)", message: "Server returned \(httpResponse.statusCode)")
+        }
+
+        return try decoder.decode(ModelDeleteResponse.self, from: data)
     }
 }

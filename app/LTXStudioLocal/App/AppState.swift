@@ -185,8 +185,7 @@ class AppState: ObservableObject {
                         if let index = self.activeJobs.firstIndex(where: { $0.id == jobId }) {
                             self.activeJobs[index].status = JobStatus(rawValue: event.stage) ?? self.activeJobs[index].status
                             self.activeJobs[index].progress = event.percentage ?? self.activeJobs[index].progress
-                            // We don't have a direct 'message' field in GenerationJob but we could add it if needed
-                            // For now we just update status and progress
+                            self.activeJobs[index].message = event.message
 
                             if self.activeJobs[index].status == .completed ||
                                self.activeJobs[index].status == .failed ||
@@ -291,4 +290,5 @@ class AppState: ObservableObject {
 
 extension NSNotification.Name {
     static let generationCompleted = NSNotification.Name("generationCompleted")
+    static let modelsUpdated = NSNotification.Name("modelsUpdated")
 }

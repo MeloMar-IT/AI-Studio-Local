@@ -132,10 +132,18 @@ class MockGenerationClient: GenerationClient {
     func submitImageToVideo(request: GenerationRequest) async throws -> String { return "job_123" }
     func submitAudioToVideo(request: GenerationRequest) async throws -> String { return "job_123" }
     func submitRetake(request: GenerationRequest) async throws -> String { return "job_123" }
-    func getJobStatus(jobId: String) async throws -> GenerationJob { fatalError("Not implemented") }
+    func getJobStatus(jobId: String) async throws -> GenerationJob {
+        return GenerationJob(id: jobId, projectId: "test", sceneId: "test", status: .downloading)
+    }
     func cancelJob(jobId: String) async throws {}
-    func subscribeToJob(jobId: String) -> AsyncThrowingStream<ProgressEvent, Error> { fatalError("Not implemented") }
+    func subscribeToJob(jobId: String) -> AsyncThrowingStream<ProgressEvent, Error> {
+        return AsyncThrowingStream { continuation in
+            continuation.yield(ProgressEvent(jobId: jobId, stage: "downloading", percentage: 0.5, message: "Downloading...", timestamp: ""))
+            // Do not finish so it stays active
+        }
+    }
     func validateModelFolder(path: String) async throws -> ModelValidationResponse { fatalError("Not implemented") }
     func importModel(path: String, copy: Bool, modelId: String?) async throws -> ModelImportResponse { fatalError("Not implemented") }
     func downloadModel(modelId: String) async throws -> ModelDownloadResponse { fatalError("Not implemented") }
+    func deleteModel(modelId: String) async throws -> ModelDeleteResponse { fatalError("Not implemented") }
 }

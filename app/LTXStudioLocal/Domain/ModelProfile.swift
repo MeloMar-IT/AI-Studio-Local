@@ -140,6 +140,20 @@ extension ModelProfile {
                 status: "installed"
             ),
             ModelProfile(
+                id: "ltx-video-13b-v0.9",
+                name: "LTX-Video 13B v0.9",
+                description: "High-fidelity production model",
+                family: .ltxVideo,
+                version: "0.9",
+                expectedFiles: ["ltx-video-13b-v0.9.safetensors", "model_index.json"],
+                memoryRequirementGB: 64,
+                supportedModes: ["text-to-video", "image-to-video"],
+                recommendedHardware: "Apple M2 Ultra 64GB or better",
+                installed: false,
+                recommended: false,
+                status: "missing"
+            ),
+            ModelProfile(
                 id: "ltx-2.3-dev",
                 name: "LTX-2.3 Dev",
                 description: "Production quality",

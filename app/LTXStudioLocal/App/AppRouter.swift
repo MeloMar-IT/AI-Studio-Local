@@ -5,7 +5,7 @@ enum AppScreen: String, CaseIterable, Identifiable {
     case projectStudio = "Project Studio"
     case continuityLibrary = "Continuity Library"
     case modelManager = "Model Manager"
-    case renderQueue = "Render Queue"
+    case taskQueue = "Task Queue"
     case settings = "Settings"
 
     var id: String { self.rawValue }
@@ -16,7 +16,7 @@ enum AppScreen: String, CaseIterable, Identifiable {
         case .projectStudio: return "video"
         case .continuityLibrary: return "person.2.square.stack"
         case .modelManager: return "cpu"
-        case .renderQueue: return "tray.and.arrow.down"
+        case .taskQueue: return "tray.and.arrow.down"
         case .settings: return "gearshape"
         }
     }

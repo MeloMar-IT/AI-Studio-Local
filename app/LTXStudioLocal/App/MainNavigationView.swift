@@ -31,9 +31,9 @@ struct MainNavigationView: View {
                 case .continuityLibrary:
                     ContinuityLibraryView()
                 case .modelManager:
-                    ModelManagerView()
-                case .renderQueue:
-                    RenderQueueView()
+                    ModelManagerView(appState: appState)
+                case .taskQueue:
+                    TaskQueueView()
                 case .settings:
                     SettingsView()
                 }

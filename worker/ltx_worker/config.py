@@ -27,7 +27,7 @@ class Settings(BaseSettings):
 
     # Model configuration
     models_dir: str = "models"
-    default_model_id: str = "ltx-2.3-distilled"
+    default_model_id: str = "ltx-video-2b-distilled"
     default_generation_profile: str = "balanced"
 
     # Hardware requirements

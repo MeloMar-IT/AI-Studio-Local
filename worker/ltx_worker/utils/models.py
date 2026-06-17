@@ -1,10 +1,15 @@
+import multiprocessing
+import queue
+import asyncio
 import os
 import json
 import shutil
 import requests
 from typing import List, Optional
-from ltx_worker.schemas.api import ModelProfile, ProgressEvent
+from ltx_worker.logging_config import logger
+from ltx_worker.schemas.api import ModelProfile, ProgressEvent, JobStatus
 from ltx_worker.config import settings
+import ltx_worker.jobs.store as store
 from datetime import datetime
 import uuid
 
@@ -26,8 +31,64 @@ def load_model_registry() -> List[dict]:
     # Fallback to a minimal registry if file not found (though it should be there)
     return []
 
+# Global download semaphore to ensure only one model downloads at a time
+download_semaphore = asyncio.Semaphore(1)
+
+def _do_model_download(model_id: str, model_dir: str, download_urls: dict, update_queue: multiprocessing.Queue):
+    """
+    Function to be run in a separate process for downloading model files.
+    """
+    try:
+        total_files = len(download_urls)
+        for i, (filename, url) in enumerate(download_urls.items()):
+            file_path = os.path.join(model_dir, filename)
+
+            # Update progress: started downloading file
+            msg = f"Downloading {filename} ({i+1}/{total_files})..."
+            update_queue.put({
+                "status": "downloading",
+                "progress": i / total_files,
+                "message": msg
+            })
+
+            response = requests.get(url, stream=True, timeout=(5, None))
+            response.raise_for_status()
+
+            total_size = int(response.headers.get('content-length', 0))
+            downloaded_size = 0
+
+            with open(file_path, "wb") as f:
+                for chunk in response.iter_content(chunk_size=8192 * 16):
+                    if chunk:
+                        f.write(chunk)
+                        downloaded_size += len(chunk)
+
+                        # Update sub-progress every 1MB or so
+                        if total_size > 0 and downloaded_size % (1024 * 1024) < (8192 * 16):
+                            file_progress = downloaded_size / total_size
+                            overall_progress = (i + file_progress) / total_files
+                            update_queue.put({
+                                "status": "downloading",
+                                "progress": overall_progress,
+                                "message": msg
+                            })
+
+        # All files downloaded successfully
+        update_queue.put({
+            "status": "completed",
+            "progress": 1.0,
+            "message": f"Successfully downloaded {model_id}"
+        })
+
+    except Exception as e:
+        update_queue.put({
+            "status": "failed",
+            "progress": 0.0,
+            "message": f"Download failed: {str(e)}"
+        })
+
 def download_model(model_id: str, background_tasks):
-    """Downloads a model by ID."""
+    """Downloads a model by ID using a separate process."""
     registry = load_model_registry()
     model_data = next((m for m in registry if m["id"] == model_id), None)
 
@@ -43,37 +104,84 @@ def download_model(model_id: str, background_tasks):
     os.makedirs(model_dir, exist_ok=True)
 
     job_id = str(uuid.uuid4())
+    job_store = store.job_store
 
-    def download_task():
-        try:
-            total_files = len(download_urls)
-            for i, (filename, url) in enumerate(download_urls.items()):
-                file_path = os.path.join(model_dir, filename)
+    # Create initial job status
+    if job_store:
+        now = datetime.now()
+        job = JobStatus(
+            job_id=job_id,
+            status="queued",
+            progress=0.0,
+            message=f"Queued download of {model_id}...",
+            created_at=now,
+            updated_at=now,
+        )
+        job_store.jobs[job_id] = job
 
-                # Update progress
-                logger.info(f"Downloading {filename} from {url}...")
+        # Write initial metadata
+        metadata = {
+            "job_id": job_id,
+            "type": "model_download",
+            "model_id": model_id,
+            "status": job.status,
+            "created_at": now.isoformat(),
+            "updated_at": now.isoformat(),
+            "progress": 0.0
+        }
+        job_store.output_manager.save_metadata(job_id, metadata)
+        job_store.output_manager.append_log(job_id, f"Download job created for model {model_id}")
 
-                response = requests.get(url, stream=True)
-                response.raise_for_status()
+    # Use multiprocessing to spin off the download
+    update_queue = multiprocessing.Queue()
+    process = multiprocessing.Process(
+        target=_do_model_download,
+        args=(model_id, model_dir, download_urls, update_queue)
+    )
 
-                total_size = int(response.headers.get('content-length', 0))
-                downloaded_size = 0
+    async def progress_listener():
+        async with download_semaphore:
+            # Update job status to started once we acquire the semaphore
+            if job_store:
+                job_store.update_job_status(job_id, "downloading", 0.0, f"Starting download of {model_id}...")
 
-                with open(file_path, "wb") as f:
-                    for chunk in response.iter_content(chunk_size=8192):
-                        if chunk:
-                            f.write(chunk)
-                            downloaded_size += len(chunk)
-                            # Could emit progress events here if we had a websocket or event stream
+            process.start()
+            logger.info(f"Process started for {model_id}")
 
-                logger.info(f"Finished downloading {filename}")
+            loop = asyncio.get_event_loop()
+            while process.is_alive() or not update_queue.empty():
+                try:
+                    # Non-blocking check of the queue
+                    # We use run_in_executor to avoid blocking the event loop with queue.get()
+                    def get_from_queue():
+                        try:
+                            return update_queue.get(timeout=0.1)
+                        except queue.Empty:
+                            return None
 
-            logger.info(f"Successfully downloaded all files for {model_id}")
-        except Exception as e:
-            logger.error(f"Failed to download model {model_id}: {str(e)}")
-            # Cleanup on failure? Maybe not, to allow resuming later if we implemented it
+                    update = await loop.run_in_executor(None, get_from_queue)
 
-    background_tasks.add_task(download_task)
+                    if update and job_store:
+                        job_store.update_job_status(
+                            job_id,
+                            update["status"],
+                            update["progress"],
+                            update["message"]
+                        )
+
+                        # If terminal state, we can exit the loop
+                        if update["status"] in ["completed", "failed"]:
+                            break
+                except Exception as e:
+                    logger.error(f"Error in download progress listener for {model_id}: {e}")
+                    break
+
+                await asyncio.sleep(0.5)
+
+            # Ensure process is joined
+            process.join()
+
+    background_tasks.add_task(progress_listener)
 
     return {
         "success": True,
@@ -143,6 +251,22 @@ def scan_models(models_dir: str) -> List[ModelProfile]:
         results.append(profile)
 
     return results
+
+
+def delete_model(model_id: str):
+    """Deletes a model's files from the models directory."""
+    model_dir = os.path.join(settings.models_dir, model_id)
+
+    if not os.path.exists(model_dir):
+        return {"success": False, "message": f"Model directory for '{model_id}' not found."}
+
+    try:
+        shutil.rmtree(model_dir)
+        logger.info(f"Successfully deleted model: {model_id}")
+        return {"success": True, "message": f"Successfully deleted model: {model_id}"}
+    except Exception as e:
+        logger.error(f"Failed to delete model {model_id}: {str(e)}")
+        return {"success": False, "message": f"Failed to delete model: {str(e)}"}
 
 def validate_model_folder(path: str) -> dict:
     """Validate a folder against the model registry."""

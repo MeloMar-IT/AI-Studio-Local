@@ -6,6 +6,7 @@ public protocol ModelStore {
     func validateModelFolder(path: String) async throws -> ModelValidationResponse
     func importModel(path: String, copy: Bool, modelId: String?) async throws -> ModelImportResponse
     func downloadModel(modelId: String) async throws -> ModelDownloadResponse
+    func deleteModel(modelId: String) async throws -> ModelDeleteResponse
 }
 
 public struct ModelDownloadResponse: Codable {
@@ -43,5 +44,9 @@ public final class RemoteModelStore: ModelStore {
 
     public func downloadModel(modelId: String) async throws -> ModelDownloadResponse {
         return try await generationClient.downloadModel(modelId: modelId)
+    }
+
+    public func deleteModel(modelId: String) async throws -> ModelDeleteResponse {
+        return try await generationClient.deleteModel(modelId: modelId)
     }
 }

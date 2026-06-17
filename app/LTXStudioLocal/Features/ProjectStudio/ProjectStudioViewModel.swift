@@ -74,6 +74,13 @@ class ProjectStudioViewModel: ObservableObject {
                 }
             }
             .store(in: &cancellables)
+
+        NotificationCenter.default.publisher(for: .modelsUpdated)
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                self?.fetchAvailableModels()
+            }
+            .store(in: &cancellables)
     }
 
     func setAppState(_ appState: AppState) {
@@ -173,6 +180,7 @@ class ProjectStudioViewModel: ObservableObject {
                 case .imageToVideo: modeString = "image-to-video"
                 case .audioToVideo: modeString = "audio-to-video"
                 case .retake: modeString = "retake"
+                case .modelDownload: modeString = "model-download"
                 }
 
                 if !model.supportedModes.contains(modeString) {
@@ -424,6 +432,9 @@ class ProjectStudioViewModel: ObservableObject {
                     jobId = try await generationClient.submitAudioToVideo(request: request)
                 case .retake:
                     jobId = try await generationClient.submitRetake(request: request)
+                case .modelDownload:
+                    // Model downloads should not be triggered from ProjectStudio
+                    throw GenerationClientError.invalidRequest("Model download cannot be initiated from scene generation.")
                 }
 
                 let job = GenerationJob(

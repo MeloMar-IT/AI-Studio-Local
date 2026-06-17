@@ -2,11 +2,15 @@ import SwiftUI
 
 struct ModelManagerView: View {
     @EnvironmentObject private var appState: AppState
-    @StateObject private var viewModel = ModelManagerViewModel(modelStore: RemoteModelStore())
+    @StateObject private var viewModel: ModelManagerViewModel
     @State private var showImportPicker = false
     @State private var selectedImportPath: String?
     @State private var showImportDialog = false
     @State private var shouldCopy = true
+
+    init(appState: AppState) {
+        _viewModel = StateObject(wrappedValue: ModelManagerViewModel(modelStore: RemoteModelStore(), appState: appState))
+    }
 
     var body: some View {
         HStack(spacing: 0) {
@@ -25,7 +29,7 @@ struct ModelManagerView: View {
                 }
                 .padding()
 
-                if viewModel.isLoading {
+                if viewModel.isLoading && viewModel.models.isEmpty {
                     ProgressView()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
@@ -37,7 +41,7 @@ struct ModelManagerView: View {
                             name: model.name,
                             type: model.modelFamily.rawValue,
                             purpose: model.purpose,
-                            status: model.installed ? "Installed" : "Available",
+                            status: viewModel.isDownloading(modelId: model.id) ? "Downloading..." : (model.installed ? "Installed" : "Available"),
                             statusColor: model.installed ? .green : .blue,
                             isSelected: viewModel.selectedModel?.id == model.id,
                             action: { viewModel.selectModel(model) }
@@ -203,6 +207,7 @@ struct ModelDetailView: View {
     @ObservedObject var viewModel: ModelManagerViewModel
     let model: ModelProfile
     @Binding var showImportPicker: Bool
+    @State private var showDeleteConfirmation = false
 
     var body: some View {
         ScrollView {
@@ -271,19 +276,28 @@ struct ModelDetailView: View {
                             }
 
                             SecondaryButton("Remove", icon: "trash", isDestructive: true) {
-                                // Placeholder
+                                showDeleteConfirmation = true
+                            }
+                            .disabled(viewModel.isDeleting)
+                            .alert("Remove Model", isPresented: $showDeleteConfirmation) {
+                                Button("Cancel", role: .cancel) { }
+                                Button("Remove", role: .destructive) {
+                                    viewModel.deleteModel(modelId: model.id)
+                                }
+                            } message: {
+                                Text("Are you sure you want to remove '\(model.name)'? This will delete all model files from your Mac.")
                             }
                         } else {
                             if model.canDownload {
                                 PrimaryButton("Download Model", icon: "arrow.down.circle") {
                                     viewModel.downloadModel(modelId: model.id)
                                 }
-                                .disabled(viewModel.isDownloading)
+                                .disabled(viewModel.isDownloading(modelId: model.id))
 
                                 SecondaryButton("Import Folder", icon: "folder.badge.plus") {
                                     showImportPicker = true
                                 }
-                                .disabled(viewModel.isDownloading)
+                                .disabled(viewModel.isDownloading(modelId: model.id))
                             } else {
                                 PrimaryButton("Install Model", icon: "arrow.down.circle") {
                                     showImportPicker = true
@@ -292,14 +306,25 @@ struct ModelDetailView: View {
                         }
                     }
 
-                    if viewModel.isDownloading && viewModel.downloadJobId != nil {
-                        HStack {
-                            ProgressView()
-                                .controlSize(.small)
-                            Text("Download starting...")
-                                .font(.App.caption)
-                                .foregroundColor(.secondary)
+                    if viewModel.isDownloading(modelId: model.id) {
+                        VStack(alignment: .leading, spacing: Spacing.xSmall) {
+                            ProgressView(value: viewModel.downloadProgress(for: model.id))
+                                .progressViewStyle(.linear)
+
+                            HStack {
+                                Text(viewModel.downloadStatus(for: model.id))
+                                    .font(.App.caption)
+                                    .foregroundColor(.secondary)
+
+                                Spacer()
+
+                                Text("\(Int(viewModel.downloadProgress(for: model.id) * 100))%")
+                                    .font(.App.caption)
+                                    .foregroundColor(.secondary)
+                            }
                         }
+                        .padding(.top, Spacing.small)
+                        .frame(maxWidth: 300)
                     }
                 }
                 .padding(.top, Spacing.medium)

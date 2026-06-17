@@ -5,6 +5,7 @@ public enum SceneMode: String, Codable, CaseIterable {
     case imageToVideo = "image-to-video"
     case audioToVideo = "audio-to-video"
     case retake
+    case modelDownload = "model-download"
 }
 
 public struct SceneResolution: Codable, Equatable {

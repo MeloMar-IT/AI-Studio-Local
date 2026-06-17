@@ -11,6 +11,7 @@ public enum JobStatus: String, Codable, CaseIterable {
     case upscaling
     case encodingOutput = "encoding_output"
     case savingMetadata = "saving_metadata"
+    case downloading
     case completed
     case failed
     case cancelled
@@ -60,6 +61,7 @@ public struct GenerationJob: Codable, Identifiable, Equatable {
     public var startedAt: Date?
     public var completedAt: Date?
     public var sceneName: String?
+    public var message: String?
     public var outputPaths: JobOutputPaths?
     public var errorInformation: JobErrorInformation?
 
@@ -74,6 +76,7 @@ public struct GenerationJob: Codable, Identifiable, Equatable {
         startedAt: Date? = nil,
         completedAt: Date? = nil,
         sceneName: String? = nil,
+        message: String? = nil,
         outputPaths: JobOutputPaths? = nil,
         errorInformation: JobErrorInformation? = nil
     ) {
@@ -87,6 +90,7 @@ public struct GenerationJob: Codable, Identifiable, Equatable {
         self.startedAt = startedAt
         self.completedAt = completedAt
         self.sceneName = sceneName
+        self.message = message
         self.outputPaths = outputPaths
         self.errorInformation = errorInformation
     }
@@ -102,6 +106,7 @@ public struct GenerationJob: Codable, Identifiable, Equatable {
         case startedAt = "started_at"
         case completedAt = "completed_at"
         case sceneName = "scene_name"
+        case message
         case outputPaths = "output_paths"
         case errorInformation = "error_information"
     }

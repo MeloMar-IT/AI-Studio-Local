@@ -180,6 +180,53 @@ class JobStore:
                 return False
         return False
 
+    def update_job_status(self, job_id: str, status: str, progress: float, message: str):
+        if job_id in self.jobs:
+            job = self.jobs[job_id]
+            job.status = status
+            job.progress = progress
+            job.message = message
+            job.updated_at = datetime.now()
+            logger.info(f"Job {job_id} progress: {status} ({progress*100}%)")
+
+            # Notify listeners
+            if job_id in self.listeners:
+                event = {
+                    "job_id": job_id,
+                    "stage": status,
+                    "percentage": progress,
+                    "message": message,
+                    "timestamp": job.updated_at.isoformat()
+                }
+                for queue in self.listeners[job_id]:
+                    queue.put_nowait(event)
+
+            # Update metadata
+            try:
+                metadata_path = self.output_manager.get_metadata_path(job_id)
+                # It's possible the job dir doesn't exist yet for some job types,
+                # but update_job_status should handle it.
+                if metadata_path.exists():
+                    with open(metadata_path, "r") as f:
+                        metadata = json.load(f)
+                    metadata["status"] = status
+                    metadata["progress"] = progress
+                    metadata["message"] = message
+                    metadata["updated_at"] = job.updated_at.isoformat()
+
+                    # Add progress event if it's a generation job
+                    if "progress_events" in metadata:
+                        metadata["progress_events"].append({
+                            "status": status,
+                            "progress": progress,
+                            "message": message,
+                            "timestamp": job.updated_at.isoformat()
+                        })
+
+                    self.output_manager.save_metadata(job_id, metadata)
+            except Exception as e:
+                logger.error(f"Failed to update metadata for job {job_id}: {e}")
+
     async def run_job(self, job_id: str, request: GenerationRequest, token: CancellationToken):
         def progress_callback(status: str, progress: float, message: str):
             if job_id in self.jobs:
@@ -313,5 +360,81 @@ class JobStore:
         finally:
             if job_id in self.cancellation_tokens:
                 del self.cancellation_tokens[job_id]
+
+    def update_job_status(self, job_id: str, status: str, progress: float, message: str, error: Optional[str] = None):
+        """Thread-safe update of job status and notify listeners."""
+        if job_id not in self.jobs:
+            logger.warning(f"Attempted to update status for non-existent job {job_id}")
+            return
+
+        job = self.jobs[job_id]
+        job.status = status
+        job.progress = progress
+        job.message = message
+        if error:
+            job.error = error
+        job.updated_at = datetime.now()
+
+        logger.info(f"Job {job_id} updated: {status} ({progress*100:.1f}%) - {message}")
+
+        # Notify listeners
+        if job_id in self.listeners:
+            event = {
+                "job_id": job_id,
+                "stage": status,
+                "percentage": progress,
+                "message": message,
+                "timestamp": job.updated_at.isoformat()
+            }
+            if error:
+                event["error"] = error
+
+            for queue in self.listeners[job_id]:
+                try:
+                    queue.put_nowait(event)
+                except Exception as e:
+                    logger.error(f"Failed to put event in queue for job {job_id}: {e}")
+
+        # Update metadata on disk
+        try:
+            metadata_path = self.output_manager.get_metadata_path(job_id)
+            # Create directory if it doesn't exist
+            metadata_path.parent.mkdir(parents=True, exist_ok=True)
+
+            metadata = {}
+            if metadata_path.exists():
+                try:
+                    with open(metadata_path, "r") as f:
+                        metadata = json.load(f)
+                except Exception:
+                    pass
+
+            metadata.update({
+                "job_id": job_id,
+                "status": status,
+                "progress": progress,
+                "message": message,
+                "updated_at": job.updated_at.isoformat(),
+            })
+            if error:
+                metadata["error"] = error
+            if "created_at" not in metadata:
+                metadata["created_at"] = job.created_at.isoformat()
+
+            # Add progress event
+            if "progress_events" not in metadata:
+                metadata["progress_events"] = []
+
+            metadata["progress_events"].append({
+                "status": status,
+                "progress": progress,
+                "message": message,
+                "timestamp": job.updated_at.isoformat()
+            })
+
+            self.output_manager.save_metadata(job_id, metadata)
+            self.output_manager.append_log(job_id, f"Status: {status} ({progress*100:.1f}%) - {message}")
+        except Exception as e:
+            logger.error(f"Failed to update metadata for job {job_id}: {e}")
 
 job_store = None # Will be initialized in api.py or main.py
