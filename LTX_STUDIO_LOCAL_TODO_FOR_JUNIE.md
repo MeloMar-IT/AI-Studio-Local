@@ -1,4 +1,4 @@
-# LTX Studio Local — Extensive TODO List for Junie
+# AI Studio Local — Extensive TODO List for Junie
 
 This file is intended for **Junie, the IntelliJ coding agent**, to build the project in small, safe, reviewable steps.
 
@@ -15,7 +15,7 @@ The user experience must be excellent. The app should feel like a polished Mac c
 
 ## Core product goal
 
-Build **LTX Studio Local**, a local-first AI video creation studio for Mac.
+Build **AI Studio Local**, a local-first AI video creation studio for Mac.
 
 The app allows users to:
 
@@ -119,7 +119,7 @@ ltx-studio-local/
 ## Prompt for Junie
 
 ```text
-Create the initial Git repository structure for a project called LTX Studio Local.
+Create the initial Git repository structure for a project called AI Studio Local.
 
 This is a multi-language repository for a local-first AI video creation app for Apple Silicon.
 
@@ -169,7 +169,7 @@ Create a working Python worker with mock endpoints. This gives the Swift app som
 - [x] Add pytest
 - [x] Add ruff
 - [x] Add basic package structure
-- [x] Add `ltx_worker/main.py`
+- [x] Add `ai_video_worker/main.py`
 - [x] Add `/health` endpoint
 - [x] Add `/hardware` endpoint with mocked Apple Silicon info
 - [x] Add `/models` endpoint with mocked LTX model profiles
@@ -190,7 +190,7 @@ Create a working Python worker with mock endpoints. This gives the Swift app som
 worker/
 ├── pyproject.toml
 ├── README.md
-├── ltx_worker/
+├── ai_video_worker/
 │   ├── __init__.py
 │   ├── main.py
 │   ├── api.py
@@ -206,13 +206,13 @@ worker/
 ## Prompt for Junie
 
 ```text
-Implement the Python worker skeleton for LTX Studio Local.
+Implement the Python worker skeleton for AI Studio Local.
 
 Requirements:
 
 1. Use Python 3.11+.
 2. Use FastAPI and Pydantic.
-3. Add a clean package structure under worker/ltx_worker/.
+3. Add a clean package structure under worker/ai_video_worker/.
 4. Implement these endpoints:
    - GET /health
    - GET /hardware
@@ -257,7 +257,7 @@ Define stable JSON contracts shared between the SwiftUI app and Python worker.
 ## Prompt for Junie
 
 ```text
-Create shared JSON schemas for LTX Studio Local.
+Create shared JSON schemas for AI Studio Local.
 
 Add the following files under shared/schemas/:
 
@@ -343,7 +343,7 @@ Create the initial macOS SwiftUI app shell. The app does not need real generatio
 ## TODO
 
 - [x] Create macOS SwiftUI app under `app/`
-- [x] Create `LTXStudioLocalApp.swift`
+- [x] Create `AIStudioLocalApp.swift`
 - [x] Create app-level state object
 - [x] Create navigation router
 - [x] Add dark-mode-first layout
@@ -359,7 +359,7 @@ Create the initial macOS SwiftUI app shell. The app does not need real generatio
 ## Prompt for Junie
 
 ```text
-Create the initial SwiftUI macOS application shell for LTX Studio Local under app/.
+Create the initial SwiftUI macOS application shell for AI Studio Local under app/.
 
 The app should be a native macOS SwiftUI application.
 
@@ -413,7 +413,7 @@ Create reusable design components so the app stays visually consistent.
 ## Prompt for Junie
 
 ```text
-Create a reusable SwiftUI design system for LTX Studio Local.
+Create a reusable SwiftUI design system for AI Studio Local.
 
 Add a DesignSystem folder with:
 
@@ -478,9 +478,9 @@ Create the Swift domain models used by the app.
 ## Prompt for Junie
 
 ```text
-Implement the Swift domain models for LTX Studio Local.
+Implement the Swift domain models for AI Studio Local.
 
-Create models under app/LTXStudioLocal/Domain/.
+Create models under app/AIStudioLocal/Domain/.
 
 Required models:
 
@@ -553,7 +553,7 @@ ExampleProject.ltxproject/
 ## Prompt for Junie
 
 ```text
-Implement Git-friendly project storage for LTX Studio Local.
+Implement Git-friendly project storage for AI Studio Local.
 
 Create a ProjectStore protocol and FileProjectStore implementation.
 
@@ -1364,7 +1364,7 @@ Keep docs aligned with implementation.
 ## Prompt for Junie
 
 ```text
-Do a documentation pass for the current state of LTX Studio Local.
+Do a documentation pass for the current state of AI Studio Local.
 
 Update:
 
@@ -1412,7 +1412,7 @@ Add basic automation for a Git-maintained project.
 ## Prompt for Junie
 
 ```text
-Add basic CI quality gates for LTX Studio Local.
+Add basic CI quality gates for AI Studio Local.
 
 Implement GitHub Actions for:
 
@@ -1566,7 +1566,7 @@ Add image animation workflow.
 ## Prompt for Junie
 
 ```text
-Add image-to-video support to LTX Studio Local.
+Add image-to-video support to AI Studio Local.
 
 SwiftUI app requirements:
 
@@ -1966,7 +1966,7 @@ Prepare the first usable MVP release.
 ## Prompt for Junie
 
 ```text
-Prepare the v0.1.0 MVP release for LTX Studio Local.
+Prepare the v0.1.0 MVP release for AI Studio Local.
 
 Verify:
 

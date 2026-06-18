@@ -2,8 +2,8 @@ import os
 import shutil
 import pytest
 from fastapi.testclient import TestClient
-from ltx_worker.main import app
-from ltx_worker.config import settings
+from ai_video_worker.main import app
+from ai_video_worker.config import settings
 
 client = TestClient(app)
 
@@ -14,7 +14,7 @@ def mock_model_dir(tmp_path):
     model_dir.mkdir()
 
     # Files expected by ltx-2.3-distilled (based on shared/schemas/model_registry.json)
-    expected_files = ["ltx_video_2.3_distilled.safetensors", "config.json"]
+    expected_files = ["ltxv-2b-0.9.8-distilled.safetensors"]
     for f in expected_files:
         (model_dir / f).write_text("dummy content")
 
@@ -25,7 +25,7 @@ def test_validate_model_valid(mock_model_dir):
     assert response.status_code == 200
     data = response.json()
     assert data["can_use"] is True
-    assert data["matched_profile"]["id"] == "ltx-2.3-distilled"
+    assert data["matched_profile"]["id"] == "ltx-video-2b-distilled"
     assert data["missing_files"] == []
 
 def test_validate_model_invalid_path():
@@ -45,7 +45,7 @@ def test_validate_model_missing_files(tmp_path):
     data = response.json()
     assert data["can_use"] is False
     assert len(data["missing_files"]) > 0
-    assert data["matched_profile"]["id"] == "ltx-2.3-distilled"
+    assert data["matched_profile"]["id"] == "ltx-video-13b-distilled"
 
 def test_import_model_copy(mock_model_dir, tmp_path):
     # Setup a temporary models directory for this test
@@ -65,7 +65,7 @@ def test_import_model_copy(mock_model_dir, tmp_path):
 
         # Verify it exists in target
         assert (test_models_dir / "test-import-id").exists()
-        assert (test_models_dir / "test-import-id" / "config.json").exists()
+        assert (test_models_dir / "test-import-id" / "ltxv-2b-0.9.8-distilled.safetensors").exists()
     finally:
         settings.models_dir = original_models_dir
 

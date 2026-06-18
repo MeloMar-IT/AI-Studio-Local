@@ -2,10 +2,10 @@ import pytest
 import os
 
 # Force environment to 'test' for all tests
-os.environ["LTX_WORKER_ENVIRONMENT"] = "test"
+os.environ["AI_VIDEO_WORKER_ENVIRONMENT"] = "test"
 
 # Import settings and force it to 'test'
-from ltx_worker import config
+from ai_video_worker import config
 config.settings.environment = "test"
 
 @pytest.fixture(autouse=True)

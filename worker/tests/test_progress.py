@@ -3,9 +3,9 @@ import time
 import asyncio
 from unittest.mock import patch, MagicMock
 from fastapi.testclient import TestClient
-from ltx_worker.main import app
-from ltx_worker.schemas.api import ModelProfile
-from ltx_worker.engine.adapter import LTXAdapter
+from ai_video_worker.main import app
+from ai_video_worker.schemas.api import ModelProfile
+from ai_video_worker.engine.adapter import LTXAdapter
 
 client = TestClient(app)
 
@@ -25,18 +25,18 @@ class FastCancelAdapter(LTXAdapter):
     async def generate_retake(self, *args, **kwargs): return ""
 
 def test_cancellation_propagation():
-    from ltx_worker.engine.ltx import LTXGenerationEngine
+    from ai_video_worker.engine.ltx import LTXGenerationEngine
     test_engine = LTXGenerationEngine(adapter=FastCancelAdapter())
 
     # We need to ensure the worker uses our test_engine.
-    # The ltx_worker.main app might have already initialized the engine from api.py.
-    # In ltx_worker.api, the 'engine' variable is used to initialize JobStore.
-    from ltx_worker.api import store
+    # The ai_video_worker.main app might have already initialized the engine from api.py.
+    # In ai_video_worker.api, the 'engine' variable is used to initialize JobStore.
+    from ai_video_worker.api import store
     original_engine = store.job_store.engine
     store.job_store.engine = test_engine
 
     try:
-        with patch("ltx_worker.api.scan_models") as mock_scan:
+        with patch("ai_video_worker.api.scan_models") as mock_scan:
             mock_scan.return_value = [
                 ModelProfile(
                     id="ltx-2.3-distilled",

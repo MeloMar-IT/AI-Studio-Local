@@ -2,24 +2,24 @@
 import PackageDescription
 
 let package = Package(
-    name: "LTXStudioLocal",
+    name: "AIStudioLocal",
     platforms: [
         .macOS(.v14)
     ],
     products: [
         .executable(
-            name: "LTXStudioLocal",
-            targets: ["LTXStudioLocal"]),
+            name: "AIStudioLocal",
+            targets: ["AIStudioLocal"]),
     ],
     dependencies: [],
     targets: [
         .executableTarget(
-            name: "LTXStudioLocal",
+            name: "AIStudioLocal",
             dependencies: [],
-            path: "LTXStudioLocal"),
+            path: "AIStudioLocal"),
         .testTarget(
-            name: "LTXStudioLocalTests",
-            dependencies: ["LTXStudioLocal"],
-            path: "LTXStudioLocalTests"),
+            name: "AIStudioLocalTests",
+            dependencies: ["AIStudioLocal"],
+            path: "AIStudioLocalTests"),
     ]
 )

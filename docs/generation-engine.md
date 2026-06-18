@@ -58,8 +58,8 @@ As of v0.1.0:
 
 The engine can be configured via environment variables:
 
-- `LTX_WORKER_ENGINE_TYPE`: Set to `ltx` for real generation or `mock` for development.
-- `LTX_WORKER_MIN_MEMORY_GB`: Minimum unified memory required (default: 16GB).
+- `AI_VIDEO_WORKER_ENGINE_TYPE`: Set to `ltx` for real generation or `mock` for development.
+- `AI_VIDEO_WORKER_MIN_MEMORY_GB`: Minimum unified memory required (default: 16GB).
 
 ## Job Management and Durability
 

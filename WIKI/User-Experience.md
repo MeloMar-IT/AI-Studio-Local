@@ -1,6 +1,6 @@
 # User Experience
 
-LTX Studio Local is designed as a professional creative tool for macOS, not a developer-focused experiment. The UX should feel native, responsive, and intuitive for creators.
+AI Studio Local is designed as a professional creative tool for macOS, not a developer-focused experiment. The UX should feel native, responsive, and intuitive for creators.
 
 ## Core Design Principles
 

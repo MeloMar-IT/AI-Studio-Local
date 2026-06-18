@@ -1,6 +1,6 @@
-# LTX Studio Local Worker
+# AI Studio Local Worker
 
-This is the Python-based generation worker for LTX Studio Local.
+This is the Python-based generation worker for AI Studio Local.
 
 ## Requirements
 

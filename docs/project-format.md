@@ -1,6 +1,6 @@
 # Project Format and Shared Schemas
 
-This document describes the project structure and the shared JSON schemas used by LTX Studio Local to ensure consistency between the macOS SwiftUI application and the Python generation worker.
+This document describes the project structure and the shared JSON schemas used by AI Studio Local to ensure consistency between the macOS SwiftUI application and the Python generation worker.
 
 ## Project Structure
 
@@ -69,9 +69,9 @@ The immediate acknowledgement from the Worker when a job is successfully queued.
 ## Creating a Project
 
 To create a new project:
-1. Open the LTX Studio Local application.
+1. Open the AI Studio Local application.
 2. On the **Home Dashboard**, click **New Project**.
-3. Enter a project name and select a storage location (defaults to `~/Documents/LTX Studio Local/Projects/`).
+3. Enter a project name and select a storage location (defaults to `~/Documents/AI Studio Local/Projects/`).
 4. Click **Create Project**.
 
 The app will create the `.ltxproject` folder structure and a default first scene.
@@ -103,4 +103,4 @@ cd app
 swift test
 ```
 
-Note: `LTXStudioLocalApp.swift` is currently excluded from the SPM target as it requires full SwiftUI app lifecycle support which is better handled by Xcode or specialized testing setups.
+Note: `AIStudioLocalApp.swift` is currently excluded from the SPM target as it requires full SwiftUI app lifecycle support which is better handled by Xcode or specialized testing setups.

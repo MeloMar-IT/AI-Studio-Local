@@ -1,6 +1,6 @@
 # Architecture Overview
 
-LTX Studio Local uses a two-part architecture consisting of a native macOS SwiftUI application and a local Python-based generation worker.
+AI Studio Local uses a two-part architecture consisting of a native macOS SwiftUI application and a local Python-based generation worker.
 
 ## High-Level Architecture
 

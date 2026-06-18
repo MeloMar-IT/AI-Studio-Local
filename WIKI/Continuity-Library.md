@@ -1,6 +1,6 @@
 # Continuity Library
 
-The Continuity Library is a global reusable element system used across projects in LTX Studio Local. It allows users to define and maintain consistency for characters, locations, styles, and other creative building blocks.
+The Continuity Library is a global reusable element system used across projects in AI Studio Local. It allows users to define and maintain consistency for characters, locations, styles, and other creative building blocks.
 
 ## Core Concept
 

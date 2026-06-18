@@ -1,6 +1,6 @@
 # Testing Strategy
 
-This document outlines the testing strategy for LTX Studio Local, covering both the Swift application and the Python worker.
+This document outlines the testing strategy for AI Studio Local, covering both the Swift application and the Python worker.
 
 ## 1. Swift Application Tests
 
@@ -46,7 +46,7 @@ The "Smoke Test" verifies that the App and Worker can communicate correctly.
 ### Smoke Test Checklist
 
 1. **Start Worker**: `./scripts/run-worker.sh` (ensure it starts on port 8000).
-2. **Start App**: Build and run the `LTXStudioLocal` scheme in Xcode.
+2. **Start App**: Build and run the `AIStudioLocal` scheme in Xcode.
 3. **Health Check**:
    - Verify that the app shows "Worker Connected" (or similar status).
    - Check `http://localhost:8000/api/v1/health` in a browser.

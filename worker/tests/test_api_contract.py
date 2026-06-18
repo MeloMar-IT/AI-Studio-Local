@@ -1,20 +1,21 @@
 import pytest
 import os
+from unittest.mock import patch
 from fastapi.testclient import TestClient
 from pydantic import ValidationError
 
 # Set environment to non-production and point to a temp models dir to avoid validation failures
 # Note: os.environ must be set BEFORE importing app/settings if they read it at module level
-os.environ["LTX_WORKER_ENVIRONMENT"] = "development"
-os.environ["LTX_WORKER_MODELS_DIR"] = "/tmp/fake_models"
+os.environ["AI_VIDEO_WORKER_ENVIRONMENT"] = "development"
+os.environ["AI_VIDEO_WORKER_MODELS_DIR"] = "/tmp/fake_models"
 os.makedirs("/tmp/fake_models/ltx-2.3-distilled", exist_ok=True)
 # Create fake files to pass validation
 with open("/tmp/fake_models/ltx-2.3-distilled/ltx_video_2.3_distilled.safetensors", "w") as f: f.write("")
 with open("/tmp/fake_models/ltx-2.3-distilled/config.json", "w") as f: f.write("{}")
 
-from ltx_worker.main import app
-from ltx_worker.config import settings
-from ltx_worker.schemas.api import (
+from ai_video_worker.main import app
+from ai_video_worker.config import settings
+from ai_video_worker.schemas.api import (
     HealthResponse,
     HardwareResponse,
     ModelsResponse,
@@ -62,32 +63,68 @@ def test_models_schema():
     validate_response(response, ModelsResponse)
 
 def test_generate_text_to_video_schema():
-    payload = {
-        "prompt": "Test prompt",
-        "model_id": "ltx-2.3-distilled"
-    }
-    response = client.post("/generate/text-to-video", json=payload)
-    validate_response(response, JobStatus)
+    # We mock _validate_model_for_generation because ltx-video-2b-distilled is not installed in test env
+    with patch("ai_video_worker.api._validate_model_for_generation") as mock_val:
+        from ai_video_worker.schemas.api import ModelProfile
+        mock_val.return_value = ModelProfile(
+            id="ltx-video-2b-distilled",
+            name="LTX-Video 2B Distilled",
+            description="Fast draft generation",
+            family="LTX-Video",
+            expected_files=[],
+            supported_modes=["text-to-video", "image-to-video"],
+            installed=True
+        )
+        payload = {
+            "prompt": "Test prompt",
+            "model_id": "ltx-video-2b-distilled"
+        }
+        response = client.post("/generate/text-to-video", json=payload)
+        validate_response(response, JobStatus)
 
 def test_generate_image_to_video_schema(tmp_path):
     fake_image = tmp_path / "test.jpg"
     fake_image.write_text("fake")
-    payload = {
-        "prompt": "Test prompt",
-        "model_id": "ltx-2.3-distilled",
-        "image_path": str(fake_image)
-    }
-    response = client.post("/generate/image-to-video", json=payload)
-    validate_response(response, JobStatus)
+    # We mock _validate_model_for_generation because ltx-video-2b-distilled is not installed in test env
+    with patch("ai_video_worker.api._validate_model_for_generation") as mock_val:
+        from ai_video_worker.schemas.api import ModelProfile
+        mock_val.return_value = ModelProfile(
+            id="ltx-video-2b-distilled",
+            name="LTX-Video 2B Distilled",
+            description="Fast draft generation",
+            family="LTX-Video",
+            expected_files=[],
+            supported_modes=["text-to-video", "image-to-video"],
+            installed=True
+        )
+        payload = {
+            "prompt": "Test prompt",
+            "model_id": "ltx-video-2b-distilled",
+            "image_path": str(fake_image)
+        }
+        response = client.post("/generate/image-to-video", json=payload)
+        validate_response(response, JobStatus)
 
 def test_get_job_schema():
     # Create a job first
-    payload = {"prompt": "test", "model_id": "ltx-2.3-distilled"}
-    res = client.post("/generate/text-to-video", json=payload)
-    job_id = res.json()["job_id"]
+    # We mock _validate_model_for_generation because ltx-video-2b-distilled is not installed in test env
+    with patch("ai_video_worker.api._validate_model_for_generation") as mock_val:
+        from ai_video_worker.schemas.api import ModelProfile
+        mock_val.return_value = ModelProfile(
+            id="ltx-video-2b-distilled",
+            name="LTX-Video 2B Distilled",
+            description="Fast draft generation",
+            family="LTX-Video",
+            expected_files=[],
+            supported_modes=["text-to-video", "image-to-video"],
+            installed=True
+        )
+        payload = {"prompt": "test", "model_id": "ltx-video-2b-distilled"}
+        res = client.post("/generate/text-to-video", json=payload)
+        job_id = res.json()["job_id"]
 
-    response = client.get(f"/jobs/{job_id}")
-    validate_response(response, JobStatus)
+        response = client.get(f"/jobs/{job_id}")
+        validate_response(response, JobStatus)
 
 ### Error Schema Tests ###
 

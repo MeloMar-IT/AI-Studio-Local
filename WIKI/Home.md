@@ -1,6 +1,6 @@
 # Welcome to the AI Studio Local Wiki
 
-AI Studio Local (LTX Studio Local) is a native macOS application designed for local-first AI video creation. This wiki provides comprehensive documentation for users and developers.
+AI Studio Local (AI Studio Local) is a native macOS application designed for local-first AI video creation. This wiki provides comprehensive documentation for users and developers.
 
 ## 🚀 Getting Started
 

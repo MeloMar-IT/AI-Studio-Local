@@ -1,6 +1,6 @@
 # Release Notes - v0.1.0 (MVP Foundation)
 
-We are excited to announce the first MVP release of **AI Studio Local (LTX Studio Local)**! This release establishes the core architectural foundation and user experience for a local-first AI video creation studio on macOS.
+We are excited to announce the first MVP release of **AI Studio Local (AI Studio Local)**! This release establishes the core architectural foundation and user experience for a local-first AI video creation studio on macOS.
 
 ## Highlights
 
@@ -33,7 +33,7 @@ Version 0.1.0 focuses on the application framework and user experience. While th
 
 1. Ensure you have **macOS 14.0+**, **Xcode 15.0+**, and **Python 3.11+**.
 2. Run `./scripts/run-worker.sh` to start the backend.
-3. Open `app/LTXStudioLocal.xcodeproj` and run the app.
+3. Open `app/AIStudioLocal.xcodeproj` and run the app.
 
 ---
 *AI Studio Local - Empowering creators with local-first AI.*
