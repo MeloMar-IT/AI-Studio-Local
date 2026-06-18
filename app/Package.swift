@@ -16,7 +16,10 @@ let package = Package(
         .executableTarget(
             name: "AIStudioLocal",
             dependencies: [],
-            path: "AIStudioLocal"),
+            path: "AIStudioLocal",
+            resources: [
+                .process("Resources")
+            ]),
         .testTarget(
             name: "AIStudioLocalTests",
             dependencies: ["AIStudioLocal"],
