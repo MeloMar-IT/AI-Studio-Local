@@ -123,6 +123,7 @@ public struct ModelProfileSummary: Codable, Equatable {
 }
 
 // MARK: - Mock Fixtures
+#if DEBUG
 extension GenerationJob {
     public static var mock: GenerationJob {
         GenerationJob(
@@ -134,3 +135,4 @@ extension GenerationJob {
         )
     }
 }
+#endif

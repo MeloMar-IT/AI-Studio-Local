@@ -13,6 +13,10 @@ dependencies = [
     "python-multipart>=0.0.6",
     "psutil>=5.9.0",
     "requests>=2.31.0",
+    "mlx>=0.16.0",
+    "ltx-video>=0.1.0",
+    "opencv-python>=4.8.0",
+    "pillow>=10.0.0",
 ]
 
 [project.optional-dependencies]

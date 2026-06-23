@@ -135,7 +135,8 @@ class ProjectStudioViewModel: ObservableObject {
                 let modelStore = RemoteModelStore(generationClient: self.generationClient)
                 self.availableModels = try await modelStore.fetchModels()
             } catch {
-                self.availableModels = ModelProfile.mocks
+                self.availableModels = []
+                AppLogger.shared.error("Failed to fetch models: \(error.localizedDescription)", category: .worker)
             }
         }
     }

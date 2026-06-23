@@ -48,3 +48,9 @@
 - [ ] Audio-to-video generation
 - [ ] Video retake range
 - [ ] Brand overlays and export processing
+
+## Phase 9: Distribution
+- [ ] Research and Planning (Distribution Plan) ✅
+- [ ] Portable Python bundling (DMG)
+- [ ] Signing and Notarization automation
+- [ ] App Store Sandboxing feasibility study

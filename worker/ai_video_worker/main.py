@@ -53,8 +53,9 @@ app.add_exception_handler(RequestValidationError, validation_exception_handler)
 app.include_router(router, prefix=settings.api_prefix)
 
 if __name__ == "__main__":
+    import sys
     # In production, we don't want reload
-    should_reload = settings.environment == "development"
+    should_reload = settings.environment == "development" and "--no-reload" not in sys.argv
 
     uvicorn.run(
         "ai_video_worker.main:app",

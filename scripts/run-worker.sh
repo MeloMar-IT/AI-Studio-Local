@@ -47,4 +47,5 @@ trap 'echo "** Trapped CTRL-C / Termination"; pkill -f "ai_video_worker/main.py"
 echo "Starting AI Studio Local Worker..."
 export PYTHONPATH=$PYTHONPATH:.
 export AI_VIDEO_WORKER_ENVIRONMENT=$ENVIRONMENT
-python ai_video_worker/main.py
+# Disable reload to prevent interrupting long-running jobs
+python ai_video_worker/main.py --no-reload
