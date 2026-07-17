@@ -1,0 +1,49 @@
+Running in PRODUCTION mode...
+Checking dependencies...
+ai-video-worker package already installed.
+Starting AI Studio Local Worker...
+2026-07-17 18:43:02,422 - ai-video-worker - v0.1.1 - [81640] - MainThread - INFO - Initialized LTXGenerationEngine with adapter: MLXLTXAdapter
+2026-07-17 18:43:02,969 - ai-video-worker - v0.1.1 - [81640] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (81.21 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker_v2/models
+Models Disk:    570.17 GB free
+============================================================
+2026-07-17 18:43:02,985 - ai-video-worker - v0.1.1 - [81640] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (81.22 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker_v2/models
+Models Disk:    570.17 GB free
+============================================================
+INFO:     Started server process [81640]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8000): address already in use
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.

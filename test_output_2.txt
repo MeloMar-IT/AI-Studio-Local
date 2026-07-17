@@ -1,0 +1,1424 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.13.0, pytest-9.0.3, pluggy-1.6.0
+rootdir: /Users/marcelkoert/IdeaProjects/AI Studio Local/worker
+configfile: pyproject.toml
+plugins: anyio-4.9.0, asyncio-1.3.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 1 item
+
+worker/tests/test_horse_generation.py MLX_VIDEO_VERSION:0.1.36
+RESOLVE:MODEL_PATH:models/ltx-video-av-q4
+RESOLVE:USE_UNIFIED:True
+RESOLVE:TEXT_ENCODER_PATH:models/gemma-3-12b-it-bf16
+TEXT_ENCODER:PATH:models/gemma-3-12b-it-bf16
+TEXT_ENCODER:CONFIG_KEYS:architectures,boi_token_index,eoi_token_index,eos_token_id,image_token_index,initializer_range,mm_tokens_per_image,model_type,text_config,torch_dtype,transformers_version,vision_config
+TEXT_ENCODER:LOAD_START
+TEXT_ENCODER:PATH:models/gemma-3-12b-it-bf16
+TEXT_ENCODER:CONFIG_KEYS:architectures,boi_token_index,eoi_token_index,eos_token_id,image_token_index,initializer_range,mm_tokens_per_image,model_type,text_config,torch_dtype,transformers_version,vision_config
+TEXT_ENCODER:LOAD_COMPLETE
+TEXT_ENCODER:EVAL_START:888
+TEXT_ENCODER:EVAL_CHUNK:1:1:1541406720
+TEXT_ENCODER:EVAL_CHUNK:2:16:403005504
+TEXT_ENCODER:EVAL_CHUNK:3:16:403005504
+TEXT_ENCODER:EVAL_CHUNK:4:16:403005504
+TEXT_ENCODER:EVAL_CHUNK:5:16:403005504
+TEXT_ENCODER:EVAL_CHUNK:6:16:403005504
+TEXT_ENCODER:EVAL_CHUNK:7:16:403005504
+TEXT_ENCODER:EVAL_CHUNK:8:16:403005504
+TEXT_ENCODER:EVAL_CHUNK:9:16:403005504
+TEXT_ENCODER:EVAL_CHUNK:10:16:68337728
+TEXT_ENCODER:EVAL_CHUNK:11:16:100839488
+TEXT_ENCODER:EVAL_CHUNK:12:16:100839488
+TEXT_ENCODER:EVAL_CHUNK:13:16:100839488
+TEXT_ENCODER:EVAL_CHUNK:14:16:100839488
+TEXT_ENCODER:EVAL_CHUNK:15:16:100839488
+TEXT_ENCODER:EVAL_CHUNK:16:16:100839488
+TEXT_ENCODER:EVAL_CHUNK:17:16:100839488
+TEXT_ENCODER:EVAL_CHUNK:18:3:34082816
+TEXT_ENCODER:EVAL_CHUNK:19:1:2013757440
+TEXT_ENCODER:EVAL_CHUNK:20:16:511212544
+TEXT_ENCODER:EVAL_CHUNK:21:16:479756288
+TEXT_ENCODER:EVAL_CHUNK:22:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:23:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:24:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:25:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:26:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:27:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:28:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:29:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:30:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:31:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:32:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:33:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:34:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:35:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:36:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:37:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:38:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:39:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:40:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:41:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:42:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:43:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:44:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:45:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:46:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:47:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:48:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:49:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:50:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:51:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:52:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:53:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:54:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:55:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:56:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:57:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:58:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:59:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:60:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:61:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:62:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:63:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:64:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:65:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:66:13:448297984
+TEXT_ENCODER:EVAL_CHUNK:67:8:353932800
+TEXT_ENCODER:EVAL_CHUNK:68:1:770703360
+TEXT_ENCODER:EVAL_CHUNK:69:1:4096
+TEXT_ENCODER:EVAL_COMPLETE:69
+TEXT_ENCODER:ENCODE_START
+TEXT_ENCODER:ENCODE_POSITIVE_COMPLETE
+TEXT_ENCODER:ENCODE_COMPLETE
+TRANSFORMER:EVAL_START:6874
+TRANSFORMER:EVAL_CHUNK:1:16:442646528
+TRANSFORMER:EVAL_CHUNK:2:16:111747328
+TRANSFORMER:EVAL_CHUNK:3:16:215564544
+TRANSFORMER:EVAL_CHUNK:4:16:103321600
+TRANSFORMER:EVAL_CHUNK:5:16:28614720
+TRANSFORMER:EVAL_CHUNK:6:16:28884992
+TRANSFORMER:EVAL_CHUNK:7:16:78254144
+TRANSFORMER:EVAL_CHUNK:8:16:7229504
+TRANSFORMER:EVAL_CHUNK:9:16:9326592
+TRANSFORMER:EVAL_CHUNK:10:16:23662656
+TRANSFORMER:EVAL_CHUNK:11:16:9728000
+TRANSFORMER:EVAL_CHUNK:12:16:12079168
+TRANSFORMER:EVAL_CHUNK:13:16:21446720
+TRANSFORMER:EVAL_CHUNK:14:16:28614720
+TRANSFORMER:EVAL_CHUNK:15:16:28614720
+TRANSFORMER:EVAL_CHUNK:16:16:80220160
+TRANSFORMER:EVAL_CHUNK:17:16:7229504
+TRANSFORMER:EVAL_CHUNK:18:16:7233536
+TRANSFORMER:EVAL_CHUNK:19:16:23793728
+TRANSFORMER:EVAL_CHUNK:20:16:9723968
+TRANSFORMER:EVAL_CHUNK:21:16:14045184
+TRANSFORMER:EVAL_CHUNK:22:16:28131392
+TRANSFORMER:EVAL_CHUNK:23:16:28614720
+TRANSFORMER:EVAL_CHUNK:24:16:55353408
+TRANSFORMER:EVAL_CHUNK:25:16:44703744
+TRANSFORMER:EVAL_CHUNK:26:16:7229504
+TRANSFORMER:EVAL_CHUNK:27:16:7229504
+TRANSFORMER:EVAL_CHUNK:28:16:25890816
+TRANSFORMER:EVAL_CHUNK:29:16:9723968
+TRANSFORMER:EVAL_CHUNK:30:16:11952128
+TRANSFORMER:EVAL_CHUNK:31:16:28528704
+TRANSFORMER:EVAL_CHUNK:32:16:28614720
+TRANSFORMER:EVAL_CHUNK:33:16:56950848
+TRANSFORMER:EVAL_CHUNK:34:16:44802048
+TRANSFORMER:EVAL_CHUNK:35:16:7229504
+TRANSFORMER:EVAL_CHUNK:36:16:13914176
+TRANSFORMER:EVAL_CHUNK:37:16:17113088
+TRANSFORMER:EVAL_CHUNK:38:16:9723968
+TRANSFORMER:EVAL_CHUNK:39:16:11948096
+TRANSFORMER:EVAL_CHUNK:40:16:28413952
+TRANSFORMER:EVAL_CHUNK:41:16:37511232
+TRANSFORMER:EVAL_CHUNK:42:16:83689536
+TRANSFORMER:EVAL_CHUNK:43:16:9285632
+TRANSFORMER:EVAL_CHUNK:44:16:7229504
+TRANSFORMER:EVAL_CHUNK:45:16:14319680
+TRANSFORMER:EVAL_CHUNK:46:16:18800640
+TRANSFORMER:EVAL_CHUNK:47:16:11952192
+TRANSFORMER:EVAL_CHUNK:48:16:7553088
+TRANSFORMER:EVAL_CHUNK:49:16:37265408
+TRANSFORMER:EVAL_CHUNK:50:16:29130816
+TRANSFORMER:EVAL_CHUNK:51:16:85262400
+TRANSFORMER:EVAL_CHUNK:52:16:7188480
+TRANSFORMER:EVAL_CHUNK:53:16:9449536
+TRANSFORMER:EVAL_CHUNK:54:16:21004352
+TRANSFORMER:EVAL_CHUNK:55:16:10022912
+TRANSFORMER:EVAL_CHUNK:56:16:12083264
+TRANSFORMER:EVAL_CHUNK:57:16:16199744
+TRANSFORMER:EVAL_CHUNK:58:16:28884992
+TRANSFORMER:EVAL_CHUNK:59:16:28614720
+TRANSFORMER:EVAL_CHUNK:60:16:85336128
+TRANSFORMER:EVAL_CHUNK:61:16:9326592
+TRANSFORMER:EVAL_CHUNK:62:16:7356480
+TRANSFORMER:EVAL_CHUNK:63:16:21397568
+TRANSFORMER:EVAL_CHUNK:64:16:9502720
+TRANSFORMER:EVAL_CHUNK:65:16:16531520
+TRANSFORMER:EVAL_CHUNK:66:16:12275776
+TRANSFORMER:EVAL_CHUNK:67:16:28614720
+TRANSFORMER:EVAL_CHUNK:68:16:37265408
+TRANSFORMER:EVAL_CHUNK:69:16:78651456
+TRANSFORMER:EVAL_CHUNK:70:16:7233536
+TRANSFORMER:EVAL_CHUNK:71:16:7229504
+TRANSFORMER:EVAL_CHUNK:72:16:21434432
+TRANSFORMER:EVAL_CHUNK:73:16:13914112
+TRANSFORMER:EVAL_CHUNK:74:16:12341312
+TRANSFORMER:EVAL_CHUNK:75:16:20922432
+TRANSFORMER:EVAL_CHUNK:76:16:28614720
+TRANSFORMER:EVAL_CHUNK:77:16:28884992
+TRANSFORMER:EVAL_CHUNK:78:16:78254144
+TRANSFORMER:EVAL_CHUNK:79:16:7229504
+TRANSFORMER:EVAL_CHUNK:80:16:9326592
+TRANSFORMER:EVAL_CHUNK:81:16:23662656
+TRANSFORMER:EVAL_CHUNK:82:16:9728000
+TRANSFORMER:EVAL_CHUNK:83:16:12079168
+TRANSFORMER:EVAL_CHUNK:84:16:21446720
+TRANSFORMER:EVAL_CHUNK:85:16:28614720
+TRANSFORMER:EVAL_CHUNK:86:16:28614720
+TRANSFORMER:EVAL_CHUNK:87:16:80220160
+TRANSFORMER:EVAL_CHUNK:88:16:7229504
+TRANSFORMER:EVAL_CHUNK:89:16:7233536
+TRANSFORMER:EVAL_CHUNK:90:16:23793728
+TRANSFORMER:EVAL_CHUNK:91:16:9723968
+TRANSFORMER:EVAL_CHUNK:92:16:14045184
+TRANSFORMER:EVAL_CHUNK:93:16:28131392
+TRANSFORMER:EVAL_CHUNK:94:16:28614720
+TRANSFORMER:EVAL_CHUNK:95:16:55353408
+TRANSFORMER:EVAL_CHUNK:96:16:44703744
+TRANSFORMER:EVAL_CHUNK:97:16:7229504
+TRANSFORMER:EVAL_CHUNK:98:16:7229504
+TRANSFORMER:EVAL_CHUNK:99:16:25890816
+TRANSFORMER:EVAL_CHUNK:100:16:9723968
+TRANSFORMER:EVAL_CHUNK:101:16:11952128
+TRANSFORMER:EVAL_CHUNK:102:16:28528704
+TRANSFORMER:EVAL_CHUNK:103:16:28614720
+TRANSFORMER:EVAL_CHUNK:104:16:56950848
+TRANSFORMER:EVAL_CHUNK:105:16:44802048
+TRANSFORMER:EVAL_CHUNK:106:16:7229504
+TRANSFORMER:EVAL_CHUNK:107:16:13914176
+TRANSFORMER:EVAL_CHUNK:108:16:17113088
+TRANSFORMER:EVAL_CHUNK:109:16:9723968
+TRANSFORMER:EVAL_CHUNK:110:16:11948096
+TRANSFORMER:EVAL_CHUNK:111:16:28413952
+TRANSFORMER:EVAL_CHUNK:112:16:37511232
+TRANSFORMER:EVAL_CHUNK:113:16:83689536
+TRANSFORMER:EVAL_CHUNK:114:16:9285632
+TRANSFORMER:EVAL_CHUNK:115:16:7229504
+TRANSFORMER:EVAL_CHUNK:116:16:14319680
+TRANSFORMER:EVAL_CHUNK:117:16:18800640
+TRANSFORMER:EVAL_CHUNK:118:16:11952192
+TRANSFORMER:EVAL_CHUNK:119:16:7553088
+TRANSFORMER:EVAL_CHUNK:120:16:37265408
+TRANSFORMER:EVAL_CHUNK:121:16:29130816
+TRANSFORMER:EVAL_CHUNK:122:16:85262400
+TRANSFORMER:EVAL_CHUNK:123:16:7188480
+TRANSFORMER:EVAL_CHUNK:124:16:9449536
+TRANSFORMER:EVAL_CHUNK:125:16:21004352
+TRANSFORMER:EVAL_CHUNK:126:16:10022912
+TRANSFORMER:EVAL_CHUNK:127:16:12083264
+TRANSFORMER:EVAL_CHUNK:128:16:16199744
+TRANSFORMER:EVAL_CHUNK:129:16:28884992
+TRANSFORMER:EVAL_CHUNK:130:16:28614720
+TRANSFORMER:EVAL_CHUNK:131:16:85336128
+TRANSFORMER:EVAL_CHUNK:132:16:9326592
+TRANSFORMER:EVAL_CHUNK:133:16:7356480
+TRANSFORMER:EVAL_CHUNK:134:16:21397568
+TRANSFORMER:EVAL_CHUNK:135:16:9502720
+TRANSFORMER:EVAL_CHUNK:136:16:16531520
+TRANSFORMER:EVAL_CHUNK:137:16:12275776
+TRANSFORMER:EVAL_CHUNK:138:16:28614720
+TRANSFORMER:EVAL_CHUNK:139:16:37265408
+TRANSFORMER:EVAL_CHUNK:140:16:78651456
+TRANSFORMER:EVAL_CHUNK:141:16:7233536
+TRANSFORMER:EVAL_CHUNK:142:16:7229504
+TRANSFORMER:EVAL_CHUNK:143:16:21434432
+TRANSFORMER:EVAL_CHUNK:144:16:13914112
+TRANSFORMER:EVAL_CHUNK:145:16:12341312
+TRANSFORMER:EVAL_CHUNK:146:16:20922432
+TRANSFORMER:EVAL_CHUNK:147:16:28614720
+TRANSFORMER:EVAL_CHUNK:148:16:28884992
+TRANSFORMER:EVAL_CHUNK:149:16:78254144
+TRANSFORMER:EVAL_CHUNK:150:16:7229504
+TRANSFORMER:EVAL_CHUNK:151:16:9326592
+TRANSFORMER:EVAL_CHUNK:152:16:23662656
+TRANSFORMER:EVAL_CHUNK:153:16:9728000
+TRANSFORMER:EVAL_CHUNK:154:16:12079168
+TRANSFORMER:EVAL_CHUNK:155:16:21446720
+TRANSFORMER:EVAL_CHUNK:156:16:28614720
+TRANSFORMER:EVAL_CHUNK:157:16:28614720
+TRANSFORMER:EVAL_CHUNK:158:16:80220160
+TRANSFORMER:EVAL_CHUNK:159:16:7229504
+TRANSFORMER:EVAL_CHUNK:160:16:7233536
+TRANSFORMER:EVAL_CHUNK:161:16:23793728
+TRANSFORMER:EVAL_CHUNK:162:16:9723968
+TRANSFORMER:EVAL_CHUNK:163:16:14045184
+TRANSFORMER:EVAL_CHUNK:164:16:28131392
+TRANSFORMER:EVAL_CHUNK:165:16:28614720
+TRANSFORMER:EVAL_CHUNK:166:16:55353408
+TRANSFORMER:EVAL_CHUNK:167:16:44703744
+TRANSFORMER:EVAL_CHUNK:168:16:7229504
+TRANSFORMER:EVAL_CHUNK:169:16:7229504
+TRANSFORMER:EVAL_CHUNK:170:16:25890816
+TRANSFORMER:EVAL_CHUNK:171:16:9723968
+TRANSFORMER:EVAL_CHUNK:172:16:11952128
+TRANSFORMER:EVAL_CHUNK:173:16:28528704
+TRANSFORMER:EVAL_CHUNK:174:16:28614720
+TRANSFORMER:EVAL_CHUNK:175:16:56950848
+TRANSFORMER:EVAL_CHUNK:176:16:44802048
+TRANSFORMER:EVAL_CHUNK:177:16:7229504
+TRANSFORMER:EVAL_CHUNK:178:16:13914176
+TRANSFORMER:EVAL_CHUNK:179:16:17113088
+TRANSFORMER:EVAL_CHUNK:180:16:9723968
+TRANSFORMER:EVAL_CHUNK:181:16:11948096
+TRANSFORMER:EVAL_CHUNK:182:16:28413952
+TRANSFORMER:EVAL_CHUNK:183:16:37511232
+TRANSFORMER:EVAL_CHUNK:184:16:83689536
+TRANSFORMER:EVAL_CHUNK:185:16:9285632
+TRANSFORMER:EVAL_CHUNK:186:16:7229504
+TRANSFORMER:EVAL_CHUNK:187:16:14319680
+TRANSFORMER:EVAL_CHUNK:188:16:18800640
+TRANSFORMER:EVAL_CHUNK:189:16:11952192
+TRANSFORMER:EVAL_CHUNK:190:16:7553088
+TRANSFORMER:EVAL_CHUNK:191:16:37265408
+TRANSFORMER:EVAL_CHUNK:192:16:29130816
+TRANSFORMER:EVAL_CHUNK:193:16:85262400
+TRANSFORMER:EVAL_CHUNK:194:16:7188480
+TRANSFORMER:EVAL_CHUNK:195:16:9449536
+TRANSFORMER:EVAL_CHUNK:196:16:21004352
+TRANSFORMER:EVAL_CHUNK:197:16:10022912
+TRANSFORMER:EVAL_CHUNK:198:16:12083264
+TRANSFORMER:EVAL_CHUNK:199:16:16199744
+TRANSFORMER:EVAL_CHUNK:200:16:28884992
+TRANSFORMER:EVAL_CHUNK:201:16:28614720
+TRANSFORMER:EVAL_CHUNK:202:16:85336128
+TRANSFORMER:EVAL_CHUNK:203:16:9326592
+TRANSFORMER:EVAL_CHUNK:204:16:7356480
+TRANSFORMER:EVAL_CHUNK:205:16:21397568
+TRANSFORMER:EVAL_CHUNK:206:16:9502720
+TRANSFORMER:EVAL_CHUNK:207:16:16531520
+TRANSFORMER:EVAL_CHUNK:208:16:12275776
+TRANSFORMER:EVAL_CHUNK:209:16:28614720
+TRANSFORMER:EVAL_CHUNK:210:16:37265408
+TRANSFORMER:EVAL_CHUNK:211:16:78651456
+TRANSFORMER:EVAL_CHUNK:212:16:7233536
+TRANSFORMER:EVAL_CHUNK:213:16:7229504
+TRANSFORMER:EVAL_CHUNK:214:16:21434432
+TRANSFORMER:EVAL_CHUNK:215:16:13914112
+TRANSFORMER:EVAL_CHUNK:216:16:12341312
+TRANSFORMER:EVAL_CHUNK:217:16:20922432
+TRANSFORMER:EVAL_CHUNK:218:16:28614720
+TRANSFORMER:EVAL_CHUNK:219:16:28884992
+TRANSFORMER:EVAL_CHUNK:220:16:78254144
+TRANSFORMER:EVAL_CHUNK:221:16:7229504
+TRANSFORMER:EVAL_CHUNK:222:16:9326592
+TRANSFORMER:EVAL_CHUNK:223:16:23662656
+TRANSFORMER:EVAL_CHUNK:224:16:9728000
+TRANSFORMER:EVAL_CHUNK:225:16:12079168
+TRANSFORMER:EVAL_CHUNK:226:16:21446720
+TRANSFORMER:EVAL_CHUNK:227:16:28614720
+TRANSFORMER:EVAL_CHUNK:228:16:28614720
+TRANSFORMER:EVAL_CHUNK:229:16:80220160
+TRANSFORMER:EVAL_CHUNK:230:16:7229504
+TRANSFORMER:EVAL_CHUNK:231:16:7233536
+TRANSFORMER:EVAL_CHUNK:232:16:23793728
+TRANSFORMER:EVAL_CHUNK:233:16:9723968
+TRANSFORMER:EVAL_CHUNK:234:16:14045184
+TRANSFORMER:EVAL_CHUNK:235:16:28131392
+TRANSFORMER:EVAL_CHUNK:236:16:28614720
+TRANSFORMER:EVAL_CHUNK:237:16:55353408
+TRANSFORMER:EVAL_CHUNK:238:16:44703744
+TRANSFORMER:EVAL_CHUNK:239:16:7229504
+TRANSFORMER:EVAL_CHUNK:240:16:7229504
+TRANSFORMER:EVAL_CHUNK:241:16:25890816
+TRANSFORMER:EVAL_CHUNK:242:16:9723968
+TRANSFORMER:EVAL_CHUNK:243:16:11952128
+TRANSFORMER:EVAL_CHUNK:244:16:28528704
+TRANSFORMER:EVAL_CHUNK:245:16:28614720
+TRANSFORMER:EVAL_CHUNK:246:16:56950848
+TRANSFORMER:EVAL_CHUNK:247:16:44802048
+TRANSFORMER:EVAL_CHUNK:248:16:7229504
+TRANSFORMER:EVAL_CHUNK:249:16:13914176
+TRANSFORMER:EVAL_CHUNK:250:16:17113088
+TRANSFORMER:EVAL_CHUNK:251:16:9723968
+TRANSFORMER:EVAL_CHUNK:252:16:11948096
+TRANSFORMER:EVAL_CHUNK:253:16:28413952
+TRANSFORMER:EVAL_CHUNK:254:16:37511232
+TRANSFORMER:EVAL_CHUNK:255:16:83689536
+TRANSFORMER:EVAL_CHUNK:256:16:9285632
+TRANSFORMER:EVAL_CHUNK:257:16:7229504
+TRANSFORMER:EVAL_CHUNK:258:16:14319680
+TRANSFORMER:EVAL_CHUNK:259:16:18800640
+TRANSFORMER:EVAL_CHUNK:260:16:11952192
+TRANSFORMER:EVAL_CHUNK:261:16:7553088
+TRANSFORMER:EVAL_CHUNK:262:16:37265408
+TRANSFORMER:EVAL_CHUNK:263:16:29130816
+TRANSFORMER:EVAL_CHUNK:264:16:85262400
+TRANSFORMER:EVAL_CHUNK:265:16:7188480
+TRANSFORMER:EVAL_CHUNK:266:16:9449536
+TRANSFORMER:EVAL_CHUNK:267:16:21004352
+TRANSFORMER:EVAL_CHUNK:268:16:10022912
+TRANSFORMER:EVAL_CHUNK:269:16:12083264
+TRANSFORMER:EVAL_CHUNK:270:16:16199744
+TRANSFORMER:EVAL_CHUNK:271:16:28884992
+TRANSFORMER:EVAL_CHUNK:272:16:28614720
+TRANSFORMER:EVAL_CHUNK:273:16:85336128
+TRANSFORMER:EVAL_CHUNK:274:16:9326592
+TRANSFORMER:EVAL_CHUNK:275:16:7356480
+TRANSFORMER:EVAL_CHUNK:276:16:21397568
+TRANSFORMER:EVAL_CHUNK:277:16:9502720
+TRANSFORMER:EVAL_CHUNK:278:16:16531520
+TRANSFORMER:EVAL_CHUNK:279:16:12275776
+TRANSFORMER:EVAL_CHUNK:280:16:28614720
+TRANSFORMER:EVAL_CHUNK:281:16:37265408
+TRANSFORMER:EVAL_CHUNK:282:16:78651456
+TRANSFORMER:EVAL_CHUNK:283:16:7233536
+TRANSFORMER:EVAL_CHUNK:284:16:7229504
+TRANSFORMER:EVAL_CHUNK:285:16:21434432
+TRANSFORMER:EVAL_CHUNK:286:16:13914112
+TRANSFORMER:EVAL_CHUNK:287:16:12341312
+TRANSFORMER:EVAL_CHUNK:288:16:20922432
+TRANSFORMER:EVAL_CHUNK:289:16:28614720
+TRANSFORMER:EVAL_CHUNK:290:16:28884992
+TRANSFORMER:EVAL_CHUNK:291:16:78254144
+TRANSFORMER:EVAL_CHUNK:292:16:7229504
+TRANSFORMER:EVAL_CHUNK:293:16:9326592
+TRANSFORMER:EVAL_CHUNK:294:16:23662656
+TRANSFORMER:EVAL_CHUNK:295:16:9728000
+TRANSFORMER:EVAL_CHUNK:296:16:12079168
+TRANSFORMER:EVAL_CHUNK:297:16:21446720
+TRANSFORMER:EVAL_CHUNK:298:16:28614720
+TRANSFORMER:EVAL_CHUNK:299:16:28614720
+TRANSFORMER:EVAL_CHUNK:300:16:80220160
+TRANSFORMER:EVAL_CHUNK:301:16:7229504
+TRANSFORMER:EVAL_CHUNK:302:16:7233536
+TRANSFORMER:EVAL_CHUNK:303:16:23793728
+TRANSFORMER:EVAL_CHUNK:304:16:9723968
+TRANSFORMER:EVAL_CHUNK:305:16:14045184
+TRANSFORMER:EVAL_CHUNK:306:16:28131392
+TRANSFORMER:EVAL_CHUNK:307:16:28614720
+TRANSFORMER:EVAL_CHUNK:308:16:55353408
+TRANSFORMER:EVAL_CHUNK:309:16:44703744
+TRANSFORMER:EVAL_CHUNK:310:16:7229504
+TRANSFORMER:EVAL_CHUNK:311:16:7229504
+TRANSFORMER:EVAL_CHUNK:312:16:25890816
+TRANSFORMER:EVAL_CHUNK:313:16:9723968
+TRANSFORMER:EVAL_CHUNK:314:16:11952128
+TRANSFORMER:EVAL_CHUNK:315:16:28528704
+TRANSFORMER:EVAL_CHUNK:316:16:28614720
+TRANSFORMER:EVAL_CHUNK:317:16:56950848
+TRANSFORMER:EVAL_CHUNK:318:16:44802048
+TRANSFORMER:EVAL_CHUNK:319:16:7229504
+TRANSFORMER:EVAL_CHUNK:320:16:13914176
+TRANSFORMER:EVAL_CHUNK:321:16:17113088
+TRANSFORMER:EVAL_CHUNK:322:16:9723968
+TRANSFORMER:EVAL_CHUNK:323:16:11948096
+TRANSFORMER:EVAL_CHUNK:324:16:28413952
+TRANSFORMER:EVAL_CHUNK:325:16:37511232
+TRANSFORMER:EVAL_CHUNK:326:16:83689536
+TRANSFORMER:EVAL_CHUNK:327:16:9285632
+TRANSFORMER:EVAL_CHUNK:328:16:7229504
+TRANSFORMER:EVAL_CHUNK:329:16:14319680
+TRANSFORMER:EVAL_CHUNK:330:16:18800640
+TRANSFORMER:EVAL_CHUNK:331:16:11952192
+TRANSFORMER:EVAL_CHUNK:332:16:7553088
+TRANSFORMER:EVAL_CHUNK:333:16:37265408
+TRANSFORMER:EVAL_CHUNK:334:16:29130816
+TRANSFORMER:EVAL_CHUNK:335:16:85262400
+TRANSFORMER:EVAL_CHUNK:336:16:7188480
+TRANSFORMER:EVAL_CHUNK:337:16:9449536
+TRANSFORMER:EVAL_CHUNK:338:16:21004352
+TRANSFORMER:EVAL_CHUNK:339:16:10022912
+TRANSFORMER:EVAL_CHUNK:340:16:12083264
+TRANSFORMER:EVAL_CHUNK:341:16:16199744
+TRANSFORMER:EVAL_CHUNK:342:16:28884992
+TRANSFORMER:EVAL_CHUNK:343:16:28614720
+TRANSFORMER:EVAL_CHUNK:344:16:85336128
+TRANSFORMER:EVAL_CHUNK:345:16:9326592
+TRANSFORMER:EVAL_CHUNK:346:16:7356480
+TRANSFORMER:EVAL_CHUNK:347:16:21397568
+TRANSFORMER:EVAL_CHUNK:348:16:9502720
+TRANSFORMER:EVAL_CHUNK:349:16:16531520
+TRANSFORMER:EVAL_CHUNK:350:16:12275776
+TRANSFORMER:EVAL_CHUNK:351:16:28614720
+TRANSFORMER:EVAL_CHUNK:352:16:37265408
+TRANSFORMER:EVAL_CHUNK:353:16:78651456
+TRANSFORMER:EVAL_CHUNK:354:16:7233536
+TRANSFORMER:EVAL_CHUNK:355:16:7229504
+TRANSFORMER:EVAL_CHUNK:356:16:21434432
+TRANSFORMER:EVAL_CHUNK:357:16:13914112
+TRANSFORMER:EVAL_CHUNK:358:16:12341312
+TRANSFORMER:EVAL_CHUNK:359:16:20922432
+TRANSFORMER:EVAL_CHUNK:360:16:28614720
+TRANSFORMER:EVAL_CHUNK:361:16:28884992
+TRANSFORMER:EVAL_CHUNK:362:16:78254144
+TRANSFORMER:EVAL_CHUNK:363:16:7229504
+TRANSFORMER:EVAL_CHUNK:364:16:9326592
+TRANSFORMER:EVAL_CHUNK:365:16:23662656
+TRANSFORMER:EVAL_CHUNK:366:16:9728000
+TRANSFORMER:EVAL_CHUNK:367:16:12079168
+TRANSFORMER:EVAL_CHUNK:368:16:21446720
+TRANSFORMER:EVAL_CHUNK:369:16:28614720
+TRANSFORMER:EVAL_CHUNK:370:16:28614720
+TRANSFORMER:EVAL_CHUNK:371:16:80220160
+TRANSFORMER:EVAL_CHUNK:372:16:7229504
+TRANSFORMER:EVAL_CHUNK:373:16:7233536
+TRANSFORMER:EVAL_CHUNK:374:16:23793728
+TRANSFORMER:EVAL_CHUNK:375:16:9723968
+TRANSFORMER:EVAL_CHUNK:376:16:14045184
+TRANSFORMER:EVAL_CHUNK:377:16:28131392
+TRANSFORMER:EVAL_CHUNK:378:16:28614720
+TRANSFORMER:EVAL_CHUNK:379:16:55353408
+TRANSFORMER:EVAL_CHUNK:380:16:44703744
+TRANSFORMER:EVAL_CHUNK:381:16:7229504
+TRANSFORMER:EVAL_CHUNK:382:16:7229504
+TRANSFORMER:EVAL_CHUNK:383:16:25890816
+TRANSFORMER:EVAL_CHUNK:384:16:9723968
+TRANSFORMER:EVAL_CHUNK:385:16:11952128
+TRANSFORMER:EVAL_CHUNK:386:16:28528704
+TRANSFORMER:EVAL_CHUNK:387:16:28614720
+TRANSFORMER:EVAL_CHUNK:388:16:56950848
+TRANSFORMER:EVAL_CHUNK:389:16:44802048
+TRANSFORMER:EVAL_CHUNK:390:16:7229504
+TRANSFORMER:EVAL_CHUNK:391:16:13914176
+TRANSFORMER:EVAL_CHUNK:392:16:17113088
+TRANSFORMER:EVAL_CHUNK:393:16:9723968
+TRANSFORMER:EVAL_CHUNK:394:16:11948096
+TRANSFORMER:EVAL_CHUNK:395:16:28413952
+TRANSFORMER:EVAL_CHUNK:396:16:37511232
+TRANSFORMER:EVAL_CHUNK:397:16:83689536
+TRANSFORMER:EVAL_CHUNK:398:16:9285632
+TRANSFORMER:EVAL_CHUNK:399:16:7229504
+TRANSFORMER:EVAL_CHUNK:400:16:14319680
+TRANSFORMER:EVAL_CHUNK:401:16:18800640
+TRANSFORMER:EVAL_CHUNK:402:16:11952192
+TRANSFORMER:EVAL_CHUNK:403:16:7553088
+TRANSFORMER:EVAL_CHUNK:404:16:37265408
+TRANSFORMER:EVAL_CHUNK:405:16:29130816
+TRANSFORMER:EVAL_CHUNK:406:16:85262400
+TRANSFORMER:EVAL_CHUNK:407:16:7188480
+TRANSFORMER:EVAL_CHUNK:408:16:9449536
+TRANSFORMER:EVAL_CHUNK:409:16:21004352
+TRANSFORMER:EVAL_CHUNK:410:16:10022912
+TRANSFORMER:EVAL_CHUNK:411:16:12083264
+TRANSFORMER:EVAL_CHUNK:412:16:16199744
+TRANSFORMER:EVAL_CHUNK:413:16:28884992
+TRANSFORMER:EVAL_CHUNK:414:16:28614720
+TRANSFORMER:EVAL_CHUNK:415:16:85336128
+TRANSFORMER:EVAL_CHUNK:416:16:9326592
+TRANSFORMER:EVAL_CHUNK:417:16:7356480
+TRANSFORMER:EVAL_CHUNK:418:16:21397568
+TRANSFORMER:EVAL_CHUNK:419:16:9502720
+TRANSFORMER:EVAL_CHUNK:420:16:16531520
+TRANSFORMER:EVAL_CHUNK:421:16:12275776
+TRANSFORMER:EVAL_CHUNK:422:16:28614720
+TRANSFORMER:EVAL_CHUNK:423:16:37265408
+TRANSFORMER:EVAL_CHUNK:424:16:78651456
+TRANSFORMER:EVAL_CHUNK:425:16:7233536
+TRANSFORMER:EVAL_CHUNK:426:16:7229504
+TRANSFORMER:EVAL_CHUNK:427:16:21434432
+TRANSFORMER:EVAL_CHUNK:428:16:13914112
+TRANSFORMER:EVAL_CHUNK:429:16:12341312
+TRANSFORMER:EVAL_CHUNK:430:10:2564160
+TRANSFORMER:EVAL_COMPLETE:430
+
+Starting horse generation job: horse-test-job
+Prompt: A majestic brown horse galloping across a green meadow, sunset lighting, realistic, high quality, cinematic, 2 seconds
+Output: outputs/tests/horse-test-job/output.mp4
+[loading_model] 10.0%: Loading model ltx-video-av-q4...
+[checking_hardware] 5.0%: Validating hardware compatibility...
+[loading_model] 5.0%: Preparing unified AV model...
+[checking_hardware] 5.0%: Validating hardware compatibility...
+[loading_model] 8.0%: Preparing unified AV model...
+[2mMLX default device: Device(gpu, 0)[0m
+[1m[96m🎬 [T2V+Audio] Generating 512x512 video with 49 frames + audio[0m
+[2mAudio: 51 latent frames @ 24000Hz[0m
+[2mPrompt: A majestic brown horse galloping across a green meadow, sunset lighting, realist...[0m
+[2mmlx-video-with-audio v0.1.36[0m
+[2mDetected LTX-2.3 distilled model family (gated attention)[0m
+[2mDistilled model: ignoring CFG scale 3.00 (guidance is baked in).[0m
+[2mUsing unified MLX model format (no Lightricks download)[0m
+[2mLTX-2 Unified classic path: fixed stage sigmas (stage1=8 + stage2=3 denoise steps; --steps ignored for sampler parity with pre-2.3 releases).[0m
+[94m📝 Loading text encoder...[0m
+Text encoder loaded successfully
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 1/1)...
+[preparing_inputs] 10.6%: Encoding text prompt (chunk 2/16)...
+[preparing_inputs] 10.9%: Encoding text prompt (chunk 3/16)...
+[preparing_inputs] 11.2%: Encoding text prompt (chunk 4/16)...
+[preparing_inputs] 11.6%: Encoding text prompt (chunk 5/16)...
+[preparing_inputs] 11.9%: Encoding text prompt (chunk 6/16)...
+[preparing_inputs] 12.2%: Encoding text prompt (chunk 7/16)...
+[preparing_inputs] 12.5%: Encoding text prompt (chunk 8/16)...
+[preparing_inputs] 12.8%: Encoding text prompt (chunk 9/16)...
+[preparing_inputs] 13.1%: Encoding text prompt (chunk 10/16)...
+[preparing_inputs] 13.4%: Encoding text prompt (chunk 11/16)...
+[preparing_inputs] 13.8%: Encoding text prompt (chunk 12/16)...
+[preparing_inputs] 14.1%: Encoding text prompt (chunk 13/16)...
+[preparing_inputs] 14.4%: Encoding text prompt (chunk 14/16)...
+[preparing_inputs] 14.7%: Encoding text prompt (chunk 15/16)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 16/16)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 17/16)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 18/3)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 19/1)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 20/16)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 21/16)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 22/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 23/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 24/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 25/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 26/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 27/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 28/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 29/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 30/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 31/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 32/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 33/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 34/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 35/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 36/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 37/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 38/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 39/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 40/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 41/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 42/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 43/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 44/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 45/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 46/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 47/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 48/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 49/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 50/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 51/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 52/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 53/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 54/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 55/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 56/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 57/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 58/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 59/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 60/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 61/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 62/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 63/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 64/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 65/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 66/13)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 67/8)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 68/1)...
+[preparing_inputs] 15.0%: Encoding text prompt (chunk 69/1)...
+[94m🤖 Loading transformer (A/V mode)...[0m
+[93m⚡ Stage 1: Generating at 256x256 (8 steps)...[0m
+Denoising A/V:   0%|          | 0/8 [00:00<?, ?it/s]STAGE:1:STEP:1:8:Denoising
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Denoising A/V:  12%|#2        | 1/8 [00:03<00:24,  3.49s/it]STAGE:1:STEP:2:8:Denoising
+Denoising A/V:  25%|##5       | 2/8 [00:06<00:20,  3.46s/it]STAGE:1:STEP:3:8:Denoising
+Denoising A/V:  38%|###7      | 3/8 [00:10<00:17,  3.53s/it]STAGE:1:STEP:4:8:Denoising
+Denoising A/V:  50%|#####     | 4/8 [00:14<00:14,  3.61s/it]STAGE:1:STEP:5:8:Denoising
+Denoising A/V:  62%|######2   | 5/8 [00:18<00:11,  3.72s/it]STAGE:1:STEP:6:8:Denoising
+Denoising A/V:  75%|#######5  | 6/8 [00:22<00:07,  3.76s/it]STAGE:1:STEP:7:8:Denoising
+Denoising A/V:  88%|########7 | 7/8 [00:26<00:03,  3.87s/it]STAGE:1:STEP:8:8:Denoising
+Denoising A/V: 100%|##########| 8/8 [00:30<00:00,  3.95s/it]Denoising A/V: 100%|##########| 8/8 [00:30<00:00,  3.78s/it]
+[generating_video] 15.0%: Starting unified AV generation (this can take several minutes)...
+[generating_video] 19.4%: Denoising Stage 1: Step 1/8...
+[generating_video] 23.8%: Denoising Stage 1: Step 2/8...
+[generating_video] 28.1%: Denoising Stage 1: Step 3/8...
+[generating_video] 32.5%: Denoising Stage 1: Step 4/8...
+[generating_video] 36.9%: Denoising Stage 1: Step 5/8...
+[generating_video] 41.2%: Denoising Stage 1: Step 6/8...
+[generating_video] 45.6%: Denoising Stage 1: Step 7/8...
+[generating_video] 50.0%: Denoising Stage 1: Step 8/8...
+[95m🔍 Upsampling video latents 2x...[0m
+  Detected mid_channels: 1024
+  Loaded 72 weights
+Loading VAE decoder from models/ltx-video-av-q4/vae_decoder.safetensors...
+  Using timestep_conditioning=False from embedded_config.json (overrides detected False)
+  Loaded latent mean: shape (128,)
+  Loaded latent std: shape (128,)
+  Found 84 decoder weights
+  Found 0 timestep conditioning weights
+VAE decoder loaded successfully
+[93m⚡ Stage 2: Refining at 512x512 (3 steps)...[0m
+Denoising A/V:   0%|          | 0/3 [00:00<?, ?it/s]STAGE:2:STEP:1:3:Denoising
+Denoising A/V:  33%|###3      | 1/3 [00:14<00:28, 14.20s/it]STAGE:2:STEP:2:3:Denoising
+Denoising A/V:  67%|######6   | 2/3 [00:26<00:13, 13.17s/it]STAGE:2:STEP:3:3:Denoising
+Denoising A/V: 100%|##########| 3/3 [00:38<00:00, 12.38s/it]Denoising A/V: 100%|##########| 3/3 [00:38<00:00, 12.70s/it]
+[generating_video] 61.7%: Denoising Stage 2: Step 1/3...
+[generating_video] 73.3%: Denoising Stage 2: Step 2/3...
+[generating_video] 85.0%: Denoising Stage 2: Step 3/3...
+[94m🎞️  Decoding video...[0m
+[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...objc[72833]: Class AVFFrameReceiver is implemented in both /Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/av/.dylibs/libavdevice.61.3.100.dylib (0x1160cc3a8) and /Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/cv2/.dylibs/libavdevice.61.3.100.dylib (0x16bcb43a8). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+objc[72833]: Class AVFAudioReceiver is implemented in both /Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/av/.dylibs/libavdevice.61.3.100.dylib (0x1160cc3f8) and /Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/cv2/.dylibs/libavdevice.61.3.100.dylib (0x16bcb43f8). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...[decoding] 85.0%: Decoding latents to video...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[2m  Tiling: disabled[0m
+[92m✅ Video encoded[0m
+[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.[decoding] 92.0%: Video decoding complete.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[94m🔊 Decoding audio...[0m
+[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...[decoding] 93.0%: Decoding audio...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[94m🎬 Combining video and audio...[0m
+[92m✅ Saved video with audio to[0m outputs/tests/horse-test-job/output.mp4
+[1m[92m🎉 Done! Generated in 86.3s[0m
+[1m[92m✨ Peak memory: 30.45GB[0m
+[completed] 100.0%: Generation finished
+[saving_metadata] 92.0%: Generating preview image...
+[saving_metadata] 95.0%: Saving composed prompt...
+[saving_metadata] 98.0%: Saving detailed metadata...
+[completed] 100.0%: Generation finished
+
+SUCCESS: Horse video generated at outputs/tests/horse-test-job/output.mp4
+.
+
+========================= 1 passed in 86.47s (0:01:26) =========================

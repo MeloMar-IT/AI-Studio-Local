@@ -1,0 +1,840 @@
+Use this prompt with a coding agent that has full read/write access to the repository and can run the application, worker, tests, and local model.
+
+You are a senior AI video systems engineer, Python engineer, Swift/macOS engineer, and debugging specialist.
+
+You have full read and write access to this repository:
+
+https://github.com/MeloMar-IT/AI-Studio-Local
+
+Your task is to perform a deep end-to-end investigation into why prompt-based video generation works correctly when using the standalone Horse generation Python test, but fails when the same type of prompt is submitted through the macOS application.
+
+Observed behaviour:
+
+* Running the standalone Horse generation Python test produces the expected horse video.
+* Entering a horse prompt in the application does not produce the requested horse.
+* The application instead shows videos containing people.
+* These people videos may be placeholders, cached videos, old generated outputs, fallback media, sample assets, previews, or outputs from an unintended generation path.
+* The application may report a successful generation even when the requested prompt was not used or no valid new video was generated.
+
+Do not make assumptions based only on filenames, comments, TODO documents, or existing architecture descriptions.
+
+You must trace the actual runtime behaviour from the Swift UI through the API, job system, model adapter, generation backend, output handling, metadata, preview generation, and video playback.
+
+The goal is not merely to patch the visible symptom. The goal is to understand precisely why the standalone Python generation works while the application path does not, and then implement a correct, maintainable fix.
+
+Main investigation question
+
+Determine exactly where the application generation path diverges from the working Horse generation Python test.
+
+Compare both paths at every significant stage:
+
+1. Prompt capture
+2. Prompt transformation
+3. Negative prompt handling
+4. Model selection
+5. Model path resolution
+6. Backend selection
+7. Runtime environment
+8. Python interpreter
+9. Installed dependencies
+10. Model loading
+11. Generation parameters
+12. Random seed
+13. Resolution
+14. Frame count
+15. Frame rate
+16. Number of inference steps
+17. Guidance scale
+18. Image conditioning
+19. Audio generation
+20. Callback handling
+21. Output path creation
+22. Output encoding
+23. Job completion
+24. Preview extraction
+25. API response
+26. Swift model decoding
+27. Media path resolution
+28. Video playback
+29. Generation history
+30. Cache reuse
+31. Placeholder and fallback behaviour
+
+Do not stop after finding one suspicious issue. Continue until the complete runtime chain is understood and verified.
+
+Required investigation process
+
+Phase 1: Repository mapping
+
+First build a complete map of the relevant code.
+
+Identify:
+
+* The standalone Horse generation test file
+* Every Python script used by that test
+* Every model loader used by that test
+* Every configuration file used by that test
+* The macOS prompt input view
+* The Swift action that starts generation
+* The API client used by the application
+* The worker API endpoint
+* Request and response models
+* Job creation logic
+* Job persistence
+* Background worker execution
+* Generation engine
+* MLX adapter
+* LTX adapter
+* Model registry
+* Model profile configuration
+* Output directory handling
+* Preview generation
+* Generation history loading
+* Video player implementation
+* Placeholder images and sample videos
+* Existing outputs committed to or stored inside the repository
+
+Produce a concise architecture diagram in Markdown showing the real execution path.
+
+Example structure:
+
+Swift prompt field
+    -> Swift generation request
+    -> HTTP request
+    -> Python API endpoint
+    -> job store
+    -> generation engine
+    -> model adapter
+    -> MLX/LTX backend
+    -> output.mp4
+    -> preview.jpg
+    -> metadata.json
+    -> API status response
+    -> Swift generation model
+    -> preview card
+    -> video player
+
+Use the actual class names, functions, files, and line numbers.
+
+Phase 2: Reproduce both paths
+
+Run the working standalone Horse test exactly as intended.
+
+Record:
+
+* Full command
+* Current working directory
+* Python executable
+* Python version
+* Virtual environment
+* Relevant environment variables
+* Installed package versions
+* Model path
+* Model profile
+* Backend used
+* Prompt received by the model
+* Negative prompt
+* Width and height
+* Frame count
+* FPS
+* Steps
+* Guidance
+* Seed
+* Output path
+* Output file size
+* Duration
+* Codec
+* Creation timestamp
+* Hash of output file
+
+Then run the application-based horse generation.
+
+Use the same prompt where possible.
+
+Record the same information.
+
+Do not compare only high-level logs. Instrument the code temporarily where required so that every parameter and path can be compared.
+
+Create a side-by-side comparison table.
+
+Example:
+
+Property	Standalone Horse test	Application
+Python executable	…	…
+Model backend	…	…
+Model path	…	…
+Prompt	…	…
+Seed	…	…
+Output file	…	…
+Output hash	…	…
+
+Phase 3: Trace the prompt
+
+Add temporary structured logging that records the prompt at every boundary:
+
+* Swift text field value
+* Swift request object
+* JSON request body
+* Python API request model
+* Job metadata
+* Generation request object
+* Adapter method input
+* Backend function input
+* Final prompt passed to the model
+
+Use JSON logs rather than informal print statements.
+
+Example:
+
+{
+  "event": "generation_prompt_trace",
+  "stage": "mlx_adapter",
+  "job_id": "...",
+  "prompt": "...",
+  "negative_prompt": "...",
+  "model_id": "...",
+  "backend": "...",
+  "timestamp": "..."
+}
+
+Check for:
+
+* Empty prompt
+* Default prompt
+* Hardcoded prompt
+* Sample prompt
+* Truncated prompt
+* Prompt overwritten by a model preset
+* Prompt replaced during job reconstruction
+* Wrong JSON key
+* Swift/Python naming mismatch
+* Old prompt loaded from history
+* Prompt normalization that removes important words
+* Prompt enhancement that introduces people
+* A default prompt containing humans
+* Negative prompts suppressing animals
+* Incorrect use of the project title instead of the prompt
+* Incorrect field decoding
+* Prompt value lost during asynchronous processing
+
+Phase 4: Search aggressively for placeholder behaviour
+
+Search the entire repository, including hidden files and generated resources, for:
+
+placeholder
+mock
+dummy
+sample
+fallback
+preview.jpg
+preview.mp4
+output.mp4
+person
+people
+woman
+man
+human
+portrait
+demo
+example
+test video
+mock_pipeline
+default prompt
+seed
+cached
+cache
+copy
+shutil.copy
+bundle
+resource
+asset
+
+Also inspect:
+
+* Swift asset catalogues
+* Bundled application resources
+* Test fixtures
+* Output folders
+* Preview folders
+* Generated job folders
+* README screenshots
+* Demo videos
+* Default project templates
+* Hardcoded media URLs
+* Hardcoded file paths
+* Old metadata files
+* Existing completed jobs
+* Any fallback video displayed when playback fails
+
+Identify every code path that can display or copy media without generating it.
+
+For each one, state:
+
+* When it executes
+* What file it uses
+* Whether it can be mistaken for a real generation
+* Whether it contains people
+* Whether it can explain the observed behaviour
+
+Remove unsafe placeholder behaviour from the production generation path.
+
+A generation failure must show a clear failure state. It must never silently display sample media or an unrelated older video.
+
+Phase 5: Verify whether the displayed people video is newly generated
+
+This is critical.
+
+For every application generation:
+
+1. Delete or isolate old output directories.
+2. Generate a new unique job ID.
+3. Record start time.
+4. Record the expected output path.
+5. Watch the directory during generation.
+6. Verify whether a new MP4 appears.
+7. Record file creation and modification timestamps.
+8. Calculate a SHA-256 hash.
+9. Compare the hash against:
+    * Previous generations
+    * Bundled sample videos
+    * Placeholder files
+    * Existing output files
+10. Use ffprobe to inspect:
+
+* Codec
+* Duration
+* Frame count
+* Resolution
+* Creation metadata
+
+11. Extract several frames with FFmpeg.
+12. Confirm whether the UI is playing the same physical file.
+
+Add the absolute resolved video path to the application UI in debug mode.
+
+Also add the job ID and file hash to debug logs.
+
+Determine whether the people video is:
+
+* Newly generated from the wrong prompt
+* A cached model result
+* A previously generated output
+* A bundled placeholder
+* A default sample video
+* The wrong job’s video
+* The correct output path resolved incorrectly
+* A video left behind after a failed generation
+* A preview masquerading as a final output
+* An image or sample file renamed as MP4
+* A Swift player retaining an earlier URL
+
+Phase 6: Compare runtime environments
+
+The standalone Horse test may be using a different environment from the application worker.
+
+Verify:
+
+* Exact Python executable used by the Horse test
+* Exact Python executable used by the worker
+* Virtual environment activation
+* PATH
+* PYTHONPATH
+* Working directory
+* Package versions
+* MLX version
+* mlx-video version
+* LTX package version
+* Torch version
+* Diffusers version
+* Transformers version
+* Safetensors version
+* FFmpeg path
+* Model directory
+* Model configuration
+* Quantisation settings
+* Device configuration
+* Memory settings
+
+Add a runtime diagnostic endpoint or startup log that prints this information in structured form.
+
+Do not assume that installing the same package names means both paths are using the same code.
+
+Confirm imported package locations with:
+
+import inspect
+import package_name
+print(package_name.__file__)
+print(inspect.getfile(package_name))
+
+Determine whether the application worker uses:
+
+* The repository virtual environment
+* System Python
+* Homebrew Python
+* A stale virtual environment
+* A different installed copy of the package
+* An older local checkout
+* A globally installed package
+* A different model implementation
+
+Phase 7: Compare model backend selection
+
+The standalone test may directly invoke the correct MLX generation function while the application may route through another adapter.
+
+Trace backend selection.
+
+Explicitly determine:
+
+* Which model ID the application requests
+* Which model profile is selected
+* Which model path is resolved
+* Which backend is selected
+* Whether backend selection is based on model ID string matching
+* Whether "av" or similar substrings are used to guess model type
+* Whether the application routes an MLX model into a PyTorch or Diffusers pipeline
+* Whether a fallback backend is used after loading fails
+* Whether model loading errors are swallowed
+* Whether an older pipeline remains loaded
+* Whether switching model profiles actually unloads the previous model
+* Whether the first loaded model is reused for later jobs
+* Whether application requests use a different model from the Horse test
+
+Replace heuristic backend selection with explicit configuration.
+
+Example model profile:
+
+{
+  "id": "ltx-video-v1",
+  "backend": "mlx-video",
+  "model_type": "audio-video",
+  "model_path": "/absolute/path/to/model"
+}
+
+Do not infer backend type from filenames.
+
+Phase 8: Inspect model lifecycle and stale state
+
+Investigate whether the worker retains old pipeline state.
+
+Check:
+
+* Global adapter instances
+* Singleton engines
+* Cached pipelines
+* _pipeline
+* _current_model_id
+* _current_model_path
+* Job concurrency
+* Thread safety
+* Async task reuse
+* Worker restarts
+* Model switching
+* Failed model loads
+* Partially initialized state
+* Old pipeline reuse after exceptions
+
+A failed model load must not leave the previous pipeline active.
+
+Implement safe state transitions:
+
+self._pipeline = None
+self._current_model_id = None
+self._current_model_path = None
+
+before loading a new model.
+
+Only publish the new model as active after the load fully succeeds.
+
+Add logs showing:
+
+* Requested model
+* Previously loaded model
+* Actual backend object type
+* Actual model path
+* Whether an existing pipeline was reused
+
+Phase 9: Inspect job and output path handling
+
+Verify that every job gets a unique absolute directory.
+
+Expected structure:
+
+outputs/
+  <job-id>/
+    request.json
+    metadata.json
+    output.mp4
+    preview.jpg
+    generation.log
+
+Check for:
+
+* Relative paths
+* Different working directories
+* Reused output filenames
+* Shared output.mp4
+* Shared preview.jpg
+* Race conditions
+* One job overwriting another
+* One job reading another job’s result
+* Old outputs surviving failure
+* UI loading by filename rather than job ID
+* Path traversal or normalization issues
+* Worker and application disagreeing about base directory
+
+Before generation, ensure the target job directory is either newly created or safely cleared.
+
+Never return success based only on a nonempty path string.
+
+Validate:
+
+result = Path(result_path).resolve()
+if not result.is_file():
+    raise RuntimeError("Generated video does not exist")
+if result.stat().st_size < 10_000:
+    raise RuntimeError("Generated video is too small to be valid")
+
+Run ffprobe before marking the job complete.
+
+The job may only transition to completed when:
+
+* The MP4 exists
+* The file is nonempty
+* FFprobe succeeds
+* At least one video stream exists
+* Duration is greater than zero
+* Resolution is valid
+* The file belongs to the current job
+
+Phase 10: Inspect callback and result encoding
+
+Compare the exact return type of the working Horse test with the application adapter.
+
+Log:
+
+type(result)
+repr(result)
+dir(result)
+
+without dumping huge tensors.
+
+Determine whether the result is:
+
+* A file path
+* A PIL image
+* A list of frames
+* A NumPy array
+* A pipeline output object
+* An object with .frames
+* An object with .video
+* An object with .save
+* A tuple
+* A generator
+* An audio-video result object
+
+Do not assume .save() means the object saves MP4 correctly.
+
+Correctly extract and encode the result according to the backend’s documented return type.
+
+Check for logic incorrectly nested under:
+
+if progress_callback:
+
+Generation output writing must not depend on whether a callback exists.
+
+Ensure that the application path uses the same encoding mechanism as the working Horse test wherever possible.
+
+Phase 11: Inspect Swift preview and video playback
+
+Trace:
+
+* API result decoding
+* result_url
+* outputPath
+* previewImagePath
+* URL construction
+* Relative versus absolute paths
+* AVPlayer creation
+* Player item replacement
+* View lifecycle
+* History card selection
+* Cached player state
+* Placeholder rendering
+
+Check whether:
+
+URL(fileURLWithPath: path)
+
+receives a relative path.
+
+Check whether the card always renders a generic rectangle even when a valid preview exists.
+
+Check whether the player retains a previous video because:
+
+* The URL did not change
+* The view identity did not change
+* AVPlayerItem was not replaced
+* The new path was invalid
+* The UI falls back to an existing player item
+* The application loads the most recent completed job rather than the requested job
+
+In debug builds, display:
+
+* Job ID
+* Prompt
+* Absolute output path
+* File existence
+* File size
+* SHA-256 prefix
+* Status
+* Model ID
+* Backend
+
+Phase 12: Inspect generation history
+
+Old failed jobs may be displayed as completed.
+
+Audit all existing job metadata.
+
+Identify records where:
+
+* Status is completed but output file is missing
+* Output path is relative
+* Preview exists but MP4 does not
+* MP4 timestamp predates job creation
+* Several jobs share the same output hash
+* Prompt does not match the displayed video
+* Job status remained in generating
+* Error was recorded but status became completed
+* Worker restart interrupted the job
+* A stale preview was reused
+
+Create a migration or cleanup utility that marks invalid historical jobs as failed.
+
+Do not allow invalid jobs to appear as successful generations.
+
+Phase 13: Add an automated parity test
+
+Create an integration test that compares the working Horse generation path with the application worker path.
+
+The test should:
+
+1. Use the same prompt.
+2. Use the same model.
+3. Use deterministic settings where possible.
+4. Submit one generation directly.
+5. Submit one generation through the worker API.
+6. Capture both effective request configurations.
+7. Assert that the same backend is used.
+8. Assert that the same model path is used.
+9. Assert that the prompt reaches the backend unchanged.
+10. Assert that a new valid MP4 is produced.
+11. Assert that the worker output is not equal to a known placeholder hash.
+12. Assert that the output belongs to the current job.
+13. Assert that the API reports the correct absolute or resolvable path.
+14. Assert that the preview belongs to the generated MP4.
+15. Assert that no previous job output is reused.
+
+Do not attempt to automatically judge whether the video visually contains a horse unless a reliable local vision model is already part of the project.
+
+Instead, prove that the application invokes the same generation path and parameters as the working test.
+
+Phase 14: Add regression protection
+
+Add tests for:
+
+* Prompt survives Swift-to-Python transmission
+* Missing prompt is rejected
+* Empty prompt is rejected
+* Default prompt is never silently substituted
+* Failed generation cannot become completed
+* Missing MP4 cannot become completed
+* Placeholder assets cannot be returned as generation output
+* Relative path handling
+* Unique job directories
+* Pipeline model switching
+* Failed model load clears stale pipeline state
+* Preview extraction failure does not create fake JPEG data
+* Callback absence does not prevent output encoding
+* Wrong result type produces a clear error
+* Old job output cannot be reused
+* Swift player is updated when a new job completes
+
+Phase 15: Implement the actual fix
+
+After proving the root cause, implement the smallest maintainable correction that resolves the full issue.
+
+Likely areas include, but are not limited to:
+
+* Prompt field mapping
+* Model profile mapping
+* Explicit backend selection
+* Worker environment alignment
+* Stale pipeline reuse
+* Incorrect fallback behaviour
+* Output path resolution
+* Missing MP4 validation
+* Preview placeholder UI
+* Old job history
+* Player URL reuse
+* Incorrect adapter return handling
+
+Do not implement speculative changes without evidence.
+
+For every code change, connect it directly to an observed failure.
+
+Logging requirements
+
+Add structured logs for the complete generation lifecycle.
+
+Required events:
+
+generation_request_received
+generation_job_created
+generation_prompt_validated
+generation_model_selected
+generation_backend_selected
+generation_model_loading
+generation_model_loaded
+generation_started
+generation_backend_returned
+generation_output_encoding
+generation_output_validated
+generation_preview_created
+generation_job_completed
+generation_job_failed
+generation_ui_received_status
+generation_ui_loaded_video
+
+Every event should include where applicable:
+
+timestamp
+job_id
+prompt_hash
+prompt_preview
+model_id
+model_path
+backend
+seed
+width
+height
+num_frames
+fps
+steps
+guidance
+output_path
+output_exists
+output_size
+output_hash
+duration
+error_type
+error_message
+
+Do not log secrets or excessively large prompts.
+
+Required deliverables
+
+Create or update these files:
+
+docs/HORSE_GENERATION_ROOT_CAUSE.md
+docs/GENERATION_RUNTIME_FLOW.md
+docs/GENERATION_PARITY_COMPARISON.md
+docs/GENERATION_DEBUGGING.md
+
+HORSE_GENERATION_ROOT_CAUSE.md must contain:
+
+1. Exact symptom
+2. Reproduction steps
+3. Standalone Horse test execution path
+4. Application execution path
+5. First point of divergence
+6. Complete root cause
+7. Secondary contributing defects
+8. Evidence
+9. Files and line numbers
+10. Implemented fix
+11. Tests added
+12. Remaining risks
+
+Also create a script:
+
+scripts/diagnose-generation.sh
+
+It should print:
+
+* Worker process
+* Python executable
+* Python version
+* Virtual environment
+* Package versions
+* Model registry
+* Selected model
+* Selected backend
+* Model path
+* Output root
+* Recent jobs
+* Invalid completed jobs
+* Duplicate output hashes
+* Placeholder asset hashes
+* FFmpeg and FFprobe availability
+
+Create another script:
+
+scripts/compare-horse-generation.py
+
+It should compare direct generation and API-based generation configurations and output metadata.
+
+Definition of done
+
+The task is only complete when all of the following are true:
+
+* The standalone Horse test still works.
+* The application sends the intended horse prompt unchanged.
+* The application uses the same intended model backend as the working test.
+* A new unique MP4 is created for the application job.
+* The MP4 is validated before the job is marked completed.
+* The output file belongs to the correct job.
+* The UI plays the newly generated MP4.
+* The UI does not display a bundled people video, stale output, or placeholder media.
+* Failed generation produces a visible failure state.
+* No dummy JPEG or renamed JPEG is used as successful output.
+* Old invalid jobs are not shown as successful.
+* Automated tests protect the fixed behaviour.
+* The root cause is documented with concrete evidence.
+
+Working method
+
+Work continuously through the investigation and implementation.
+
+Do not stop after the first likely explanation.
+
+Do not ask for confirmation between phases.
+
+Make safe, incremental commits.
+
+Use clear commit messages, for example:
+
+debug: trace prompt through generation pipeline
+fix: align app backend with standalone horse generator
+fix: reject completed jobs without valid mp4
+fix: remove production placeholder media fallback
+fix: resolve worker output paths consistently
+test: add direct-vs-api generation parity coverage
+docs: document horse generation root cause
+
+Preserve existing working functionality.
+
+Do not delete models, user-generated videos, or valuable job history without first creating a safe migration or backup mechanism.
+
+At the end, provide:
+
+1. Root cause summary
+2. Evidence
+3. Files changed
+4. Tests run
+5. Test results
+6. Remaining limitations
+7. Exact commands to run the repaired application
+8. Exact command to reproduce the Horse parity test
+
+The most important requirement is proving whether the people video is newly generated, stale, cached, bundled, or loaded from the wrong job path. That distinction should be established before changing model parameters.

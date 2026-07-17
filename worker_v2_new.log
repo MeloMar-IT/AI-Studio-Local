@@ -1,0 +1,52 @@
+Running in PRODUCTION mode...
+Checking dependencies...
+ai-video-worker package already installed.
+Starting AI Studio Local Worker...
+2026-07-17 19:07:12,039 - ai-video-worker - v0.1.1 - [82068] - MainThread - INFO - Initialized LTXGenerationEngine with adapter: MLXLTXAdapter
+2026-07-17 19:07:12,475 - ai-video-worker - v0.1.1 - [82068] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (82.89 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker_v2/models
+Models Disk:    569.89 GB free
+============================================================
+2026-07-17 19:07:12,492 - ai-video-worker - v0.1.1 - [82068] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (82.89 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker_v2/models
+Models Disk:    569.89 GB free
+============================================================
+INFO:     Started server process [82068]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+2026-07-17 19:07:16,335 - ai-video-worker - v0.1.1 - [82068] - MainThread - INFO - Incoming GET /health
+2026-07-17 19:07:16,335 - ai-video-worker - v0.1.1 - [82068] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'curl/8.7.1', 'accept': '*/*'}
+2026-07-17 19:07:16,336 - ai-video-worker - v0.1.1 - [82068] - MainThread - INFO - Completed GET /health - Status 200 - Duration 1.04ms
+INFO:     127.0.0.1:56763 - "GET /health HTTP/1.1" 200 OK
+./scripts/run-worker.sh: line 62: 82068 Killed: 9               python ai_video_worker/main.py --no-reload
