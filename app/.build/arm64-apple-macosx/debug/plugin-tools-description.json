@@ -1,0 +1,2719 @@
+{
+  "builtTestProducts" : [
+    {
+      "binaryPath" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalPackageTests.xctest/Contents/MacOS/AIStudioLocalPackageTests",
+      "packagePath" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app",
+      "productName" : "AIStudioLocalPackageTests"
+    }
+  ],
+  "copyCommands" : {
+    "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle/AIVideoLocalDirect.png" : {
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Resources/AIVideoLocalDirect.png"
+        }
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle/AIVideoLocalDirect.png"
+        }
+      ]
+    },
+    "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle/Assets.xcassets" : {
+      "inputs" : [
+        {
+          "kind" : "directory",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Resources/Assets.xcassets"
+        }
+      ],
+      "outputs" : [
+        {
+          "kind" : "directory",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle/Assets.xcassets"
+        }
+      ]
+    }
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.AIStudioLocal-arm64-apple-macosx-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/sources",
+      "importPath" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/App/AIStudioLocalApp.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/App/AppRouter.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/App/AppState.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/App/MainNavigationView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Colors.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/AppErrorView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/ElementChip.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/EmptyStateView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/FlowLayout.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/GenerationVersionCard.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/IconButton.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/InspectorPanel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/ModelCard.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/PreviewPlayer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/PrimaryButton.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/ProgressCard.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/ProjectCard.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/SceneCard.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/SecondaryButton.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/StatusBadge.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Spacing.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Typography.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/AppEnvironment.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/AppError.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/AudioIdentity.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/BrandKit.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/CameraPreset.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/CharacterElement.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/ContinuityElement.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/ExportPreset.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/ExportTemplate.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/GenerationJob.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/ImportSummary.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/LocationElement.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/LoraReference.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/ModelProfile.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/Project.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/ProjectTemplate.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/PromptBlock.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/Scene.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/SceneGeneration.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/StyleElement.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ContinuityLibrary/BrandKitEditorView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ContinuityLibrary/ContinuityElementDetailView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ContinuityLibrary/ContinuityElementListView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ContinuityLibrary/ContinuityLibraryView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ContinuityLibrary/ContinuityLibraryViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/Home/HomeDashboardView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/Home/HomeDashboardViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/Home/ProjectTemplateSelectionView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ModelManager/ModelManagerView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ModelManager/ModelManagerViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ModelManager/SystemReportView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ProjectStudio/ContinuityElementPicker.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ProjectStudio/ExportDialog.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ProjectStudio/ProjectStudioView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ProjectStudio/ProjectStudioViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ProjectStudio/SceneHistoryView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/Settings/SettingsView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/Settings/SettingsViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/TaskQueue/TaskQueueView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/TaskQueue/TaskQueueViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/AppLogger.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/ContinuityStore.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/ExportService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/FileSystemService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/GenerationClient.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/HardwareProfiler.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/MockHardwareProfiler.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/ModelStore.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/ProjectStore.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/PromptComposer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/PromptImprovementHelper.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/SceneResolver.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/UserSettings.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/WorkerManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/DerivedSources/resource_bundle_accessor.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "virtual",
+          "name" : "<AIStudioLocal-arm64-apple-macosx-debug.module-resources>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/sources"
+        }
+      ],
+      "isLibrary" : false,
+      "moduleName" : "AIStudioLocal",
+      "moduleOutputPath" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/Modules/AIStudioLocal.swiftmodule",
+      "objects" : [
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AIStudioLocalApp.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppRouter.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppState.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/MainNavigationView.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Colors.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppErrorView.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ElementChip.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/EmptyStateView.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/FlowLayout.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/GenerationVersionCard.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/IconButton.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/InspectorPanel.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ModelCard.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/PreviewPlayer.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/PrimaryButton.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProgressCard.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProjectCard.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SceneCard.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SecondaryButton.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/StatusBadge.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Spacing.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Typography.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppEnvironment.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppError.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AudioIdentity.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/BrandKit.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/CameraPreset.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/CharacterElement.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityElement.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ExportPreset.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ExportTemplate.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/GenerationJob.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ImportSummary.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/LocationElement.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/LoraReference.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ModelProfile.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Project.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProjectTemplate.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/PromptBlock.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Scene.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SceneGeneration.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/StyleElement.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/BrandKitEditorView.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityElementDetailView.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityElementListView.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityLibraryView.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityLibraryViewModel.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/HomeDashboardView.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/HomeDashboardViewModel.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProjectTemplateSelectionView.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ModelManagerView.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ModelManagerViewModel.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SystemReportView.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityElementPicker.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ExportDialog.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProjectStudioView.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProjectStudioViewModel.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SceneHistoryView.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SettingsView.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SettingsViewModel.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/TaskQueueView.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/TaskQueueViewModel.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppLogger.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityStore.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ExportService.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/FileSystemService.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/GenerationClient.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/HardwareProfiler.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/MockHardwareProfiler.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ModelStore.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProjectStore.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/PromptComposer.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/PromptImprovementHelper.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SceneResolver.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/UserSettings.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/WorkerManager.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/resource_bundle_accessor.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j16",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_AVAILABLE",
+        "-module-cache-path",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-Xfrontend",
+        "-entry-point-function-name",
+        "-Xfrontend",
+        "AIStudioLocal_main",
+        "-color-diagnostics",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "app"
+      ],
+      "outputFileMapPath" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AIStudioLocalApp.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppRouter.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppState.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/MainNavigationView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Colors.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppErrorView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ElementChip.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/EmptyStateView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/FlowLayout.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/GenerationVersionCard.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/IconButton.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/InspectorPanel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ModelCard.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/PreviewPlayer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/PrimaryButton.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProgressCard.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProjectCard.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SceneCard.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SecondaryButton.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/StatusBadge.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Spacing.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Typography.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppEnvironment.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppError.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AudioIdentity.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/BrandKit.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/CameraPreset.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/CharacterElement.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityElement.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ExportPreset.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ExportTemplate.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/GenerationJob.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ImportSummary.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/LocationElement.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/LoraReference.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ModelProfile.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Project.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProjectTemplate.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/PromptBlock.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Scene.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SceneGeneration.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/StyleElement.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/BrandKitEditorView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityElementDetailView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityElementListView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityLibraryView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityLibraryViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/HomeDashboardView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/HomeDashboardViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProjectTemplateSelectionView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ModelManagerView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ModelManagerViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SystemReportView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityElementPicker.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ExportDialog.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProjectStudioView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProjectStudioViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SceneHistoryView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SettingsView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SettingsViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/TaskQueueView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/TaskQueueViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppLogger.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityStore.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ExportService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/FileSystemService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/GenerationClient.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/HardwareProfiler.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/MockHardwareProfiler.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ModelStore.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProjectStore.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/PromptComposer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/PromptImprovementHelper.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SceneResolver.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/UserSettings.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/WorkerManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/resource_bundle_accessor.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/Modules/AIStudioLocal.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/App/AIStudioLocalApp.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/App/AppRouter.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/App/AppState.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/App/MainNavigationView.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Colors.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/AppErrorView.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/ElementChip.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/EmptyStateView.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/FlowLayout.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/GenerationVersionCard.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/IconButton.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/InspectorPanel.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/ModelCard.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/PreviewPlayer.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/PrimaryButton.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/ProgressCard.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/ProjectCard.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/SceneCard.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/SecondaryButton.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/StatusBadge.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Spacing.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Typography.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/AppEnvironment.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/AppError.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/AudioIdentity.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/BrandKit.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/CameraPreset.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/CharacterElement.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/ContinuityElement.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/ExportPreset.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/ExportTemplate.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/GenerationJob.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/ImportSummary.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/LocationElement.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/LoraReference.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/ModelProfile.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/Project.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/ProjectTemplate.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/PromptBlock.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/Scene.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/SceneGeneration.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/StyleElement.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ContinuityLibrary/BrandKitEditorView.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ContinuityLibrary/ContinuityElementDetailView.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ContinuityLibrary/ContinuityElementListView.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ContinuityLibrary/ContinuityLibraryView.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ContinuityLibrary/ContinuityLibraryViewModel.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/Home/HomeDashboardView.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/Home/HomeDashboardViewModel.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/Home/ProjectTemplateSelectionView.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ModelManager/ModelManagerView.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ModelManager/ModelManagerViewModel.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ModelManager/SystemReportView.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ProjectStudio/ContinuityElementPicker.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ProjectStudio/ExportDialog.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ProjectStudio/ProjectStudioView.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ProjectStudio/ProjectStudioViewModel.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ProjectStudio/SceneHistoryView.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/Settings/SettingsView.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/Settings/SettingsViewModel.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/TaskQueue/TaskQueueView.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/TaskQueue/TaskQueueViewModel.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/AppLogger.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/ContinuityStore.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/ExportService.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/FileSystemService.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/GenerationClient.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/HardwareProfiler.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/MockHardwareProfiler.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/ModelStore.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/ProjectStore.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/PromptComposer.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/PromptImprovementHelper.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/SceneResolver.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/UserSettings.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/WorkerManager.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/DerivedSources/resource_bundle_accessor.swift"
+      ],
+      "tempsPath" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.AIStudioLocalPackageTests-arm64-apple-macosx-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalPackageTests.build/sources",
+      "importPath" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalPackageTests.derived/runner.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/Modules/AIStudioLocalTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalPackageTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "AIStudioLocalPackageTests",
+      "moduleOutputPath" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/Modules/AIStudioLocalPackageTests.swiftmodule",
+      "objects" : [
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalPackageTests.build/runner.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j16",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalPackageTests.build/include/AIStudioLocalPackageTests-Swift.h",
+        "-color-diagnostics",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "app"
+      ],
+      "outputFileMapPath" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalPackageTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalPackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/Modules/AIStudioLocalPackageTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalPackageTests.derived/runner.swift"
+      ],
+      "tempsPath" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalPackageTests.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.AIStudioLocalTests-arm64-apple-macosx-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/sources",
+      "importPath" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/AppErrorTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/DomainTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/EnvironmentBoundaryTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/HomeDashboardViewModelTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/ModelManagerViewModelTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/ProjectStoreTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/PromptComposerTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/PromptImprovementHelperTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/SceneResolutionTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Services/ContinuityStoreTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Services/ExportOverlayTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Services/ExportServiceTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Services/GenerationClientTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Services/WorkerLifecycleTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/SmokeTests/WorkflowSmokeTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/TaskQueueViewModelTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/UserSettingsTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "AIStudioLocalTests",
+      "moduleOutputPath" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/Modules/AIStudioLocalTests.swiftmodule",
+      "objects" : [
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/AppErrorTests.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/DomainTests.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/EnvironmentBoundaryTests.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/HomeDashboardViewModelTests.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ModelManagerViewModelTests.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ProjectStoreTests.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/PromptComposerTests.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/PromptImprovementHelperTests.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/SceneResolutionTests.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ContinuityStoreTests.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ExportOverlayTests.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ExportServiceTests.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/GenerationClientTests.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/WorkerLifecycleTests.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/WorkflowSmokeTests.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/TaskQueueViewModelTests.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/UserSettingsTests.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j16",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-color-diagnostics",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "app"
+      ],
+      "outputFileMapPath" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/AppErrorTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/DomainTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/EnvironmentBoundaryTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/HomeDashboardViewModelTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ModelManagerViewModelTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ProjectStoreTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/PromptComposerTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/PromptImprovementHelperTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/SceneResolutionTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ContinuityStoreTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ExportOverlayTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ExportServiceTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/GenerationClientTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/WorkerLifecycleTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/WorkflowSmokeTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/TaskQueueViewModelTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/UserSettingsTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/Modules/AIStudioLocalTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/AppErrorTests.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/DomainTests.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/EnvironmentBoundaryTests.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/HomeDashboardViewModelTests.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/ModelManagerViewModelTests.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/ProjectStoreTests.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/PromptComposerTests.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/PromptImprovementHelperTests.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/SceneResolutionTests.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Services/ContinuityStoreTests.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Services/ExportOverlayTests.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Services/ExportServiceTests.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Services/GenerationClientTests.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Services/WorkerLifecycleTests.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/SmokeTests/WorkflowSmokeTests.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/TaskQueueViewModelTests.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/UserSettingsTests.swift"
+      ],
+      "tempsPath" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "AIStudioLocal" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "AIStudioLocal",
+      "-package-name",
+      "app",
+      "-c",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/App/AIStudioLocalApp.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/App/AppRouter.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/App/AppState.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/App/MainNavigationView.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Colors.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/AppErrorView.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/ElementChip.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/EmptyStateView.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/FlowLayout.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/GenerationVersionCard.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/IconButton.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/InspectorPanel.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/ModelCard.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/PreviewPlayer.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/PrimaryButton.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/ProgressCard.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/ProjectCard.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/SceneCard.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/SecondaryButton.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/StatusBadge.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Spacing.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Typography.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/AppEnvironment.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/AppError.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/AudioIdentity.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/BrandKit.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/CameraPreset.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/CharacterElement.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/ContinuityElement.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/ExportPreset.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/ExportTemplate.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/GenerationJob.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/ImportSummary.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/LocationElement.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/LoraReference.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/ModelProfile.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/Project.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/ProjectTemplate.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/PromptBlock.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/Scene.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/SceneGeneration.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/StyleElement.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ContinuityLibrary/BrandKitEditorView.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ContinuityLibrary/ContinuityElementDetailView.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ContinuityLibrary/ContinuityElementListView.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ContinuityLibrary/ContinuityLibraryView.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ContinuityLibrary/ContinuityLibraryViewModel.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/Home/HomeDashboardView.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/Home/HomeDashboardViewModel.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/Home/ProjectTemplateSelectionView.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ModelManager/ModelManagerView.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ModelManager/ModelManagerViewModel.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ModelManager/SystemReportView.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ProjectStudio/ContinuityElementPicker.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ProjectStudio/ExportDialog.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ProjectStudio/ProjectStudioView.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ProjectStudio/ProjectStudioViewModel.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ProjectStudio/SceneHistoryView.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/Settings/SettingsView.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/Settings/SettingsViewModel.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/TaskQueue/TaskQueueView.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/TaskQueue/TaskQueueViewModel.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/AppLogger.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/ContinuityStore.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/ExportService.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/FileSystemService.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/GenerationClient.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/HardwareProfiler.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/MockHardwareProfiler.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/ModelStore.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/ProjectStore.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/PromptComposer.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/PromptImprovementHelper.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/SceneResolver.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/UserSettings.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/WorkerManager.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/DerivedSources/resource_bundle_accessor.swift",
+      "-I",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j16",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_AVAILABLE",
+      "-module-cache-path",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-Xfrontend",
+      "-entry-point-function-name",
+      "-Xfrontend",
+      "AIStudioLocal_main",
+      "-color-diagnostics",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "app",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "AIStudioLocalPackageTests" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "AIStudioLocalPackageTests",
+      "-package-name",
+      "app",
+      "-c",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalPackageTests.derived/runner.swift",
+      "-I",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j16",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalPackageTests.build/include/AIStudioLocalPackageTests-Swift.h",
+      "-color-diagnostics",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "app",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "AIStudioLocalTests" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "AIStudioLocalTests",
+      "-package-name",
+      "app",
+      "-c",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/AppErrorTests.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/DomainTests.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/EnvironmentBoundaryTests.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/HomeDashboardViewModelTests.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/ModelManagerViewModelTests.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/ProjectStoreTests.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/PromptComposerTests.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/PromptImprovementHelperTests.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/SceneResolutionTests.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Services/ContinuityStoreTests.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Services/ExportOverlayTests.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Services/ExportServiceTests.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Services/GenerationClientTests.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Services/WorkerLifecycleTests.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/SmokeTests/WorkflowSmokeTests.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/TaskQueueViewModelTests.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/UserSettingsTests.swift",
+      "-I",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j16",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-color-diagnostics",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "app",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "AIStudioLocal" : [
+
+    ],
+    "AIStudioLocalPackageTests" : [
+      "AIStudioLocalTests",
+      "AIStudioLocal"
+    ],
+    "AIStudioLocalTests" : [
+      "AIStudioLocal"
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+    "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalPackageTests.derived/runner.swift" : {
+      "inputs" : [
+
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalPackageTests.derived/runner.swift"
+        }
+      ]
+    }
+  },
+  "traitConfiguration" : {
+    "default" : {
+
+    }
+  },
+  "writeCommands" : {
+    "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal-entitlement.plist" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<entitlement-plist>"
+        },
+        {
+          "kind" : "virtual",
+          "name" : "<com.apple.security.get-task-allow>"
+        }
+      ],
+      "outputFilePath" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal-entitlement.plist"
+    },
+    "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/App/AIStudioLocalApp.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/App/AppRouter.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/App/AppState.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/App/MainNavigationView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Colors.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/AppErrorView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/ElementChip.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/EmptyStateView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/FlowLayout.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/GenerationVersionCard.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/IconButton.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/InspectorPanel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/ModelCard.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/PreviewPlayer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/PrimaryButton.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/ProgressCard.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/ProjectCard.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/SceneCard.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/SecondaryButton.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/StatusBadge.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Spacing.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Typography.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/AppEnvironment.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/AppError.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/AudioIdentity.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/BrandKit.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/CameraPreset.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/CharacterElement.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/ContinuityElement.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/ExportPreset.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/ExportTemplate.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/GenerationJob.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/ImportSummary.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/LocationElement.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/LoraReference.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/ModelProfile.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/Project.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/ProjectTemplate.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/PromptBlock.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/Scene.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/SceneGeneration.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/StyleElement.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ContinuityLibrary/BrandKitEditorView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ContinuityLibrary/ContinuityElementDetailView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ContinuityLibrary/ContinuityElementListView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ContinuityLibrary/ContinuityLibraryView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ContinuityLibrary/ContinuityLibraryViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/Home/HomeDashboardView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/Home/HomeDashboardViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/Home/ProjectTemplateSelectionView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ModelManager/ModelManagerView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ModelManager/ModelManagerViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ModelManager/SystemReportView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ProjectStudio/ContinuityElementPicker.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ProjectStudio/ExportDialog.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ProjectStudio/ProjectStudioView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ProjectStudio/ProjectStudioViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/ProjectStudio/SceneHistoryView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/Settings/SettingsView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/Settings/SettingsViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/TaskQueue/TaskQueueView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Features/TaskQueue/TaskQueueViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/AppLogger.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/ContinuityStore.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/ExportService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/FileSystemService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/GenerationClient.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/HardwareProfiler.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/MockHardwareProfiler.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/ModelStore.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/ProjectStore.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/PromptComposer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/PromptImprovementHelper.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/SceneResolver.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/UserSettings.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/WorkerManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/DerivedSources/resource_bundle_accessor.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/sources"
+    },
+    "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AIStudioLocalApp.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppEnvironment.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppError.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppErrorView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppLogger.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppRouter.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppState.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AudioIdentity.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/BrandKit.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/BrandKitEditorView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/CameraPreset.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/CharacterElement.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Colors.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityElement.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityElementDetailView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityElementListView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityElementPicker.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityLibraryView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityLibraryViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityStore.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ElementChip.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/EmptyStateView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ExportDialog.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ExportPreset.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ExportService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ExportTemplate.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/FileSystemService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/FlowLayout.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/GenerationClient.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/GenerationJob.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/GenerationVersionCard.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/HardwareProfiler.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/HomeDashboardView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/HomeDashboardViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/IconButton.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ImportSummary.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/InspectorPanel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/LocationElement.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/LoraReference.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/MainNavigationView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/MockHardwareProfiler.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ModelCard.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ModelManagerView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ModelManagerViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ModelProfile.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ModelStore.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/PreviewPlayer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/PrimaryButton.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProgressCard.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Project.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProjectCard.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProjectStore.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProjectStudioView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProjectStudioViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProjectTemplate.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProjectTemplateSelectionView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/PromptBlock.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/PromptComposer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/PromptImprovementHelper.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Scene.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SceneCard.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SceneGeneration.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SceneHistoryView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SceneResolver.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SecondaryButton.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SettingsView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SettingsViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Spacing.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/StatusBadge.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/StyleElement.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SystemReportView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/TaskQueueView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/TaskQueueViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Typography.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/UserSettings.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/WorkerManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/resource_bundle_accessor.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.product/Objects.LinkFileList"
+    },
+    "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalPackageTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalPackageTests.derived/runner.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalPackageTests.build/sources"
+    },
+    "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalPackageTests.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AIStudioLocalApp.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppEnvironment.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppError.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppErrorView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppLogger.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppRouter.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppState.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AudioIdentity.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/BrandKit.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/BrandKitEditorView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/CameraPreset.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/CharacterElement.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Colors.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityElement.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityElementDetailView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityElementListView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityElementPicker.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityLibraryView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityLibraryViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ContinuityStore.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ElementChip.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/EmptyStateView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ExportDialog.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ExportPreset.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ExportService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ExportTemplate.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/FileSystemService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/FlowLayout.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/GenerationClient.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/GenerationJob.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/GenerationVersionCard.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/HardwareProfiler.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/HomeDashboardView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/HomeDashboardViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/IconButton.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ImportSummary.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/InspectorPanel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/LocationElement.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/LoraReference.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/MainNavigationView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/MockHardwareProfiler.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ModelCard.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ModelManagerView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ModelManagerViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ModelProfile.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ModelStore.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/PreviewPlayer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/PrimaryButton.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProgressCard.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Project.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProjectCard.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProjectStore.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProjectStudioView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProjectStudioViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProjectTemplate.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProjectTemplateSelectionView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/PromptBlock.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/PromptComposer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/PromptImprovementHelper.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Scene.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SceneCard.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SceneGeneration.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SceneHistoryView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SceneResolver.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SecondaryButton.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SettingsView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SettingsViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Spacing.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/StatusBadge.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/StyleElement.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SystemReportView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/TaskQueueView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/TaskQueueViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Typography.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/UserSettings.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/WorkerManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/resource_bundle_accessor.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalPackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/AppErrorTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ContinuityStoreTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/DomainTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/EnvironmentBoundaryTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ExportOverlayTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ExportServiceTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/GenerationClientTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/HomeDashboardViewModelTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ModelManagerViewModelTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ProjectStoreTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/PromptComposerTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/PromptImprovementHelperTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/SceneResolutionTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/TaskQueueViewModelTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/UserSettingsTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/WorkerLifecycleTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/WorkflowSmokeTests.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalPackageTests.product/Objects.LinkFileList"
+    },
+    "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/AppErrorTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/DomainTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/EnvironmentBoundaryTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/HomeDashboardViewModelTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/ModelManagerViewModelTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/ProjectStoreTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/PromptComposerTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/PromptImprovementHelperTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/SceneResolutionTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Services/ContinuityStoreTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Services/ExportOverlayTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Services/ExportServiceTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Services/GenerationClientTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Services/WorkerLifecycleTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/SmokeTests/WorkflowSmokeTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/TaskQueueViewModelTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/UserSettingsTests.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/sources"
+    },
+    "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+    }
+  }
+}

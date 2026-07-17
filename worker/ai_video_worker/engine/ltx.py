@@ -49,6 +49,21 @@ class LTXGenerationEngine(GenerationEngine):
         progress_callback: Optional[ProgressCallback] = None,
         cancellation_token: Optional[CancellationToken] = None,
     ) -> str:
+        # Automatically load model if not already loaded or different model requested
+        model_id = getattr(request, "model_id", None)
+        if model_id and self.adapter._current_model_id != model_id:
+            if progress_callback:
+                progress_callback("loading_model", 0.1, f"Loading model {model_id}...")
+
+            # Find the model profile
+            from ai_video_worker.utils.models import scan_models
+            models = scan_models(settings.models_dir)
+            profile = next((m for m in models if m.id == model_id), None)
+
+            # Use profile if found, otherwise use model_id as string
+            # If profile is None, load_model will handle model_id string
+            await self.load_model(profile if profile is not None else model_id)
+
         return await self._run_generation(
             self.adapter.generate_text_to_video,
             request,
@@ -64,6 +79,21 @@ class LTXGenerationEngine(GenerationEngine):
         progress_callback: Optional[ProgressCallback] = None,
         cancellation_token: Optional[CancellationToken] = None,
     ) -> str:
+        # Automatically load model if not already loaded or different model requested
+        model_id = getattr(request, "model_id", None)
+        if model_id and self.adapter._current_model_id != model_id:
+            if progress_callback:
+                progress_callback("loading_model", 0.1, f"Loading model {model_id}...")
+
+            # Find the model profile
+            from ai_video_worker.utils.models import scan_models
+            models = scan_models(settings.models_dir)
+            profile = next((m for m in models if m.id == model_id), None)
+
+            # Use profile if found, otherwise use model_id as string
+            # If profile is None, load_model will handle model_id string
+            await self.load_model(profile if profile is not None else model_id)
+
         return await self._run_generation(
             self.adapter.generate_image_to_video,
             request,
@@ -145,31 +175,42 @@ class LTXGenerationEngine(GenerationEngine):
 
             # 3. Preview Generation
             if progress_callback:
-                progress_callback("saving_metadata", 0.96, "Generating preview image...")
+                progress_callback("saving_metadata", 0.92, "Generating preview image...")
             preview_path = Path(output_path).parent / "preview.jpg"
-            # In a real implementation, we would extract a frame from result_path
-            with open(preview_path, "wb") as f:
-                f.write(b"dummy jpg content")
+            try:
+                self._extract_preview(result_path, str(preview_path))
+            except Exception as e:
+                logger.warning(f"Failed to extract preview: {e}")
+                # Do not write dummy content. UI should handle missing preview.
 
             # 4. Save Composed Prompt
             if progress_callback:
-                progress_callback("saving_metadata", 0.98, "Saving composed prompt...")
+                progress_callback("saving_metadata", 0.95, "Saving composed prompt...")
             prompt_path = Path(output_path).parent / "composed-prompt.md"
             with open(prompt_path, "w") as f:
                 f.write(f"# Composed Prompt\n\n{getattr(request, 'prompt', 'No prompt')}\n")
 
             # 5. Metadata Preservation
+            if progress_callback:
+                progress_callback("saving_metadata", 0.98, "Saving detailed metadata...")
             generation_time = time.time() - start_time
             self._save_detailed_metadata(job_id, request, result_path, generation_time)
+
+            if progress_callback:
+                progress_callback("completed", 1.0, "Generation finished")
 
             return result_path
 
         except (UnsupportedCapabilityError, DependencyError) as e:
             # Re-raise clean errors
             logger.error(f"Generation engine error: {e}")
+            if progress_callback:
+                progress_callback("failed", 1.0, f"Error: {str(e)}")
             raise e
         except Exception as e:
             logger.error(f"Generation failed: {e}")
+            if progress_callback:
+                progress_callback("failed", 1.0, f"Unexpected error: {str(e)}")
             raise e
 
     def _validate_hardware(self):
@@ -177,6 +218,15 @@ class LTXGenerationEngine(GenerationEngine):
         # Check for Apple Silicon
         if platform.machine() != "arm64":
             logger.warning("Not running on Apple Silicon. MLX might be slow or unsupported.")
+
+        # Try to check for LTX dependencies in a way that doesn't block the whole engine
+        try:
+            import importlib
+            importlib.import_module("ltx_video")
+        except ImportError:
+            # We don't raise DependencyError here anymore, let the adapter handle it
+            # so it can fall back to mock if needed.
+            logger.warning("ltx_video not found during hardware validation. Adapter will handle fallback.")
 
         # Check memory
         mem = psutil.virtual_memory()
@@ -250,3 +300,36 @@ class LTXGenerationEngine(GenerationEngine):
         metadata_path = Path(output_path).parent / "metadata.json"
         with open(metadata_path, "w") as f:
             json.dump(metadata, f, indent=2, default=str)
+
+    def _extract_preview(self, video_path: str, preview_path: str):
+        """Extracts the first frame of the video as a preview image."""
+        try:
+            import cv2
+            cap = cv2.VideoCapture(video_path)
+            success, frame = cap.read()
+            if success:
+                cv2.imwrite(preview_path, frame)
+                logger.info(f"Extracted preview to {preview_path}")
+            else:
+                logger.warning(f"Could not read first frame from {video_path}")
+            cap.release()
+        except ImportError:
+            # Fallback to ffmpeg if cv2 is not available
+            logger.info("OpenCV not available for preview extraction, trying ffmpeg")
+            import subprocess
+            try:
+                subprocess.run([
+                    "ffmpeg", "-i", video_path,
+                    "-ss", "00:00:00",
+                    "-vframes", "1",
+                    "-q:v", "2",
+                    preview_path,
+                    "-y"
+                ], check=True, capture_output=True)
+                logger.info(f"Extracted preview via ffmpeg to {preview_path}")
+            except Exception as e:
+                logger.error(f"ffmpeg preview extraction failed: {e}")
+                raise e
+        except Exception as e:
+            logger.error(f"Preview extraction failed: {e}")
+            raise e

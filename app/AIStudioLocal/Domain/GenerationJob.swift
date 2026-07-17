@@ -62,6 +62,7 @@ public struct GenerationJob: Codable, Identifiable, Equatable {
     public var completedAt: Date?
     public var sceneName: String?
     public var message: String?
+    public var error: String?
     public var outputPaths: JobOutputPaths?
     public var errorInformation: JobErrorInformation?
 
@@ -77,6 +78,7 @@ public struct GenerationJob: Codable, Identifiable, Equatable {
         completedAt: Date? = nil,
         sceneName: String? = nil,
         message: String? = nil,
+        error: String? = nil,
         outputPaths: JobOutputPaths? = nil,
         errorInformation: JobErrorInformation? = nil
     ) {
@@ -91,6 +93,7 @@ public struct GenerationJob: Codable, Identifiable, Equatable {
         self.completedAt = completedAt
         self.sceneName = sceneName
         self.message = message
+        self.error = error
         self.outputPaths = outputPaths
         self.errorInformation = errorInformation
     }
@@ -107,6 +110,7 @@ public struct GenerationJob: Codable, Identifiable, Equatable {
         case completedAt = "completed_at"
         case sceneName = "scene_name"
         case message
+        case error
         case outputPaths = "output_paths"
         case errorInformation = "error_information"
     }
@@ -123,6 +127,7 @@ public struct ModelProfileSummary: Codable, Equatable {
 }
 
 // MARK: - Mock Fixtures
+#if DEBUG
 extension GenerationJob {
     public static var mock: GenerationJob {
         GenerationJob(
@@ -134,3 +139,4 @@ extension GenerationJob {
         )
     }
 }
+#endif

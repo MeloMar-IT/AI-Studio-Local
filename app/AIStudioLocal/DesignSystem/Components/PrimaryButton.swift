@@ -11,8 +11,13 @@ struct PrimaryButton: View {
         self.action = action
     }
 
+    @Environment(\.isEnabled) private var isEnabled
+
     var body: some View {
-        Button(action: action) {
+        Button(action: {
+            NSLog("🔘 PrimaryButton: Clicked '\(title)'")
+            action()
+        }) {
             HStack(spacing: Spacing.xSmall) {
                 if let icon = icon {
                     Image(systemName: icon)
@@ -22,8 +27,8 @@ struct PrimaryButton: View {
             .padding(.horizontal, Spacing.medium)
             .padding(.vertical, Spacing.xSmall)
             .frame(minHeight: 32)
-            .background(Color.App.accent)
-            .foregroundColor(.white)
+            .background(isEnabled ? Color.App.accent : Color.App.accent.opacity(0.3))
+            .foregroundColor(isEnabled ? .white : .white.opacity(0.6))
             .cornerRadius(Spacing.cornerRadius)
         }
         .buttonStyle(.plain)

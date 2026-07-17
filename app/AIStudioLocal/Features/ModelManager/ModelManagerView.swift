@@ -12,7 +12,57 @@ struct ModelManagerView: View {
         _viewModel = StateObject(wrappedValue: ModelManagerViewModel(modelStore: RemoteModelStore(), appState: appState))
     }
 
+    @State private var selectedTab = 0
+
     var body: some View {
+        VStack(spacing: 0) {
+            // Tab Switcher
+            Picker("", selection: $selectedTab) {
+                Text("Models").tag(0)
+                Text("System Report").tag(1)
+            }
+            .pickerStyle(.segmented)
+            .padding()
+            .frame(width: 300)
+
+            if selectedTab == 0 {
+                modelsContentView
+            } else {
+                SystemReportView()
+            }
+        }
+        .fileImporter(
+            isPresented: $showImportPicker,
+            allowedContentTypes: [.folder],
+            allowsMultipleSelection: false
+        ) { result in
+            switch result {
+            case .success(let urls):
+                if let url = urls.first {
+                    selectedImportPath = url.path
+                    viewModel.validateModelFolder(at: url.path)
+                    showImportDialog = true
+                }
+            case .failure(let error):
+                viewModel.errorMessage = "Failed to select folder: \(error.localizedDescription)"
+            }
+        }
+        .sheet(isPresented: $showImportDialog) {
+            importDialogView
+        }
+        .alert("Error", isPresented: Binding(
+            get: { viewModel.errorMessage != nil },
+            set: { if !$0 { viewModel.errorMessage = nil } }
+        )) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            if let errorMessage = viewModel.errorMessage {
+                Text(errorMessage)
+            }
+        }
+    }
+
+    private var modelsContentView: some View {
         HStack(spacing: 0) {
             // Sidebar List
             VStack(alignment: .leading, spacing: 0) {
@@ -60,7 +110,15 @@ struct ModelManagerView: View {
                         Text("Disconnected from Worker")
                             .font(.App.caption)
                     }
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.orange)
+                    .padding()
+                } else {
+                    HStack {
+                        Image(systemName: "wifi")
+                        Text("Connected")
+                            .font(.App.caption)
+                    }
+                    .foregroundColor(.green)
                     .padding()
                 }
             }
@@ -78,35 +136,6 @@ struct ModelManagerView: View {
                     message: "Select a model from the list to view details.",
                     icon: "cpu"
                 )
-            }
-        }
-        .fileImporter(
-            isPresented: $showImportPicker,
-            allowedContentTypes: [.folder],
-            allowsMultipleSelection: false
-        ) { result in
-            switch result {
-            case .success(let urls):
-                if let url = urls.first {
-                    selectedImportPath = url.path
-                    viewModel.validateModelFolder(at: url.path)
-                    showImportDialog = true
-                }
-            case .failure(let error):
-                viewModel.errorMessage = "Failed to select folder: \(error.localizedDescription)"
-            }
-        }
-        .sheet(isPresented: $showImportDialog) {
-            importDialogView
-        }
-        .alert("Error", isPresented: Binding(
-            get: { viewModel.errorMessage != nil },
-            set: { if !$0 { viewModel.errorMessage = nil } }
-        )) {
-            Button("OK", role: .cancel) { }
-        } message: {
-            if let errorMessage = viewModel.errorMessage {
-                Text(errorMessage)
             }
         }
     }

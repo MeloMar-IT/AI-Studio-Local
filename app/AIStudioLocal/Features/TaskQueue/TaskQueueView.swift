@@ -67,7 +67,7 @@ struct TaskQueueContentView: View {
                     status: job.status.rawValue.replacingOccurrences(of: "_", with: " ").capitalized,
                     startedAt: job.startedAt,
                     completedAt: job.completedAt,
-                    errorInformation: job.errorInformation,
+                    errorInformation: job.errorInformation ?? (job.error != nil ? JobErrorInformation(code: "generation_failed", message: job.error!) : nil),
                     jobStatus: job.status,
                     onCancel: {
                         viewModel.cancelJob(job)

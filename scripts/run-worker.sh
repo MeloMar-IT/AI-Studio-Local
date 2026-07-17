@@ -24,6 +24,15 @@ fi
 
 # Install dependencies if needed
 echo "Checking dependencies..."
+
+# Ensure ltx-video and its requirements are installed (using --no-deps for ltx-video to avoid conflict with MLX suite)
+if ! pip show ltx-video > /dev/null 2>&1 || ! pip show mlx-video-with-audio > /dev/null 2>&1; then
+    echo "Installing ltx-video, mlx-video-with-audio and requirements..."
+    pip install torch diffusers einops sentencepiece timm opencv-python
+    pip install mlx>=0.20.0 mlx-vlm>=0.3.0 mlx-lm>=0.19.0 mlx-audio>=0.4.5 mlx-video-with-audio>=0.1.36
+    pip install --no-deps ltx-video==0.1.2
+fi
+
 if [[ "$ENVIRONMENT" == "development" ]]; then
     echo "Development mode: ensuring editable install is fresh..."
     pip install -e .
@@ -47,4 +56,5 @@ trap 'echo "** Trapped CTRL-C / Termination"; pkill -f "ai_video_worker/main.py"
 echo "Starting AI Studio Local Worker..."
 export PYTHONPATH=$PYTHONPATH:.
 export AI_VIDEO_WORKER_ENVIRONMENT=$ENVIRONMENT
-python ai_video_worker/main.py
+# Disable reload to prevent interrupting long-running jobs
+python ai_video_worker/main.py --no-reload

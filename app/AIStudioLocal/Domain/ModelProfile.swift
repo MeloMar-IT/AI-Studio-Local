@@ -105,6 +105,7 @@ public struct ModelProfile: Codable, Identifiable, Equatable, Hashable {
 }
 
 // MARK: - Mock Fixtures
+#if DEBUG
 extension ModelProfile {
     public static var mock: ModelProfile {
         ModelProfile(
@@ -184,3 +185,4 @@ extension ModelProfile {
         ]
     }
 }
+#endif

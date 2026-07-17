@@ -135,7 +135,8 @@ class ProjectStudioViewModel: ObservableObject {
                 let modelStore = RemoteModelStore(generationClient: self.generationClient)
                 self.availableModels = try await modelStore.fetchModels()
             } catch {
-                self.availableModels = ModelProfile.mocks
+                self.availableModels = []
+                AppLogger.shared.error("Failed to fetch models: \(error.localizedDescription)", category: .worker)
             }
         }
     }
@@ -393,24 +394,42 @@ class ProjectStudioViewModel: ObservableObject {
     }
 
     func generateScene() {
-        guard let scene = selectedScene, let project = project, let appState = appState else { return }
+        NSLog("🎬 ProjectStudioViewModel: generateScene() called")
+        guard let scene = selectedScene, let project = project, let appState = appState else {
+            NSLog("🎬 ProjectStudioViewModel: generateScene() aborted - missing dependencies (scene: \(selectedScene != nil), project: \(project != nil), appState: \(appState != nil))")
+            return
+        }
+
+        NSLog("🎬 ProjectStudioViewModel: Generating scene '\(scene.name)' (ID: \(scene.id)) for project '\(project.name)'")
 
         if !appState.isWorkerAvailable {
+            NSLog("🎬 ProjectStudioViewModel: generateScene() aborted - worker not available")
             appState.activeError = AppError.workerUnavailable()
             return
         }
 
         if !appState.hardwareProfile.isLocalModeReady {
+            NSLog("🎬 ProjectStudioViewModel: generateScene() aborted - local mode not ready (hardware profile: \(appState.hardwareProfile))")
             appState.activeError = AppError.unsupportedMac(reason: "Insufficient memory or non-Apple Silicon hardware.")
             return
         }
 
         isGenerating = true
+        appState.isLoading = true // Show loading overlay or feedback
         let composed = composePrompt(for: scene)
+        NSLog("🎬 ProjectStudioViewModel: Composed prompt: \(composed.prompt.prefix(100))...")
 
         let request = GenerationRequest(
             prompt: scene.mode == .retake ? retakePrompt : composed.prompt,
-            negativePrompt: composed.negativePrompt,
+            negativePrompt: composed.negativePrompt.isEmpty ? nil : composed.negativePrompt,
+            width: scene.resolution?.width ?? 704,
+            height: scene.resolution?.height ?? 512,
+            numFrames: Int((scene.durationSeconds * Double(scene.fps ?? 24))),
+            steps: scene.inferenceSteps ?? 20,
+            guidanceScale: Double(scene.guidanceScale ?? 3.0),
+            seed: scene.seed,
+            enhancePrompt: true, // Enable prompt enhancement by default for better quality
+            useUncensoredEnhancer: false,
             modelId: "ltx-video-v1", // Default model for now
             projectId: project.id,
             sceneId: scene.id,
@@ -422,6 +441,7 @@ class ProjectStudioViewModel: ObservableObject {
 
         Task {
             do {
+                NSLog("🎬 ProjectStudioViewModel: Submitting generation request to client (mode: \(scene.mode))")
                 let jobId: String
                 switch scene.mode {
                 case .textToVideo:
@@ -437,6 +457,8 @@ class ProjectStudioViewModel: ObservableObject {
                     throw GenerationClientError.invalidRequest("Model download cannot be initiated from scene generation.")
                 }
 
+                NSLog("🎬 ProjectStudioViewModel: Generation submitted successfully, job ID: \(jobId)")
+
                 let job = GenerationJob(
                     id: jobId,
                     projectId: project.id,
@@ -450,17 +472,23 @@ class ProjectStudioViewModel: ObservableObject {
                 )
 
                 await MainActor.run {
+                    NSLog("🎬 ProjectStudioViewModel: Adding job to AppState and resetting isGenerating")
                     appState.addJob(job)
                     isGenerating = false
+                    appState.isLoading = false
                 }
             } catch let error as GenerationClientError {
+                NSLog("🎬 ProjectStudioViewModel: Generation failed with GenerationClientError: \(error)")
                 await MainActor.run {
                     isGenerating = false
+                    appState.isLoading = false
                     appState.activeError = error.asAppError
                 }
             } catch {
+                NSLog("🎬 ProjectStudioViewModel: Generation failed with unexpected error: \(error.localizedDescription)")
                 await MainActor.run {
                     isGenerating = false
+                    appState.isLoading = false
                     appState.activeError = AppError.generationFailed(details: error.localizedDescription) { [weak self] in
                         self?.generateScene()
                     }

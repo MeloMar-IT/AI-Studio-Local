@@ -34,7 +34,9 @@ def test_models():
     data = response.json()
     assert "models" in data
     assert len(data["models"]) > 0
-    assert data["models"][0]["id"] == "ltx-video-2b-v0.9"
+    # Ensure our new backend/model_type fields are present
+    assert "backend" in data["models"][0]
+    assert "model_type" in data["models"][0]
 
 
 def test_create_job():

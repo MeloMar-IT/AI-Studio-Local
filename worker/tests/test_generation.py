@@ -12,6 +12,8 @@ from ai_video_worker.schemas.api import GenerationRequest
 class FakeAdapter(LTXAdapter):
     def __init__(self):
         self.should_fail = False
+        self._current_model_id = "fake-model"
+        self._current_model_path = "/fake/path"
 
     def capabilities(self) -> List[str]:
         return ["text-to-video"]
@@ -36,8 +38,9 @@ class FakeAdapter(LTXAdapter):
             progress_callback("generating", 0.5, "Generating...")
 
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        # Write at least 10KB to satisfy the new validation in store.py
         with open(output_path, "wb") as f:
-            f.write(b"fake video")
+            f.write(b"fake video content" * 1000)
         return output_path
 
     async def generate_image_to_video(self, *args, **kwargs):

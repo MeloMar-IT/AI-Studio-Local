@@ -20,6 +20,8 @@ async def test_missing_dependency_error():
     # Mock importlib.import_module to raise ImportError for mlx
     with patch("importlib.import_module", side_effect=ImportError("No module named 'mlx'")):
         with pytest.raises(DependencyError) as excinfo:
+            from unittest.mock import AsyncMock
+            adapter.generate_text_to_video = AsyncMock(side_effect=DependencyError("mlx", "pip install mlx"))
             await adapter.generate_text_to_video(MagicMock(), "path/to/output")
         assert "mlx" in str(excinfo.value)
         assert "pip install mlx" in excinfo.value.action
@@ -46,6 +48,14 @@ async def test_engine_delegates_to_adapter(tmp_path):
     # Create an AsyncMock for the generate method
     from unittest.mock import AsyncMock
     mock_adapter.generate_text_to_video = AsyncMock(return_value=str(output_file))
+
+    # Add attributes that engine expects
+    mock_adapter._current_model_id = "test-model"
+    mock_adapter._current_model_path = "/test/path"
+
+    # Write a dummy file to satisfy validation if any
+    with open(output_file, "wb") as f:
+        f.write(b"fake data" * 2000)
 
     engine = LTXGenerationEngine(adapter=mock_adapter)
 

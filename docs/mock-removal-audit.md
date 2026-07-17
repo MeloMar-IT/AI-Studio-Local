@@ -27,9 +27,17 @@ This document identifies all mocks, fake data, sample-only services, and placeho
 - **convert-to-test-fixture**: Move mock data into test suites for unit/integration testing.
 - **explicitly-unsupported**: Mark as "Coming Soon" in UI and disable functionality instead of faking it.
 
-## Next Steps
+| `worker/ai_video_worker/engine/mlx_adapter.py` | `MLXLTXAdapter` | Generation Engine | **CLEANED** - Mock pipeline fallback and placeholder generation removed. | replace-with-real-code |
+| `app/AIStudioLocal/Features/ProjectStudio/ProjectStudioViewModel.swift` | `availableModels` | Model Management | **CLEANED** - Removed fallback to `ModelProfile.mocks`. | replace-with-real-code |
 
-1. Implement Environment Modes (Production/Development/Test).
-2. Isolate `keep-as-preview-only` code using `#if DEBUG`.
-3. Prioritize replacement of `MockGenerationEngine` with real MLX integration.
-4. Clean up MVP-only hardcoded logic in `ProjectStudioView`.
+## Summary of Completion
+
+1.  **Generation Engine**: The `MLXLTXAdapter` now strictly requires `ltx-video` and valid model files. Placeholder video generation using ffmpeg has been removed.
+2.  **Swift Application**: Production paths no longer fall back to mock data when services fail. Instead, they log errors and show empty states as required by the "no mocks" mandate.
+3.  **Isolation**: All remaining domain model mocks are strictly isolated behind `#if DEBUG`.
+
+## Rules Enforcement
+
+- No mocks in video generation.
+- No silent fallbacks to mocks.
+- Every feature must have real implementation or a clear failing placeholder with a useful error.

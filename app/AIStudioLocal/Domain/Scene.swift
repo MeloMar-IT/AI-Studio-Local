@@ -149,7 +149,7 @@ public struct Scene: Codable, Identifiable, Equatable {
         mode: SceneMode = .textToVideo,
         prompt: String = "",
         negativePrompt: String? = nil,
-        durationSeconds: Double = 5.0,
+        durationSeconds: Double = 2.0,
         aspectRatio: String? = nil,
         resolution: SceneResolution? = nil,
         referenceImagePath: String? = nil,

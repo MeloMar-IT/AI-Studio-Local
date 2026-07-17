@@ -1,6 +1,8 @@
 import asyncio
 import json
 import uuid
+import time
+from pathlib import Path
 from datetime import datetime
 from typing import Dict, Optional, Any
 
@@ -81,7 +83,7 @@ class JobStore:
             "project_id": request.project_id,
             "scene_id": request.scene_id,
             "status": job.status,
-            "request_summary": request.model_dump(exclude={"prompt", "negative_prompt"}),
+            "request_summary": request.model_dump(),
             "model_profile": request.model_id, # In a real implementation we might store more profile info
             "composed_prompt_path": request.composed_prompt_path,
             "output_paths": {
@@ -101,7 +103,7 @@ class JobStore:
 
         # Start generation task
         asyncio.create_task(self.run_job(job_id, request, token))
-        logger.info(f"Created job {job_id} for project {request.project_id}")
+        logger.info(f"Created job {job_id} for project {request.project_id}. Starting generation...")
         return job_id
 
     def get_job(self, job_id: str) -> Optional[JobStatus]:
@@ -265,14 +267,26 @@ class JobStore:
             logger.error(f"Failed to update metadata for job {job_id}: {e}")
 
     async def run_job(self, job_id: str, request: GenerationRequest, token: CancellationToken):
+        last_log_time = 0  # Initialize to 0 to ensure the first progress update is always logged
+
         def progress_callback(status: str, progress: float, message: str):
+            nonlocal last_log_time
             if job_id in self.jobs:
                 job = self.jobs[job_id]
                 job.status = status
                 job.progress = progress
                 job.message = message
                 job.updated_at = datetime.now()
-                logger.info(f"Job {job_id} progress: {status} ({progress*100}%)")
+
+                # Check if 30 seconds have passed since the last log
+                current_time = time.time()
+                if current_time - last_log_time >= 30:
+                    logger.info(f"Job {job_id} progress: {status} ({progress*100:.1f}%) - {message}")
+                    last_log_time = current_time
+                else:
+                    # Keep low-level logging for debugging if needed, but the requirement is every 30s
+                    # We'll use DEBUG level for more frequent updates to avoid cluttering INFO
+                    logger.debug(f"Job {job_id} progress: {status} ({progress*100:.1f}%)")
 
                 # Notify listeners
                 if job_id in self.listeners:
@@ -295,7 +309,8 @@ class JobStore:
                         metadata["status"] = status
                         metadata["progress"] = progress
                         metadata["message"] = message
-                        metadata["updated_at"] = job.updated_at
+                        metadata["error"] = getattr(job, "error", None)
+                        metadata["updated_at"] = job.updated_at.isoformat()
 
                         # Add progress event
                         if "progress_events" not in metadata:
@@ -304,7 +319,8 @@ class JobStore:
                             "status": status,
                             "progress": progress,
                             "message": message,
-                            "timestamp": job.updated_at
+                            "error": getattr(job, "error", None),
+                            "timestamp": job.updated_at.isoformat()
                         })
 
                         self.output_manager.save_metadata(job_id, metadata)
@@ -328,6 +344,18 @@ class JobStore:
                 return
 
             if result_path:
+                result_file = Path(result_path)
+                if not result_file.is_file():
+                    raise RuntimeError(f"Generation returned a missing output file: {result_path}")
+
+                # Check for minimum file size to catch empty/broken files
+                # 10KB is a very safe minimum for a short MP4
+                if result_file.stat().st_size < 10000:
+                    raise RuntimeError(
+                        f"Generation returned an invalid or suspiciously small output: "
+                        f"{result_file.stat().st_size} bytes"
+                    )
+
                 job = self.jobs[job_id]
                 job.result_url = f"/outputs/{job_id}/output.mp4"
                 job.status = "completed"

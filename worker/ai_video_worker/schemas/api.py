@@ -18,6 +18,9 @@ class HardwareResponse(BaseModel):
     os_name: str
     os_version: str
     python_version: str
+    python_path: str
+    venv_path: str
+    libraries_status: Dict[str, bool]
     mlx_available: bool
     pytorch_available: bool
     ffmpeg_available: bool
@@ -32,6 +35,8 @@ class ModelProfile(BaseModel):
     name: str
     description: str
     family: str
+    backend: Optional[str] = None
+    model_type: Optional[str] = None
     version: Optional[str] = None
     expected_files: List[str]
     download_urls: Optional[Dict[str, str]] = None
@@ -65,11 +70,13 @@ class GenerationRequest(BaseModel):
     prompt: str
     negative_prompt: Optional[str] = None
     width: int = 704
-    height: int = 480
-    num_frames: int = 161
+    height: int = 512
+    num_frames: int = 49
     steps: int = 20
     guidance_scale: float = 3.0
     seed: Optional[int] = None
+    enhance_prompt: bool = False
+    use_uncensored_enhancer: bool = False
     model_id: str
     project_id: Optional[str] = None
     scene_id: Optional[str] = None
@@ -119,4 +126,5 @@ class ProgressEvent(BaseModel):
     stage: str
     percentage: Optional[float] = None
     message: str
+    error: Optional[str] = None
     timestamp: datetime

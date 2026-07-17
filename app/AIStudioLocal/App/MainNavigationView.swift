@@ -16,7 +16,19 @@ struct MainNavigationView: View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             List(AppScreen.allCases, selection: $router.selectedScreen) { screen in
                 NavigationLink(value: screen) {
-                    Label(screen.rawValue, systemImage: screen.icon)
+                    HStack {
+                        Label(screen.rawValue, systemImage: screen.icon)
+                        Spacer()
+                        if screen == .taskQueue && appState.activeJobsCount > 0 {
+                            Text("\(appState.activeJobsCount)")
+                                .font(.system(size: 10, weight: .bold))
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 6)
+                                .padding(.vertical, 2)
+                                .background(Color.App.accent)
+                                .clipShape(Capsule())
+                        }
+                    }
                 }
             }
             .listStyle(.sidebar)
