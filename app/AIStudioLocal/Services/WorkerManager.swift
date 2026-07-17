@@ -167,11 +167,21 @@ public final class WorkerManager: WorkerManagerProtocol, ObservableObject {
 
     private func appendLog(_ message: String) {
         let timestamp = ISO8601DateFormatter().string(from: Date())
-        let entry = "[\(timestamp)] \(message)"
-        if !logs.isEmpty && !logs.hasSuffix("\n") {
-            logs += "\n"
+
+        // Split the message into lines to handle multi-line output properly
+        let lines = message.components(separatedBy: .newlines)
+
+        for line in lines {
+            let trimmedLine = line.trimmingCharacters(in: .whitespaces)
+            // Skip truly empty lines to avoid clutter, but preserve lines that might just be whitespace if they were intentional (though usually they aren't in logs)
+            if trimmedLine.isEmpty && line.isEmpty { continue }
+
+            let entry = "[\(timestamp)] \(line)"
+            if !logs.isEmpty && !logs.hasSuffix("\n") {
+                logs += "\n"
+            }
+            logs += entry
         }
-        logs += entry
 
         // Keep logs within reasonable size (last 10000 characters)
         if logs.count > 10000 {

@@ -202,7 +202,7 @@ public struct GenerationRequest: Codable {
         steps: Int = 20,
         guidanceScale: Double = 3.0,
         seed: Int? = nil,
-        enhancePrompt: Bool = true,
+        enhancePrompt: Bool = false,
         useUncensoredEnhancer: Bool = false,
         modelId: String,
         projectId: String,

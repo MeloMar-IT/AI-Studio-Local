@@ -54,6 +54,23 @@ mkdir -p "$(dirname "$0")/../logs"
 # Trap ctrl-c
 trap 'echo "** Trapped CTRL-C / Termination"; pkill -f "ai_video_worker/main.py"; exit' INT TERM
 
+# Check if port 8000 is already in use
+if lsof -i :8000 > /dev/null 2>&1; then
+    echo "⚠️ Port 8000 is already in use."
+    PID=$(lsof -t -i :8000)
+    echo "Process using port 8000: $PID"
+
+    # Check if it's a previous worker process
+    if ps -p "$PID" -o command | grep -q "ai_video_worker/main.py"; then
+        echo "Found previous worker process. Attempting to kill it..."
+        kill -9 "$PID" || true
+        sleep 1
+    else
+        echo "❌ Port 8000 is occupied by a non-worker process. Please free it manually."
+        exit 1
+    fi
+fi
+
 # Run the worker
 echo "Starting AI Studio Local Worker..."
 export PYTHONPATH=$PYTHONPATH:.

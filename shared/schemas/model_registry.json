@@ -32,6 +32,37 @@
       "recommended_hardware": "Apple M1 Pro 16GB or better"
     },
     {
+      "id": "ltx-video-av-q4",
+      "name": "LTX-Video AV Q4",
+      "description": "Quantized Audio-Video model for MLX",
+      "family": "LTX-Video",
+      "backend": "mlx-video-with-audio",
+      "model_type": "AudioVideo",
+      "version": "1.0",
+      "expected_files": [
+        "audio_vae.safetensors",
+        "config.json",
+        "connector.safetensors",
+        "embedded_config.json",
+        "quantize_config.json",
+        "spatial_upscaler_x1_5_v1_0.safetensors",
+        "spatial_upscaler_x2_v1_1.safetensors",
+        "split_model.json",
+        "temporal_upscaler_x2_v1_0.safetensors",
+        "transformer.safetensors",
+        "upsampler.safetensors",
+        "vae_decoder.safetensors",
+        "vae_encoder.safetensors",
+        "vocoder.safetensors"
+      ],
+      "download_urls": {
+        "transformer.safetensors": "https://huggingface.co/notapalindrome/ltx23-mlx-av-q4/resolve/main/transformer.safetensors"
+      },
+      "memory_requirement_gb": 16,
+      "supported_modes": ["text-to-video", "image-to-video", "audio-to-video"],
+      "recommended_hardware": "Apple M1 Pro 16GB or better"
+    },
+    {
       "id": "ltx-video-2b-v0.9",
       "name": "LTX-Video 2B v0.9",
       "description": "Production quality base model",
