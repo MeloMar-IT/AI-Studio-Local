@@ -13,9 +13,3 @@ public struct StyleElement: Codable, Identifiable, Equatable {
         self.element = ContinuityElement(type: .style, name: name, promptBlock: promptBlock)
     }
 }
-
-extension StyleElement {
-    public static var mock: StyleElement {
-        StyleElement(name: "Cinematic Noir", promptBlock: "High contrast, deep shadows, 35mm film grain, moody atmosphere")
-    }
-}

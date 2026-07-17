@@ -334,16 +334,26 @@ class MLXLTXAdapter(LTXAdapter):
         progress_callback: Optional[ProgressCallback] = None,
         cancellation_token: Optional[CancellationToken] = None,
     ) -> str:
+        logger.debug(f"[MLXLTXAdapter] generate_text_to_video pipeline={self._pipeline}")
         if not self._pipeline:
             raise RuntimeError("No model loaded. Call load_model first.")
 
         if self._pipeline == "AV_MODEL":
             return await self._generate_av(request, output_path, progress_callback, cancellation_token)
 
+        if not callable(self._pipeline):
+            logger.error(f"MLXLTXAdapter: self._pipeline is not callable (type: {type(self._pipeline)}). It might be an unexpected state or a failed model load.")
+            raise RuntimeError(f"Internal error: LTX pipeline is not ready for generation. Current state: {self._pipeline}")
+
         logger.info(f"MLXLTXAdapter: Generating text-to-video for {request.prompt}")
+        logger.debug(f"[MLXLTXAdapter] params: width={request.width}, height={request.height}, frames={request.num_frames}, steps={request.steps}, guidance={request.guidance_scale}")
 
         # Real LTX generation logic
         try:
+            logger.info(f"MLXLTXAdapter: Starting REAL LTX generation for prompt: '{request.prompt}'")
+            if getattr(request, 'negative_prompt', None):
+                logger.info(f"MLXLTXAdapter: Negative prompt: '{request.negative_prompt}'")
+
             # Wrapper for progress updates if the library supports it.
             # Assuming a standard callback pattern or we can wrap the generation loop.
             def internal_callback(step: int, total_steps: int, **kwargs):
@@ -361,7 +371,7 @@ class MLXLTXAdapter(LTXAdapter):
             # Ensure we have a seed for reproducibility and to avoid MLX error
             if getattr(request, "seed", None) is None or getattr(request, "seed", -1) == -1:
                 request.seed = random.randint(0, 2**32 - 1)
-                logger.info(f"Generated random seed: {request.seed}")
+                logger.info(f"Generated random seed for LTX: {request.seed}")
 
             # Real call to the pipeline
             logger.info(f"MLXLTXAdapter: Starting LTX pipeline call (seed: {request.seed}). This may take a while...")
@@ -375,7 +385,9 @@ class MLXLTXAdapter(LTXAdapter):
             # If a placeholder already exists (e.g. from a failed previous attempt or initial setup),
             # we will overwrite it with the real generation result.
             if os.path.exists(output_path):
-                logger.info(f"MLXLTXAdapter: Overwriting existing placeholder/file at {output_path}")
+                logger.info(f"MLXLTXAdapter: Overwriting existing file/placeholder at {output_path} (size: {os.path.getsize(output_path)} bytes)")
+            else:
+                logger.info(f"MLXLTXAdapter: No existing file at {output_path}, will create new output.")
 
             # Pipeline call is blocking. Run it in a thread.
             result = await asyncio.to_thread(
@@ -390,6 +402,9 @@ class MLXLTXAdapter(LTXAdapter):
                 seed=request.seed,
                 callback=internal_callback if progress_callback else None,
             )
+
+            if progress_callback:
+                progress_callback("decoding", 0.90, "Decoding latents to video frames...")
 
             if progress_callback:
                 progress_callback("encoding_output", 0.95, "Encoding final MP4...")
@@ -431,6 +446,10 @@ class MLXLTXAdapter(LTXAdapter):
 
         if self._pipeline == "AV_MODEL":
             return await self._generate_av(request, output_path, progress_callback, cancellation_token)
+
+        if not callable(self._pipeline):
+            logger.error(f"MLXLTXAdapter: self._pipeline is not callable (type: {type(self._pipeline)}). It might be an unexpected state or a failed model load.")
+            raise RuntimeError(f"Internal error: LTX pipeline is not ready for generation. Current state: {self._pipeline}")
 
         logger.info(f"MLXLTXAdapter: Generating image-to-video for {request.prompt}")
 
@@ -541,14 +560,7 @@ class MLXLTXAdapter(LTXAdapter):
             # Ensure we have a seed for reproducibility and to avoid MLX error
             if getattr(request, "seed", None) is None or getattr(request, "seed", -1) == -1:
                 request.seed = random.randint(0, 2**32 - 1)
-                logger.info(f"Generated random seed: {request.seed}")
-
-            # Note: mlx-video-with-audio might need specific arguments
-            # We follow the pattern from av_generator.py in ltx-video-mac
-            logger.info(f"MLXLTXAdapter: Starting unified AV generation (seed: {request.seed}). This may take a while...")
-
-            if progress_callback:
-                progress_callback("generating_video", 0.1, "Starting unified AV generation (this can take several minutes)...")
+                logger.info(f"Generated random seed for AV: {request.seed}")
 
             # Ensure height/width are divisible by 64
             height = getattr(request, "height", 512)
@@ -560,38 +572,103 @@ class MLXLTXAdapter(LTXAdapter):
                 width = (width // 64) * 64
                 logger.warning(f"MLXLTXAdapter: Adjusted width to {width} (must be divisible by 64)")
 
+            logger.info(f"MLXLTXAdapter: Starting unified AV generation for prompt: '{request.prompt}'")
+            if getattr(request, 'negative_prompt', None):
+                logger.info(f"MLXLTXAdapter: Negative prompt: '{request.negative_prompt}'")
+
+            # Note: mlx-video-with-audio might need specific arguments
+            # We follow the pattern from av_generator.py in ltx-video-mac
+            logger.info(f"MLXLTXAdapter: Starting unified AV generation (seed: {request.seed}). This may take a while...")
+            logger.debug(f"MLXLTXAdapter: AV Generation Details:")
+            logger.debug(f"  - Model Repo: {model_repo}")
+            logger.debug(f"  - Text Encoder: {text_encoder_path}")
+            logger.debug(f"  - Prompt: {request.prompt}")
+            logger.debug(f"  - Size: {width}x{height}")
+            logger.debug(f"  - Frames: {getattr(request, 'num_frames', 65)}")
+            logger.debug(f"  - Steps: {getattr(request, 'steps', 30)}")
+            logger.debug(f"  - Output: {output_path}")
+
             # Ensure output directory exists
             os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
             # If a placeholder already exists, we will overwrite it with the real generation result.
             if os.path.exists(output_path):
-                logger.info(f"MLXLTXAdapter: Overwriting existing placeholder/file at {output_path}")
+                logger.info(f"MLXLTXAdapter: Found existing file at {output_path} (size: {os.path.getsize(output_path)} bytes). It will be overwritten.")
 
             # Unified AV generation is blocking. Run it in a thread.
-            # Note: generate_video_with_audio does not currently support progress callbacks.
-            # We provide a simulated progress for UI purposes if it's supported by the worker infrastructure.
-            logger.info(f"MLXLTXAdapter: Calling generate_video_with_audio for output: {output_path}")
-            await asyncio.to_thread(
-                generate_video_with_audio,
-                model_repo=model_repo,
-                text_encoder_repo=text_encoder_path,
-                prompt=request.prompt,
-                height=height,
-                width=width,
-                num_frames=getattr(request, "num_frames", 65),
-                seed=request.seed,
-                fps=getattr(request, "fps", 24),
-                output_path=output_path,
-                negative_prompt=getattr(request, "negative_prompt", None),
-                cfg_scale=getattr(request, "guidance_scale", 3.0),
-                image=image_path,
-                num_inference_steps=getattr(request, "steps", 30),
-                enhance_prompt=getattr(request, "enhance_prompt", False),
-                use_uncensored_enhancer=getattr(request, "use_uncensored_enhancer", False),
-                verbose=True,
-                no_audio=False # We want audio in AV model
-            )
-            logger.info(f"MLXLTXAdapter: generate_video_with_audio completed for output: {output_path}")
+            # We capture stdout/stderr to parse progress from mlx-video's verbose output.
+            from ai_video_worker.utils.capture import ProgressStreamInterceptor, MLXProgressParser
+            import sys
+
+            parser = MLXProgressParser(progress_callback)
+
+            # Initialize with early stages so we have a base rank
+            if progress_callback:
+                progress_callback("checking_hardware", 0.05, "Validating hardware compatibility...")
+                progress_callback("loading_model", 0.08, "Preparing unified AV model...")
+
+            if getattr(request, "enhance_prompt", False):
+                logger.info(f"MLXLTXAdapter: Prompt enhancement is ENABLED. The prompt '{request.prompt}' will be expanded by an LLM.")
+                if progress_callback:
+                    progress_callback("preparing_inputs", 0.11, "Enhancing prompt with LLM...")
+            else:
+                logger.info(f"MLXLTXAdapter: Prompt enhancement is DISABLED. Using raw prompt: '{request.prompt}'")
+
+            def generation_wrapper():
+                original_stdout = sys.stdout
+                original_stderr = sys.stderr
+                sys.stdout = ProgressStreamInterceptor(original_stdout, parser.parse_line)
+                sys.stderr = ProgressStreamInterceptor(original_stderr, parser.parse_line)
+                try:
+                    generate_video_with_audio(
+                        model_repo=model_repo,
+                        text_encoder_repo=text_encoder_path,
+                        prompt=request.prompt,
+                        height=height,
+                        width=width,
+                        num_frames=getattr(request, "num_frames", 65),
+                        seed=request.seed,
+                        fps=getattr(request, "fps", 24),
+                        output_path=output_path,
+                        negative_prompt=getattr(request, "negative_prompt", None),
+                        cfg_scale=getattr(request, "guidance_scale", 3.0),
+                        image=image_path,
+                        num_inference_steps=getattr(request, "steps", 30),
+                        enhance_prompt=getattr(request, "enhance_prompt", False),
+                        use_uncensored_enhancer=getattr(request, "use_uncensored_enhancer", False),
+                        verbose=True,
+                        no_audio=False # We want audio in AV model
+                    )
+                finally:
+                    sys.stdout = original_stdout
+                    sys.stderr = original_stderr
+
+            import time
+            av_start_time = time.time()
+
+            await asyncio.to_thread(generation_wrapper)
+
+            av_duration = time.time() - av_start_time
+            logger.info(f"MLXLTXAdapter: generate_video_with_audio completed in {av_duration:.2f}s for output: {output_path}")
+
+            if os.path.exists(output_path):
+                logger.info(f"MLXLTXAdapter: Output file exists. Size: {os.path.getsize(output_path)} bytes")
+            else:
+                logger.error(f"MLXLTXAdapter: Output file DOES NOT EXIST after generation at {output_path}")
+                # Check for .temp.mp4 or .temp which some versions might leave behind
+                temp_candidates = [
+                    output_path.replace(".mp4", ".temp.mp4"),
+                    output_path.replace(".mp4", ".temp"),
+                    output_path + ".temp"
+                ]
+                for temp_path in temp_candidates:
+                    if os.path.exists(temp_path):
+                        logger.warning(f"MLXLTXAdapter: Found temporary file at {temp_path} (size: {os.path.getsize(temp_path)} bytes). Moving it to {output_path}")
+                        try:
+                            os.rename(temp_path, output_path)
+                            break
+                        except Exception as rename_err:
+                            logger.error(f"Failed to rename {temp_path} to {output_path}: {rename_err}")
 
             if progress_callback:
                 progress_callback("completed", 1.0, "Generation finished")

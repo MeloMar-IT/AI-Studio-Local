@@ -109,7 +109,16 @@ struct GenerationVersionCard: View {
 struct GenerationVersionCard_Previews: PreviewProvider {
     static var previews: some View {
         GenerationVersionCard(
-            generation: .mock,
+            generation: SceneGeneration(
+                id: "preview-gen",
+                sceneId: "preview-scene",
+                composedPrompt: "A cinematic shot of a sunset",
+                modelProfile: ModelProfileSummary(
+                    id: "fast-draft",
+                    name: "Fast Draft"
+                ),
+                duration: 5.0
+            ),
             onUse: {},
             onViewPrompt: {},
             onDelete: {},

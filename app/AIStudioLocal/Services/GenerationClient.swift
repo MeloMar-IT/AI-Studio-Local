@@ -202,7 +202,7 @@ public struct GenerationRequest: Codable {
         steps: Int = 20,
         guidanceScale: Double = 3.0,
         seed: Int? = nil,
-        enhancePrompt: Bool = false,
+        enhancePrompt: Bool = true,
         useUncensoredEnhancer: Bool = false,
         modelId: String,
         projectId: String,
@@ -458,6 +458,11 @@ public final class HTTPGenerationClient: GenerationClient {
                 mode = .modelDownload
             }
 
+            // Transform worker output paths to project-relative paths
+            let transformedOutputPaths = workerStatus.resultUrl.map { resultUrl in
+                JobOutputPaths(video: transformWorkerOutputPath(resultUrl))
+            }
+
             return GenerationJob(
                 id: workerStatus.jobId,
                 projectId: workerStatus.projectId ?? "unknown",
@@ -468,7 +473,7 @@ public final class HTTPGenerationClient: GenerationClient {
                 startedAt: workerStatus.startedAt,
                 completedAt: workerStatus.completedAt,
                 message: workerStatus.message,
-                outputPaths: workerStatus.resultUrl.map { JobOutputPaths(video: $0) },
+                outputPaths: transformedOutputPaths,
                 errorInformation: workerStatus.error.map { JobErrorInformation(code: "worker_error", message: $0) }
             )
         } catch let error as GenerationClientError {
@@ -647,5 +652,21 @@ public final class HTTPGenerationClient: GenerationClient {
         }
 
         return try decoder.decode(ModelDeleteResponse.self, from: data)
+    }
+
+    /// Transforms worker output paths (absolute paths like "/outputs/{job_id}/output.mp4")
+    /// to project-relative paths that can be resolved from the project directory.
+    private func transformWorkerOutputPath(_ workerPath: String) -> String {
+        // Worker returns absolute paths like "/outputs/{job_id}/output.mp4"
+        // We need to convert this to a path relative to the project directory
+        // For example: "outputs/{job_id}/output.mp4"
+
+        // Remove leading slash if present
+        var path = workerPath
+        if path.hasPrefix("/") {
+            path = String(path.dropFirst(1))
+        }
+
+        return path
     }
 }

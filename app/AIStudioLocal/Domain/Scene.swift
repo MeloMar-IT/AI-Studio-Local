@@ -219,18 +219,3 @@ public struct Scene: Codable, Identifiable, Equatable {
         case quantizationMode = "quantization_mode"
     }
 }
-
-// MARK: - Mock Fixtures
-extension Scene {
-    public static var mock: Scene {
-        Scene(
-            name: "Introduction Scene",
-            prompt: "A man walking through a futuristic city",
-            durationSeconds: 5.0,
-            attachedContinuityElements: [
-                AttachedContinuityElement(elementId: "mock-char-1", type: .character),
-                AttachedContinuityElement(elementId: "mock-loc-1", type: .location)
-            ]
-        )
-    }
-}

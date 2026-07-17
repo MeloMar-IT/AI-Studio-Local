@@ -36,7 +36,13 @@ final class ExportServiceTests: XCTestCase {
 
     func testExportFailsOnMissingProjectFolder() async {
         var project = Project(name: "Missing Project")
-        let scenes = [Scene.mock]
+        let scenes = [
+            Scene(
+                name: "Introduction Scene",
+                prompt: "A man walking through a futuristic city",
+                durationSeconds: 5.0
+            )
+        ]
         project.timeline.clips = [TimelineClip(sceneId: scenes[0].id, duration: 5)]
         let preset = ExportPreset.youtube
         let missingURL = tempDir.appendingPathComponent("missing")

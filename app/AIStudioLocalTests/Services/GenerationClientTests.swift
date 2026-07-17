@@ -50,7 +50,14 @@ final class GenerationClientTests: XCTestCase {
             "free_memory_gb": 32.5,
             "os_name": "macOS",
             "os_version": "14.0",
+            "python_path": "/usr/bin/python3",
+            "venv_path": "/path/to/venv",
+            "libraries_status": {"mlx": true},
             "mlx_available": true,
+            "pytorch_available": true,
+            "ffmpeg_available": true,
+            "free_disk_models_gb": 100.0,
+            "free_disk_outputs_gb": 50.0,
             "status": "ready",
             "messages": ["All systems go"]
         }

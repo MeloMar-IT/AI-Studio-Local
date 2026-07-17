@@ -70,7 +70,20 @@ final class ModelManagerViewModelTests: XCTestCase {
 
     func testValidateModelFolder() async throws {
         let expectedResponse = ModelValidationResponse(
-            matchedProfile: ModelProfile.mock,
+            matchedProfile: ModelProfile(
+                id: "ltx-2.3-distilled",
+                name: "LTX-2.3 Distilled",
+                description: "Fast draft generation",
+                family: .ltxVideo,
+                version: "2.3",
+                expectedFiles: ["ltx_video_2.3_distilled.safetensors", "config.json"],
+                memoryRequirementGB: 16,
+                supportedModes: ["text-to-video", "image-to-video"],
+                recommendedHardware: "Apple M1 Pro 16GB or better",
+                installed: true,
+                recommended: true,
+                status: "installed"
+            ),
             missingFiles: [],
             warnings: [],
             canUse: true,

@@ -2,7 +2,7 @@
 set -e
 
 # Change to worker directory
-cd "$(dirname "$0")/../worker"
+cd "$(dirname "$0")/../worker_v2"
 
 # Create virtual environment if it doesn't exist
 if [ ! -d "venv" ]; then
@@ -11,7 +11,9 @@ if [ ! -d "venv" ]; then
 fi
 
 # Activate virtual environment
-source venv/bin/activate
+if [ -f "venv/bin/activate" ]; then
+    source venv/bin/activate
+fi
 
 # Install dev dependencies
 echo "Installing dependencies..."

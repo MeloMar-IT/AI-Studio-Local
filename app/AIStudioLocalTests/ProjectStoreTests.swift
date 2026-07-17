@@ -20,8 +20,27 @@ final class ProjectStoreTests: XCTestCase {
     }
 
     func testSaveAndLoadProject() throws {
-        let project = Project.mock
-        let scenes = [Scene.mock, Scene(name: "Another Scene", prompt: "A robot in a garden")]
+        let project = Project(
+            name: "Cyberpunk Short Film",
+            aspectRatio: "21:9",
+            scenes: ["scene-001", "scene-002"],
+            timeline: Timeline(clips: [
+                TimelineClip(sceneId: "scene-001", startTime: 0, duration: 5.0),
+                TimelineClip(sceneId: "scene-002", startTime: 5.0, duration: 3.5)
+            ])
+        )
+        let scenes = [
+            Scene(
+                name: "Introduction Scene",
+                prompt: "A man walking through a futuristic city",
+                durationSeconds: 5.0,
+                attachedContinuityElements: [
+                    AttachedContinuityElement(elementId: "mock-char-1", type: .character),
+                    AttachedContinuityElement(elementId: "mock-loc-1", type: .location)
+                ]
+            ),
+            Scene(name: "Another Scene", prompt: "A robot in a garden")
+        ]
         let projectURL = tempDirectory.appendingPathComponent("TestProject.ltxproject")
 
         // 1. Save
@@ -64,7 +83,11 @@ final class ProjectStoreTests: XCTestCase {
 
     func testSaveAndLoadGenerationMetadata() throws {
         let projectURL = tempDirectory.appendingPathComponent("MetadataProject.ltxproject")
-        let scene = Scene.mock
+        let scene = Scene(
+            name: "Introduction Scene",
+            prompt: "A man walking through a futuristic city",
+            durationSeconds: 5.0
+        )
         let job = GenerationJob(
             id: "gen-123",
             projectId: "mock-project",
@@ -75,7 +98,7 @@ final class ProjectStoreTests: XCTestCase {
         let composedPrompt = "Composed: A man walking through a futuristic city with consistent character"
 
         // 1. Setup project structure
-        try projectStore.save(project: Project.mock, scenes: [scene], to: projectURL)
+        try projectStore.save(project: Project(name: "Test"), scenes: [scene], to: projectURL)
 
         // 2. Save metadata
         try projectStore.saveGenerationMetadata(job, for: scene.id, composedPrompt: composedPrompt, to: projectURL)
@@ -111,7 +134,7 @@ final class ProjectStoreTests: XCTestCase {
 
     func testValidateProjectFolder() throws {
         let projectURL = tempDirectory.appendingPathComponent("Valid.ltxproject")
-        try projectStore.save(project: Project.mock, scenes: [], to: projectURL)
+        try projectStore.save(project: Project(name: "Test"), scenes: [], to: projectURL)
 
         // Should not throw
         try projectStore.validateProjectFolder(at: projectURL)
@@ -137,7 +160,7 @@ final class ProjectStoreTests: XCTestCase {
 
         XCTAssertTrue(projectStore.detectCorruptProject(at: projectURL))
 
-        try projectStore.save(project: Project.mock, scenes: [], to: projectURL)
+        try projectStore.save(project: Project(name: "Test"), scenes: [], to: projectURL)
         XCTAssertFalse(projectStore.detectCorruptProject(at: projectURL))
     }
 
@@ -145,7 +168,7 @@ final class ProjectStoreTests: XCTestCase {
         let projectURL = tempDirectory.appendingPathComponent("OldProject.ltxproject")
 
         // Create an old project manually
-        try projectStore.save(project: Project.mock, scenes: [], to: projectURL)
+        try projectStore.save(project: Project(name: "Test"), scenes: [], to: projectURL)
 
         let projectFileURL = projectURL.appendingPathComponent("project.json")
         var projectData = try Data(contentsOf: projectFileURL)
@@ -174,7 +197,7 @@ final class ProjectStoreTests: XCTestCase {
 
     func testIncompatibleVersion() throws {
         let projectURL = tempDirectory.appendingPathComponent("FutureProject.ltxproject")
-        try projectStore.save(project: Project.mock, scenes: [], to: projectURL)
+        try projectStore.save(project: Project(name: "Test"), scenes: [], to: projectURL)
 
         let projectFileURL = projectURL.appendingPathComponent("project.json")
         var projectData = try Data(contentsOf: projectFileURL)
@@ -195,7 +218,7 @@ final class ProjectStoreTests: XCTestCase {
     }
 
     func testGitFriendlyFilesContent() throws {
-        let project = Project.mock
+        let project = Project(name: "Git Project")
         let projectURL = tempDirectory.appendingPathComponent("GitProject.ltxproject")
         try projectStore.save(project: project, scenes: [], to: projectURL)
 
@@ -215,7 +238,7 @@ final class ProjectStoreTests: XCTestCase {
     }
 
     func testPrettyPrintedJSON() throws {
-        let project = Project.mock
+        let project = Project(name: "Pretty Project")
         let projectURL = tempDirectory.appendingPathComponent("PrettyJSON.ltxproject")
         try projectStore.save(project: project, scenes: [], to: projectURL)
 

@@ -478,13 +478,6 @@
     "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/HardwareProfiler.swiftdeps",
     "diagnostics": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/HardwareProfiler.dia"
   },
-  "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/MockHardwareProfiler.swift": {
-    "dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/MockHardwareProfiler.d",
-    "object": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/MockHardwareProfiler.swift.o",
-    "swiftmodule": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/MockHardwareProfiler~partial.swiftmodule",
-    "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/MockHardwareProfiler.swiftdeps",
-    "diagnostics": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/MockHardwareProfiler.dia"
-  },
   "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/ModelStore.swift": {
     "dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ModelStore.d",
     "object": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ModelStore.swift.o",

@@ -102,6 +102,10 @@ class JobStore:
         self.cancellation_tokens[job_id] = token
 
         # Start generation task
+        logger.info(f"Job {job_id}: Prompt used: '{request.prompt}'")
+        if getattr(request, 'image_path', None):
+            logger.info(f"Job {job_id}: Image path used: '{request.image_path}'")
+
         asyncio.create_task(self.run_job(job_id, request, token))
         logger.info(f"Created job {job_id} for project {request.project_id}. Starting generation...")
         return job_id
@@ -278,15 +282,14 @@ class JobStore:
                 job.message = message
                 job.updated_at = datetime.now()
 
-                # Check if 30 seconds have passed since the last log
+                # Check if 5 seconds have passed since the last log
                 current_time = time.time()
-                if current_time - last_log_time >= 30:
+                if current_time - last_log_time >= 5:
                     logger.info(f"Job {job_id} progress: {status} ({progress*100:.1f}%) - {message}")
                     last_log_time = current_time
-                else:
-                    # Keep low-level logging for debugging if needed, but the requirement is every 30s
-                    # We'll use DEBUG level for more frequent updates to avoid cluttering INFO
-                    logger.debug(f"Job {job_id} progress: {status} ({progress*100:.1f}%)")
+
+                # Always log progress in DEBUG mode
+                logger.debug(f"Job {job_id} progress: {status} ({progress*100:.1f}%) - {message}")
 
                 # Notify listeners
                 if job_id in self.listeners:
@@ -324,7 +327,7 @@ class JobStore:
                         })
 
                         self.output_manager.save_metadata(job_id, metadata)
-                        self.output_manager.append_log(job_id, f"Progress: {status} ({progress*100}%) - {message}")
+                        self.output_manager.append_log(job_id, f"Progress: {status} ({progress*100:.1f}%) - {message}")
                 except Exception as e:
                     logger.error(f"Failed to update metadata for job {job_id}: {e}")
 

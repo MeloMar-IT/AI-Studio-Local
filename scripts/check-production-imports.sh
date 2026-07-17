@@ -4,7 +4,7 @@ set -e
 echo "🔍 Checking for forbidden imports in production code..."
 
 # Define directories to check (production code)
-PROD_DIRS=("app/AIStudioLocal" "worker/ai_video_worker")
+PROD_DIRS=("app/AIStudioLocal" "worker_v2/ai_video_worker")
 
 # Define forbidden patterns (preview fixtures, mock tests, etc.)
 # These should only be in app/AIStudioLocalTests, worker/tests, or Feature previews

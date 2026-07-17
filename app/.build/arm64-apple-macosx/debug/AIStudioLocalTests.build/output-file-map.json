@@ -30,6 +30,13 @@
     "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/HomeDashboardViewModelTests.swiftdeps",
     "diagnostics": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/HomeDashboardViewModelTests.dia"
   },
+  "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Mocks.swift": {
+    "dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/Mocks.d",
+    "object": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/Mocks.swift.o",
+    "swiftmodule": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/Mocks~partial.swiftmodule",
+    "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/Mocks.swiftdeps",
+    "diagnostics": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/Mocks.dia"
+  },
   "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/ModelManagerViewModelTests.swift": {
     "dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ModelManagerViewModelTests.d",
     "object": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ModelManagerViewModelTests.swift.o",

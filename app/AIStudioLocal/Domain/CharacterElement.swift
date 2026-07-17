@@ -17,9 +17,3 @@ public struct CharacterElement: Codable, Identifiable, Equatable {
         self.element = ContinuityElement(type: .character, name: name, promptBlock: promptBlock)
     }
 }
-
-extension CharacterElement {
-    public static var mock: CharacterElement {
-        CharacterElement(name: "Cyberpunk Nomad", promptBlock: "A rugged nomad wearing neon-lit leather jacket")
-    }
-}

@@ -232,6 +232,7 @@ async def text_to_video(request: GenerationRequest):
 
     _validate_model_for_generation(request.model_id, "text-to-video")
 
+    logger.debug(f"text_to_video request: {request.model_dump()}")
     logger.info(f"Creating text-to-video job for model: {request.model_id}")
     job_id = job_store.create_job(request)
     job = job_store.get_job(job_id)
@@ -267,6 +268,7 @@ async def image_to_video(request: GenerationRequest):
     _validate_image_path(request.image_path)
     _validate_model_for_generation(request.model_id, "image-to-video")
 
+    logger.debug(f"image_to_video request: {request.model_dump()}")
     logger.info(f"Creating image-to-video job for model: {request.model_id}, image: {request.image_path}")
     job_id = job_store.create_job(request)
     job = job_store.get_job(job_id)
@@ -332,6 +334,7 @@ async def job_events(job_id: str):
 
     async def event_generator():
         # Send initial heartbeat
+        logger.debug(f"Starting SSE event stream for job: {job_id}")
         yield ": heartbeat\n\n"
 
         async def stream():
@@ -343,13 +346,16 @@ async def job_events(job_id: str):
         while True:
             try:
                 # Wait for an event from the job store with a timeout for heartbeat
-                # Reduced heartbeat interval to 5 seconds to prevent client timeouts
-                event = await asyncio.wait_for(stream_iter.__anext__(), timeout=5.0)
+                # Reduced heartbeat interval to 2 seconds to be aggressive against App timeouts
+                event = await asyncio.wait_for(stream_iter.__anext__(), timeout=2.0)
                 yield event
             except asyncio.TimeoutError:
                 # Send heartbeat if no events for a while
                 yield ": heartbeat\n\n"
             except StopAsyncIteration:
+                break
+            except Exception as e:
+                logger.error(f"Error in SSE event stream for job {job_id}: {e}")
                 break
 
     return StreamingResponse(event_generator(), media_type="text/event-stream")

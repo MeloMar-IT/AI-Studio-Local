@@ -26,6 +26,20 @@ All notable changes to this project will be documented in this file.
 - Refactored Continuity Library to use a centralized store in AppState.
 - Enhanced ElementChip to support removal actions and consistent iconography.
 
+## [0.1.1] - 2026-07-17
+
+### Added
+- Created `worker_v2` with a cleaner, real-world LTX generation architecture.
+- Improved metadata preservation for generated clips.
+
+### Fixed
+- Fixed "'str' object is not callable" error in MLXLTXAdapter when switching between model types.
+- Fixed an issue where the worker would fail to reload a model if the ID matched but the pipeline was unloaded.
+
+### Changed
+- Redirected the SwiftUI app and all scripts to use the new `worker_v2` implementation.
+- Bumped worker version to 0.1.1.
+
 ## [Unreleased]
 
 ### Added
