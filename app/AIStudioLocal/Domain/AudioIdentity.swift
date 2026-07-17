@@ -18,9 +18,3 @@ public struct AudioIdentity: Codable, Identifiable, Equatable {
         // For now, it just ensures consistency if we were to add extra fields to AudioIdentity.
     }
 }
-
-extension AudioIdentity {
-    public static var mock: AudioIdentity {
-        AudioIdentity(name: "Synthwave Pulse", promptBlock: "Low-frequency synth pulses with rhythmic industrial percussion")
-    }
-}

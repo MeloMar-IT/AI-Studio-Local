@@ -9,6 +9,7 @@ public enum JobStatus: String, Codable, CaseIterable {
     case generatingVideo = "generating_video"
     case generatingAudio = "generating_audio"
     case upscaling
+    case decoding
     case encodingOutput = "encoding_output"
     case savingMetadata = "saving_metadata"
     case downloading
@@ -125,18 +126,3 @@ public struct ModelProfileSummary: Codable, Equatable {
         self.name = name
     }
 }
-
-// MARK: - Mock Fixtures
-#if DEBUG
-extension GenerationJob {
-    public static var mock: GenerationJob {
-        GenerationJob(
-            projectId: "mock-project",
-            sceneId: "mock-scene",
-            status: .generatingVideo,
-            modelProfile: ModelProfileSummary(id: "fast-draft", name: "Fast Draft"),
-            progress: 0.45
-        )
-    }
-}
-#endif

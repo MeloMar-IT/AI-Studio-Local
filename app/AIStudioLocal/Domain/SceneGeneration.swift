@@ -57,20 +57,3 @@ public struct SceneGeneration: Codable, Identifiable, Equatable {
         case metadataPath = "metadata_path"
     }
 }
-
-extension SceneGeneration {
-    public static var mock: SceneGeneration {
-        SceneGeneration(
-            sceneId: "mock-scene",
-            outputPath: "mock/video.mp4",
-            previewImagePath: "mock/preview.jpg",
-            composedPrompt: "A cinematic shot of a futuristic city with neon lights",
-            negativePrompt: "blurry, low quality",
-            modelProfile: ModelProfileSummary(id: "balanced", name: "Balanced"),
-            seed: 12345,
-            resolution: SceneResolution(width: 1920, height: 1080),
-            duration: 5.0,
-            createdAt: Date()
-        )
-    }
-}

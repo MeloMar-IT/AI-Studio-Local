@@ -9,9 +9,11 @@ def setup_logging():
     level = getattr(logging, settings.log_level.upper())
 
     # Standard format for console and file
-    console_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    console_format = "%(asctime)s - %(name)s - [%(process)d] - %(threadName)s - %(levelname)s - %(message)s"
 
     handlers = [logging.StreamHandler(sys.stdout)]
+    sys.stdout.reconfigure(line_buffering=True)
+    sys.stderr.reconfigure(line_buffering=True)
 
     # Add file logging if configured
     if hasattr(settings, "log_file") and settings.log_file:

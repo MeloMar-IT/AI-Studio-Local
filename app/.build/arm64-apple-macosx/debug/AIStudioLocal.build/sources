@@ -66,7 +66,6 @@
 '/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/FileSystemService.swift'
 '/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/GenerationClient.swift'
 '/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/HardwareProfiler.swift'
-'/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/MockHardwareProfiler.swift'
 '/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/ModelStore.swift'
 '/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/ProjectStore.swift'
 '/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/PromptComposer.swift'

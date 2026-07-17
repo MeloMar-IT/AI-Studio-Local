@@ -64,6 +64,12 @@ async def log_requests(request: Request, call_next):
         path += f"?{request.query_params}"
 
     logger.info(f"Incoming {request.method} {path}")
+    if settings.log_level == "DEBUG":
+        # We don't log the body here because it might be large or binary (for images)
+        # but we can log headers
+        logger.debug(f"Request headers: {dict(request.headers)}")
+        if request.query_params:
+            logger.debug(f"Query params: {dict(request.query_params)}")
 
     try:
         response = await call_next(request)

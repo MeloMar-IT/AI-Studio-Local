@@ -199,7 +199,13 @@ public final class FileContinuityStore: ContinuityStore {
                 promptBlock: "slow dolly in, tracking shot, smooth camera movement",
                 tags: ["camera", "movement"]
             ),
-            BrandKit.mock.element
+            ContinuityElement(
+                type: .brand,
+                name: "Default Branding",
+                description: "Clean professional style",
+                promptBlock: "Logo in top right, clean sans-serif lower thirds",
+                tags: ["brand", "default"]
+            )
         ]
 
         for element in defaults {

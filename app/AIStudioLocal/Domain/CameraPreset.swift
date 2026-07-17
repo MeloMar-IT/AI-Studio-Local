@@ -13,9 +13,3 @@ public struct CameraPreset: Codable, Identifiable, Equatable {
         self.element = ContinuityElement(type: .camera, name: name, promptBlock: promptBlock)
     }
 }
-
-extension CameraPreset {
-    public static var mock: CameraPreset {
-        CameraPreset(name: "Slow Dolly Zoom", promptBlock: "Slow dolly zoom into the subject, maintain focus on eyes")
-    }
-}

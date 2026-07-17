@@ -132,14 +132,3 @@ public struct SubtitleSettings: Codable, Equatable {
 public enum OverlayPosition: String, Codable, CaseIterable {
     case topLeft, topRight, bottomLeft, bottomRight, center, topCenter, bottomCenter
 }
-
-extension BrandKit {
-    public static var mock: BrandKit {
-        var kit = BrandKit(name: "Tech-Future Branding", promptBlock: "Logo in top right, clean sans-serif lower thirds, cyan accents")
-        kit.brandColors = ["#00FFFF", "#000000"]
-        kit.introCardText = "Welcome to the Future"
-        kit.outroCardText = "Thanks for watching"
-        kit.syncElement()
-        return kit
-    }
-}

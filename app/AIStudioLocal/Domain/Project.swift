@@ -105,20 +105,3 @@ public struct Project: Codable, Identifiable, Equatable {
         case timeline
     }
 }
-
-#if DEBUG
-// MARK: - Mock Fixtures
-extension Project {
-    public static var mock: Project {
-        Project(
-            name: "Cyberpunk Short Film",
-            aspectRatio: "21:9",
-            scenes: ["scene-001", "scene-002"],
-            timeline: Timeline(clips: [
-                TimelineClip(sceneId: "scene-001", startTime: 0, duration: 5.0),
-                TimelineClip(sceneId: "scene-002", startTime: 5.0, duration: 3.5)
-            ])
-        )
-    }
-}
-#endif

@@ -54,15 +54,7 @@ class AppState: ObservableObject {
 
         // Enforcement: Production mode rejects mock services
         if environment.isProduction {
-            #if DEBUG
-            if hardwareProfiler is MockHardwareProfiler {
-                let msg = "❌ PRODUCTION SECURITY VIOLATION: MockHardwareProfiler injected in production mode"
-                self.validationError = msg
-                // In debug builds we can just set the error, but in release we MUST crash
-                NSLog(msg)
-            }
-            #endif
-            // Add other mock checks here as they are implemented
+            // Add mock checks here if needed, but MockHardwareProfiler is gone.
         }
 
         self.hardwareProfiler = hardwareProfiler

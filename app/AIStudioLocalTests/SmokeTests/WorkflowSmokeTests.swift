@@ -167,8 +167,22 @@ class TestGenerationClient: GenerationClient {
 
     func fetchHardware() async throws -> WorkerHardwareProfile {
         return WorkerHardwareProfile(
-            device: "test", chip: "test", totalMemoryGb: 16, freeMemoryGb: 8,
-            osName: "macOS", osVersion: "14", mlxAvailable: true, status: "ready", messages: []
+            device: "test",
+            chip: "test",
+            totalMemoryGb: 16,
+            freeMemoryGb: 8,
+            osName: "macOS",
+            osVersion: "14",
+            pythonPath: "/usr/bin/python3",
+            venvPath: "/path/to/venv",
+            librariesStatus: ["mlx": true],
+            mlxAvailable: true,
+            pytorchAvailable: true,
+            ffmpegAvailable: true,
+            freeDiskModelsGb: 100,
+            freeDiskOutputs_Gb: 50,
+            status: "ready",
+            messages: []
         )
     }
 
@@ -215,7 +229,7 @@ class TestGenerationClient: GenerationClient {
 
     func subscribeToJob(jobId: String) -> AsyncThrowingStream<ProgressEvent, Error> {
         return AsyncThrowingStream { continuation in
-            continuation.yield(ProgressEvent(jobId: jobId, stage: "completed", percentage: 1.0, message: "Done", timestamp: ""))
+            continuation.yield(ProgressEvent(jobId: jobId, stage: "completed", percentage: 1.0, message: "Done", error: nil, timestamp: ""))
             continuation.finish()
         }
     }

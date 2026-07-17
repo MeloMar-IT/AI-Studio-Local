@@ -454,3 +454,920 @@ FFmpeg:         ✅
 Disk (Models):  579.77 GB free
 Disk (Outputs): 579.77 GB free
 ============================================================
+2026-07-17 14:49:14,065 - app.LIFECYCLE - INFO - 🚀 AIStudioLocalApp: init
+2026-07-17 14:49:14,287 - app.UI - INFO - ✅ MainNavigationView: onAppear
+2026-07-17 14:49:14,287 - app.LIFECYCLE - INFO - Application foregrounded
+2026-07-17 14:49:14,291 - app.LIFECYCLE - INFO - ✅ Application did finish launching
+2026-07-17 14:49:14,360 - app.UI - INFO - 🛠 Setting up dock icon...
+2026-07-17 14:49:14,360 - app.UI - INFO - 📦 Bundle.module.bundleURL: /Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle
+2026-07-17 14:49:14,453 - app.UI - INFO - 🎨 Dock icon updated from Bundle.module (AIVideoLocalDirect)
+2026-07-17 14:49:14,485 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:19,820 - app.PROJECT - INFO - Warning: Asset missing for Asset Test: /non/existent/path
+2026-07-17 14:53:19,939 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:19,942 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:19,942 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:19,942 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:26,894 - app.PROJECT - INFO - Warning: Asset missing for Asset Test: /non/existent/path
+2026-07-17 14:53:26,922 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:26,922 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:26,923 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:26,925 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:27,030 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:27,030 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:27,135 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:27,240 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:27,343 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:27,445 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:27,445 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:27,585 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:27,585 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:27,591 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:27,591 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:27,690 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:27,690 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:29,763 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:29,763 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:29,763 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:29,764 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:29,764 - app.WORKER - INFO - 
+============================================================
+AI VIDEO WORKER STARTUP REPORT (from App)
+============================================================
+Status:         READY
+Device:         mock
+Chip:           Apple M2
+Memory:         64.0 GB total (32.0 GB free)
+OS:             macOS 14.0
+MLX Available:  ✅
+PyTorch:        ✅
+FFmpeg:         ✅
+Disk (Models):  100.00 GB free
+Disk (Outputs): 50.00 GB free
+============================================================
+2026-07-17 14:53:29,764 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:29,764 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:53:29,764 - app.WORKER - INFO - 
+============================================================
+AI VIDEO WORKER STARTUP REPORT (from App)
+============================================================
+Status:         READY
+Device:         mock
+Chip:           Apple M2
+Memory:         64.0 GB total (32.0 GB free)
+OS:             macOS 14.0
+MLX Available:  ✅
+PyTorch:        ✅
+FFmpeg:         ✅
+Disk (Models):  100.00 GB free
+Disk (Outputs): 50.00 GB free
+============================================================
+2026-07-17 14:54:02,810 - app.PROJECT - INFO - Warning: Asset missing for Asset Test: /non/existent/path
+2026-07-17 14:54:02,899 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:54:02,900 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:54:02,903 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:54:03,010 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:54:03,011 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:54:03,115 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:54:03,219 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:54:03,323 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:54:03,429 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:54:03,429 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:54:03,570 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:54:03,570 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:54:03,577 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-17 14:54:03,578 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-17 14:54:03,676 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:54:03,677 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:54:05,746 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:54:05,746 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:54:05,746 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:54:05,746 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:54:05,747 - app.WORKER - INFO - 
+============================================================
+AI VIDEO WORKER STARTUP REPORT (from App)
+============================================================
+Status:         READY
+Device:         mock
+Chip:           Apple M2
+Memory:         64.0 GB total (32.0 GB free)
+OS:             macOS 14.0
+MLX Available:  ✅
+PyTorch:        ✅
+FFmpeg:         ✅
+Disk (Models):  100.00 GB free
+Disk (Outputs): 50.00 GB free
+============================================================
+2026-07-17 14:54:05,747 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:54:05,747 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mock MacBook Pro
+Apple Silicon:  ✅
+Memory:         64 GB
+Profile:        Recommended
+Local Ready:    ✅
+============================================================
+2026-07-17 14:54:05,747 - app.WORKER - INFO - 
+============================================================
+AI VIDEO WORKER STARTUP REPORT (from App)
+============================================================
+Status:         READY
+Device:         mock
+Chip:           Apple M2
+Memory:         64.0 GB total (32.0 GB free)
+OS:             macOS 14.0
+MLX Available:  ✅
+PyTorch:        ✅
+FFmpeg:         ✅
+Disk (Models):  100.00 GB free
+Disk (Outputs): 50.00 GB free
+============================================================
+2026-07-17 14:54:37,409 - app.LIFECYCLE - INFO - 🚀 AIStudioLocalApp: init
+2026-07-17 14:54:37,606 - app.UI - INFO - ✅ MainNavigationView: onAppear
+2026-07-17 14:54:37,606 - app.LIFECYCLE - INFO - Application foregrounded
+2026-07-17 14:54:37,612 - app.LIFECYCLE - INFO - ✅ Application did finish launching
+2026-07-17 14:54:37,683 - app.UI - INFO - 🛠 Setting up dock icon...
+2026-07-17 14:54:37,683 - app.UI - INFO - 📦 Bundle.module.bundleURL: /Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle
+2026-07-17 14:54:37,775 - app.UI - INFO - 🎨 Dock icon updated from Bundle.module (AIVideoLocalDirect)
+2026-07-17 14:54:37,807 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-17 15:07:32,125 - app.LIFECYCLE - INFO - 🚀 AIStudioLocalApp: init
+2026-07-17 15:07:32,336 - app.UI - INFO - ✅ MainNavigationView: onAppear
+2026-07-17 15:07:32,336 - app.LIFECYCLE - INFO - Application foregrounded
+2026-07-17 15:07:32,341 - app.LIFECYCLE - INFO - ✅ Application did finish launching
+2026-07-17 15:07:32,410 - app.UI - INFO - 🛠 Setting up dock icon...
+2026-07-17 15:07:32,411 - app.UI - INFO - 📦 Bundle.module.bundleURL: /Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle
+2026-07-17 15:07:32,502 - app.UI - INFO - 🎨 Dock icon updated from Bundle.module (AIVideoLocalDirect)
+2026-07-17 15:07:32,537 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-17 15:07:33,800 - app.WORKER - ERROR - Failed to fetch models: The operation couldn’t be completed. (AIStudioLocal.GenerationClientError error 0.)
+2026-07-17 15:10:03,958 - app.LIFECYCLE - INFO - 🚀 AIStudioLocalApp: init
+2026-07-17 15:10:04,162 - app.UI - INFO - ✅ MainNavigationView: onAppear
+2026-07-17 15:10:04,162 - app.LIFECYCLE - INFO - Application foregrounded
+2026-07-17 15:10:04,168 - app.LIFECYCLE - INFO - ✅ Application did finish launching
+2026-07-17 15:10:04,229 - app.UI - INFO - 🛠 Setting up dock icon...
+2026-07-17 15:10:04,229 - app.UI - INFO - 📦 Bundle.module.bundleURL: /Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle
+2026-07-17 15:10:04,317 - app.UI - INFO - 🎨 Dock icon updated from Bundle.module (AIVideoLocalDirect)
+2026-07-17 15:10:04,342 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-17 15:29:30,469 - app.LIFECYCLE - INFO - 🚀 AIStudioLocalApp: init
+2026-07-17 15:29:30,741 - app.UI - INFO - ✅ MainNavigationView: onAppear
+2026-07-17 15:29:30,741 - app.LIFECYCLE - INFO - Application foregrounded
+2026-07-17 15:29:30,745 - app.LIFECYCLE - INFO - ✅ Application did finish launching
+2026-07-17 15:29:30,806 - app.UI - INFO - 🛠 Setting up dock icon...
+2026-07-17 15:29:30,807 - app.UI - INFO - 📦 Bundle.module.bundleURL: /Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle
+2026-07-17 15:29:30,901 - app.UI - INFO - 🎨 Dock icon updated from Bundle.module (AIVideoLocalDirect)
+2026-07-17 15:29:30,934 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-17 15:37:06,726 - app.LIFECYCLE - INFO - 🚀 AIStudioLocalApp: init
+2026-07-17 15:37:06,957 - app.UI - INFO - ✅ MainNavigationView: onAppear
+2026-07-17 15:37:06,957 - app.LIFECYCLE - INFO - Application foregrounded
+2026-07-17 15:37:06,963 - app.LIFECYCLE - INFO - ✅ Application did finish launching
+2026-07-17 15:37:06,996 - app.UI - INFO - 🛠 Setting up dock icon...
+2026-07-17 15:37:06,996 - app.UI - INFO - 📦 Bundle.module.bundleURL: /Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle
+2026-07-17 15:37:07,093 - app.UI - INFO - 🎨 Dock icon updated from Bundle.module (AIVideoLocalDirect)
+2026-07-17 15:37:07,147 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-17 15:37:08,518 - app.WORKER - ERROR - Failed to fetch models: The operation couldn’t be completed. (AIStudioLocal.GenerationClientError error 0.)
+2026-07-17 15:45:53,912 - app.LIFECYCLE - INFO - 🚀 AIStudioLocalApp: init
+2026-07-17 15:45:54,132 - app.UI - INFO - ✅ MainNavigationView: onAppear
+2026-07-17 15:45:54,132 - app.LIFECYCLE - INFO - Application foregrounded
+2026-07-17 15:45:54,138 - app.LIFECYCLE - INFO - ✅ Application did finish launching
+2026-07-17 15:45:54,211 - app.UI - INFO - 🛠 Setting up dock icon...
+2026-07-17 15:45:54,211 - app.UI - INFO - 📦 Bundle.module.bundleURL: /Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle
+2026-07-17 15:45:54,301 - app.UI - INFO - 🎨 Dock icon updated from Bundle.module (AIVideoLocalDirect)
+2026-07-17 15:45:54,335 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-17 15:45:55,632 - app.WORKER - ERROR - Failed to fetch models: The operation couldn’t be completed. (AIStudioLocal.GenerationClientError error 0.)
+2026-07-17 15:48:57,960 - app.LIFECYCLE - INFO - 🚀 AIStudioLocalApp: init
+2026-07-17 15:48:58,162 - app.UI - INFO - ✅ MainNavigationView: onAppear
+2026-07-17 15:48:58,162 - app.LIFECYCLE - INFO - Application foregrounded
+2026-07-17 15:48:58,166 - app.LIFECYCLE - INFO - ✅ Application did finish launching
+2026-07-17 15:48:58,201 - app.UI - INFO - 🛠 Setting up dock icon...
+2026-07-17 15:48:58,201 - app.UI - INFO - 📦 Bundle.module.bundleURL: /Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle
+2026-07-17 15:48:58,292 - app.UI - INFO - 🎨 Dock icon updated from Bundle.module (AIVideoLocalDirect)
+2026-07-17 15:48:58,356 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-17 15:48:59,462 - app.WORKER - ERROR - Failed to fetch models: The operation couldn’t be completed. (AIStudioLocal.GenerationClientError error 0.)
+2026-07-17 15:53:48,130 - app.LIFECYCLE - INFO - 🚀 AIStudioLocalApp: init
+2026-07-17 15:53:48,346 - app.UI - INFO - ✅ MainNavigationView: onAppear
+2026-07-17 15:53:48,346 - app.LIFECYCLE - INFO - Application foregrounded
+2026-07-17 15:53:48,352 - app.LIFECYCLE - INFO - ✅ Application did finish launching
+2026-07-17 15:53:48,408 - app.UI - INFO - 🛠 Setting up dock icon...
+2026-07-17 15:53:48,408 - app.UI - INFO - 📦 Bundle.module.bundleURL: /Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle
+2026-07-17 15:53:48,498 - app.UI - INFO - 🎨 Dock icon updated from Bundle.module (AIVideoLocalDirect)
+2026-07-17 15:53:48,530 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-17 15:58:51,518 - app.LIFECYCLE - INFO - 🚀 AIStudioLocalApp: init
+2026-07-17 15:58:51,729 - app.UI - INFO - ✅ MainNavigationView: onAppear
+2026-07-17 15:58:51,729 - app.LIFECYCLE - INFO - Application foregrounded
+2026-07-17 15:58:51,734 - app.LIFECYCLE - INFO - ✅ Application did finish launching
+2026-07-17 15:58:51,806 - app.UI - INFO - 🛠 Setting up dock icon...
+2026-07-17 15:58:51,807 - app.UI - INFO - 📦 Bundle.module.bundleURL: /Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle
+2026-07-17 15:58:51,898 - app.UI - INFO - 🎨 Dock icon updated from Bundle.module (AIVideoLocalDirect)
+2026-07-17 15:58:51,931 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-17 16:03:22,448 - app.LIFECYCLE - INFO - 🚀 AIStudioLocalApp: init
+2026-07-17 16:03:22,653 - app.UI - INFO - ✅ MainNavigationView: onAppear
+2026-07-17 16:03:22,653 - app.LIFECYCLE - INFO - Application foregrounded
+2026-07-17 16:03:22,659 - app.LIFECYCLE - INFO - ✅ Application did finish launching
+2026-07-17 16:03:22,723 - app.UI - INFO - 🛠 Setting up dock icon...
+2026-07-17 16:03:22,724 - app.UI - INFO - 📦 Bundle.module.bundleURL: /Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle
+2026-07-17 16:03:22,814 - app.UI - INFO - 🎨 Dock icon updated from Bundle.module (AIVideoLocalDirect)
+2026-07-17 16:03:22,848 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-17 16:08:27,868 - app.LIFECYCLE - INFO - 🚀 AIStudioLocalApp: init
+2026-07-17 16:08:28,073 - app.UI - INFO - ✅ MainNavigationView: onAppear
+2026-07-17 16:08:28,073 - app.LIFECYCLE - INFO - Application foregrounded
+2026-07-17 16:08:28,078 - app.LIFECYCLE - INFO - ✅ Application did finish launching
+2026-07-17 16:08:28,140 - app.UI - INFO - 🛠 Setting up dock icon...
+2026-07-17 16:08:28,140 - app.UI - INFO - 📦 Bundle.module.bundleURL: /Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle
+2026-07-17 16:08:28,231 - app.UI - INFO - 🎨 Dock icon updated from Bundle.module (AIVideoLocalDirect)
+2026-07-17 16:08:28,264 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-17 16:12:15,661 - app.WORKER - ERROR - Failed to fetch models: The operation couldn’t be completed. (AIStudioLocal.GenerationClientError error 0.)
+2026-07-17 16:14:03,182 - app.LIFECYCLE - INFO - 🚀 AIStudioLocalApp: init
+2026-07-17 16:14:03,402 - app.UI - INFO - ✅ MainNavigationView: onAppear
+2026-07-17 16:14:03,402 - app.LIFECYCLE - INFO - Application foregrounded
+2026-07-17 16:14:03,407 - app.LIFECYCLE - INFO - ✅ Application did finish launching
+2026-07-17 16:14:03,465 - app.UI - INFO - 🛠 Setting up dock icon...
+2026-07-17 16:14:03,465 - app.UI - INFO - 📦 Bundle.module.bundleURL: /Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle
+2026-07-17 16:14:03,556 - app.UI - INFO - 🎨 Dock icon updated from Bundle.module (AIVideoLocalDirect)
+2026-07-17 16:14:03,589 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-17 16:17:18,048 - app.LIFECYCLE - INFO - 🚀 AIStudioLocalApp: init
+2026-07-17 16:17:18,272 - app.UI - INFO - ✅ MainNavigationView: onAppear
+2026-07-17 16:17:18,272 - app.LIFECYCLE - INFO - Application foregrounded
+2026-07-17 16:17:18,276 - app.LIFECYCLE - INFO - ✅ Application did finish launching
+2026-07-17 16:17:18,336 - app.UI - INFO - 🛠 Setting up dock icon...
+2026-07-17 16:17:18,336 - app.UI - INFO - 📦 Bundle.module.bundleURL: /Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle
+2026-07-17 16:17:18,428 - app.UI - INFO - 🎨 Dock icon updated from Bundle.module (AIVideoLocalDirect)
+2026-07-17 16:17:18,460 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-17 16:21:26,909 - app.LIFECYCLE - INFO - 🚀 AIStudioLocalApp: init
+2026-07-17 16:21:27,118 - app.UI - INFO - ✅ MainNavigationView: onAppear
+2026-07-17 16:21:27,118 - app.LIFECYCLE - INFO - Application foregrounded
+2026-07-17 16:21:27,123 - app.LIFECYCLE - INFO - ✅ Application did finish launching
+2026-07-17 16:21:27,182 - app.UI - INFO - 🛠 Setting up dock icon...
+2026-07-17 16:21:27,182 - app.UI - INFO - 📦 Bundle.module.bundleURL: /Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle
+2026-07-17 16:21:27,274 - app.UI - INFO - 🎨 Dock icon updated from Bundle.module (AIVideoLocalDirect)
+2026-07-17 16:21:27,305 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-17 16:21:28,504 - app.WORKER - ERROR - Failed to fetch models: The operation couldn’t be completed. (AIStudioLocal.GenerationClientError error 0.)
+2026-07-17 17:03:33,505 - app.LIFECYCLE - INFO - 🚀 AIStudioLocalApp: init
+2026-07-17 17:03:33,745 - app.UI - INFO - ✅ MainNavigationView: onAppear
+2026-07-17 17:03:33,745 - app.LIFECYCLE - INFO - Application foregrounded
+2026-07-17 17:03:33,750 - app.LIFECYCLE - INFO - ✅ Application did finish launching
+2026-07-17 17:03:33,816 - app.UI - INFO - 🛠 Setting up dock icon...
+2026-07-17 17:03:33,817 - app.UI - INFO - 📦 Bundle.module.bundleURL: /Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle
+2026-07-17 17:03:33,907 - app.UI - INFO - 🎨 Dock icon updated from Bundle.module (AIVideoLocalDirect)
+2026-07-17 17:03:33,938 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-17 17:03:35,201 - app.WORKER - ERROR - Failed to fetch models: The operation couldn’t be completed. (AIStudioLocal.GenerationClientError error 0.)
+2026-07-17 17:19:25,791 - app.LIFECYCLE - INFO - 🚀 AIStudioLocalApp: init
+2026-07-17 17:19:25,985 - app.UI - INFO - ✅ MainNavigationView: onAppear
+2026-07-17 17:19:25,985 - app.LIFECYCLE - INFO - Application foregrounded
+2026-07-17 17:19:25,990 - app.LIFECYCLE - INFO - ✅ Application did finish launching
+2026-07-17 17:19:26,047 - app.UI - INFO - 🛠 Setting up dock icon...
+2026-07-17 17:19:26,048 - app.UI - INFO - 📦 Bundle.module.bundleURL: /Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle
+2026-07-17 17:19:26,135 - app.UI - INFO - 🎨 Dock icon updated from Bundle.module (AIVideoLocalDirect)
+2026-07-17 17:19:26,167 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-17 17:26:22,598 - app.LIFECYCLE - INFO - 🚀 AIStudioLocalApp: init
+2026-07-17 17:26:22,791 - app.UI - INFO - ✅ MainNavigationView: onAppear
+2026-07-17 17:26:22,791 - app.LIFECYCLE - INFO - Application foregrounded
+2026-07-17 17:26:22,795 - app.LIFECYCLE - INFO - ✅ Application did finish launching
+2026-07-17 17:26:22,859 - app.UI - INFO - 🛠 Setting up dock icon...
+2026-07-17 17:26:22,859 - app.UI - INFO - 📦 Bundle.module.bundleURL: /Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle
+2026-07-17 17:26:22,950 - app.UI - INFO - 🎨 Dock icon updated from Bundle.module (AIVideoLocalDirect)
+2026-07-17 17:26:22,982 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-17 17:28:15,264 - app.LIFECYCLE - INFO - 🚀 AIStudioLocalApp: init
+2026-07-17 17:28:15,474 - app.UI - INFO - ✅ MainNavigationView: onAppear
+2026-07-17 17:28:15,474 - app.LIFECYCLE - INFO - Application foregrounded
+2026-07-17 17:28:15,479 - app.LIFECYCLE - INFO - ✅ Application did finish launching
+2026-07-17 17:28:15,551 - app.UI - INFO - 🛠 Setting up dock icon...
+2026-07-17 17:28:15,551 - app.UI - INFO - 📦 Bundle.module.bundleURL: /Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle
+2026-07-17 17:28:15,644 - app.UI - INFO - 🎨 Dock icon updated from Bundle.module (AIVideoLocalDirect)
+2026-07-17 17:28:15,674 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-17 17:30:29,197 - app.LIFECYCLE - INFO - 🚀 AIStudioLocalApp: init
+2026-07-17 17:30:29,401 - app.UI - INFO - ✅ MainNavigationView: onAppear
+2026-07-17 17:30:29,401 - app.LIFECYCLE - INFO - Application foregrounded
+2026-07-17 17:30:29,407 - app.LIFECYCLE - INFO - ✅ Application did finish launching
+2026-07-17 17:30:29,465 - app.UI - INFO - 🛠 Setting up dock icon...
+2026-07-17 17:30:29,465 - app.UI - INFO - 📦 Bundle.module.bundleURL: /Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle
+2026-07-17 17:30:29,556 - app.UI - INFO - 🎨 Dock icon updated from Bundle.module (AIVideoLocalDirect)
+2026-07-17 17:30:29,588 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-17 17:33:13,763 - app.LIFECYCLE - INFO - 🚀 AIStudioLocalApp: init
+2026-07-17 17:33:13,980 - app.UI - INFO - ✅ MainNavigationView: onAppear
+2026-07-17 17:33:13,981 - app.LIFECYCLE - INFO - Application foregrounded
+2026-07-17 17:33:13,987 - app.LIFECYCLE - INFO - ✅ Application did finish launching
+2026-07-17 17:33:14,064 - app.UI - INFO - 🛠 Setting up dock icon...
+2026-07-17 17:33:14,064 - app.UI - INFO - 📦 Bundle.module.bundleURL: /Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle
+2026-07-17 17:33:14,154 - app.UI - INFO - 🎨 Dock icon updated from Bundle.module (AIVideoLocalDirect)
+2026-07-17 17:33:14,187 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================

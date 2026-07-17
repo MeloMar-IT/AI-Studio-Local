@@ -327,10 +327,6 @@
         },
         {
           "kind" : "file",
-          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/MockHardwareProfiler.swift"
-        },
-        {
-          "kind" : "file",
           "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/ModelStore.swift"
         },
         {
@@ -446,7 +442,6 @@
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/FileSystemService.swift.o",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/GenerationClient.swift.o",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/HardwareProfiler.swift.o",
-        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/MockHardwareProfiler.swift.o",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ModelStore.swift.o",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ProjectStore.swift.o",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/PromptComposer.swift.o",
@@ -782,10 +777,6 @@
         },
         {
           "kind" : "file",
-          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/MockHardwareProfiler.swift.o"
-        },
-        {
-          "kind" : "file",
           "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ModelStore.swift.o"
         },
         {
@@ -891,7 +882,6 @@
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/FileSystemService.swift",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/GenerationClient.swift",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/HardwareProfiler.swift",
-        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/MockHardwareProfiler.swift",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/ModelStore.swift",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/ProjectStore.swift",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/PromptComposer.swift",
@@ -1023,6 +1013,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Mocks.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/ModelManagerViewModelTests.swift"
         },
         {
@@ -1094,6 +1088,7 @@
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/DomainTests.swift.o",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/EnvironmentBoundaryTests.swift.o",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/HomeDashboardViewModelTests.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/Mocks.swift.o",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ModelManagerViewModelTests.swift.o",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ProjectStoreTests.swift.o",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/PromptComposerTests.swift.o",
@@ -1177,6 +1172,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/Mocks.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ModelManagerViewModelTests.swift.o"
         },
         {
@@ -1238,6 +1237,7 @@
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/DomainTests.swift",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/EnvironmentBoundaryTests.swift",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/HomeDashboardViewModelTests.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Mocks.swift",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/ModelManagerViewModelTests.swift",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/ProjectStoreTests.swift",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/PromptComposerTests.swift",
@@ -1335,7 +1335,6 @@
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/FileSystemService.swift",
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/GenerationClient.swift",
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/HardwareProfiler.swift",
-      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/MockHardwareProfiler.swift",
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/ModelStore.swift",
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/ProjectStore.swift",
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/PromptComposer.swift",
@@ -1469,6 +1468,7 @@
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/DomainTests.swift",
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/EnvironmentBoundaryTests.swift",
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/HomeDashboardViewModelTests.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Mocks.swift",
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/ModelManagerViewModelTests.swift",
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/ProjectStoreTests.swift",
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/PromptComposerTests.swift",
@@ -1864,10 +1864,6 @@
         },
         {
           "kind" : "file",
-          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/MockHardwareProfiler.swift"
-        },
-        {
-          "kind" : "file",
           "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Services/ModelStore.swift"
         },
         {
@@ -2067,10 +2063,6 @@
         {
           "kind" : "file",
           "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/MainNavigationView.swift.o"
-        },
-        {
-          "kind" : "file",
-          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/MockHardwareProfiler.swift.o"
         },
         {
           "kind" : "file",
@@ -2402,10 +2394,6 @@
         },
         {
           "kind" : "file",
-          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/MockHardwareProfiler.swift.o"
-        },
-        {
-          "kind" : "file",
           "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ModelCard.swift.o"
         },
         {
@@ -2586,6 +2574,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/Mocks.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ModelManagerViewModelTests.swift.o"
         },
         {
@@ -2645,6 +2637,10 @@
         {
           "kind" : "file",
           "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/HomeDashboardViewModelTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Mocks.swift"
         },
         {
           "kind" : "file",

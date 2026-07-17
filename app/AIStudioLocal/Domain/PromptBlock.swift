@@ -13,9 +13,3 @@ public struct PromptBlock: Codable, Identifiable, Equatable {
         self.element = ContinuityElement(type: .promptBlock, name: name, promptBlock: promptBlock)
     }
 }
-
-extension PromptBlock {
-    public static var mock: PromptBlock {
-        PromptBlock(name: "Weather: Rainy Night", promptBlock: "Heavy rain falling, wet surfaces, reflections of street lights")
-    }
-}

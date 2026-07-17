@@ -91,18 +91,3 @@ public struct ContinuityElement: Codable, Identifiable, Equatable {
         case modifiedAt = "modified_at"
     }
 }
-
-// MARK: - Mock Fixtures
-extension ContinuityElement {
-    public static func mock(
-        type: ContinuityElementType = .character,
-        name: String = "Mock Element"
-    ) -> ContinuityElement {
-        ContinuityElement(
-            type: type,
-            name: name,
-            promptBlock: "A description for \(name)",
-            tags: ["mock", type.rawValue]
-        )
-    }
-}

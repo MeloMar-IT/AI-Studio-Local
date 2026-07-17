@@ -37,6 +37,7 @@ class LTXGenerationEngine(GenerationEngine):
         return self.adapter.capabilities()
 
     async def load_model(self, model_profile: Any) -> Any:
+        logger.info(f"Loading model: {getattr(model_profile, 'id', str(model_profile))}")
         return await self.adapter.load_model(model_profile)
 
     async def unload_model(self, model_id: str) -> None:
@@ -154,6 +155,7 @@ class LTXGenerationEngine(GenerationEngine):
     ) -> str:
         start_time = time.time()
         job_id = Path(output_path).parent.name
+        logger.debug(f"[_run_generation] job_id={job_id} method={method.__name__} output_path={output_path}")
 
         try:
             # 1. Hardware Validation
@@ -171,9 +173,11 @@ class LTXGenerationEngine(GenerationEngine):
             )
 
             if cancellation_token and cancellation_token.is_cancelled:
+                logger.info(f"Generation for job {job_id} was cancelled.")
                 return ""
 
             # 3. Preview Generation
+            logger.debug(f"Generation finished in {time.time() - start_time:.2f}s, starting post-processing for job {job_id}")
             if progress_callback:
                 progress_callback("saving_metadata", 0.92, "Generating preview image...")
             preview_path = Path(output_path).parent / "preview.jpg"
@@ -215,6 +219,7 @@ class LTXGenerationEngine(GenerationEngine):
 
     def _validate_hardware(self):
         """Validates that the current Mac appears compatible."""
+        logger.debug(f"[_validate_hardware] Checking hardware compatibility. min_memory_gb={settings.min_memory_gb}")
         # Check for Apple Silicon
         if platform.machine() != "arm64":
             logger.warning("Not running on Apple Silicon. MLX might be slow or unsupported.")
@@ -231,6 +236,8 @@ class LTXGenerationEngine(GenerationEngine):
         # Check memory
         mem = psutil.virtual_memory()
         total_gb = mem.total / (1024**3)
+        available_gb = mem.available / (1024**3)
+        logger.debug(f"[_validate_hardware] Total RAM: {total_gb:.2f}GB, Available RAM: {available_gb:.2f}GB")
         if total_gb < settings.min_memory_gb:
             raise RuntimeError(
                 f"Insufficient memory: {total_gb:.1f}GB. "
@@ -298,6 +305,7 @@ class LTXGenerationEngine(GenerationEngine):
         }
 
         metadata_path = Path(output_path).parent / "metadata.json"
+        logger.debug(f"[_save_detailed_metadata] Writing metadata to {metadata_path}")
         with open(metadata_path, "w") as f:
             json.dump(metadata, f, indent=2, default=str)
 
