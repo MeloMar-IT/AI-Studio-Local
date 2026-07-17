@@ -2,8 +2,10 @@ import platform
 import shutil
 import subprocess
 import os
+import sys
 import psutil
-from typing import List, Tuple
+import importlib.util
+from typing import List, Tuple, Dict
 from ai_video_worker.config import settings
 
 def get_macos_version() -> str:
@@ -57,6 +59,33 @@ def is_pytorch_available() -> bool:
 def is_ffmpeg_available() -> bool:
     return shutil.which("ffmpeg") is not None
 
+def check_libraries() -> Dict[str, bool]:
+    required_libs = [
+        "fastapi",
+        "uvicorn",
+        "pydantic",
+        "psutil",
+        "requests",
+        "mlx",
+        "mlx_audio",
+        "mlx_lm",
+        "mlx_vlm",
+        "mlx_video",
+        "cv2", # opencv-python is imported as cv2
+    ]
+    status = {}
+    for lib in required_libs:
+        try:
+            # Special case for mlx-video which might be installed as mlx-video-with-audio
+            # but usually the package name in python is different if it has dashes
+            # Actually, mlx-video-with-audio seems to provide mlx_video
+            import_name = lib
+            spec = importlib.util.find_spec(import_name)
+            status[lib] = spec is not None
+        except (ImportError, ValueError):
+            status[lib] = False
+    return status
+
 def get_hardware_profile():
     os_name = platform.system()
     os_version = get_macos_version()
@@ -76,6 +105,9 @@ def get_hardware_profile():
     torch_avail = is_pytorch_available()
     ffmpeg_avail = is_ffmpeg_available()
     python_ver = platform.python_version()
+    python_path = sys.executable
+    venv_path = os.environ.get("VIRTUAL_ENV", "None")
+    libs_status = check_libraries()
 
     messages = []
     status = "ready"
@@ -92,10 +124,21 @@ def get_hardware_profile():
             status = "warning"
         messages.append("MLX is not installed. Video generation will not work.")
 
+    if not torch_avail:
+        if status != "unsupported":
+            status = "warning"
+        messages.append("PyTorch is not installed. Some utilities might fail.")
+
     if not ffmpeg_avail:
         if status != "unsupported":
             status = "warning"
         messages.append("ffmpeg is missing. Video encoding might fail.")
+
+    missing_libs = [lib for lib, installed in libs_status.items() if not installed]
+    if missing_libs:
+        if status != "unsupported":
+            status = "warning"
+        messages.append(f"Missing required Python libraries: {', '.join(missing_libs)}")
 
     if total_mem < settings.min_memory_gb:
         if status != "unsupported":
@@ -115,6 +158,9 @@ def get_hardware_profile():
         "os_name": os_name,
         "os_version": os_version,
         "python_version": python_ver,
+        "python_path": python_path,
+        "venv_path": venv_path,
+        "libraries_status": libs_status,
         "mlx_available": mlx_avail,
         "pytorch_available": torch_avail,
         "ffmpeg_available": ffmpeg_avail,

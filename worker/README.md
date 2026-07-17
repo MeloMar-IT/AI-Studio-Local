@@ -5,7 +5,7 @@ This is the Python-based generation worker for AI Studio Local.
 ## Requirements
 
 - Python 3.11 or newer
-- Apple Silicon Mac (for real generation, though mock works everywhere)
+- Apple Silicon Mac (for real generation)
 
 ## Setup
 
@@ -26,5 +26,5 @@ To run tests:
 - `GET /health`: Check worker status
 - `GET /hardware`: Get local hardware information
 - `GET /models`: List available LTX models
-- `POST /generate/text-to-video`: Start a mock generation job
+- `POST /generate/text-to-video`: Start a generation job
 - `GET /jobs/{job_id}`: Check status of a generation job

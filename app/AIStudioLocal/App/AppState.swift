@@ -21,6 +21,7 @@ class AppState: ObservableObject {
 
     // Hardware Profile
     @Published var hardwareProfile: HardwareProfile = .unknown
+    @Published var workerHardwareProfile: WorkerHardwareProfile? = nil
 
     // Continuity Library Cache for UI
     @Published var continuityElements: [ContinuityElement] = []
@@ -84,10 +85,66 @@ class AppState: ObservableObject {
                 NSLog("🚀 AppState: Worker not available on launch, starting it...")
                 await startWorker()
             }
+
+            await logStartupReport()
         }
 
         startPolling()
         setupSettingsObservers()
+    }
+
+    private func logStartupReport() async {
+        let profile = self.hardwareProfile
+        let report = """
+
+        ============================================================
+        AI STUDIO LOCAL STARTUP REPORT
+        ============================================================
+        Model:          \(profile.modelName)
+        Apple Silicon:  \(profile.isAppleSilicon ? "✅" : "❌")
+        Memory:         \(profile.totalMemoryGB) GB
+        Profile:        \(profile.generationProfile.rawValue)
+        Local Ready:    \(profile.isLocalModeReady ? "✅" : "❌")
+        ============================================================
+        """
+        AppLogger.shared.info(report, category: .lifecycle)
+
+        // If worker is available, also log its profile
+        if isWorkerAvailable {
+            do {
+                let workerProfile = try await generationClient.fetchHardware()
+                await MainActor.run {
+                    self.workerHardwareProfile = workerProfile
+                }
+                let workerReport = """
+
+                ============================================================
+                AI VIDEO WORKER STARTUP REPORT (from App)
+                ============================================================
+                Status:         \(workerProfile.status.uppercased())
+                Device:         \(workerProfile.device)
+                Chip:           \(workerProfile.chip)
+                Memory:         \(workerProfile.totalMemoryGb) GB total (\(workerProfile.freeMemoryGb) GB free)
+                OS:             \(workerProfile.osName) \(workerProfile.osVersion)
+                MLX Available:  \(workerProfile.mlxAvailable ? "✅" : "❌")
+                PyTorch:        \(workerProfile.pytorchAvailable ? "✅" : "❌")
+                FFmpeg:         \(workerProfile.ffmpegAvailable ? "✅" : "❌")
+                Disk (Models):  \(String(format: "%.2f", workerProfile.freeDiskModelsGb)) GB free
+                Disk (Outputs): \(String(format: "%.2f", workerProfile.freeDiskOutputs_Gb)) GB free
+                ============================================================
+                """
+                AppLogger.shared.info(workerReport, category: .worker)
+
+                if !workerProfile.messages.isEmpty {
+                    AppLogger.shared.info("Worker Messages:", category: .worker)
+                    for msg in workerProfile.messages {
+                        AppLogger.shared.info("- \(msg)", category: .worker)
+                    }
+                }
+            } catch {
+                AppLogger.shared.error("Failed to fetch worker hardware profile for report: \(error)", category: .worker)
+            }
+        }
     }
 
     private func setupWorkerObservers() {
@@ -179,6 +236,9 @@ class AppState: ObservableObject {
                             self.activeError = nil
                         }
                     }
+
+                    // Fetch profile once online
+                    await refreshWorkerProfile()
                     return // Success, exit loop
                 } catch {
                     // Only log every 5 attempts to avoid log spam, or if it's the last attempt
@@ -226,6 +286,11 @@ class AppState: ObservableObject {
                     self.activeError = nil
                 }
             }
+
+            // If we have no hardware profile yet, fetch it now that worker is online
+            if workerHardwareProfile == nil {
+                await refreshWorkerProfile()
+            }
         } catch {
             NSLog("❌ AppState: Worker health check failed: \(error.localizedDescription)")
             await MainActor.run {
@@ -253,6 +318,19 @@ class AppState: ObservableObject {
         }
     }
 
+    public func refreshWorkerProfile() async {
+        NSLog("🏥 AppState: Refreshing worker hardware profile...")
+        do {
+            let profile = try await generationClient.fetchHardware()
+            await MainActor.run {
+                self.workerHardwareProfile = profile
+                NSLog("✅ AppState: Worker hardware profile refreshed")
+            }
+        } catch {
+            NSLog("❌ AppState: Failed to refresh worker hardware profile: \(error.localizedDescription)")
+        }
+    }
+
     func showError(_ error: AppError) {
         DispatchQueue.main.async {
             self.activeError = error
@@ -260,28 +338,45 @@ class AppState: ObservableObject {
     }
 
     func addJob(_ job: GenerationJob) {
+        NSLog("📦 AppState: addJob() called for job ID: \(job.id)")
         DispatchQueue.main.async {
             self.activeJobs.append(job)
             self.updateActiveJobsCount()
+            NSLog("📦 AppState: Job added to activeJobs. Current count: \(self.activeJobs.count), activeCount: \(self.activeJobsCount)")
             self.subscribeToJob(jobId: job.id)
         }
     }
 
     private func subscribeToJob(jobId: String) {
-        guard jobSubscriptions[jobId] == nil else { return }
+        NSLog("📦 AppState: subscribeToJob() called for job ID: \(jobId)")
+        guard jobSubscriptions[jobId] == nil else {
+            NSLog("📦 AppState: Already subscribed to job ID: \(jobId)")
+            return
+        }
 
         let task = Task {
+            NSLog("📦 AppState: Subscription task started for job ID: \(jobId)")
             do {
                 for try await event in generationClient.subscribeToJob(jobId: jobId) {
                     await MainActor.run {
                         if let index = self.activeJobs.firstIndex(where: { $0.id == jobId }) {
+                            let oldStatus = self.activeJobs[index].status
                             self.activeJobs[index].status = JobStatus(rawValue: event.stage) ?? self.activeJobs[index].status
                             self.activeJobs[index].progress = event.percentage ?? self.activeJobs[index].progress
                             self.activeJobs[index].message = event.message
+                            self.activeJobs[index].error = event.error
+
+                            if oldStatus != self.activeJobs[index].status {
+                                NSLog("📦 AppState: Job \(jobId) status changed: \(oldStatus) -> \(self.activeJobs[index].status)")
+                            }
 
                             if self.activeJobs[index].status == .completed ||
                                self.activeJobs[index].status == .failed ||
                                self.activeJobs[index].status == .cancelled {
+                                NSLog("📦 AppState: Job \(jobId) finished with status: \(self.activeJobs[index].status)")
+                                if self.activeJobs[index].status == .failed && self.activeJobs[index].error != nil {
+                                    NSLog("📦 AppState: Job \(jobId) failure reason: \(self.activeJobs[index].error!)")
+                                }
                                 self.activeJobs[index].completedAt = Date()
                                 self.updateActiveJobsCount()
                                 if self.activeJobs[index].status == .completed {
@@ -294,6 +389,7 @@ class AppState: ObservableObject {
                     }
                 }
             } catch {
+                NSLog("📦 AppState: Error in job subscription for \(jobId): \(error)")
                 AppLogger.shared.error("Error in job subscription for \(jobId): \(error)", category: .worker)
                 // Fallback to polling if SSE fails
                 self.jobSubscriptions.removeValue(forKey: jobId)

@@ -537,7 +537,8 @@ struct ProjectStudioView: View {
     private var inspector: some View {
         InspectorPanel(title: "Scene Inspector") {
             if let scene = viewModel.selectedScene {
-                InspectorSection(title: "General") {
+                VStack(alignment: .leading, spacing: 0) {
+                    InspectorSection(title: "General") {
                     VStack(alignment: .leading, spacing: Spacing.small) {
                         Text("Name")
                             .font(.App.caption)
@@ -792,6 +793,8 @@ struct ProjectStudioView: View {
                             }
                         }
                     }
+                }
+
                     InspectorSection(title: "Prompt") {
                         VStack(alignment: .leading, spacing: Spacing.small) {
                             TextEditor(text: Binding(
@@ -828,292 +831,293 @@ struct ProjectStudioView: View {
                             }
                         }
                     }
-                }
 
-                InspectorSection(title: "Continuity Elements", isCollapsible: true) {
-                    VStack(alignment: .leading, spacing: Spacing.small) {
-                        let resolved = viewModel.resolvedElements[scene.id] ?? []
+                    InspectorSection(title: "Continuity Elements", isCollapsible: true) {
+                        VStack(alignment: .leading, spacing: Spacing.small) {
+                            let resolved = viewModel.resolvedElements[scene.id] ?? []
 
-                        if resolved.isEmpty {
-                            Text("No elements attached")
-                                .font(.App.caption)
-                                .foregroundColor(Color.App.secondaryText)
-                                .italic()
-                        } else {
-                            FlowLayout(resolved, spacing: 4) { resolvedItem in
-                                if resolvedItem.isMissing {
-                                    HStack(spacing: 4) {
-                                        Image(systemName: "exclamationmark.triangle.fill")
-                                            .foregroundColor(.orange)
-                                        Text("Missing")
-                                            .font(.App.caption)
+                            if resolved.isEmpty {
+                                Text("No elements attached")
+                                    .font(.App.caption)
+                                    .foregroundColor(Color.App.secondaryText)
+                                    .italic()
+                            } else {
+                                FlowLayout(resolved, spacing: 4) { resolvedItem in
+                                    if resolvedItem.isMissing {
+                                        HStack(spacing: 4) {
+                                            Image(systemName: "exclamationmark.triangle.fill")
+                                                .foregroundColor(.orange)
+                                            Text("Missing")
+                                                .font(.App.caption)
 
-                                        Menu {
-                                            Button("Replace...") {
-                                                elementToReplaceId = resolvedItem.reference.elementId
-                                                isShowingElementPicker = true
+                                            Menu {
+                                                Button("Replace...") {
+                                                    elementToReplaceId = resolvedItem.reference.elementId
+                                                    isShowingElementPicker = true
+                                                }
+                                                Button("Remove", role: .destructive) {
+                                                    viewModel.removeMissingElement(scene.id, elementId: resolvedItem.reference.elementId)
+                                                }
+                                            } label: {
+                                                Image(systemName: "ellipsis.circle")
+                                                    .foregroundColor(Color.App.secondaryText)
                                             }
-                                            Button("Remove", role: .destructive) {
-                                                viewModel.removeMissingElement(scene.id, elementId: resolvedItem.reference.elementId)
-                                            }
-                                        } label: {
-                                            Image(systemName: "ellipsis.circle")
-                                                .foregroundColor(Color.App.secondaryText)
+                                            .menuStyle(.button)
+                                            .buttonStyle(.plain)
                                         }
-                                        .menuStyle(.button)
-                                        .buttonStyle(.plain)
-                                    }
-                                    .padding(.horizontal, 8)
-                                    .padding(.vertical, 4)
-                                    .background(Color.orange.opacity(0.2))
-                                    .cornerRadius(12)
-                                } else if let element = resolvedItem.element {
-                                    ElementChip(element: element) {
-                                        selectedElementForDetail = element
-                                    } onRemove: {
-                                        viewModel.detachElement(scene.id, elementId: element.id, type: element.type)
+                                        .padding(.horizontal, 8)
+                                        .padding(.vertical, 4)
+                                        .background(Color.orange.opacity(0.2))
+                                        .cornerRadius(12)
+                                    } else if let element = resolvedItem.element {
+                                        ElementChip(element: element) {
+                                            selectedElementForDetail = element
+                                        } onRemove: {
+                                            viewModel.detachElement(scene.id, elementId: element.id, type: element.type)
+                                        }
                                     }
                                 }
                             }
-                        }
 
-                        Button(action: { isShowingElementPicker = true }) {
-                            HStack {
-                                Image(systemName: "plus.circle")
-                                Text("Add reusable element")
-                            }
-                            .font(.App.caption)
-                            .foregroundColor(Color.App.accent)
-                        }
-                        .buttonStyle(.plain)
-                        .help("Attach characters, locations, or styles from your library")
-                    }
-                }
-
-                InspectorSection(title: "Consistency Locks", isCollapsible: true, isExpanded: false) {
-                    VStack(spacing: Spacing.xxSmall) {
-                        LockToggle(label: "Character Identity", isOn: Binding(
-                            get: { scene.consistencyLocks.characterIdentity },
-                            set: { _ in viewModel.toggleLock(scene.id, keyPath: \.characterIdentity) }
-                        ))
-                        LockToggle(label: "Clothing", isOn: Binding(
-                            get: { scene.consistencyLocks.clothing },
-                            set: { _ in viewModel.toggleLock(scene.id, keyPath: \.clothing) }
-                        ))
-                        LockToggle(label: "Location", isOn: Binding(
-                            get: { scene.consistencyLocks.location },
-                            set: { _ in viewModel.toggleLock(scene.id, keyPath: \.location) }
-                        ))
-                        LockToggle(label: "Visual Style", isOn: Binding(
-                            get: { scene.consistencyLocks.style },
-                            set: { _ in viewModel.toggleLock(scene.id, keyPath: \.style) }
-                        ))
-                        LockToggle(label: "Brand", isOn: Binding(
-                            get: { scene.consistencyLocks.brand },
-                            set: { _ in viewModel.toggleLock(scene.id, keyPath: \.brand) }
-                        ))
-                        LockToggle(label: "Audio Identity", isOn: Binding(
-                            get: { scene.consistencyLocks.audioIdentity },
-                            set: { _ in viewModel.toggleLock(scene.id, keyPath: \.audioIdentity) }
-                        ))
-                    }
-                }
-
-                InspectorSection(title: "Advanced Settings", isCollapsible: true, isExpanded: false) {
-                    VStack(alignment: .leading, spacing: Spacing.small) {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Negative Prompt")
+                            Button(action: { isShowingElementPicker = true }) {
+                                HStack {
+                                    Image(systemName: "plus.circle")
+                                    Text("Add reusable element")
+                                }
                                 .font(.App.caption)
-                                .foregroundColor(Color.App.secondaryText)
+                                .foregroundColor(Color.App.accent)
+                            }
+                            .buttonStyle(.plain)
+                            .help("Attach characters, locations, or styles from your library")
+                        }
+                    }
 
-                            TextEditor(text: Binding(
-                                get: { scene.negativePrompt ?? "" },
-                                set: { viewModel.updateSceneNegativePrompt(scene.id, prompt: $0) }
+                    InspectorSection(title: "Consistency Locks", isCollapsible: true, isExpanded: false) {
+                        VStack(spacing: Spacing.xxSmall) {
+                            LockToggle(label: "Character Identity", isOn: Binding(
+                                get: { scene.consistencyLocks.characterIdentity },
+                                set: { _ in viewModel.toggleLock(scene.id, keyPath: \.characterIdentity) }
                             ))
-                            .frame(height: 60)
-                            .padding(4)
-                            .background(RoundedRectangle(cornerRadius: 4).stroke(Color.App.border))
+                            LockToggle(label: "Clothing", isOn: Binding(
+                                get: { scene.consistencyLocks.clothing },
+                                set: { _ in viewModel.toggleLock(scene.id, keyPath: \.clothing) }
+                            ))
+                            LockToggle(label: "Location", isOn: Binding(
+                                get: { scene.consistencyLocks.location },
+                                set: { _ in viewModel.toggleLock(scene.id, keyPath: \.location) }
+                            ))
+                            LockToggle(label: "Visual Style", isOn: Binding(
+                                get: { scene.consistencyLocks.style },
+                                set: { _ in viewModel.toggleLock(scene.id, keyPath: \.style) }
+                            ))
+                            LockToggle(label: "Brand", isOn: Binding(
+                                get: { scene.consistencyLocks.brand },
+                                set: { _ in viewModel.toggleLock(scene.id, keyPath: \.brand) }
+                            ))
+                            LockToggle(label: "Audio Identity", isOn: Binding(
+                                get: { scene.consistencyLocks.audioIdentity },
+                                set: { _ in viewModel.toggleLock(scene.id, keyPath: \.audioIdentity) }
+                            ))
                         }
+                    }
 
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Duration")
-                                .font(.App.caption)
-                                .foregroundColor(Color.App.secondaryText)
-
-                            HStack {
-                                Slider(value: Binding(
-                                    get: { scene.durationSeconds },
-                                    set: { viewModel.updateSceneDuration(scene.id, duration: $0) }
-                                ), in: 1...10, step: 0.5)
-
-                                Text("\(String(format: "%.1f", scene.durationSeconds))s")
-                                    .font(.App.caption)
-                                    .frame(width: 40)
-                            }
-                        }
-
-                        // Seed
-                        VStack(alignment: .leading, spacing: 4) {
-                            HStack {
-                                Text("Seed")
+                    InspectorSection(title: "Advanced Settings", isCollapsible: true, isExpanded: false) {
+                        VStack(alignment: .leading, spacing: Spacing.small) {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Negative Prompt")
                                     .font(.App.caption)
                                     .foregroundColor(Color.App.secondaryText)
-                                Spacer()
-                                LockToggle(label: "Lock", isOn: Binding(
-                                    get: { scene.consistencyLocks.seed },
-                                    set: { _ in viewModel.toggleLock(scene.id, keyPath: \.seed) }
+
+                                TextEditor(text: Binding(
+                                    get: { scene.negativePrompt ?? "" },
+                                    set: { viewModel.updateSceneNegativePrompt(scene.id, prompt: $0) }
                                 ))
-                                .scaleEffect(0.8)
-                            }
-
-                            TextField("Random", value: Binding(
-                                get: { scene.seed },
-                                set: { viewModel.updateSceneAdvancedSettings(scene.id, seed: $0) }
-                            ), format: .number)
-                            .textFieldStyle(.roundedBorder)
-                        }
-
-                        // Inference Steps
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Inference Steps")
-                                .font(.App.caption)
-                                .foregroundColor(Color.App.secondaryText)
-                            HStack {
-                                Slider(value: Binding(
-                                    get: { Float(scene.inferenceSteps ?? 30) },
-                                    set: { viewModel.updateSceneAdvancedSettings(scene.id, inferenceSteps: Int($0)) }
-                                ), in: 1...100, step: 1)
-                                Text("\(scene.inferenceSteps ?? 30)")
-                                    .font(.App.caption)
-                                    .frame(width: 30)
-                            }
-                        }
-
-                        // Guidance Scale
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Guidance Scale")
-                                .font(.App.caption)
-                                .foregroundColor(Color.App.secondaryText)
-                            HStack {
-                                Slider(value: Binding(
-                                    get: { scene.guidanceScale ?? 7.5 },
-                                    set: { viewModel.updateSceneAdvancedSettings(scene.id, guidanceScale: $0) }
-                                ), in: 1...20, step: 0.5)
-                                Text("\(String(format: "%.1f", scene.guidanceScale ?? 7.5))")
-                                    .font(.App.caption)
-                                    .frame(width: 30)
-                            }
-                        }
-
-                        // FPS & Frame Count
-                        HStack {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text("FPS")
-                                    .font(.App.caption)
-                                    .foregroundColor(Color.App.secondaryText)
-                                TextField("24", value: Binding(
-                                    get: { scene.fps },
-                                    set: { viewModel.updateSceneAdvancedSettings(scene.id, fps: $0) }
-                                ), format: .number)
-                                .textFieldStyle(.roundedBorder)
+                                .frame(height: 60)
+                                .padding(4)
+                                .background(RoundedRectangle(cornerRadius: 4).stroke(Color.App.border))
                             }
 
                             VStack(alignment: .leading, spacing: 4) {
-                                Text("Frames")
+                                Text("Duration")
                                     .font(.App.caption)
                                     .foregroundColor(Color.App.secondaryText)
-                                TextField("120", value: Binding(
-                                    get: { scene.frameCount },
-                                    set: { viewModel.updateSceneAdvancedSettings(scene.id, frameCount: $0) }
-                                ), format: .number)
-                                .textFieldStyle(.roundedBorder)
-                            }
-                        }
 
-                        // Model Profile
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Model Profile")
-                                .font(.App.caption)
-                                .foregroundColor(Color.App.secondaryText)
-                            Picker("Model Profile", selection: Binding(
-                                get: { scene.modelProfileId ?? "default" },
-                                set: { viewModel.updateSceneAdvancedSettings(scene.id, modelProfileId: $0) }
-                            )) {
-                                Text("Recommended Default").tag("default")
-                                ForEach(viewModel.availableModels) { model in
-                                    Text(model.name).tag(model.id)
+                                HStack {
+                                    Slider(value: Binding(
+                                        get: { scene.durationSeconds },
+                                        set: { viewModel.updateSceneDuration(scene.id, duration: $0) }
+                                    ), in: 1...10, step: 0.5)
+
+                                    Text("\(String(format: "%.1f", scene.durationSeconds))s")
+                                        .font(.App.caption)
+                                        .frame(width: 40)
                                 }
                             }
-                            .pickerStyle(.menu)
-                        }
 
-                        // LoRA Placeholder
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("LoRA Weights")
-                                .font(.App.caption)
-                                .foregroundColor(Color.App.secondaryText)
-                            Text("No LoRAs attached")
-                                .font(.App.footnote)
-                                .foregroundColor(Color.App.secondaryText)
-                                .padding(Spacing.small)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .background(Color.App.background)
-                                .cornerRadius(4)
-                        }
+                            // Seed
+                            VStack(alignment: .leading, spacing: 4) {
+                                HStack {
+                                    Text("Seed")
+                                        .font(.App.caption)
+                                        .foregroundColor(Color.App.secondaryText)
+                                    Spacer()
+                                    LockToggle(label: "Lock", isOn: Binding(
+                                        get: { scene.consistencyLocks.seed },
+                                        set: { _ in viewModel.toggleLock(scene.id, keyPath: \.seed) }
+                                    ))
+                                    .scaleEffect(0.8)
+                                }
 
-                        // Upscaler Placeholder
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Upscaler")
-                                .font(.App.caption)
-                                .foregroundColor(Color.App.secondaryText)
-                            Picker("Upscaler", selection: .constant("none")) {
-                                Text("None").tag("none")
-                                Text("Spatial 2x (Placeholder)").tag("spatial2x")
-                                Text("Temporal 2x (Placeholder)").tag("temporal2x")
+                                TextField("Random", value: Binding(
+                                    get: { scene.seed },
+                                    set: { viewModel.updateSceneAdvancedSettings(scene.id, seed: $0) }
+                                ), format: .number)
+                                .textFieldStyle(.roundedBorder)
                             }
-                            .pickerStyle(.menu)
-                            .disabled(true)
-                        }
 
-                        // Quantization Placeholder
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Quantization Mode")
-                                .font(.App.caption)
-                                .foregroundColor(Color.App.secondaryText)
-                            Picker("Quantization", selection: .constant("auto")) {
-                                Text("Auto (Recommended)").tag("auto")
-                                Text("4-bit (Placeholder)").tag("4bit")
-                                Text("8-bit (Placeholder)").tag("8bit")
+                            // Inference Steps
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Inference Steps")
+                                    .font(.App.caption)
+                                    .foregroundColor(Color.App.secondaryText)
+                                HStack {
+                                    Slider(value: Binding(
+                                        get: { Float(scene.inferenceSteps ?? 30) },
+                                        set: { viewModel.updateSceneAdvancedSettings(scene.id, inferenceSteps: Int($0)) }
+                                    ), in: 1...100, step: 1)
+                                    Text("\(scene.inferenceSteps ?? 30)")
+                                        .font(.App.caption)
+                                        .frame(width: 30)
+                                }
                             }
-                            .pickerStyle(.menu)
-                            .disabled(true)
-                        }
 
-                        Button("Reset to Recommended Defaults") {
-                            viewModel.resetSceneAdvancedSettings(scene.id)
+                            // Guidance Scale
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Guidance Scale")
+                                    .font(.App.caption)
+                                    .foregroundColor(Color.App.secondaryText)
+                                HStack {
+                                    Slider(value: Binding(
+                                        get: { scene.guidanceScale ?? 7.5 },
+                                        set: { viewModel.updateSceneAdvancedSettings(scene.id, guidanceScale: $0) }
+                                    ), in: 1...20, step: 0.5)
+                                    Text("\(String(format: "%.1f", scene.guidanceScale ?? 7.5))")
+                                        .font(.App.caption)
+                                        .frame(width: 30)
+                                }
+                            }
+
+                            // FPS & Frame Count
+                            HStack {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text("FPS")
+                                        .font(.App.caption)
+                                        .foregroundColor(Color.App.secondaryText)
+                                    TextField("24", value: Binding(
+                                        get: { scene.fps },
+                                        set: { viewModel.updateSceneAdvancedSettings(scene.id, fps: $0) }
+                                    ), format: .number)
+                                    .textFieldStyle(.roundedBorder)
+                                }
+
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text("Frames")
+                                        .font(.App.caption)
+                                        .foregroundColor(Color.App.secondaryText)
+                                    TextField("120", value: Binding(
+                                        get: { scene.frameCount },
+                                        set: { viewModel.updateSceneAdvancedSettings(scene.id, frameCount: $0) }
+                                    ), format: .number)
+                                    .textFieldStyle(.roundedBorder)
+                                }
+                            }
+
+                            // Model Profile
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Model Profile")
+                                    .font(.App.caption)
+                                    .foregroundColor(Color.App.secondaryText)
+                                Picker("Model Profile", selection: Binding(
+                                    get: { scene.modelProfileId ?? "default" },
+                                    set: { viewModel.updateSceneAdvancedSettings(scene.id, modelProfileId: $0) }
+                                )) {
+                                    Text("Recommended Default").tag("default")
+                                    ForEach(viewModel.availableModels) { model in
+                                        Text(model.name).tag(model.id)
+                                    }
+                                }
+                                .pickerStyle(.menu)
+                            }
+
+                            // LoRA Placeholder
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("LoRA Weights")
+                                    .font(.App.caption)
+                                    .foregroundColor(Color.App.secondaryText)
+                                Text("No LoRAs attached")
+                                    .font(.App.footnote)
+                                    .foregroundColor(Color.App.secondaryText)
+                                    .padding(Spacing.small)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .background(Color.App.background)
+                                    .cornerRadius(4)
+                            }
+
+                            // Upscaler Placeholder
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Upscaler")
+                                    .font(.App.caption)
+                                    .foregroundColor(Color.App.secondaryText)
+                                Picker("Upscaler", selection: .constant("none")) {
+                                    Text("None").tag("none")
+                                    Text("Spatial 2x (Placeholder)").tag("spatial2x")
+                                    Text("Temporal 2x (Placeholder)").tag("temporal2x")
+                                }
+                                .pickerStyle(.menu)
+                                .disabled(true)
+                            }
+
+                            // Quantization Placeholder
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Quantization Mode")
+                                    .font(.App.caption)
+                                    .foregroundColor(Color.App.secondaryText)
+                                Picker("Quantization", selection: .constant("auto")) {
+                                    Text("Auto (Recommended)").tag("auto")
+                                    Text("4-bit (Placeholder)").tag("4bit")
+                                    Text("8-bit (Placeholder)").tag("8bit")
+                                }
+                                .pickerStyle(.menu)
+                                .disabled(true)
+                            }
+
+                            Button("Reset to Recommended Defaults") {
+                                viewModel.resetSceneAdvancedSettings(scene.id)
+                            }
+                            .buttonStyle(.link)
+                            .font(.App.caption)
+                            .padding(.top, 4)
                         }
-                        .buttonStyle(.link)
-                        .font(.App.caption)
-                        .padding(.top, 4)
                     }
-                }
 
-                InspectorSection(title: "History", isCollapsible: true, isExpanded: false) {
-                    SceneHistoryView(
-                        generations: scene.generations,
-                        onUse: { viewModel.useGeneration($0) },
-                        onViewPrompt: { selectedGenerationForPrompt = $0 },
-                        onDelete: { viewModel.deleteGeneration($0.id) },
-                        onRegenerate: { viewModel.regenerateFromSettings($0) }
-                    )
-                }
+                    InspectorSection(title: "History", isCollapsible: true, isExpanded: false) {
+                        SceneHistoryView(
+                            generations: scene.generations,
+                            onUse: { viewModel.useGeneration($0) },
+                            onViewPrompt: { selectedGenerationForPrompt = $0 },
+                            onDelete: { viewModel.deleteGeneration($0.id) },
+                            onRegenerate: { viewModel.regenerateFromSettings($0) }
+                        )
+                    }
 
-                Spacer()
+                    Spacer()
 
-                PrimaryButton("Generate Scene", icon: "sparkles") {
-                    viewModel.generateScene()
+                    PrimaryButton("Generate Scene", icon: "sparkles") {
+                        viewModel.generateScene()
+                    }
+                    .disabled(viewModel.isGenerating)
+                    .padding(.bottom, Spacing.medium)
                 }
-                .padding(.bottom, Spacing.medium)
             } else {
                 Text("Select a scene to edit its properties")
                     .foregroundColor(Color.App.secondaryText)

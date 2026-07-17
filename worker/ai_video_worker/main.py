@@ -1,5 +1,6 @@
 import uvicorn
 import time
+import os
 from ai_video_worker.api import router, http_exception_handler, generic_exception_handler
 from ai_video_worker.config import settings
 from ai_video_worker.logging_config import setup_logging, logger
@@ -8,6 +9,47 @@ from fastapi.exceptions import RequestValidationError
 
 # Initialize logging
 setup_logging()
+
+def print_startup_report():
+    from ai_video_worker.utils.profiler import get_hardware_profile
+    profile = get_hardware_profile()
+
+    report = [
+        "\n" + "="*60,
+        "AI VIDEO WORKER STARTUP REPORT",
+        "="*60,
+        f"Status:         {profile['status'].upper()}",
+        f"Version:        {settings.version}",
+        f"OS:             {profile['os_name']} {profile['os_version']}",
+        f"Python:         {profile['python_version']}",
+        f"Python Path:    {profile['python_path']}",
+        f"Venv Path:      {profile['venv_path']}",
+        f"Device:         {profile['device']}",
+        f"Chip:           {profile['chip']}",
+        f"Memory:         {profile['total_memory_gb']} GB total ({profile['free_memory_gb']} GB free)",
+        f"MLX Available:  {'✅' if profile['mlx_available'] else '❌'}",
+        f"FFmpeg:         {'✅' if profile['ffmpeg_available'] else '❌'}",
+        f"Libraries:      {', '.join([f'{lib}:{'✅' if ok else '❌'}' for lib, ok in profile['libraries_status'].items()])}",
+        f"Models Dir:     {os.path.abspath(settings.models_dir)}",
+        f"Models Disk:    {profile['free_disk_models_gb']} GB free",
+        "="*60
+    ]
+
+    if profile['messages']:
+        report.append("MESSAGES / WARNINGS:")
+        for msg in profile['messages']:
+            report.append(f"  - {msg}")
+        report.append("="*60)
+
+    full_report = "\n".join(report)
+    logger.info(full_report)
+    # Also print to stdout directly to ensure it's visible in console regardless of log level
+    print(full_report)
+
+    if profile['status'] == "unsupported":
+        logger.error("❌ CRITICAL: Hardware or OS is not supported. Worker may not function correctly.")
+
+print_startup_report()
 
 app = FastAPI(
     title=settings.app_name,

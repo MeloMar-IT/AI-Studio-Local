@@ -1,0 +1,124 @@
+{
+  "": {
+    "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/primary.swiftdeps"
+  },
+  "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/AppErrorTests.swift": {
+    "dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/AppErrorTests.d",
+    "object": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/AppErrorTests.swift.o",
+    "swiftmodule": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/AppErrorTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/AppErrorTests.swiftdeps",
+    "diagnostics": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/AppErrorTests.dia"
+  },
+  "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/DomainTests.swift": {
+    "dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/DomainTests.d",
+    "object": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/DomainTests.swift.o",
+    "swiftmodule": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/DomainTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/DomainTests.swiftdeps",
+    "diagnostics": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/DomainTests.dia"
+  },
+  "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/EnvironmentBoundaryTests.swift": {
+    "dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/EnvironmentBoundaryTests.d",
+    "object": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/EnvironmentBoundaryTests.swift.o",
+    "swiftmodule": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/EnvironmentBoundaryTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/EnvironmentBoundaryTests.swiftdeps",
+    "diagnostics": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/EnvironmentBoundaryTests.dia"
+  },
+  "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/HomeDashboardViewModelTests.swift": {
+    "dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/HomeDashboardViewModelTests.d",
+    "object": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/HomeDashboardViewModelTests.swift.o",
+    "swiftmodule": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/HomeDashboardViewModelTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/HomeDashboardViewModelTests.swiftdeps",
+    "diagnostics": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/HomeDashboardViewModelTests.dia"
+  },
+  "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/ModelManagerViewModelTests.swift": {
+    "dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ModelManagerViewModelTests.d",
+    "object": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ModelManagerViewModelTests.swift.o",
+    "swiftmodule": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ModelManagerViewModelTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ModelManagerViewModelTests.swiftdeps",
+    "diagnostics": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ModelManagerViewModelTests.dia"
+  },
+  "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/ProjectStoreTests.swift": {
+    "dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ProjectStoreTests.d",
+    "object": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ProjectStoreTests.swift.o",
+    "swiftmodule": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ProjectStoreTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ProjectStoreTests.swiftdeps",
+    "diagnostics": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ProjectStoreTests.dia"
+  },
+  "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/PromptComposerTests.swift": {
+    "dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/PromptComposerTests.d",
+    "object": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/PromptComposerTests.swift.o",
+    "swiftmodule": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/PromptComposerTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/PromptComposerTests.swiftdeps",
+    "diagnostics": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/PromptComposerTests.dia"
+  },
+  "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/PromptImprovementHelperTests.swift": {
+    "dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/PromptImprovementHelperTests.d",
+    "object": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/PromptImprovementHelperTests.swift.o",
+    "swiftmodule": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/PromptImprovementHelperTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/PromptImprovementHelperTests.swiftdeps",
+    "diagnostics": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/PromptImprovementHelperTests.dia"
+  },
+  "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/SceneResolutionTests.swift": {
+    "dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/SceneResolutionTests.d",
+    "object": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/SceneResolutionTests.swift.o",
+    "swiftmodule": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/SceneResolutionTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/SceneResolutionTests.swiftdeps",
+    "diagnostics": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/SceneResolutionTests.dia"
+  },
+  "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Services/ContinuityStoreTests.swift": {
+    "dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ContinuityStoreTests.d",
+    "object": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ContinuityStoreTests.swift.o",
+    "swiftmodule": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ContinuityStoreTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ContinuityStoreTests.swiftdeps",
+    "diagnostics": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ContinuityStoreTests.dia"
+  },
+  "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Services/ExportOverlayTests.swift": {
+    "dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ExportOverlayTests.d",
+    "object": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ExportOverlayTests.swift.o",
+    "swiftmodule": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ExportOverlayTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ExportOverlayTests.swiftdeps",
+    "diagnostics": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ExportOverlayTests.dia"
+  },
+  "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Services/ExportServiceTests.swift": {
+    "dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ExportServiceTests.d",
+    "object": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ExportServiceTests.swift.o",
+    "swiftmodule": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ExportServiceTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ExportServiceTests.swiftdeps",
+    "diagnostics": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/ExportServiceTests.dia"
+  },
+  "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Services/GenerationClientTests.swift": {
+    "dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/GenerationClientTests.d",
+    "object": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/GenerationClientTests.swift.o",
+    "swiftmodule": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/GenerationClientTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/GenerationClientTests.swiftdeps",
+    "diagnostics": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/GenerationClientTests.dia"
+  },
+  "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/Services/WorkerLifecycleTests.swift": {
+    "dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/WorkerLifecycleTests.d",
+    "object": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/WorkerLifecycleTests.swift.o",
+    "swiftmodule": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/WorkerLifecycleTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/WorkerLifecycleTests.swiftdeps",
+    "diagnostics": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/WorkerLifecycleTests.dia"
+  },
+  "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/SmokeTests/WorkflowSmokeTests.swift": {
+    "dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/WorkflowSmokeTests.d",
+    "object": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/WorkflowSmokeTests.swift.o",
+    "swiftmodule": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/WorkflowSmokeTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/WorkflowSmokeTests.swiftdeps",
+    "diagnostics": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/WorkflowSmokeTests.dia"
+  },
+  "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/TaskQueueViewModelTests.swift": {
+    "dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/TaskQueueViewModelTests.d",
+    "object": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/TaskQueueViewModelTests.swift.o",
+    "swiftmodule": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/TaskQueueViewModelTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/TaskQueueViewModelTests.swiftdeps",
+    "diagnostics": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/TaskQueueViewModelTests.dia"
+  },
+  "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocalTests/UserSettingsTests.swift": {
+    "dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/UserSettingsTests.d",
+    "object": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/UserSettingsTests.swift.o",
+    "swiftmodule": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/UserSettingsTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/UserSettingsTests.swiftdeps",
+    "diagnostics": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/UserSettingsTests.dia"
+  }
+}

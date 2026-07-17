@@ -29,7 +29,14 @@ public struct WorkerHardwareProfile: Codable, Equatable {
     public let freeMemoryGb: Double
     public let osName: String
     public let osVersion: String
+    public let pythonPath: String
+    public let venvPath: String
+    public let librariesStatus: [String: Bool]
     public let mlxAvailable: Bool
+    public let pytorchAvailable: Bool
+    public let ffmpegAvailable: Bool
+    public let freeDiskModelsGb: Double
+    public let freeDiskOutputs_Gb: Double
     public let status: String
     public let messages: [String]
 
@@ -40,7 +47,14 @@ public struct WorkerHardwareProfile: Codable, Equatable {
         case freeMemoryGb = "free_memory_gb"
         case osName = "os_name"
         case osVersion = "os_version"
+        case pythonPath = "python_path"
+        case venvPath = "venv_path"
+        case librariesStatus = "libraries_status"
         case mlxAvailable = "mlx_available"
+        case pytorchAvailable = "pytorch_available"
+        case ffmpegAvailable = "ffmpeg_available"
+        case freeDiskModelsGb = "free_disk_models_gb"
+        case freeDiskOutputs_Gb = "free_disk_outputs_gb"
         case status
         case messages
     }
@@ -79,6 +93,7 @@ public struct ProgressEvent: Codable {
     public let stage: String
     public let percentage: Double?
     public let message: String
+    public let error: String?
     public let timestamp: String
 
     enum CodingKeys: String, CodingKey {
@@ -86,6 +101,7 @@ public struct ProgressEvent: Codable {
         case stage
         case percentage
         case message
+        case error
         case timestamp
     }
 }
@@ -166,6 +182,8 @@ public struct GenerationRequest: Codable {
     public let steps: Int
     public let guidanceScale: Double
     public let seed: Int?
+    public let enhancePrompt: Bool
+    public let useUncensoredEnhancer: Bool
     public let modelId: String
     public let projectId: String
     public let sceneId: String
@@ -179,11 +197,13 @@ public struct GenerationRequest: Codable {
         prompt: String,
         negativePrompt: String? = nil,
         width: Int = 704,
-        height: Int = 480,
-        numFrames: Int = 161,
+        height: Int = 512,
+        numFrames: Int = 49,
         steps: Int = 20,
         guidanceScale: Double = 3.0,
         seed: Int? = nil,
+        enhancePrompt: Bool = false,
+        useUncensoredEnhancer: Bool = false,
         modelId: String,
         projectId: String,
         sceneId: String,
@@ -201,6 +221,8 @@ public struct GenerationRequest: Codable {
         self.steps = steps
         self.guidanceScale = guidanceScale
         self.seed = seed
+        self.enhancePrompt = enhancePrompt
+        self.useUncensoredEnhancer = useUncensoredEnhancer
         self.modelId = modelId
         self.projectId = projectId
         self.sceneId = sceneId
@@ -220,6 +242,8 @@ public struct GenerationRequest: Codable {
         case steps
         case guidanceScale = "guidance_scale"
         case seed
+        case enhancePrompt = "enhance_prompt"
+        case useUncensoredEnhancer = "use_uncensored_enhancer"
         case modelId = "model_id"
         case projectId = "project_id"
         case sceneId = "scene_id"
@@ -237,9 +261,20 @@ public final class HTTPGenerationClient: GenerationClient {
     private let decoder: JSONDecoder
     private let encoder: JSONEncoder
 
-    public init(baseURL: URL = URL(string: "http://localhost:8000")!, session: URLSession = .shared) {
+    public init(baseURL: URL = URL(string: "http://localhost:8000")!, session: URLSession? = nil) {
         self.baseURL = baseURL
-        self.session = session
+
+        if let session = session {
+            self.session = session
+        } else {
+            let configuration = URLSessionConfiguration.default
+            // Standard timeout for initial requests (submission, status checks, models)
+            // Model loading and job initialization can take time.
+            configuration.timeoutIntervalForRequest = 60.0 // 1 minute
+            configuration.timeoutIntervalForResource = 3600.0 // 1 hour
+            self.session = URLSession(configuration: configuration)
+        }
+
         self.decoder = JSONDecoder()
         self.decoder.dateDecodingStrategy = .iso8601
         // We use explicit CodingKeys in our domain models to match the worker's snake_case
@@ -314,40 +349,49 @@ public final class HTTPGenerationClient: GenerationClient {
 
     private func submitGeneration(request: GenerationRequest, endpoint: String) async throws -> String {
         let url = baseURL.appendingPathComponent(endpoint)
+        NSLog("🌐 HTTPGenerationClient: Submitting to \(url.absoluteString)")
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         do {
             urlRequest.httpBody = try encoder.encode(request)
+            if let bodyString = String(data: urlRequest.httpBody ?? Data(), encoding: .utf8) {
+                NSLog("🌐 HTTPGenerationClient: Request body: \(bodyString)")
+            }
 
             let (data, response) = try await session.data(for: urlRequest)
 
-            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode >= 400 {
-                // Try to parse structured error
-                struct WorkerErrorResponse: Codable {
-                    struct ErrorDetail: Codable {
-                        let code: String
-                        let message: String
-                        let action: String?
+            if let httpResponse = response as? HTTPURLResponse {
+                NSLog("🌐 HTTPGenerationClient: Received response with status code \(httpResponse.statusCode)")
+                if httpResponse.statusCode >= 400 {
+                    // Try to parse structured error
+                    struct WorkerErrorResponse: Codable {
+                        struct ErrorDetail: Codable {
+                            let code: String
+                            let message: String
+                            let action: String?
+                        }
+                        let error: ErrorDetail
                     }
-                    let error: ErrorDetail
+
+                    if let workerError = try? decoder.decode(WorkerErrorResponse.self, from: data) {
+                        let code = workerError.error.code
+                        let msg = workerError.error.message
+                        let action = workerError.error.action
+                        NSLog("🌐 HTTPGenerationClient: Worker returned error: \(code) - \(msg)")
+
+                        if code == "unsupported_capability" {
+                            throw GenerationClientError.unsupportedCapability(msg)
+                        }
+                        if code == "model_not_found" || code == "model_not_installed" {
+                            throw GenerationClientError.missingModel(request.modelId)
+                        }
+                        throw GenerationClientError.workerError(code: code, message: msg, action: action)
+                    }
+
+                    NSLog("🌐 HTTPGenerationClient: Server error without structured response: \(String(data: data, encoding: .utf8) ?? "Unknown error")")
+                    throw GenerationClientError.workerError(code: "http_\(httpResponse.statusCode)", message: "Server returned \(httpResponse.statusCode)")
                 }
-
-                if let workerError = try? decoder.decode(WorkerErrorResponse.self, from: data) {
-                    let code = workerError.error.code
-                    let msg = workerError.error.message
-                    let action = workerError.error.action
-
-                    if code == "unsupported_capability" {
-                        throw GenerationClientError.unsupportedCapability(msg)
-                    }
-                    if code == "model_not_found" || code == "model_not_installed" {
-                        throw GenerationClientError.missingModel(request.modelId)
-                    }
-                    throw GenerationClientError.workerError(code: code, message: msg, action: action)
-                }
-
-                throw GenerationClientError.workerError(code: "http_\(httpResponse.statusCode)", message: "Server returned \(httpResponse.statusCode)")
             }
 
             struct JobResponse: Codable {
@@ -359,10 +403,13 @@ public final class HTTPGenerationClient: GenerationClient {
             }
 
             let responseData = try decoder.decode(JobResponse.self, from: data)
+            NSLog("🌐 HTTPGenerationClient: Successfully parsed job ID: \(responseData.jobId)")
             return responseData.jobId
         } catch let error as GenerationClientError {
+            NSLog("🌐 HTTPGenerationClient: Re-throwing GenerationClientError: \(error)")
             throw error
         } catch {
+            NSLog("🌐 HTTPGenerationClient: Request failed with error: \(error)")
             throw GenerationClientError.workerUnavailable(error)
         }
     }
