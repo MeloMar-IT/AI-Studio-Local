@@ -69,6 +69,12 @@ renders/
 *.ltxproject/assets/
 *.ltxproject/exports/
 
+# Archives and huge files
+*.zip
+*.tar
+*.tar.gz
+repo-source.zip
+
 # Cache
 .cache/
 __pycache__/
