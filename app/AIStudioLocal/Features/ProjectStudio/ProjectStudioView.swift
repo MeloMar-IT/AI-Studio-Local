@@ -330,39 +330,38 @@ struct ProjectStudioView: View {
     }
 
     private var studioContent: some View {
-        VStack(spacing: 0) {
-            if let warning = viewModel.missingElementsWarning {
-                HStack {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundColor(.orange)
-                    Text(warning)
-                        .font(.App.caption)
-                    Spacer()
+        HStack(spacing: 0) {
+            sidebar
+
+            VStack(spacing: 0) {
+                if let warning = viewModel.missingElementsWarning {
+                    HStack {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(.orange)
+                        Text(warning)
+                            .font(.App.caption)
+                        Spacer()
+                    }
+                    .padding(.horizontal, Spacing.medium)
+                    .padding(.vertical, Spacing.small)
+                    .background(Color.orange.opacity(0.1))
                 }
-                .padding(.horizontal, Spacing.medium)
-                .padding(.vertical, Spacing.small)
-                .background(Color.orange.opacity(0.1))
+
+                mainCanvas
+                timeline
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
 
-            HStack(spacing: 0) {
-                sidebar
-
-                VStack(spacing: 0) {
-                    mainCanvas
-                    timeline
-                }
-
-                if viewModel.selectedSceneId != nil {
-                    inspector
-                        .transition(.asymmetric(
-                            insertion: .move(edge: .trailing),
-                            removal: .move(edge: .trailing)
-                        ))
-                }
+            if viewModel.selectedSceneId != nil {
+                inspector
+                    .transition(.asymmetric(
+                        insertion: .move(edge: .trailing),
+                        removal: .move(edge: .trailing)
+                    ))
             }
-            .animation(.spring(response: 0.3, dampingFraction: 0.8), value: viewModel.selectedSceneId)
         }
         .background(Color.App.background)
+        .animation(.spring(response: 0.3, dampingFraction: 0.8), value: viewModel.selectedSceneId)
     }
 
     private var emptyState: some View {

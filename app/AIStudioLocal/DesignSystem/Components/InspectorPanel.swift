@@ -35,13 +35,12 @@ struct InspectorPanel<Content: View>: View {
                 .padding(Spacing.medium)
             }
         }
-        .frame(minWidth: 300, maxWidth: 400)
+        .frame(minWidth: 300, idealWidth: 350, maxWidth: 450)
         .background(Color.App.background)
         .overlay(
             Rectangle()
                 .fill(Color.App.border)
-                .frame(width: 1)
-                .frame(maxHeight: .infinity),
+                .frame(width: 1),
             alignment: .leading
         )
     }
