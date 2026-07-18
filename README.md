@@ -56,14 +56,14 @@ If you prefer to run components manually:
 
 #### 1. Python Worker
 
-The worker handles the generation requests. For now, it provides mock responses.
+The worker handles the generation requests.
 
 ```bash
 cd worker
 python3 -m venv venv
 source venv/bin/activate
 pip install -e .
-python ai_video_worker/main.py
+python3 ai_video_worker/main.py
 ```
 
 Or use the provided script:

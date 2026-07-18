@@ -2,7 +2,7 @@
 set -e
 
 # Change to worker directory
-cd "$(dirname "$0")/../worker_v2"
+cd "$(dirname "$0")/../worker"
 
 # Create virtual environment if it doesn't exist
 if [ ! -d "venv" ]; then
@@ -76,4 +76,4 @@ echo "Starting AI Studio Local Worker..."
 export PYTHONPATH=$PYTHONPATH:.
 export AI_VIDEO_WORKER_ENVIRONMENT=$ENVIRONMENT
 # Disable reload to prevent interrupting long-running jobs
-python ai_video_worker/main.py --no-reload
+python3 ai_video_worker/main.py --no-reload

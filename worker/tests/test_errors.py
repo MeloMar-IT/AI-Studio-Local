@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import patch
 from fastapi.testclient import TestClient
-from ltx_worker.main import app
+from ai_video_worker.main import app
 
 client = TestClient(app)
 
@@ -17,7 +17,7 @@ def test_error_response_structure():
 
 def test_model_not_found_error():
     from unittest.mock import patch
-    with patch("ltx_worker.api.scan_models") as mock_scan:
+    with patch("ai_video_worker.api.scan_models") as mock_scan:
         mock_scan.return_value = [] # No models
 
         response = client.post("/generate/text-to-video", json={
@@ -31,9 +31,9 @@ def test_model_not_found_error():
 
 def test_unsupported_mode_error():
     from unittest.mock import patch
-    from ltx_worker.schemas.api import ModelProfile
+    from ai_video_worker.schemas.api import ModelProfile
 
-    with patch("ltx_worker.api.scan_models") as mock_scan:
+    with patch("ai_video_worker.api.scan_models") as mock_scan:
         mock_scan.return_value = [
             ModelProfile(
                 id="text-only-model",

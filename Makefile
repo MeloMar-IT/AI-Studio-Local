@@ -15,7 +15,7 @@ help:
 	@echo "  make test-worker  Run Python worker tests"
 
 install:
-	cd worker_v2 && python3 -m venv venv && . venv/bin/activate && pip install -e .
+	cd worker && python3 -m venv venv && . venv/bin/activate && pip install -e .
 
 test:
 	./scripts/test.sh

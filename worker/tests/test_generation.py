@@ -4,14 +4,16 @@ import json
 import asyncio
 from pathlib import Path
 from typing import Any, List, Optional
-from ltx_worker.engine.adapter import LTXAdapter
-from ltx_worker.engine.base import ProgressCallback, CancellationToken, UnsupportedCapabilityError
-from ltx_worker.engine.ltx import LTXGenerationEngine
-from ltx_worker.schemas.api import GenerationRequest
+from ai_video_worker.engine.adapter import LTXAdapter
+from ai_video_worker.engine.base import ProgressCallback, CancellationToken, UnsupportedCapabilityError
+from ai_video_worker.engine.ltx import LTXGenerationEngine
+from ai_video_worker.schemas.api import GenerationRequest
 
 class FakeAdapter(LTXAdapter):
     def __init__(self):
         self.should_fail = False
+        self._current_model_id = "fake-model"
+        self._current_model_path = "/fake/path"
 
     def capabilities(self) -> List[str]:
         return ["text-to-video"]
@@ -36,8 +38,9 @@ class FakeAdapter(LTXAdapter):
             progress_callback("generating", 0.5, "Generating...")
 
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        # Write at least 10KB to satisfy the new validation in store.py
         with open(output_path, "wb") as f:
-            f.write(b"fake video")
+            f.write(b"fake video content" * 1000)
         return output_path
 
     async def generate_image_to_video(self, *args, **kwargs):
@@ -129,7 +132,7 @@ async def test_ltx_engine_failure_metadata(tmp_path):
 def test_request_validation():
     # This is more for api testing
     from fastapi.testclient import TestClient
-    from ltx_worker.main import app
+    from ai_video_worker.main import app
     client = TestClient(app)
 
     # Missing model_id
@@ -145,8 +148,8 @@ def test_request_validation():
 @pytest.mark.asyncio
 async def test_job_lifecycle_integration(tmp_path):
     # Integration test using Real Engine with Fake Adapter to check JobStore flow
-    from ltx_worker.jobs.store import JobStore
-    from ltx_worker.engine.output import OutputManager
+    from ai_video_worker.jobs.store import JobStore
+    from ai_video_worker.engine.output import OutputManager
 
     output_dir = tmp_path / "outputs"
     output_dir.mkdir()
@@ -191,7 +194,7 @@ async def test_job_lifecycle_integration(tmp_path):
 
 def test_model_missing_validation():
     from fastapi.testclient import TestClient
-    from ltx_worker.main import app
+    from ai_video_worker.main import app
     client = TestClient(app)
 
     payload = {

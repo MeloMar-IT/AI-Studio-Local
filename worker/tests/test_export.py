@@ -4,11 +4,11 @@ import json
 import shutil
 import tempfile
 import asyncio
-from ltx_worker.jobs.store import JobStore
-from ltx_worker.engine.ltx import LTXGenerationEngine
-from ltx_worker.engine.adapter import LTXAdapter
+from ai_video_worker.jobs.store import JobStore
+from ai_video_worker.engine.ltx import LTXGenerationEngine
+from ai_video_worker.engine.adapter import LTXAdapter
 from typing import List, Any, Optional
-from ltx_worker.engine.base import ProgressCallback, CancellationToken
+from ai_video_worker.engine.base import ProgressCallback, CancellationToken
 
 class TestAdapter(LTXAdapter):
     def capabilities(self) -> List[str]:
@@ -34,8 +34,8 @@ def temp_output_dir():
     yield dir_path
     shutil.rmtree(dir_path)
 
-from ltx_worker.engine.output import OutputManager
-from ltx_worker.schemas.api import GenerationRequest
+from ai_video_worker.engine.output import OutputManager
+from ai_video_worker.schemas.api import GenerationRequest
 
 def test_job_metadata_persistence(temp_output_dir):
     engine = LTXGenerationEngine(adapter=TestAdapter())

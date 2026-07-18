@@ -3,10 +3,10 @@ import os
 import json
 import asyncio
 from datetime import datetime
-from ltx_worker.jobs.store import JobStore
-from ltx_worker.engine.output import OutputManager
-from ltx_worker.engine.base import GenerationEngine, CancellationToken
-from ltx_worker.schemas.api import GenerationRequest, JobStatus
+from ai_video_worker.jobs.store import JobStore
+from ai_video_worker.engine.output import OutputManager
+from ai_video_worker.engine.base import GenerationEngine, CancellationToken
+from ai_video_worker.schemas.api import GenerationRequest, JobStatus
 
 class MockEngine(GenerationEngine):
     def capabilities(self): return ["text-to-video"]

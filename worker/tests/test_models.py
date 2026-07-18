@@ -2,13 +2,13 @@ import os
 import shutil
 import tempfile
 import json
-from ltx_worker.utils.models import scan_models, load_model_registry
+from ai_video_worker.utils.models import scan_models, load_model_registry
 
 def test_load_model_registry():
     registry = load_model_registry()
     assert isinstance(registry, list)
     assert len(registry) > 0
-    assert any(p["id"] == "ltx-2.3-distilled" for p in registry)
+    assert any(p["id"] == "ltx-video-2b-distilled" for p in registry)
 
 def test_scan_models_empty():
     with tempfile.TemporaryDirectory() as temp_dir:

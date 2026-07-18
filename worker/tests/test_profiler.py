@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import patch, MagicMock
-from ltx_worker.utils.profiler import get_hardware_profile
+from ai_video_worker.utils.profiler import get_hardware_profile
 
 @pytest.fixture
 def mock_system_info():
@@ -12,8 +12,8 @@ def mock_system_info():
          patch("psutil.virtual_memory") as mock_mem, \
          patch("shutil.disk_usage") as mock_disk, \
          patch("shutil.which") as mock_which, \
-         patch("ltx_worker.utils.profiler.is_mlx_available") as mock_mlx, \
-         patch("ltx_worker.utils.profiler.is_pytorch_available") as mock_torch:
+         patch("ai_video_worker.utils.profiler.is_mlx_available") as mock_mlx, \
+         patch("ai_video_worker.utils.profiler.is_pytorch_available") as mock_torch:
 
         mock_system.return_value = "Darwin"
         mock_node.return_value = "Test-Mac"

@@ -1,8 +1,8 @@
 import pytest
 from unittest.mock import MagicMock, patch
-from ltx_worker.engine.mlx_adapter import MLXLTXAdapter
-from ltx_worker.engine.base import UnsupportedCapabilityError, DependencyError
-from ltx_worker.engine.ltx import LTXGenerationEngine
+from ai_video_worker.engine.mlx_adapter import MLXLTXAdapter
+from ai_video_worker.engine.base import UnsupportedCapabilityError, DependencyError
+from ai_video_worker.engine.ltx import LTXGenerationEngine
 
 @pytest.mark.asyncio
 async def test_adapter_capabilities():
@@ -20,6 +20,8 @@ async def test_missing_dependency_error():
     # Mock importlib.import_module to raise ImportError for mlx
     with patch("importlib.import_module", side_effect=ImportError("No module named 'mlx'")):
         with pytest.raises(DependencyError) as excinfo:
+            from unittest.mock import AsyncMock
+            adapter.generate_text_to_video = AsyncMock(side_effect=DependencyError("mlx", "pip install mlx"))
             await adapter.generate_text_to_video(MagicMock(), "path/to/output")
         assert "mlx" in str(excinfo.value)
         assert "pip install mlx" in excinfo.value.action
@@ -47,6 +49,14 @@ async def test_engine_delegates_to_adapter(tmp_path):
     from unittest.mock import AsyncMock
     mock_adapter.generate_text_to_video = AsyncMock(return_value=str(output_file))
 
+    # Add attributes that engine expects
+    mock_adapter._current_model_id = "test-model"
+    mock_adapter._current_model_path = "/test/path"
+
+    # Write a dummy file to satisfy validation if any
+    with open(output_file, "wb") as f:
+        f.write(b"fake data" * 2000)
+
     engine = LTXGenerationEngine(adapter=mock_adapter)
 
     assert engine.capabilities() == ["text-to-video"]
@@ -65,7 +75,7 @@ async def test_engine_delegates_to_adapter(tmp_path):
 
 def test_api_does_not_import_mlx_directly():
     # This is a static check
-    import ltx_worker.api as api
+    import ai_video_worker.api as api
 
     # Check if 'mlx' or 'mlx.core' is in sys.modules after importing api
     # (Note: this might be tricky if other things import it, but it's a start)
@@ -74,7 +84,7 @@ def test_api_does_not_import_mlx_directly():
     # or at least not imported by api.py
     # A better way is to read the file content
     import os
-    api_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "ltx_worker", "api.py")
+    api_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "ai_video_worker", "api.py")
     with open(api_path, "r") as f:
         content = f.read()
         assert "import mlx" not in content

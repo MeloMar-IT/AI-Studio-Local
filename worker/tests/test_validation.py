@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import patch
 from fastapi.testclient import TestClient
-from ltx_worker.main import app
+from ai_video_worker.main import app
 
 client = TestClient(app)
 
@@ -22,9 +22,9 @@ def test_generation_request_validation():
 
     # Valid request (with mocked scan_models)
     from unittest.mock import patch
-    from ltx_worker.schemas.api import ModelProfile
+    from ai_video_worker.schemas.api import ModelProfile
 
-    with patch("ltx_worker.api.scan_models") as mock_scan:
+    with patch("ai_video_worker.api.scan_models") as mock_scan:
         mock_scan.return_value = [
             ModelProfile(
                 id="test-model",
@@ -50,9 +50,9 @@ def test_generation_request_validation():
 def test_image_to_video_validation():
     # image_to_video requires image_path
     from unittest.mock import patch
-    from ltx_worker.schemas.api import ModelProfile
+    from ai_video_worker.schemas.api import ModelProfile
 
-    with patch("ltx_worker.api.scan_models") as mock_scan:
+    with patch("ai_video_worker.api.scan_models") as mock_scan:
         mock_scan.return_value = [
             ModelProfile(
                 id="test-model",

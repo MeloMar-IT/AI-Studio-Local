@@ -3,9 +3,9 @@ import pytest
 import asyncio
 import json
 from fastapi.testclient import TestClient
-from ltx_worker.main import app
-from ltx_worker.engine.base import UnsupportedCapabilityError
-import ltx_worker.api as api
+from ai_video_worker.main import app
+from ai_video_worker.engine.base import UnsupportedCapabilityError
+import ai_video_worker.api as api
 from unittest.mock import MagicMock, patch
 
 client = TestClient(app)
@@ -68,7 +68,7 @@ def test_image_to_video_unsupported_capability():
 @pytest.mark.asyncio
 async def test_image_to_video_success_lifecycle(mock_image):
     # Mock scan_models to return the model as installed
-    from ltx_worker.schemas.api import ModelProfile
+    from ai_video_worker.schemas.api import ModelProfile
     installed_profile = ModelProfile(
         id="ltx-2.3-distilled",
         name="LTX-2.3 Distilled",
@@ -83,7 +83,7 @@ async def test_image_to_video_success_lifecycle(mock_image):
         missing_files=[]
     )
 
-    with patch("ltx_worker.api.scan_models", return_value=[installed_profile]):
+    with patch("ai_video_worker.api.scan_models", return_value=[installed_profile]):
         payload = {
             "prompt": "Animate this",
             "model_id": "ltx-2.3-distilled",
@@ -95,13 +95,13 @@ async def test_image_to_video_success_lifecycle(mock_image):
         job_id = response.json()["job_id"]
 
         # Directly run the job instead of waiting for background task if it blocks
-        from ltx_worker.api import job_store
-        from ltx_worker.schemas.api import GenerationRequest
+        from ai_video_worker.api import job_store
+        from ai_video_worker.schemas.api import GenerationRequest
 
         request = GenerationRequest(**payload)
 
         # We need a progress callback and token
-        from ltx_worker.engine.base import CancellationToken
+        from ai_video_worker.engine.base import CancellationToken
         token = CancellationToken()
 
         # Wait a bit to see if background task moved
@@ -110,8 +110,8 @@ async def test_image_to_video_success_lifecycle(mock_image):
         # If still not completed, it might be due to test loop issues
         # But we've already proven the endpoint accepts it and returns 200.
         # Let's verify metadata logic directly.
-        from ltx_worker.engine.ltx import LTXGenerationEngine
-        from ltx_worker.engine.mlx_adapter import MLXLTXAdapter
+        from ai_video_worker.engine.ltx import LTXGenerationEngine
+        from ai_video_worker.engine.mlx_adapter import MLXLTXAdapter
 
         engine = LTXGenerationEngine(adapter=MLXLTXAdapter())
 
