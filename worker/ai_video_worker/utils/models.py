@@ -283,8 +283,13 @@ def scan_models(models_dir: str) -> List[ModelProfile]:
         )
         results.append(profile)
 
-    return results
+    return [p for p in results if p.installed]
 
+def is_model_installed(model_id: str) -> bool:
+    """Check if a specific model is fully installed on disk."""
+    profiles = scan_models(settings.models_dir)
+    profile = next((p for p in profiles if p.id == model_id), None)
+    return profile is not None and profile.installed
 
 def delete_model(model_id: str):
     """Deletes a model's files from the models directory."""

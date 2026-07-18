@@ -2,7 +2,60 @@ import os
 import shutil
 import tempfile
 import json
-from ai_video_worker.utils.models import scan_models, load_model_registry
+from ai_video_worker.utils.models import scan_models, load_model_registry, is_model_installed
+from ai_video_worker.config import settings
+from unittest.mock import patch
+
+def test_is_model_installed():
+    with tempfile.TemporaryDirectory() as temp_dir:
+        # Patch settings.models_dir to use our temp dir
+        with patch.object(settings, 'models_dir', temp_dir):
+            registry = load_model_registry()
+            profile = registry[0]
+            model_id = profile["id"]
+            expected_files = profile["expected_files"]
+
+            # Initially not installed
+            assert not is_model_installed(model_id)
+
+            # Create model directory and files
+            model_path = os.path.join(temp_dir, model_id)
+            os.makedirs(model_path)
+            for filename in expected_files:
+                with open(os.path.join(model_path, filename), "w") as f:
+                    f.write("test content")
+
+            # Now it should be installed
+            assert is_model_installed(model_id)
+
+            # Remove one file -> partial -> not installed
+            os.remove(os.path.join(model_path, expected_files[0]))
+            assert not is_model_installed(model_id)
+
+def test_scan_models_filtering():
+    with tempfile.TemporaryDirectory() as temp_dir:
+        # Patch settings.models_dir to use our temp dir
+        with patch.object(settings, 'models_dir', temp_dir):
+            registry = load_model_registry()
+            profile = registry[0]
+            model_id = profile["id"]
+            expected_files = profile["expected_files"]
+
+            # Initially no models should be returned as none are installed
+            assert len(scan_models(temp_dir)) == 0
+
+            # Create model directory and files for one model
+            model_path = os.path.join(temp_dir, model_id)
+            os.makedirs(model_path)
+            for filename in expected_files:
+                with open(os.path.join(model_path, filename), "w") as f:
+                    f.write("test content")
+
+            # Now scan_models should return this one model
+            models = scan_models(temp_dir)
+            assert len(models) == 1
+            assert models[0].id == model_id
+            assert models[0].installed
 
 def test_load_model_registry():
     registry = load_model_registry()
@@ -13,11 +66,8 @@ def test_load_model_registry():
 def test_scan_models_empty():
     with tempfile.TemporaryDirectory() as temp_dir:
         models = scan_models(temp_dir)
-        # Should return all registry profiles but with status "missing"
-        assert len(models) > 0
-        for model in models:
-            assert model.status == "missing"
-            assert not model.installed
+        # Should now return 0 because none are installed
+        assert len(models) == 0
 
 def test_scan_models_installed():
     with tempfile.TemporaryDirectory() as temp_dir:
@@ -64,11 +114,7 @@ def test_scan_models_partial():
         with open(os.path.join(model_path, expected_files[0]), "w") as f:
             f.write("test content")
 
+        # Now scan_models should NOT return this model because it's only partially installed
         models = scan_models(temp_dir)
-
-        # Find the model in results
         partial_model = next((m for m in models if m.id == model_id), None)
-        assert partial_model is not None
-        assert partial_model.status == "partial"
-        assert not partial_model.installed
-        assert len(partial_model.missing_files) == len(expected_files) - 1
+        assert partial_model is None

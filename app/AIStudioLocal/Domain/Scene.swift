@@ -172,7 +172,7 @@ public struct Scene: Codable, Identifiable, Equatable {
         guidanceScale: Float? = nil,
         fps: Int? = nil,
         frameCount: Int? = nil,
-        modelProfileId: String? = nil,
+        modelProfileId: String? = "ltx-video-av-q4",
         loraWeights: [String: Float]? = nil,
         upscalerId: String? = nil,
         quantizationMode: String? = nil

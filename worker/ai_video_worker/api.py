@@ -136,10 +136,16 @@ async def import_model_endpoint(request: ModelImportRequest):
 
 @router.post("/models/download")
 async def download_model_endpoint(request: ModelDownloadRequest, background_tasks: BackgroundTasks):
-    result = download_model(request.model_id, background_tasks)
-    if not result["success"]:
-        raise HTTPException(status_code=400, detail=result["message"])
-    return result
+    raise HTTPException(
+        status_code=403,
+        detail=ErrorResponse(
+            error=ErrorDetail(
+                code="downloads_disabled",
+                message="Automatic model downloads are currently disabled in AI Studio Local.",
+                action="Please manually download the model files and place them in the models directory."
+            )
+        ).model_dump()
+    )
 
 
 @router.delete("/models/{model_id}")
@@ -151,44 +157,21 @@ async def delete_model_endpoint(model_id: str):
 
 
 def _validate_model_for_generation(model_id: str, mode: str):
-    """Validates that a model exists and supports the requested mode."""
+    """Validates that a model exists, is installed, and supports the requested mode."""
     models = scan_models(settings.models_dir)
     profile = next((m for m in models if m.id == model_id), None)
 
     if not profile:
-        # Check if the model is in the registry but just not downloaded
-        registry = load_model_registry()
-        registered_profile = next((m for m in registry if m["id"] == model_id), None)
-
-        if registered_profile:
-            # Model exists in registry but not on disk at all.
-            # We allow this because the generation job will handle auto-download.
-            return ModelProfile(
-                id=model_id,
-                name=registered_profile["name"],
-                description=registered_profile["description"],
-                family=registered_profile["family"],
-                expected_files=registered_profile.get("expected_files", []),
-                supported_modes=registered_profile.get("supported_modes", []),
-                installed=False,
-                status="missing"
-            )
-
         raise HTTPException(
             status_code=400,
             detail=ErrorResponse(
                 error=ErrorDetail(
                     code="model_not_found",
-                    message=f"Model '{model_id}' not found in registry.",
-                    action="Please select a valid model from the Continuity Library or Model Manager."
+                    message=f"Model '{model_id}' is not installed or not found.",
+                    action="Please ensure the model is fully downloaded and present in the models directory."
                 )
             ).model_dump()
         )
-
-    if not profile.installed:
-        # We allow partial models because the generation job will handle completing the download.
-        logger.info(f"Model '{model_id}' is partially installed. Generation job will complete download.")
-        return profile
 
     if mode not in profile.supported_modes:
         raise HTTPException(

@@ -44,6 +44,7 @@ class MLXLTXAdapter(LTXAdapter):
         return ["text-to-video", "image-to-video", "audio-to-video"]
 
     async def load_model(self, model_profile: Any) -> Any:
+        from ai_video_worker.utils.models import is_model_installed
         model_id = getattr(model_profile, "id", str(model_profile))
         model_path = getattr(model_profile, "local_path", None)
 
@@ -52,6 +53,12 @@ class MLXLTXAdapter(LTXAdapter):
             model_path = os.path.join(settings.models_dir, model_id)
 
         self._log_job(f"MLXAdapter: Loading {model_id} from {model_path}")
+
+        # Check if all model files are present on disk
+        if not is_model_installed(model_id):
+            error_msg = f"Model '{model_id}' is not fully installed. Please download it first."
+            self._log_job(f"❌ {error_msg}")
+            raise FileNotFoundError(error_msg)
 
         if not os.path.exists(model_path):
              raise FileNotFoundError(f"Model path {model_path} does not exist.")

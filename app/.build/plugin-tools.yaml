@@ -63,6 +63,12 @@ commands:
     outputs: ["/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/sources"]
     description: "Write auxiliary file /Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalTests.build/sources"
 
+  "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle/AppIconDirect.png":
+    tool: copy-tool
+    inputs: ["/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Resources/AppIconDirect.png"]
+    outputs: ["/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle/AppIconDirect.png"]
+    description: "Copying /Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Resources/AppIconDirect.png"
+
   "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle/Assets.xcassets":
     tool: copy-tool
     inputs: ["/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Resources/Assets.xcassets/"]
@@ -103,7 +109,7 @@ commands:
 
   "AIStudioLocal-arm64-apple-macosx-debug.module-resources":
     tool: phony
-    inputs: ["/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle/Assets.xcassets/"]
+    inputs: ["/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle/AppIconDirect.png","/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle/Assets.xcassets/"]
     outputs: ["<AIStudioLocal-arm64-apple-macosx-debug.module-resources>"]
 
   "C.AIStudioLocal-arm64-apple-macosx-debug.exe":

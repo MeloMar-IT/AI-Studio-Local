@@ -427,6 +427,9 @@ class ProjectStudioViewModel: ObservableObject {
         let composed = composePrompt(for: scene)
         NSLog("🎬 ProjectStudioViewModel: Composed prompt: \(composed.prompt.prefix(100))...")
 
+        let modelId = scene.modelProfileId ?? project.modelProfileId ?? "ltx-video-av-q4"
+        let modelName = availableModels.first(where: { $0.id == modelId })?.name ?? "LTX Video AV Q4"
+
         let request = GenerationRequest(
             prompt: scene.mode == .retake ? retakePrompt : composed.prompt,
             negativePrompt: composed.negativePrompt.isEmpty ? nil : composed.negativePrompt,
@@ -438,7 +441,7 @@ class ProjectStudioViewModel: ObservableObject {
             seed: scene.seed,
             enhancePrompt: true, // Enable prompt enhancement by default for better quality
             useUncensoredEnhancer: false,
-            modelId: "ltx-video-v1", // Default model for now
+            modelId: modelId,
             projectId: project.id,
             sceneId: scene.id,
             imagePath: scene.mode == .imageToVideo ? scene.referenceImagePath : nil,
@@ -449,7 +452,7 @@ class ProjectStudioViewModel: ObservableObject {
 
         Task {
             do {
-                NSLog("🎬 ProjectStudioViewModel: Submitting generation request to client (mode: \(scene.mode))")
+                NSLog("🎬 ProjectStudioViewModel: Submitting generation request to client (mode: \(scene.mode), model: \(modelId))")
                 let jobId: String
                 switch scene.mode {
                 case .textToVideo:
@@ -473,31 +476,29 @@ class ProjectStudioViewModel: ObservableObject {
                     sceneId: scene.id,
                     status: .queued,
                     mode: scene.mode,
-                    modelProfile: ModelProfileSummary(id: "ltx-video-v1", name: "LTX Video v1"),
+                    modelProfile: ModelProfileSummary(id: modelId, name: modelName),
                     progress: 0,
                     startedAt: Date(),
                     sceneName: scene.name
                 )
 
                 await MainActor.run {
-                    NSLog("🎬 ProjectStudioViewModel: Adding job to AppState and resetting isGenerating")
-                    appState.addJob(job)
-                    isGenerating = false
-                    appState.isLoading = false
+                    self.appState?.addJob(job)
+                    self.isGenerating = false
                 }
             } catch let error as GenerationClientError {
                 NSLog("🎬 ProjectStudioViewModel: Generation failed with GenerationClientError: \(error)")
                 await MainActor.run {
-                    isGenerating = false
-                    appState.isLoading = false
-                    appState.activeError = error.asAppError
+                    self.isGenerating = false
+                    self.appState?.isLoading = false
+                    self.appState?.activeError = error.asAppError
                 }
             } catch {
                 NSLog("🎬 ProjectStudioViewModel: Generation failed with unexpected error: \(error.localizedDescription)")
                 await MainActor.run {
-                    isGenerating = false
-                    appState.isLoading = false
-                    appState.activeError = AppError.generationFailed(details: error.localizedDescription) { [weak self] in
+                    self.isGenerating = false
+                    self.appState?.isLoading = false
+                    self.appState?.activeError = AppError.generationFailed(details: error.localizedDescription) { [weak self] in
                         self?.generateScene()
                     }
                 }
@@ -522,10 +523,13 @@ class ProjectStudioViewModel: ObservableObject {
 
         isGenerating = true
 
+        let modelId = generation.modelProfile?.id ?? (scenes.first(where: { $0.id == generation.sceneId })?.modelProfileId) ?? project.modelProfileId ?? "ltx-video-av-q4"
+        let modelName = availableModels.first(where: { $0.id == modelId })?.name ?? generation.modelProfile?.name ?? "LTX Video AV Q4"
+
         let request = GenerationRequest(
             prompt: generation.composedPrompt,
             negativePrompt: generation.negativePrompt,
-            modelId: generation.modelProfile?.id ?? "ltx-video-v1",
+            modelId: modelId,
             projectId: project.id,
             sceneId: generation.sceneId
         )
@@ -540,20 +544,20 @@ class ProjectStudioViewModel: ObservableObject {
                     sceneId: generation.sceneId,
                     status: .queued,
                     mode: .textToVideo,
-                    modelProfile: generation.modelProfile,
+                    modelProfile: ModelProfileSummary(id: modelId, name: modelName),
                     progress: 0,
                     startedAt: Date(),
                     sceneName: selectedScene?.name
                 )
 
                 await MainActor.run {
-                    appState?.addJob(job)
-                    isGenerating = false
+                    self.appState?.addJob(job)
+                    self.isGenerating = false
                 }
             } catch {
                 AppLogger.shared.error("Failed to submit generation job: \(error)", category: .worker)
                 await MainActor.run {
-                    isGenerating = false
+                    self.isGenerating = false
                 }
             }
         }

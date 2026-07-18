@@ -64,6 +64,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 return
             }
 
+            // 1b. Try loading the direct image file "AppIconDirect" from Bundle.module
+            if let image = Bundle.module.image(forResource: "AppIconDirect") {
+                NSApp.applicationIconImage = image
+                AppLogger.shared.info("🎨 Dock icon updated from Bundle.module (AppIconDirect)", category: .ui)
+                return
+            }
+
             // 2. Try loading by the file name "AIVideoLocal" from Bundle.module
             if let image = Bundle.module.image(forResource: "AIVideoLocal") {
                 NSApp.applicationIconImage = image

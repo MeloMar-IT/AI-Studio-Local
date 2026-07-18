@@ -47,7 +47,7 @@ public struct Project: Codable, Identifiable, Equatable {
         createdAt: Date = Date(),
         modifiedAt: Date = Date(),
         defaultBrandKitId: String? = nil,
-        modelProfileId: String? = nil,
+        modelProfileId: String? = "ltx-video-av-q4",
         aspectRatio: String = "16:9",
         scenes: [String] = [],
         timeline: Timeline = Timeline()

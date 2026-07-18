@@ -352,73 +352,10 @@ class JobStore:
                     logger.error(f"Failed to update metadata for job {job_id}: {e}")
 
         try:
-            # Check if model is installed. If not, download it first.
-            from ai_video_worker.utils.models import scan_models, load_model_registry, _do_model_download, download_semaphore
-            from ai_video_worker.schemas.api import ModelProfile
+            from ai_video_worker.utils.models import is_model_installed
 
-            models = scan_models(settings.models_dir)
-            model_profile = next((m for m in models if m.id == request.model_id), None)
-
-            # Debug log
-            logger.info(f"Checking model {request.model_id}. Profile found: {model_profile is not None}, Installed: {getattr(model_profile, 'installed', False)}")
-
-            if not model_profile or not model_profile.installed:
-                # Need to download
-                registry = load_model_registry()
-                model_data = next((m for m in registry if m["id"] == request.model_id), None)
-
-                if not model_data:
-                    raise Exception(f"Model {request.model_id} not found in registry")
-
-                download_urls = model_data.get("download_urls")
-                if not download_urls:
-                    raise Exception(f"No download URLs for model {request.model_id}")
-
-                model_dir = os.path.join(settings.models_dir, request.model_id)
-                os.makedirs(model_dir, exist_ok=True)
-
-                self.update_job_status(job_id, "downloading", 0.0, f"Waiting for model download slot...")
-
-                async with download_semaphore:
-                    self.update_job_status(job_id, "downloading", 0.0, f"Starting download of {request.model_id}...")
-
-                    update_queue = multiprocessing.Queue()
-                    process = multiprocessing.Process(
-                        target=_do_model_download,
-                        args=(request.model_id, model_dir, download_urls, update_queue)
-                    )
-                    process.start()
-
-                    loop = asyncio.get_event_loop()
-                    while process.is_alive() or not update_queue.empty():
-                        if token.is_cancelled:
-                            process.terminate()
-                            process.join()
-                            return
-
-                        def get_from_queue():
-                            try:
-                                return update_queue.get(timeout=0.1)
-                            except queue.Empty:
-                                return None
-
-                        update = await loop.run_in_executor(None, get_from_queue)
-                        if update:
-                            # Map "completed" from download to "downloaded" so it doesn't end the job
-                            status = "downloading" if update["status"] == "downloading" else "download_completed"
-                            if update["status"] == "failed":
-                                raise Exception(update["message"])
-
-                            # Weight download progress as 0-100% of a pre-generation stage
-                            # But for now let's just show it as is
-                            self.update_job_status(job_id, "downloading", update["progress"], update["message"])
-
-                            if update["status"] == "completed":
-                                break
-
-                        await asyncio.sleep(0.5)
-                    process.join()
-                    self.update_job_status(job_id, "loading_model", 0.0, "Model downloaded, loading...")
+            if not is_model_installed(request.model_id):
+                raise Exception(f"Model '{request.model_id}' is not installed. AI Studio Local is currently in offline-only mode. Please ensure the model files are present in the 'models/{request.model_id}' directory.")
 
             output_path = str(self.output_manager.get_video_path(job_id))
 

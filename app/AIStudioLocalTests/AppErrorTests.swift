@@ -44,11 +44,11 @@ final class AppErrorTests: XCTestCase {
     }
 
     func testMissingModelMapping() {
-        let error = GenerationClientError.missingModel("ltx-video-v1")
+        let error = GenerationClientError.missingModel("ltx-video-av-q4")
         let appError = error.asAppError
 
         XCTAssertEqual(appError.title, "Model Not Installed")
-        XCTAssertTrue(appError.message.contains("ltx-video-v1"))
+        XCTAssertTrue(appError.message.contains("ltx-video-av-q4"))
     }
 
     func testUnsupportedCapabilityMapping() {
