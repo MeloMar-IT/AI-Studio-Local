@@ -353,13 +353,15 @@ async def job_events(job_id: str):
         while True:
             try:
                 # Wait for an event from the job store with a timeout for heartbeat
-                # Reduced heartbeat interval to 2 seconds to be aggressive against App timeouts
-                event = await asyncio.wait_for(stream_iter.__anext__(), timeout=2.0)
+                # Reduced heartbeat interval to 1.0 seconds for even more aggressive keep-alive
+                event = await asyncio.wait_for(stream_iter.__anext__(), timeout=1.0)
+                logger.debug(f"SSE sending event for {job_id}: {event}")
                 yield event
             except asyncio.TimeoutError:
                 # Send heartbeat if no events for a while
                 yield ": heartbeat\n\n"
             except StopAsyncIteration:
+                logger.debug(f"SSE stream ended normally for {job_id}")
                 break
             except Exception as e:
                 logger.error(f"Error in SSE event stream for job {job_id}: {e}")

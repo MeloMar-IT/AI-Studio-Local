@@ -2,7 +2,7 @@
 set -e
 
 # Change to worker directory
-cd "$(dirname "$0")/../worker_v2"
+cd "$(dirname "$0")/../worker"
 
 # Create virtual environment if it doesn't exist
 if [ ! -d "venv" ]; then

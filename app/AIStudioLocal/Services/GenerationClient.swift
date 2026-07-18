@@ -522,11 +522,14 @@ public final class HTTPGenerationClient: GenerationClient {
                         return
                     }
 
+                    NSLog("📡 GenerationClient: Connected to SSE stream for \(jobId)")
                     for try await line in bytes.lines {
+                        // NSLog("📡 GenerationClient: Raw SSE line: \(line)") // Very noisy, but keep here for potential extreme debug
                         if line.hasPrefix("data: ") {
                             let jsonString = String(line.dropFirst(6))
                             if let data = jsonString.data(using: .utf8) {
                                 let event = try decoder.decode(ProgressEvent.self, from: data)
+                                NSLog("📡 GenerationClient: Decoded event for \(jobId): \(event.stage) (\(event.percentage ?? 0)%)")
                                 continuation.yield(event)
 
                                 // Terminal stages

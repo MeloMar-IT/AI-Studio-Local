@@ -12587,3 +12587,789 @@ Highly detailed fur simulation, realistic muscle deformation, natural body mecha
 2026-07-18 18:08:11,074 - ai-video-worker - v0.1.1 - [16239] - MainThread - DEBUG - [_save_detailed_metadata] Writing metadata to outputs/3dbf049e-a517-4102-8e59-97ea82374dd9/metadata.json
 2026-07-18 18:08:11,075 - ai-video-worker - v0.1.1 - [16239] - MainThread - DEBUG - Job 3dbf049e-a517-4102-8e59-97ea82374dd9 progress: completed (100.0%) - Generation finished
 2026-07-18 18:08:11,075 - ai-video-worker - v0.1.1 - [16239] - MainThread - INFO - Job 3dbf049e-a517-4102-8e59-97ea82374dd9 completed successfully
+2026-07-18 18:13:18,630 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - Initialized LTXGenerationEngine with adapter: MLXLTXAdapter
+2026-07-18 18:13:19,063 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python3
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (77.73 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/models
+Models Disk:    725.08 GB free
+============================================================
+2026-07-18 18:13:19,075 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python3
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (77.58 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/models
+Models Disk:    725.08 GB free
+============================================================
+2026-07-18 18:13:22,075 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - Incoming GET /health
+2026-07-18 18:13:22,075 - ai-video-worker - v0.1.1 - [16510] - MainThread - TRACE - Request detail: GET http://localhost:8000/health
+2026-07-18 18:13:22,075 - ai-video-worker - v0.1.1 - [16510] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:13:22,079 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - Completed GET /health - Status 200 - Duration 4.07ms
+2026-07-18 18:13:22,084 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - Incoming GET /hardware
+2026-07-18 18:13:22,084 - ai-video-worker - v0.1.1 - [16510] - MainThread - TRACE - Request detail: GET http://localhost:8000/hardware
+2026-07-18 18:13:22,084 - ai-video-worker - v0.1.1 - [16510] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:13:22,096 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - Completed GET /hardware - Status 200 - Duration 11.69ms
+2026-07-18 18:13:22,098 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - Incoming GET /hardware
+2026-07-18 18:13:22,098 - ai-video-worker - v0.1.1 - [16510] - MainThread - TRACE - Request detail: GET http://localhost:8000/hardware
+2026-07-18 18:13:22,098 - ai-video-worker - v0.1.1 - [16510] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:13:22,111 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - Completed GET /hardware - Status 200 - Duration 12.73ms
+2026-07-18 18:13:23,819 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - Incoming GET /models
+2026-07-18 18:13:23,819 - ai-video-worker - v0.1.1 - [16510] - MainThread - TRACE - Request detail: GET http://localhost:8000/models
+2026-07-18 18:13:23,819 - ai-video-worker - v0.1.1 - [16510] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:13:23,820 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - Completed GET /models - Status 200 - Duration 1.18ms
+2026-07-18 18:13:46,660 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - Incoming POST /generate/text-to-video
+2026-07-18 18:13:46,660 - ai-video-worker - v0.1.1 - [16510] - MainThread - TRACE - Request detail: POST http://localhost:8000/generate/text-to-video
+2026-07-18 18:13:46,660 - ai-video-worker - v0.1.1 - [16510] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'content-type': 'application/json', 'connection': 'keep-alive', 'accept': '*/*', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0', 'content-length': '1668', 'accept-language': 'en-GB,en;q=0.9', 'accept-encoding': 'gzip, deflate'}
+2026-07-18 18:13:46,662 - ai-video-worker - v0.1.1 - [16510] - MainThread - DEBUG - text_to_video request: {'prompt': 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.\n\nThe panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.\n\nThe sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.\n\nHighly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.', 'negative_prompt': None, 'width': 704, 'height': 512, 'num_frames': 48, 'steps': 20, 'guidance_scale': 3.0, 'seed': None, 'enhance_prompt': True, 'use_uncensored_enhancer': False, 'model_id': 'ltx-video-av-q4', 'project_id': 'C7A3D215-1870-41ED-9F1B-6241EC995461', 'scene_id': 'C4A73DFF-1741-4C9F-B403-3A4EDACFD707', 'composed_prompt_path': None, 'image_path': None, 'audio_path': None, 'video_path': None, 'retake_start_seconds': None, 'retake_end_seconds': None}
+2026-07-18 18:13:46,662 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - Creating text-to-video job for model: ltx-video-av-q4
+2026-07-18 18:13:46,664 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - Job b1382019-f08a-41a9-a2d5-2d568e43a604 started background execution.
+2026-07-18 18:13:46,664 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - LTXEngine: Starting text-to-video generation for job b1382019-f08a-41a9-a2d5-2d568e43a604
+2026-07-18 18:13:46,664 - ai-video-worker - v0.1.1 - [16510] - MainThread - TRACE - Job log: LTXEngine: Starting text-to-video generation for job b1382019-f08a-41a9-a2d5-2d568e43a604
+2026-07-18 18:13:46,664 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - LTXEngine: Request prompt: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:13:46,664 - ai-video-worker - v0.1.1 - [16510] - MainThread - TRACE - Job log: LTXEngine: Request prompt: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:13:46,665 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - Job b1382019-f08a-41a9-a2d5-2d568e43a604 progress: loading_model (5.0%) - Switching to model ltx-video-av-q4...
+2026-07-18 18:13:46,665 - ai-video-worker - v0.1.1 - [16510] - MainThread - DEBUG - Job b1382019-f08a-41a9-a2d5-2d568e43a604 progress: loading_model (5.0%) - Switching to model ltx-video-av-q4...
+2026-07-18 18:13:46,665 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - LTXEngine: Loading model ltx-video-av-q4
+2026-07-18 18:13:46,665 - ai-video-worker - v0.1.1 - [16510] - MainThread - TRACE - Job log: LTXEngine: Loading model ltx-video-av-q4
+2026-07-18 18:13:46,665 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - [_validate_hardware] Checking hardware compatibility. min_memory_gb=16.0
+2026-07-18 18:13:46,665 - ai-video-worker - v0.1.1 - [16510] - MainThread - TRACE - Job log: [_validate_hardware] Checking hardware compatibility. min_memory_gb=16.0
+2026-07-18 18:13:46,666 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - [_validate_hardware] Total RAM: 128.00GB, Available RAM: 78.61GB
+2026-07-18 18:13:46,666 - ai-video-worker - v0.1.1 - [16510] - MainThread - TRACE - Job log: [_validate_hardware] Total RAM: 128.00GB, Available RAM: 78.61GB
+2026-07-18 18:13:46,666 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - MLXAdapter: Loading ltx-video-av-q4 from models/ltx-video-av-q4
+2026-07-18 18:13:46,788 - ai-video-worker - v0.1.1 - [16510] - MainThread - DEBUG - Job b1382019-f08a-41a9-a2d5-2d568e43a604 progress: preparing_inputs (10.0%) - Preparing generation inputs...
+2026-07-18 18:13:46,788 - ai-video-worker - v0.1.1 - [16510] - MainThread - DEBUG - [MLXLTXAdapter] generate_text_to_video pipeline=AV_MODEL
+2026-07-18 18:13:46,788 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - MLXLTXAdapter: AV Generation for Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.
+2026-07-18 18:13:46,789 - ai-video-worker - v0.1.1 - [16510] - MainThread - DEBUG - Job b1382019-f08a-41a9-a2d5-2d568e43a604 progress: loading_model (5.0%) - Preparing unified AV model...
+2026-07-18 18:13:46,789 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - Using seed for AV: 491442510
+2026-07-18 18:13:46,789 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - MLXLTXAdapter: Starting unified AV generation for prompt: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:13:46,789 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - MLXLTXAdapter: Details: 704x512, frames=48, steps=20, seed=491442510
+2026-07-18 18:13:46,789 - ai-video-worker - v0.1.1 - [16510] - MainThread - DEBUG - Job b1382019-f08a-41a9-a2d5-2d568e43a604 progress: generating_video (15.0%) - Starting unified AV generation...
+2026-07-18 18:13:46,790 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - Completed POST /generate/text-to-video - Status 200 - Duration 129.71ms
+2026-07-18 18:13:46,808 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - Incoming GET /jobs/b1382019-f08a-41a9-a2d5-2d568e43a604/events
+2026-07-18 18:13:46,808 - ai-video-worker - v0.1.1 - [16510] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/b1382019-f08a-41a9-a2d5-2d568e43a604/events
+2026-07-18 18:13:46,808 - ai-video-worker - v0.1.1 - [16510] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:13:46,809 - ai-video-worker - v0.1.1 - [16510] - MainThread - DEBUG - Starting SSE event stream for job: b1382019-f08a-41a9-a2d5-2d568e43a604
+2026-07-18 18:13:46,809 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - Completed GET /jobs/b1382019-f08a-41a9-a2d5-2d568e43a604/events - Status 200 - Duration 1.49ms
+2026-07-18 18:13:46,810 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - New subscription for job events: b1382019-f08a-41a9-a2d5-2d568e43a604
+2026-07-18 18:13:48,811 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - Subscription ended for job: b1382019-f08a-41a9-a2d5-2d568e43a604
+2026-07-18 18:14:36,279 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - MLXLTXAdapter: Output file exists. Size: 363056 bytes
+2026-07-18 18:14:36,279 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - Job b1382019-f08a-41a9-a2d5-2d568e43a604 progress: completed (100.0%) - Generation finished
+2026-07-18 18:14:36,279 - ai-video-worker - v0.1.1 - [16510] - MainThread - DEBUG - Job b1382019-f08a-41a9-a2d5-2d568e43a604 progress: completed (100.0%) - Generation finished
+2026-07-18 18:14:36,287 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - Extracted preview to outputs/b1382019-f08a-41a9-a2d5-2d568e43a604/preview.jpg
+2026-07-18 18:14:36,288 - ai-video-worker - v0.1.1 - [16510] - MainThread - DEBUG - Generation finished in 49.62s, starting post-processing for job b1382019-f08a-41a9-a2d5-2d568e43a604
+2026-07-18 18:14:36,288 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - LTXEngine: Generation finished in 49.62s
+2026-07-18 18:14:36,288 - ai-video-worker - v0.1.1 - [16510] - MainThread - TRACE - Job log: LTXEngine: Generation finished in 49.62s
+2026-07-18 18:14:36,288 - ai-video-worker - v0.1.1 - [16510] - MainThread - DEBUG - Job b1382019-f08a-41a9-a2d5-2d568e43a604 progress: saving_metadata (92.0%) - Generating preview image...
+2026-07-18 18:14:36,294 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - Extracted preview to outputs/b1382019-f08a-41a9-a2d5-2d568e43a604/preview.jpg
+2026-07-18 18:14:36,295 - ai-video-worker - v0.1.1 - [16510] - MainThread - DEBUG - Job b1382019-f08a-41a9-a2d5-2d568e43a604 progress: saving_metadata (95.0%) - Saving composed prompt...
+2026-07-18 18:14:36,295 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - LTXEngine: Saving composed prompt to file: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:14:36,295 - ai-video-worker - v0.1.1 - [16510] - MainThread - TRACE - Job log: LTXEngine: Saving composed prompt to file: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:14:36,295 - ai-video-worker - v0.1.1 - [16510] - MainThread - DEBUG - Job b1382019-f08a-41a9-a2d5-2d568e43a604 progress: saving_metadata (98.0%) - Saving detailed metadata...
+2026-07-18 18:14:36,307 - ai-video-worker - v0.1.1 - [16510] - MainThread - DEBUG - [_save_detailed_metadata] Writing metadata to outputs/b1382019-f08a-41a9-a2d5-2d568e43a604/metadata.json
+2026-07-18 18:14:36,308 - ai-video-worker - v0.1.1 - [16510] - MainThread - DEBUG - Job b1382019-f08a-41a9-a2d5-2d568e43a604 progress: completed (100.0%) - Generation finished
+2026-07-18 18:14:36,308 - ai-video-worker - v0.1.1 - [16510] - MainThread - INFO - Job b1382019-f08a-41a9-a2d5-2d568e43a604 completed successfully
+2026-07-18 18:16:39,430 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - Initialized LTXGenerationEngine with adapter: MLXLTXAdapter
+2026-07-18 18:16:39,811 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python3
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (78.63 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/models
+Models Disk:    725.07 GB free
+============================================================
+2026-07-18 18:16:39,823 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python3
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (78.63 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/models
+Models Disk:    725.07 GB free
+============================================================
+2026-07-18 18:16:46,356 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - Incoming GET /health
+2026-07-18 18:16:46,357 - ai-video-worker - v0.1.1 - [16627] - MainThread - TRACE - Request detail: GET http://localhost:8000/health
+2026-07-18 18:16:46,357 - ai-video-worker - v0.1.1 - [16627] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:16:46,361 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - Completed GET /health - Status 200 - Duration 4.18ms
+2026-07-18 18:16:46,373 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - Incoming GET /hardware
+2026-07-18 18:16:46,373 - ai-video-worker - v0.1.1 - [16627] - MainThread - TRACE - Request detail: GET http://localhost:8000/hardware
+2026-07-18 18:16:46,373 - ai-video-worker - v0.1.1 - [16627] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:16:46,386 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - Completed GET /hardware - Status 200 - Duration 13.08ms
+2026-07-18 18:16:46,388 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - Incoming GET /hardware
+2026-07-18 18:16:46,388 - ai-video-worker - v0.1.1 - [16627] - MainThread - TRACE - Request detail: GET http://localhost:8000/hardware
+2026-07-18 18:16:46,388 - ai-video-worker - v0.1.1 - [16627] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:16:46,400 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - Completed GET /hardware - Status 200 - Duration 12.61ms
+2026-07-18 18:16:48,438 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - Incoming GET /models
+2026-07-18 18:16:48,438 - ai-video-worker - v0.1.1 - [16627] - MainThread - TRACE - Request detail: GET http://localhost:8000/models
+2026-07-18 18:16:48,438 - ai-video-worker - v0.1.1 - [16627] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:16:48,439 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - Completed GET /models - Status 200 - Duration 1.03ms
+2026-07-18 18:16:54,165 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - Incoming POST /generate/text-to-video
+2026-07-18 18:16:54,165 - ai-video-worker - v0.1.1 - [16627] - MainThread - TRACE - Request detail: POST http://localhost:8000/generate/text-to-video
+2026-07-18 18:16:54,165 - ai-video-worker - v0.1.1 - [16627] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'content-type': 'application/json', 'connection': 'keep-alive', 'accept': '*/*', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0', 'content-length': '1668', 'accept-language': 'en-GB,en;q=0.9', 'accept-encoding': 'gzip, deflate'}
+2026-07-18 18:16:54,168 - ai-video-worker - v0.1.1 - [16627] - MainThread - DEBUG - text_to_video request: {'prompt': 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.\n\nThe panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.\n\nThe sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.\n\nHighly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.', 'negative_prompt': None, 'width': 704, 'height': 512, 'num_frames': 48, 'steps': 20, 'guidance_scale': 3.0, 'seed': None, 'enhance_prompt': True, 'use_uncensored_enhancer': False, 'model_id': 'ltx-video-av-q4', 'project_id': '7F4AF962-09A1-4F4F-ABD1-FB4E556034B1', 'scene_id': 'B3337DCC-45CF-4AF0-B4AC-94964DF9296F', 'composed_prompt_path': None, 'image_path': None, 'audio_path': None, 'video_path': None, 'retake_start_seconds': None, 'retake_end_seconds': None}
+2026-07-18 18:16:54,168 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - Creating text-to-video job for model: ltx-video-av-q4
+2026-07-18 18:16:54,170 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - Job cf043c59-c9a4-4622-9e43-3b96099e6b5c started background execution.
+2026-07-18 18:16:54,170 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - LTXEngine: Starting text-to-video generation for job cf043c59-c9a4-4622-9e43-3b96099e6b5c
+2026-07-18 18:16:54,170 - ai-video-worker - v0.1.1 - [16627] - MainThread - TRACE - Job log: LTXEngine: Starting text-to-video generation for job cf043c59-c9a4-4622-9e43-3b96099e6b5c
+2026-07-18 18:16:54,171 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - LTXEngine: Request prompt: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:16:54,171 - ai-video-worker - v0.1.1 - [16627] - MainThread - TRACE - Job log: LTXEngine: Request prompt: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:16:54,171 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - Job cf043c59-c9a4-4622-9e43-3b96099e6b5c progress: loading_model (5.0%) - Switching to model ltx-video-av-q4...
+2026-07-18 18:16:54,171 - ai-video-worker - v0.1.1 - [16627] - MainThread - DEBUG - Job cf043c59-c9a4-4622-9e43-3b96099e6b5c progress: loading_model (5.0%) - Switching to model ltx-video-av-q4...
+2026-07-18 18:16:54,172 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - LTXEngine: Loading model ltx-video-av-q4
+2026-07-18 18:16:54,172 - ai-video-worker - v0.1.1 - [16627] - MainThread - TRACE - Job log: LTXEngine: Loading model ltx-video-av-q4
+2026-07-18 18:16:54,172 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - [_validate_hardware] Checking hardware compatibility. min_memory_gb=16.0
+2026-07-18 18:16:54,172 - ai-video-worker - v0.1.1 - [16627] - MainThread - TRACE - Job log: [_validate_hardware] Checking hardware compatibility. min_memory_gb=16.0
+2026-07-18 18:16:54,172 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - [_validate_hardware] Total RAM: 128.00GB, Available RAM: 78.60GB
+2026-07-18 18:16:54,172 - ai-video-worker - v0.1.1 - [16627] - MainThread - TRACE - Job log: [_validate_hardware] Total RAM: 128.00GB, Available RAM: 78.60GB
+2026-07-18 18:16:54,173 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - MLXAdapter: Loading ltx-video-av-q4 from models/ltx-video-av-q4
+2026-07-18 18:16:54,311 - ai-video-worker - v0.1.1 - [16627] - MainThread - DEBUG - Job cf043c59-c9a4-4622-9e43-3b96099e6b5c progress: preparing_inputs (10.0%) - Preparing generation inputs...
+2026-07-18 18:16:54,312 - ai-video-worker - v0.1.1 - [16627] - MainThread - DEBUG - [MLXLTXAdapter] generate_text_to_video pipeline=AV_MODEL
+2026-07-18 18:16:54,312 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - MLXLTXAdapter: AV Generation for Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.
+2026-07-18 18:16:54,313 - ai-video-worker - v0.1.1 - [16627] - MainThread - DEBUG - Job cf043c59-c9a4-4622-9e43-3b96099e6b5c progress: loading_model (5.0%) - Preparing unified AV model...
+2026-07-18 18:16:54,313 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - Using seed for AV: 37265684
+2026-07-18 18:16:54,313 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - MLXLTXAdapter: Starting unified AV generation for prompt: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:16:54,313 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - MLXLTXAdapter: Details: 704x512, frames=48, steps=20, seed=37265684
+2026-07-18 18:16:54,313 - ai-video-worker - v0.1.1 - [16627] - MainThread - DEBUG - Job cf043c59-c9a4-4622-9e43-3b96099e6b5c progress: generating_video (15.0%) - Starting unified AV generation...
+2026-07-18 18:16:54,314 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - Completed POST /generate/text-to-video - Status 200 - Duration 149.26ms
+2026-07-18 18:16:54,335 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - Incoming GET /jobs/cf043c59-c9a4-4622-9e43-3b96099e6b5c/events
+2026-07-18 18:16:54,335 - ai-video-worker - v0.1.1 - [16627] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/cf043c59-c9a4-4622-9e43-3b96099e6b5c/events
+2026-07-18 18:16:54,335 - ai-video-worker - v0.1.1 - [16627] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:16:54,337 - ai-video-worker - v0.1.1 - [16627] - MainThread - DEBUG - Starting SSE event stream for job: cf043c59-c9a4-4622-9e43-3b96099e6b5c
+2026-07-18 18:16:54,337 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - Completed GET /jobs/cf043c59-c9a4-4622-9e43-3b96099e6b5c/events - Status 200 - Duration 1.95ms
+2026-07-18 18:16:54,338 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - New subscription for job events: cf043c59-c9a4-4622-9e43-3b96099e6b5c
+2026-07-18 18:16:56,339 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - Subscription ended for job: cf043c59-c9a4-4622-9e43-3b96099e6b5c
+2026-07-18 18:17:43,365 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - MLXLTXAdapter: Output file exists. Size: 569114 bytes
+2026-07-18 18:17:43,365 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - Job cf043c59-c9a4-4622-9e43-3b96099e6b5c progress: completed (100.0%) - Generation finished
+2026-07-18 18:17:43,365 - ai-video-worker - v0.1.1 - [16627] - MainThread - DEBUG - Job cf043c59-c9a4-4622-9e43-3b96099e6b5c progress: completed (100.0%) - Generation finished
+2026-07-18 18:17:43,373 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - Extracted preview to outputs/cf043c59-c9a4-4622-9e43-3b96099e6b5c/preview.jpg
+2026-07-18 18:17:43,373 - ai-video-worker - v0.1.1 - [16627] - MainThread - DEBUG - Generation finished in 49.20s, starting post-processing for job cf043c59-c9a4-4622-9e43-3b96099e6b5c
+2026-07-18 18:17:43,373 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - LTXEngine: Generation finished in 49.20s
+2026-07-18 18:17:43,373 - ai-video-worker - v0.1.1 - [16627] - MainThread - TRACE - Job log: LTXEngine: Generation finished in 49.20s
+2026-07-18 18:17:43,373 - ai-video-worker - v0.1.1 - [16627] - MainThread - DEBUG - Job cf043c59-c9a4-4622-9e43-3b96099e6b5c progress: saving_metadata (92.0%) - Generating preview image...
+2026-07-18 18:17:43,380 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - Extracted preview to outputs/cf043c59-c9a4-4622-9e43-3b96099e6b5c/preview.jpg
+2026-07-18 18:17:43,380 - ai-video-worker - v0.1.1 - [16627] - MainThread - DEBUG - Job cf043c59-c9a4-4622-9e43-3b96099e6b5c progress: saving_metadata (95.0%) - Saving composed prompt...
+2026-07-18 18:17:43,381 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - LTXEngine: Saving composed prompt to file: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:17:43,381 - ai-video-worker - v0.1.1 - [16627] - MainThread - TRACE - Job log: LTXEngine: Saving composed prompt to file: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:17:43,381 - ai-video-worker - v0.1.1 - [16627] - MainThread - DEBUG - Job cf043c59-c9a4-4622-9e43-3b96099e6b5c progress: saving_metadata (98.0%) - Saving detailed metadata...
+2026-07-18 18:17:43,394 - ai-video-worker - v0.1.1 - [16627] - MainThread - DEBUG - [_save_detailed_metadata] Writing metadata to outputs/cf043c59-c9a4-4622-9e43-3b96099e6b5c/metadata.json
+2026-07-18 18:17:43,394 - ai-video-worker - v0.1.1 - [16627] - MainThread - DEBUG - Job cf043c59-c9a4-4622-9e43-3b96099e6b5c progress: completed (100.0%) - Generation finished
+2026-07-18 18:17:43,395 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - Job cf043c59-c9a4-4622-9e43-3b96099e6b5c updated: completed (100.0%) - Job completed successfully
+2026-07-18 18:17:43,395 - ai-video-worker - v0.1.1 - [16627] - MainThread - INFO - Job cf043c59-c9a4-4622-9e43-3b96099e6b5c completed successfully
+2026-07-18 18:19:38,032 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - Initialized LTXGenerationEngine with adapter: MLXLTXAdapter
+2026-07-18 18:19:38,445 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python3
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (78.54 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/models
+Models Disk:    725.03 GB free
+============================================================
+2026-07-18 18:19:38,456 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python3
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (78.59 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/models
+Models Disk:    725.03 GB free
+============================================================
+2026-07-18 18:19:42,018 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - Incoming GET /health
+2026-07-18 18:19:42,018 - ai-video-worker - v0.1.1 - [17679] - MainThread - TRACE - Request detail: GET http://localhost:8000/health
+2026-07-18 18:19:42,018 - ai-video-worker - v0.1.1 - [17679] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:19:42,022 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - Completed GET /health - Status 200 - Duration 4.40ms
+2026-07-18 18:19:42,030 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - Incoming GET /hardware
+2026-07-18 18:19:42,030 - ai-video-worker - v0.1.1 - [17679] - MainThread - TRACE - Request detail: GET http://localhost:8000/hardware
+2026-07-18 18:19:42,030 - ai-video-worker - v0.1.1 - [17679] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:19:42,043 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - Completed GET /hardware - Status 200 - Duration 13.08ms
+2026-07-18 18:19:42,044 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - Incoming GET /hardware
+2026-07-18 18:19:42,044 - ai-video-worker - v0.1.1 - [17679] - MainThread - TRACE - Request detail: GET http://localhost:8000/hardware
+2026-07-18 18:19:42,044 - ai-video-worker - v0.1.1 - [17679] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:19:42,055 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - Completed GET /hardware - Status 200 - Duration 11.15ms
+2026-07-18 18:19:43,319 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - Incoming GET /models
+2026-07-18 18:19:43,319 - ai-video-worker - v0.1.1 - [17679] - MainThread - TRACE - Request detail: GET http://localhost:8000/models
+2026-07-18 18:19:43,319 - ai-video-worker - v0.1.1 - [17679] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:19:43,320 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - Completed GET /models - Status 200 - Duration 1.09ms
+2026-07-18 18:19:49,255 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - Incoming POST /generate/text-to-video
+2026-07-18 18:19:49,255 - ai-video-worker - v0.1.1 - [17679] - MainThread - TRACE - Request detail: POST http://localhost:8000/generate/text-to-video
+2026-07-18 18:19:49,255 - ai-video-worker - v0.1.1 - [17679] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'content-type': 'application/json', 'connection': 'keep-alive', 'accept': '*/*', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0', 'content-length': '1668', 'accept-language': 'en-GB,en;q=0.9', 'accept-encoding': 'gzip, deflate'}
+2026-07-18 18:19:49,258 - ai-video-worker - v0.1.1 - [17679] - MainThread - DEBUG - text_to_video request: {'prompt': 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.\n\nThe panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.\n\nThe sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.\n\nHighly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.', 'negative_prompt': None, 'width': 704, 'height': 512, 'num_frames': 48, 'steps': 20, 'guidance_scale': 3.0, 'seed': None, 'enhance_prompt': True, 'use_uncensored_enhancer': False, 'model_id': 'ltx-video-av-q4', 'project_id': 'C2C45B03-4486-4EBB-A5BA-5A68006E7D2A', 'scene_id': '74F340BE-FF76-4D30-8B52-12FE14EFDCCF', 'composed_prompt_path': None, 'image_path': None, 'audio_path': None, 'video_path': None, 'retake_start_seconds': None, 'retake_end_seconds': None}
+2026-07-18 18:19:49,259 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - Creating text-to-video job for model: ltx-video-av-q4
+2026-07-18 18:19:49,260 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - Job 21def560-cec4-409e-9534-614c3885e59e started background execution.
+2026-07-18 18:19:49,261 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - LTXEngine: Starting text-to-video generation for job 21def560-cec4-409e-9534-614c3885e59e
+2026-07-18 18:19:49,261 - ai-video-worker - v0.1.1 - [17679] - MainThread - TRACE - Job log: LTXEngine: Starting text-to-video generation for job 21def560-cec4-409e-9534-614c3885e59e
+2026-07-18 18:19:49,261 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - LTXEngine: Request prompt: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:19:49,261 - ai-video-worker - v0.1.1 - [17679] - MainThread - TRACE - Job log: LTXEngine: Request prompt: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:19:49,261 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - Job 21def560-cec4-409e-9534-614c3885e59e progress: loading_model (5.0%) - Switching to model ltx-video-av-q4...
+2026-07-18 18:19:49,261 - ai-video-worker - v0.1.1 - [17679] - MainThread - DEBUG - Job 21def560-cec4-409e-9534-614c3885e59e progress: loading_model (5.0%) - Switching to model ltx-video-av-q4...
+2026-07-18 18:19:49,262 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - LTXEngine: Loading model ltx-video-av-q4
+2026-07-18 18:19:49,262 - ai-video-worker - v0.1.1 - [17679] - MainThread - TRACE - Job log: LTXEngine: Loading model ltx-video-av-q4
+2026-07-18 18:19:49,262 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - [_validate_hardware] Checking hardware compatibility. min_memory_gb=16.0
+2026-07-18 18:19:49,262 - ai-video-worker - v0.1.1 - [17679] - MainThread - TRACE - Job log: [_validate_hardware] Checking hardware compatibility. min_memory_gb=16.0
+2026-07-18 18:19:49,262 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - [_validate_hardware] Total RAM: 128.00GB, Available RAM: 78.42GB
+2026-07-18 18:19:49,263 - ai-video-worker - v0.1.1 - [17679] - MainThread - TRACE - Job log: [_validate_hardware] Total RAM: 128.00GB, Available RAM: 78.42GB
+2026-07-18 18:19:49,263 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - MLXAdapter: Loading ltx-video-av-q4 from models/ltx-video-av-q4
+2026-07-18 18:19:49,405 - ai-video-worker - v0.1.1 - [17679] - MainThread - DEBUG - Job 21def560-cec4-409e-9534-614c3885e59e progress: preparing_inputs (10.0%) - Preparing generation inputs...
+2026-07-18 18:19:49,406 - ai-video-worker - v0.1.1 - [17679] - MainThread - DEBUG - [MLXLTXAdapter] generate_text_to_video pipeline=AV_MODEL
+2026-07-18 18:19:49,406 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - MLXLTXAdapter: AV Generation for Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.
+2026-07-18 18:19:49,406 - ai-video-worker - v0.1.1 - [17679] - MainThread - DEBUG - Job 21def560-cec4-409e-9534-614c3885e59e progress: loading_model (5.0%) - Preparing unified AV model...
+2026-07-18 18:19:49,406 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - Using seed for AV: 156853849
+2026-07-18 18:19:49,406 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - MLXLTXAdapter: Starting unified AV generation for prompt: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:19:49,407 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - MLXLTXAdapter: Details: 704x512, frames=48, steps=20, seed=156853849
+2026-07-18 18:19:49,407 - ai-video-worker - v0.1.1 - [17679] - MainThread - DEBUG - Job 21def560-cec4-409e-9534-614c3885e59e progress: generating_video (15.0%) - Starting unified AV generation...
+2026-07-18 18:19:49,407 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - Completed POST /generate/text-to-video - Status 200 - Duration 151.93ms
+2026-07-18 18:19:49,427 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - Incoming GET /jobs/21def560-cec4-409e-9534-614c3885e59e/events
+2026-07-18 18:19:49,428 - ai-video-worker - v0.1.1 - [17679] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/21def560-cec4-409e-9534-614c3885e59e/events
+2026-07-18 18:19:49,428 - ai-video-worker - v0.1.1 - [17679] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:19:49,429 - ai-video-worker - v0.1.1 - [17679] - MainThread - DEBUG - Starting SSE event stream for job: 21def560-cec4-409e-9534-614c3885e59e
+2026-07-18 18:19:49,429 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - Completed GET /jobs/21def560-cec4-409e-9534-614c3885e59e/events - Status 200 - Duration 2.21ms
+2026-07-18 18:19:49,430 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - New subscription for job events: 21def560-cec4-409e-9534-614c3885e59e
+2026-07-18 18:19:51,431 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - Subscription ended for job: 21def560-cec4-409e-9534-614c3885e59e
+2026-07-18 18:20:39,258 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - MLXLTXAdapter: Output file exists. Size: 358246 bytes
+2026-07-18 18:20:39,258 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - Job 21def560-cec4-409e-9534-614c3885e59e progress: completed (100.0%) - Generation finished
+2026-07-18 18:20:39,258 - ai-video-worker - v0.1.1 - [17679] - MainThread - DEBUG - Job 21def560-cec4-409e-9534-614c3885e59e progress: completed (100.0%) - Generation finished
+2026-07-18 18:20:39,266 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - Extracted preview to outputs/21def560-cec4-409e-9534-614c3885e59e/preview.jpg
+2026-07-18 18:20:39,267 - ai-video-worker - v0.1.1 - [17679] - MainThread - DEBUG - Generation finished in 50.01s, starting post-processing for job 21def560-cec4-409e-9534-614c3885e59e
+2026-07-18 18:20:39,267 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - LTXEngine: Generation finished in 50.01s
+2026-07-18 18:20:39,267 - ai-video-worker - v0.1.1 - [17679] - MainThread - TRACE - Job log: LTXEngine: Generation finished in 50.01s
+2026-07-18 18:20:39,267 - ai-video-worker - v0.1.1 - [17679] - MainThread - DEBUG - Job 21def560-cec4-409e-9534-614c3885e59e progress: saving_metadata (92.0%) - Generating preview image...
+2026-07-18 18:20:39,273 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - Extracted preview to outputs/21def560-cec4-409e-9534-614c3885e59e/preview.jpg
+2026-07-18 18:20:39,274 - ai-video-worker - v0.1.1 - [17679] - MainThread - DEBUG - Job 21def560-cec4-409e-9534-614c3885e59e progress: saving_metadata (95.0%) - Saving composed prompt...
+2026-07-18 18:20:39,274 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - LTXEngine: Saving composed prompt to file: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:20:39,275 - ai-video-worker - v0.1.1 - [17679] - MainThread - TRACE - Job log: LTXEngine: Saving composed prompt to file: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:20:39,275 - ai-video-worker - v0.1.1 - [17679] - MainThread - DEBUG - Job 21def560-cec4-409e-9534-614c3885e59e progress: saving_metadata (98.0%) - Saving detailed metadata...
+2026-07-18 18:20:39,288 - ai-video-worker - v0.1.1 - [17679] - MainThread - DEBUG - [_save_detailed_metadata] Writing metadata to outputs/21def560-cec4-409e-9534-614c3885e59e/metadata.json
+2026-07-18 18:20:39,289 - ai-video-worker - v0.1.1 - [17679] - MainThread - DEBUG - Job 21def560-cec4-409e-9534-614c3885e59e progress: completed (100.0%) - Generation finished
+2026-07-18 18:20:39,289 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - Job 21def560-cec4-409e-9534-614c3885e59e updated: completed (100.0%) - Job completed successfully
+2026-07-18 18:20:39,289 - ai-video-worker - v0.1.1 - [17679] - MainThread - INFO - Job 21def560-cec4-409e-9534-614c3885e59e completed successfully
+2026-07-18 18:22:47,188 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - Initialized LTXGenerationEngine with adapter: MLXLTXAdapter
+2026-07-18 18:22:47,598 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python3
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (78.67 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/models
+Models Disk:    725.02 GB free
+============================================================
+2026-07-18 18:22:47,611 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python3
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (78.55 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/models
+Models Disk:    725.02 GB free
+============================================================
+2026-07-18 18:22:50,731 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - Incoming GET /health
+2026-07-18 18:22:50,731 - ai-video-worker - v0.1.1 - [17955] - MainThread - TRACE - Request detail: GET http://localhost:8000/health
+2026-07-18 18:22:50,732 - ai-video-worker - v0.1.1 - [17955] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:22:50,736 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - Completed GET /health - Status 200 - Duration 4.57ms
+2026-07-18 18:22:50,746 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - Incoming GET /hardware
+2026-07-18 18:22:50,746 - ai-video-worker - v0.1.1 - [17955] - MainThread - TRACE - Request detail: GET http://localhost:8000/hardware
+2026-07-18 18:22:50,746 - ai-video-worker - v0.1.1 - [17955] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:22:50,759 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - Completed GET /hardware - Status 200 - Duration 12.99ms
+2026-07-18 18:22:50,760 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - Incoming GET /hardware
+2026-07-18 18:22:50,760 - ai-video-worker - v0.1.1 - [17955] - MainThread - TRACE - Request detail: GET http://localhost:8000/hardware
+2026-07-18 18:22:50,761 - ai-video-worker - v0.1.1 - [17955] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:22:50,773 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - Completed GET /hardware - Status 200 - Duration 12.66ms
+2026-07-18 18:22:52,110 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - Incoming GET /models
+2026-07-18 18:22:52,110 - ai-video-worker - v0.1.1 - [17955] - MainThread - TRACE - Request detail: GET http://localhost:8000/models
+2026-07-18 18:22:52,110 - ai-video-worker - v0.1.1 - [17955] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:22:52,110 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - Completed GET /models - Status 200 - Duration 0.98ms
+2026-07-18 18:23:21,185 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - Incoming POST /generate/text-to-video
+2026-07-18 18:23:21,185 - ai-video-worker - v0.1.1 - [17955] - MainThread - TRACE - Request detail: POST http://localhost:8000/generate/text-to-video
+2026-07-18 18:23:21,185 - ai-video-worker - v0.1.1 - [17955] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'content-type': 'application/json', 'connection': 'keep-alive', 'accept': '*/*', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0', 'content-length': '1668', 'accept-language': 'en-GB,en;q=0.9', 'accept-encoding': 'gzip, deflate'}
+2026-07-18 18:23:21,187 - ai-video-worker - v0.1.1 - [17955] - MainThread - DEBUG - text_to_video request: {'prompt': 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.\n\nThe panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.\n\nThe sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.\n\nHighly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.', 'negative_prompt': None, 'width': 704, 'height': 512, 'num_frames': 48, 'steps': 20, 'guidance_scale': 3.0, 'seed': None, 'enhance_prompt': True, 'use_uncensored_enhancer': False, 'model_id': 'ltx-video-av-q4', 'project_id': '4AAC6472-211D-494B-85BB-2928EE7DD0BB', 'scene_id': 'BF1ADDCC-0674-427D-91CA-69827A7243E3', 'composed_prompt_path': None, 'image_path': None, 'audio_path': None, 'video_path': None, 'retake_start_seconds': None, 'retake_end_seconds': None}
+2026-07-18 18:23:21,187 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - Creating text-to-video job for model: ltx-video-av-q4
+2026-07-18 18:23:21,188 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - Job 1d3ab922-07c6-4f36-8b56-11041ace2be4 started background execution.
+2026-07-18 18:23:21,189 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - LTXEngine: Starting text-to-video generation for job 1d3ab922-07c6-4f36-8b56-11041ace2be4
+2026-07-18 18:23:21,189 - ai-video-worker - v0.1.1 - [17955] - MainThread - TRACE - Job log: LTXEngine: Starting text-to-video generation for job 1d3ab922-07c6-4f36-8b56-11041ace2be4
+2026-07-18 18:23:21,189 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - LTXEngine: Request prompt: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:23:21,189 - ai-video-worker - v0.1.1 - [17955] - MainThread - TRACE - Job log: LTXEngine: Request prompt: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:23:21,189 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - Job 1d3ab922-07c6-4f36-8b56-11041ace2be4 progress: loading_model (5.0%) - Switching to model ltx-video-av-q4...
+2026-07-18 18:23:21,189 - ai-video-worker - v0.1.1 - [17955] - MainThread - DEBUG - Job 1d3ab922-07c6-4f36-8b56-11041ace2be4 progress: loading_model (5.0%) - Switching to model ltx-video-av-q4...
+2026-07-18 18:23:21,190 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - LTXEngine: Loading model ltx-video-av-q4
+2026-07-18 18:23:21,190 - ai-video-worker - v0.1.1 - [17955] - MainThread - TRACE - Job log: LTXEngine: Loading model ltx-video-av-q4
+2026-07-18 18:23:21,190 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - [_validate_hardware] Checking hardware compatibility. min_memory_gb=16.0
+2026-07-18 18:23:21,190 - ai-video-worker - v0.1.1 - [17955] - MainThread - TRACE - Job log: [_validate_hardware] Checking hardware compatibility. min_memory_gb=16.0
+2026-07-18 18:23:21,191 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - [_validate_hardware] Total RAM: 128.00GB, Available RAM: 78.27GB
+2026-07-18 18:23:21,191 - ai-video-worker - v0.1.1 - [17955] - MainThread - TRACE - Job log: [_validate_hardware] Total RAM: 128.00GB, Available RAM: 78.27GB
+2026-07-18 18:23:21,191 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - MLXAdapter: Loading ltx-video-av-q4 from models/ltx-video-av-q4
+2026-07-18 18:23:21,319 - ai-video-worker - v0.1.1 - [17955] - MainThread - DEBUG - Job 1d3ab922-07c6-4f36-8b56-11041ace2be4 progress: preparing_inputs (10.0%) - Preparing generation inputs...
+2026-07-18 18:23:21,320 - ai-video-worker - v0.1.1 - [17955] - MainThread - DEBUG - [MLXLTXAdapter] generate_text_to_video pipeline=AV_MODEL
+2026-07-18 18:23:21,320 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - MLXLTXAdapter: AV Generation for Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.
+2026-07-18 18:23:21,321 - ai-video-worker - v0.1.1 - [17955] - MainThread - DEBUG - Job 1d3ab922-07c6-4f36-8b56-11041ace2be4 progress: loading_model (5.0%) - Preparing unified AV model...
+2026-07-18 18:23:21,321 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - Using seed for AV: 86158513
+2026-07-18 18:23:21,321 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - MLXLTXAdapter: Starting unified AV generation for prompt: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:23:21,321 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - MLXLTXAdapter: Details: 704x512, frames=48, steps=20, seed=86158513
+2026-07-18 18:23:21,321 - ai-video-worker - v0.1.1 - [17955] - MainThread - DEBUG - Job 1d3ab922-07c6-4f36-8b56-11041ace2be4 progress: generating_video (15.0%) - Starting unified AV generation...
+2026-07-18 18:23:21,322 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - Completed POST /generate/text-to-video - Status 200 - Duration 137.18ms
+2026-07-18 18:23:21,342 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - Incoming GET /jobs/1d3ab922-07c6-4f36-8b56-11041ace2be4/events
+2026-07-18 18:23:21,343 - ai-video-worker - v0.1.1 - [17955] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/1d3ab922-07c6-4f36-8b56-11041ace2be4/events
+2026-07-18 18:23:21,343 - ai-video-worker - v0.1.1 - [17955] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:23:21,344 - ai-video-worker - v0.1.1 - [17955] - MainThread - DEBUG - Starting SSE event stream for job: 1d3ab922-07c6-4f36-8b56-11041ace2be4
+2026-07-18 18:23:21,344 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - Completed GET /jobs/1d3ab922-07c6-4f36-8b56-11041ace2be4/events - Status 200 - Duration 1.72ms
+2026-07-18 18:23:21,344 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - New subscription for job events: 1d3ab922-07c6-4f36-8b56-11041ace2be4
+2026-07-18 18:23:21,344 - ai-video-worker - v0.1.1 - [17955] - MainThread - DEBUG - SSE sending event for 1d3ab922-07c6-4f36-8b56-11041ace2be4: data: {"job_id": "1d3ab922-07c6-4f36-8b56-11041ace2be4", "stage": "generating_video", "percentage": 0.15, "message": "Starting unified AV generation...", "timestamp": "2026-07-18T18:23:21.321597"}
+
+
+2026-07-18 18:23:22,347 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - Subscription ended for job: 1d3ab922-07c6-4f36-8b56-11041ace2be4
+2026-07-18 18:23:22,347 - ai-video-worker - v0.1.1 - [17955] - MainThread - DEBUG - SSE stream ended normally for 1d3ab922-07c6-4f36-8b56-11041ace2be4
+2026-07-18 18:24:09,988 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - MLXLTXAdapter: Output file exists. Size: 470808 bytes
+2026-07-18 18:24:09,988 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - Job 1d3ab922-07c6-4f36-8b56-11041ace2be4 progress: completed (100.0%) - Generation finished
+2026-07-18 18:24:09,988 - ai-video-worker - v0.1.1 - [17955] - MainThread - DEBUG - Job 1d3ab922-07c6-4f36-8b56-11041ace2be4 progress: completed (100.0%) - Generation finished
+2026-07-18 18:24:09,995 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - Extracted preview to outputs/1d3ab922-07c6-4f36-8b56-11041ace2be4/preview.jpg
+2026-07-18 18:24:09,996 - ai-video-worker - v0.1.1 - [17955] - MainThread - DEBUG - Generation finished in 48.81s, starting post-processing for job 1d3ab922-07c6-4f36-8b56-11041ace2be4
+2026-07-18 18:24:09,996 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - LTXEngine: Generation finished in 48.81s
+2026-07-18 18:24:09,996 - ai-video-worker - v0.1.1 - [17955] - MainThread - TRACE - Job log: LTXEngine: Generation finished in 48.81s
+2026-07-18 18:24:09,996 - ai-video-worker - v0.1.1 - [17955] - MainThread - DEBUG - Job 1d3ab922-07c6-4f36-8b56-11041ace2be4 progress: saving_metadata (92.0%) - Generating preview image...
+2026-07-18 18:24:10,001 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - Extracted preview to outputs/1d3ab922-07c6-4f36-8b56-11041ace2be4/preview.jpg
+2026-07-18 18:24:10,002 - ai-video-worker - v0.1.1 - [17955] - MainThread - DEBUG - Job 1d3ab922-07c6-4f36-8b56-11041ace2be4 progress: saving_metadata (95.0%) - Saving composed prompt...
+2026-07-18 18:24:10,002 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - LTXEngine: Saving composed prompt to file: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:24:10,002 - ai-video-worker - v0.1.1 - [17955] - MainThread - TRACE - Job log: LTXEngine: Saving composed prompt to file: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:24:10,002 - ai-video-worker - v0.1.1 - [17955] - MainThread - DEBUG - Job 1d3ab922-07c6-4f36-8b56-11041ace2be4 progress: saving_metadata (98.0%) - Saving detailed metadata...
+2026-07-18 18:24:10,016 - ai-video-worker - v0.1.1 - [17955] - MainThread - DEBUG - [_save_detailed_metadata] Writing metadata to outputs/1d3ab922-07c6-4f36-8b56-11041ace2be4/metadata.json
+2026-07-18 18:24:10,016 - ai-video-worker - v0.1.1 - [17955] - MainThread - DEBUG - Job 1d3ab922-07c6-4f36-8b56-11041ace2be4 progress: completed (100.0%) - Generation finished
+2026-07-18 18:24:10,016 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - Job 1d3ab922-07c6-4f36-8b56-11041ace2be4 updated: completed (100.0%) - Job completed successfully
+2026-07-18 18:24:10,017 - ai-video-worker - v0.1.1 - [17955] - MainThread - INFO - Job 1d3ab922-07c6-4f36-8b56-11041ace2be4 completed successfully
+2026-07-18 18:26:34,623 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Initialized LTXGenerationEngine with adapter: MLXLTXAdapter
+2026-07-18 18:26:35,043 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python3
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (78.94 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/models
+Models Disk:    725.02 GB free
+============================================================
+2026-07-18 18:26:35,056 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python3
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (78.39 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/models
+Models Disk:    725.02 GB free
+============================================================
+2026-07-18 18:26:39,125 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Incoming GET /health
+2026-07-18 18:26:39,125 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Request detail: GET http://localhost:8000/health
+2026-07-18 18:26:39,125 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:26:39,130 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Completed GET /health - Status 200 - Duration 4.74ms
+2026-07-18 18:26:39,142 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Incoming GET /hardware
+2026-07-18 18:26:39,142 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Request detail: GET http://localhost:8000/hardware
+2026-07-18 18:26:39,142 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:26:39,154 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Completed GET /hardware - Status 200 - Duration 12.45ms
+2026-07-18 18:26:39,156 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Incoming GET /hardware
+2026-07-18 18:26:39,156 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Request detail: GET http://localhost:8000/hardware
+2026-07-18 18:26:39,156 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:26:39,168 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Completed GET /hardware - Status 200 - Duration 12.08ms
+2026-07-18 18:26:41,392 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Incoming GET /models
+2026-07-18 18:26:41,392 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Request detail: GET http://localhost:8000/models
+2026-07-18 18:26:41,392 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:26:41,393 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Completed GET /models - Status 200 - Duration 1.10ms
+2026-07-18 18:26:46,904 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Incoming POST /generate/text-to-video
+2026-07-18 18:26:46,905 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Request detail: POST http://localhost:8000/generate/text-to-video
+2026-07-18 18:26:46,905 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'content-type': 'application/json', 'connection': 'keep-alive', 'accept': '*/*', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0', 'content-length': '1668', 'accept-language': 'en-GB,en;q=0.9', 'accept-encoding': 'gzip, deflate'}
+2026-07-18 18:26:46,907 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - text_to_video request: {'prompt': 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.\n\nThe panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.\n\nThe sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.\n\nHighly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.', 'negative_prompt': None, 'width': 704, 'height': 512, 'num_frames': 48, 'steps': 20, 'guidance_scale': 3.0, 'seed': None, 'enhance_prompt': True, 'use_uncensored_enhancer': False, 'model_id': 'ltx-video-av-q4', 'project_id': '7BA50A49-0AD9-4EB7-97D9-7B1AD73B9BB5', 'scene_id': 'B8C5EE27-A9EB-485B-B86A-342FBAC9D7A0', 'composed_prompt_path': None, 'image_path': None, 'audio_path': None, 'video_path': None, 'retake_start_seconds': None, 'retake_end_seconds': None}
+2026-07-18 18:26:46,907 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Creating text-to-video job for model: ltx-video-av-q4
+2026-07-18 18:26:46,909 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Job 555a74d7-bcb0-492f-b056-c2005c3755fd started background execution.
+2026-07-18 18:26:46,910 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - LTXEngine: Starting text-to-video generation for job 555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:26:46,910 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Job log: LTXEngine: Starting text-to-video generation for job 555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:26:46,910 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - LTXEngine: Request prompt: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:26:46,910 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Job log: LTXEngine: Request prompt: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:26:46,910 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Job 555a74d7-bcb0-492f-b056-c2005c3755fd progress: loading_model (5.0%) - Switching to model ltx-video-av-q4...
+2026-07-18 18:26:46,910 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Job 555a74d7-bcb0-492f-b056-c2005c3755fd progress: loading_model (5.0%) - Switching to model ltx-video-av-q4...
+2026-07-18 18:26:46,911 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - LTXEngine: Loading model ltx-video-av-q4
+2026-07-18 18:26:46,911 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Job log: LTXEngine: Loading model ltx-video-av-q4
+2026-07-18 18:26:46,911 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - [_validate_hardware] Checking hardware compatibility. min_memory_gb=16.0
+2026-07-18 18:26:46,911 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Job log: [_validate_hardware] Checking hardware compatibility. min_memory_gb=16.0
+2026-07-18 18:26:46,912 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - [_validate_hardware] Total RAM: 128.00GB, Available RAM: 78.59GB
+2026-07-18 18:26:46,912 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Job log: [_validate_hardware] Total RAM: 128.00GB, Available RAM: 78.59GB
+2026-07-18 18:26:46,912 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - MLXAdapter: Loading ltx-video-av-q4 from models/ltx-video-av-q4
+2026-07-18 18:26:47,044 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Job 555a74d7-bcb0-492f-b056-c2005c3755fd progress: preparing_inputs (10.0%) - Preparing generation inputs...
+2026-07-18 18:26:47,044 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - [MLXLTXAdapter] generate_text_to_video pipeline=AV_MODEL
+2026-07-18 18:26:47,045 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - MLXLTXAdapter: AV Generation for Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.
+2026-07-18 18:26:47,045 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Job 555a74d7-bcb0-492f-b056-c2005c3755fd progress: loading_model (5.0%) - Preparing unified AV model...
+2026-07-18 18:26:47,045 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Using seed for AV: 3020400013
+2026-07-18 18:26:47,045 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - MLXLTXAdapter: Starting unified AV generation for prompt: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:26:47,045 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - MLXLTXAdapter: Details: 704x512, frames=48, steps=20, seed=3020400013
+2026-07-18 18:26:47,045 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Job 555a74d7-bcb0-492f-b056-c2005c3755fd progress: generating_video (15.0%) - Starting unified AV generation...
+2026-07-18 18:26:47,046 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Completed POST /generate/text-to-video - Status 200 - Duration 141.49ms
+2026-07-18 18:26:47,066 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Incoming GET /jobs/555a74d7-bcb0-492f-b056-c2005c3755fd/events
+2026-07-18 18:26:47,066 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/555a74d7-bcb0-492f-b056-c2005c3755fd/events
+2026-07-18 18:26:47,066 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:26:47,067 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Starting SSE event stream for job: 555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:26:47,067 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Completed GET /jobs/555a74d7-bcb0-492f-b056-c2005c3755fd/events - Status 200 - Duration 1.09ms
+2026-07-18 18:26:47,068 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - New subscription for job events: 555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:26:47,068 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - SSE sending event for 555a74d7-bcb0-492f-b056-c2005c3755fd: data: {"job_id": "555a74d7-bcb0-492f-b056-c2005c3755fd", "stage": "generating_video", "percentage": 0.15, "message": "Starting unified AV generation...", "timestamp": "2026-07-18T18:26:47.045946"}
+
+
+2026-07-18 18:26:48,069 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Subscription ended for job: 555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:26:48,069 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - SSE stream ended normally for 555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:26:48,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Incoming GET /jobs/555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:26:48,894 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:26:48,894 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:26:48,894 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Completed GET /jobs/555a74d7-bcb0-492f-b056-c2005c3755fd - Status 200 - Duration 0.65ms
+2026-07-18 18:26:53,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Incoming GET /jobs/555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:26:53,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:26:53,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:26:53,894 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Completed GET /jobs/555a74d7-bcb0-492f-b056-c2005c3755fd - Status 200 - Duration 0.72ms
+2026-07-18 18:26:58,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Incoming GET /jobs/555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:26:58,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:26:58,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:26:58,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Completed GET /jobs/555a74d7-bcb0-492f-b056-c2005c3755fd - Status 200 - Duration 0.41ms
+2026-07-18 18:27:03,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Incoming GET /jobs/555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:27:03,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:27:03,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:27:03,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Completed GET /jobs/555a74d7-bcb0-492f-b056-c2005c3755fd - Status 200 - Duration 0.43ms
+2026-07-18 18:27:08,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Incoming GET /jobs/555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:27:08,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:27:08,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:27:08,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Completed GET /jobs/555a74d7-bcb0-492f-b056-c2005c3755fd - Status 200 - Duration 0.44ms
+2026-07-18 18:27:13,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Incoming GET /jobs/555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:27:13,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:27:13,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:27:13,894 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Completed GET /jobs/555a74d7-bcb0-492f-b056-c2005c3755fd - Status 200 - Duration 0.42ms
+2026-07-18 18:27:18,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Incoming GET /jobs/555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:27:18,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:27:18,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:27:18,894 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Completed GET /jobs/555a74d7-bcb0-492f-b056-c2005c3755fd - Status 200 - Duration 0.48ms
+2026-07-18 18:27:23,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Incoming GET /jobs/555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:27:23,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:27:23,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:27:23,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Completed GET /jobs/555a74d7-bcb0-492f-b056-c2005c3755fd - Status 200 - Duration 0.43ms
+2026-07-18 18:27:28,894 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Incoming GET /jobs/555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:27:28,894 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:27:28,894 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:27:28,894 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Completed GET /jobs/555a74d7-bcb0-492f-b056-c2005c3755fd - Status 200 - Duration 0.61ms
+2026-07-18 18:27:33,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Incoming GET /jobs/555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:27:33,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:27:33,893 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:27:33,894 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Completed GET /jobs/555a74d7-bcb0-492f-b056-c2005c3755fd - Status 200 - Duration 0.44ms
+2026-07-18 18:27:36,067 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - MLXLTXAdapter: Output file exists. Size: 433105 bytes
+2026-07-18 18:27:36,067 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Job 555a74d7-bcb0-492f-b056-c2005c3755fd progress: completed (100.0%) - Generation finished
+2026-07-18 18:27:36,067 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Job 555a74d7-bcb0-492f-b056-c2005c3755fd progress: completed (100.0%) - Generation finished
+2026-07-18 18:27:36,074 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Extracted preview to outputs/555a74d7-bcb0-492f-b056-c2005c3755fd/preview.jpg
+2026-07-18 18:27:36,075 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Generation finished in 49.17s, starting post-processing for job 555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:27:36,075 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - LTXEngine: Generation finished in 49.17s
+2026-07-18 18:27:36,075 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Job log: LTXEngine: Generation finished in 49.17s
+2026-07-18 18:27:36,075 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Job 555a74d7-bcb0-492f-b056-c2005c3755fd progress: saving_metadata (92.0%) - Generating preview image...
+2026-07-18 18:27:36,081 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Extracted preview to outputs/555a74d7-bcb0-492f-b056-c2005c3755fd/preview.jpg
+2026-07-18 18:27:36,081 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Job 555a74d7-bcb0-492f-b056-c2005c3755fd progress: saving_metadata (95.0%) - Saving composed prompt...
+2026-07-18 18:27:36,082 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - LTXEngine: Saving composed prompt to file: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:27:36,082 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Job log: LTXEngine: Saving composed prompt to file: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:27:36,082 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Job 555a74d7-bcb0-492f-b056-c2005c3755fd progress: saving_metadata (98.0%) - Saving detailed metadata...
+2026-07-18 18:27:36,095 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - [_save_detailed_metadata] Writing metadata to outputs/555a74d7-bcb0-492f-b056-c2005c3755fd/metadata.json
+2026-07-18 18:27:36,096 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Job 555a74d7-bcb0-492f-b056-c2005c3755fd progress: completed (100.0%) - Generation finished
+2026-07-18 18:27:36,096 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Job 555a74d7-bcb0-492f-b056-c2005c3755fd updated: completed (100.0%) - Job completed successfully
+2026-07-18 18:27:36,096 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Job 555a74d7-bcb0-492f-b056-c2005c3755fd completed successfully
+2026-07-18 18:27:38,896 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Incoming GET /jobs/555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:27:38,897 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/555a74d7-bcb0-492f-b056-c2005c3755fd
+2026-07-18 18:27:38,897 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:27:38,899 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Completed GET /jobs/555a74d7-bcb0-492f-b056-c2005c3755fd - Status 200 - Duration 3.45ms
+2026-07-18 18:27:49,424 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Incoming GET /models
+2026-07-18 18:27:49,424 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Request detail: GET http://localhost:8000/models
+2026-07-18 18:27:49,424 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:27:49,425 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Completed GET /models - Status 200 - Duration 0.91ms
+2026-07-18 18:27:54,280 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Incoming GET /models
+2026-07-18 18:27:54,280 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Request detail: GET http://localhost:8000/models
+2026-07-18 18:27:54,280 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:27:54,281 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Completed GET /models - Status 200 - Duration 1.02ms
+2026-07-18 18:27:58,185 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Incoming GET /models
+2026-07-18 18:27:58,185 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Request detail: GET http://localhost:8000/models
+2026-07-18 18:27:58,185 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:27:58,185 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Completed GET /models - Status 200 - Duration 0.69ms
+2026-07-18 18:28:19,873 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Incoming GET /models
+2026-07-18 18:28:19,873 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Request detail: GET http://localhost:8000/models
+2026-07-18 18:28:19,873 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:28:19,874 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Completed GET /models - Status 200 - Duration 0.85ms
+2026-07-18 18:28:22,154 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Incoming GET /models
+2026-07-18 18:28:22,154 - ai-video-worker - v0.1.1 - [18297] - MainThread - TRACE - Request detail: GET http://localhost:8000/models
+2026-07-18 18:28:22,154 - ai-video-worker - v0.1.1 - [18297] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:28:22,155 - ai-video-worker - v0.1.1 - [18297] - MainThread - INFO - Completed GET /models - Status 200 - Duration 0.84ms

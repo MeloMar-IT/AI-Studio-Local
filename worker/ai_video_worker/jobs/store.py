@@ -122,7 +122,8 @@ class JobStore:
     async def subscribe(self, job_id: str):
         """Subscribe to progress events for a job."""
         logger.info(f"New subscription for job events: {job_id}")
-        queue = asyncio.Queue()
+        # Use a larger queue size to prevent drops if the app is slow to consume
+        queue = asyncio.Queue(maxsize=100)
         if job_id not in self.listeners:
             self.listeners[job_id] = []
         self.listeners[job_id].append(queue)
@@ -313,7 +314,10 @@ class JobStore:
                         "timestamp": job.updated_at.isoformat()
                     }
                     for queue in self.listeners[job_id]:
-                        queue.put_nowait(event)
+                        try:
+                            queue.put_nowait(event)
+                        except Exception as e:
+                            logger.error(f"Failed to push event to listener for job {job_id}: {e}")
 
                 # Update metadata with progress
                 try:
@@ -371,36 +375,21 @@ class JobStore:
                         f"{result_file.stat().st_size} bytes"
                     )
 
-                job = self.jobs[job_id]
-                job.result_url = f"/outputs/{job_id}/output.mp4"
-                job.status = "completed"
-                job.progress = 1.0
-                job.updated_at = datetime.now()
+                self.update_job_status(job_id, "completed", 1.0, "Job completed successfully")
 
-                # Update final metadata
-                metadata_path = self.output_manager.get_metadata_path(job_id)
-                if metadata_path.exists():
-                    with open(metadata_path, "r") as f:
-                        metadata = json.load(f)
-                else:
-                    metadata = {
-                        "job_id": job_id,
-                        "project_id": request.project_id,
-                        "scene_id": request.scene_id,
-                        "created_at": job.created_at,
-                    }
-
-                metadata.update({
-                    "status": "completed",
-                    "progress": 1.0,
-                    "completed_at": job.updated_at,
-                    "updated_at": job.updated_at,
-                    "output_path": result_path,
-                    "result_url": job.result_url
-                })
-                self.output_manager.save_metadata(job_id, metadata)
-                self.output_manager.append_log(job_id, "Job completed successfully")
-
+                # Ensure result_url is set after update_job_status
+                if job_id in self.jobs:
+                    self.jobs[job_id].result_url = f"/outputs/{job_id}/output.mp4"
+                    # Update metadata one last time with result_url
+                    try:
+                        metadata_path = self.output_manager.get_metadata_path(job_id)
+                        if metadata_path.exists():
+                            with open(metadata_path, "r") as f:
+                                metadata = json.load(f)
+                            metadata["result_url"] = self.jobs[job_id].result_url
+                            self.output_manager.save_metadata(job_id, metadata)
+                    except Exception:
+                        pass
                 logger.info(f"Job {job_id} completed successfully")
             else:
                 raise Exception("Generation failed to produce output")
@@ -410,32 +399,7 @@ class JobStore:
             if job_id in self.jobs:
                 job = self.jobs[job_id]
                 if job.status != "cancelled":
-                    job.status = "failed"
-                    job.error = str(e)
-                    job.updated_at = datetime.now()
-
-                    # Update metadata with failure
-                    try:
-                        metadata_path = self.output_manager.get_metadata_path(job_id)
-                        if metadata_path.exists():
-                            with open(metadata_path, "r") as f:
-                                metadata = json.load(f)
-                        else:
-                            metadata = {
-                                "job_id": job_id,
-                                "project_id": request.project_id,
-                                "scene_id": request.scene_id,
-                                "created_at": job.created_at,
-                            }
-                        metadata.update({
-                            "status": "failed",
-                            "error": str(e),
-                            "updated_at": job.updated_at
-                        })
-                        self.output_manager.save_metadata(job_id, metadata)
-                        self.output_manager.append_log(job_id, f"Job failed: {e}")
-                    except Exception as meta_e:
-                        logger.error(f"Failed to update error metadata for job {job_id}: {meta_e}")
+                    self.update_job_status(job_id, "failed", job.progress, str(e), error=str(e))
 
         finally:
             if job_id in self.cancellation_tokens:

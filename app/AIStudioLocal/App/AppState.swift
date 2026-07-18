@@ -353,13 +353,16 @@ class AppState: ObservableObject {
                     await MainActor.run {
                         if let index = self.activeJobs.firstIndex(where: { $0.id == jobId }) {
                             let oldStatus = self.activeJobs[index].status
+                            let oldProgress = self.activeJobs[index].progress
                             self.activeJobs[index].status = JobStatus(rawValue: event.stage) ?? self.activeJobs[index].status
                             self.activeJobs[index].progress = event.percentage ?? self.activeJobs[index].progress
                             self.activeJobs[index].message = event.message
                             self.activeJobs[index].error = event.error
 
-                            if oldStatus != self.activeJobs[index].status {
-                                NSLog("📦 AppState: Job \(jobId) status changed: \(oldStatus) -> \(self.activeJobs[index].status)")
+                            AppLogger.shared.info("📦 AppState: SSE Update for \(jobId): \(event.stage) (\(Int((event.percentage ?? 0)*100))%)", category: .worker)
+
+                            if oldStatus != self.activeJobs[index].status || abs(oldProgress - self.activeJobs[index].progress) > 0.01 {
+                                NSLog("📦 AppState: Job \(jobId) changed: \(oldStatus)(\(Int(oldProgress*100))%) -> \(self.activeJobs[index].status)(\(Int(self.activeJobs[index].progress*100))%)")
                             }
 
                             if self.activeJobs[index].status == .completed ||
@@ -383,8 +386,13 @@ class AppState: ObservableObject {
             } catch {
                 NSLog("📦 AppState: Error in job subscription for \(jobId): \(error)")
                 AppLogger.shared.error("Error in job subscription for \(jobId): \(error)", category: .worker)
-                // Fallback to polling if SSE fails
-                self.jobSubscriptions.removeValue(forKey: jobId)
+
+                // Fallback to manual check when stream ends/fails
+                await MainActor.run {
+                    self.jobSubscriptions.removeValue(forKey: jobId)
+                    // Trigger a poll for this specific job immediately
+                    self.checkJobStatus(jobId: jobId)
+                }
             }
         }
         jobSubscriptions[jobId] = task
@@ -423,25 +431,60 @@ class AppState: ObservableObject {
     }
 
     private func startPolling() {
-        pollingTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
+        pollingTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] _ in
             self?.pollJobs()
         }
     }
 
+    private func checkJobStatus(jobId: String) {
+        Task {
+            do {
+                let updatedJob = try await generationClient.getJobStatus(jobId: jobId)
+                await MainActor.run {
+                    if let index = self.activeJobs.firstIndex(where: { $0.id == jobId }) {
+                        var updatedJobWithLocalData = updatedJob
+                        updatedJobWithLocalData.sceneName = updatedJob.sceneName ?? self.activeJobs[index].sceneName
+                        updatedJobWithLocalData.startedAt = updatedJob.startedAt ?? self.activeJobs[index].startedAt
+
+                        if updatedJob.status == .completed || updatedJob.status == .failed || updatedJob.status == .cancelled {
+                            updatedJobWithLocalData.completedAt = updatedJob.completedAt ?? Date()
+                        }
+
+                        self.activeJobs[index] = updatedJobWithLocalData
+                        self.updateActiveJobsCount()
+
+                        if updatedJob.status == .completed {
+                            NotificationCenter.default.post(name: .generationCompleted, object: updatedJobWithLocalData)
+                        }
+                    }
+                }
+            } catch {
+                AppLogger.shared.error("Error checking final status for job \(jobId): \(error)", category: .worker)
+            }
+        }
+    }
+
     private func pollJobs() {
+        // Polling is a fallback for when SSE fails or is not active.
+        // We poll jobs that are not in a terminal state.
         let jobsToPoll = activeJobs.filter {
             $0.status != .completed &&
             $0.status != .failed &&
-            $0.status != .cancelled &&
-            self.jobSubscriptions[$0.id] == nil // Only poll if not subscribed
+            $0.status != .cancelled
         }
 
+        if !jobsToPoll.isEmpty {
+             NSLog("🔄 AppState: Polling \(jobsToPoll.count) active jobs...")
+        }
         for job in jobsToPoll {
             Task {
                 do {
-                    let updatedJob = try await generationClient.getJobStatus(jobId: job.id)
+                    let updatedJob = try await self.generationClient.getJobStatus(jobId: job.id)
                     await MainActor.run {
                         if let index = self.activeJobs.firstIndex(where: { $0.id == job.id }) {
+                            let oldStatus = self.activeJobs[index].status
+                            let oldProgress = self.activeJobs[index].progress
+
                             var updatedJobWithLocalData = updatedJob
                             // Preserve local data if worker doesn't return it
                             updatedJobWithLocalData.sceneName = updatedJob.sceneName ?? self.activeJobs[index].sceneName
@@ -451,11 +494,14 @@ class AppState: ObservableObject {
                                 updatedJobWithLocalData.completedAt = updatedJob.completedAt ?? Date()
                             }
 
+                            if oldStatus != updatedJob.status || abs(oldProgress - updatedJob.progress) > 0.01 {
+                                NSLog("🔄 AppState: Poll result for \(job.id): \(oldStatus)(\(Int(oldProgress*100))%) -> \(updatedJob.status)(\(Int(updatedJob.progress*100))%)")
+                            }
+
                             self.activeJobs[index] = updatedJobWithLocalData
                             self.updateActiveJobsCount()
 
-                            if updatedJob.status == .completed {
-                                // In a real app, we might want to notify the ProjectStore or Scene here
+                            if updatedJob.status == .completed && oldStatus != .completed {
                                 NotificationCenter.default.post(name: .generationCompleted, object: updatedJobWithLocalData)
                             }
                         }
