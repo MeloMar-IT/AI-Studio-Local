@@ -9,6 +9,11 @@ class LTXAdapter(ABC):
     """
 
     @abstractmethod
+    def set_job_logger(self, job_logger: Optional[Any]) -> None:
+        """Sets a logger for job-specific events."""
+        pass
+
+    @abstractmethod
     def capabilities(self) -> List[str]:
         """Returns a list of supported generation modes."""
         pass

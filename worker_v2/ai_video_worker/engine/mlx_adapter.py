@@ -27,6 +27,18 @@ class MLXLTXAdapter(LTXAdapter):
         self._current_model_path = None
         self._pipeline = None
         self._is_av = False
+        self._job_logger = None
+
+    def set_job_logger(self, job_logger: Optional[Any]) -> None:
+        self._job_logger = job_logger
+
+    def _log_job(self, message: str):
+        if self._job_logger:
+            try:
+                self._job_logger(message)
+            except Exception:
+                pass
+        logger.info(message)
 
     def capabilities(self) -> List[str]:
         return ["text-to-video", "image-to-video", "audio-to-video"]
@@ -39,7 +51,7 @@ class MLXLTXAdapter(LTXAdapter):
             from ai_video_worker.config import settings
             model_path = os.path.join(settings.models_dir, model_id)
 
-        logger.info(f"MLXAdapter: Loading {model_id} from {model_path}")
+        self._log_job(f"MLXAdapter: Loading {model_id} from {model_path}")
 
         if not os.path.exists(model_path):
              raise FileNotFoundError(f"Model path {model_path} does not exist.")
@@ -89,7 +101,11 @@ class MLXLTXAdapter(LTXAdapter):
         progress_callback: Optional[ProgressCallback] = None,
         cancellation_token: Optional[CancellationToken] = None,
     ) -> str:
-        if self._is_av:
+        logger.debug(f"[MLXLTXAdapter] generate_text_to_video pipeline={self._pipeline}")
+        if not self._pipeline:
+            raise RuntimeError("No model loaded. Call load_model first.")
+
+        if self._is_av or self._pipeline == "AV_MODEL":
             return await self._generate_av(request, output_path, progress_callback, cancellation_token)
         else:
             return await self._generate_base(request, output_path, progress_callback, cancellation_token)
@@ -120,10 +136,10 @@ class MLXLTXAdapter(LTXAdapter):
         width = (width // 32) * 32
         height = (height // 32) * 32
 
-        logger.info(f"Generating: {width}x{height}, {num_frames} frames, steps={num_inference_steps}, seed={seed}")
-        logger.info(f"MLXAdapter [BASE]: PROMPT BEING USED FOR MODEL CALL: '{prompt}'")
-        logger.info(f"MLXLTXAdapter: Original prompt: '{prompt}'")
-        logger.info(f"MLXAdapter [BASE]: NEGATIVE PROMPT BEING USED: '{negative_prompt}'")
+        self._log_job(f"Generating: {width}x{height}, {num_frames} frames, steps={num_inference_steps}, seed={seed}")
+        self._log_job(f"MLXAdapter [BASE]: PROMPT BEING USED FOR MODEL CALL: '{prompt}'")
+        self._log_job(f"MLXLTXAdapter: Original prompt: '{prompt}'")
+        self._log_job(f"MLXAdapter [BASE]: NEGATIVE PROMPT BEING USED: '{negative_prompt}'")
 
         if progress_callback:
             progress_callback("generating_video", 0.2, "Starting LTX diffusion...")
@@ -180,75 +196,120 @@ class MLXLTXAdapter(LTXAdapter):
         except Exception as e:
             logger.error(f"Error during base generation: {e}")
             raise
-    async def _generate_av(self, request, output_path, progress_callback, cancellation_token):
-        import mlx_video
+    async def _generate_av(
+        self,
+        request: Any,
+        output_path: str,
+        progress_callback: Optional[ProgressCallback] = None,
+        cancellation_token: Optional[CancellationToken] = None,
+    ) -> str:
+        """Generation implementation using mlx-video-with-audio."""
+        self._log_job(f"MLXLTXAdapter: AV Generation for {getattr(request, 'prompt', '')}")
 
-        prompt = getattr(request, "prompt", "")
-        width = getattr(request, "width", 704)
-        height = getattr(request, "height", 512)
-        num_frames = getattr(request, "num_frames", 49)
-        num_inference_steps = getattr(request, "steps", 20)
-        guidance_scale = getattr(request, "guidance_scale", 3.0)
-        seed = getattr(request, "seed", random.randint(0, 1000000))
-
-        # mlx-video usually has its own generation wrapper
-        if progress_callback:
-            progress_callback("generating_video", 0.2, "Starting MLX-Video AV generation...")
-
-        logger.info(f"MLXAdapter [AV]: PROMPT BEING USED FOR MODEL CALL: '{prompt}'")
-        logger.info(f"MLXLTXAdapter: Original prompt: '{prompt}'")
         try:
-            # This is a simplified representation of mlx_video's call
-            # In real implementation, we'd use the actual API
-            await asyncio.to_thread(
-                mlx_video.generate,
-                model_path=self._current_model_path,
-                prompt=prompt,
-                width=width,
-                height=height,
-                num_frames=num_frames,
-                num_inference_steps=num_inference_steps,
-                guidance_scale=guidance_scale,
-                seed=seed,
-                output_path=output_path
-            )
+            from mlx_video.generate_av import generate_video_with_audio
+        except ImportError:
+            raise DependencyError("mlx-video-with-audio", "Please install: pip install mlx-video-with-audio")
+
+        from ai_video_worker.config import settings
+        text_encoder_path = os.path.join(settings.models_dir, "gemma-3-12b-it-bf16")
+        if not os.path.exists(text_encoder_path):
+             text_encoder_path = "mlx-community/gemma-3-12b-it-bf16"
+
+        try:
+            if progress_callback:
+                progress_callback("loading_model", 0.05, "Preparing unified AV model...")
+
+            model_repo = self._current_model_path if self._current_model_path else os.path.join(settings.models_dir, "ltx-video-av-q4")
+            if not os.path.exists(model_repo):
+                 model_repo = "notapalindrome/ltx23-mlx-av-q4"
+
+            # Check if image is provided
+            image_path = getattr(request, "image_path", None)
+
+            # Ensure we have a seed for reproducibility
+            seed = getattr(request, "seed", None)
+            if seed is None or seed == -1:
+                seed = random.randint(0, 2**32 - 1)
+                if hasattr(request, "seed"):
+                    request.seed = seed
+            self._log_job(f"Using seed for AV: {seed}")
+
+            # Ensure height/width are divisible by 64
+            height = getattr(request, "height", 512)
+            width = getattr(request, "width", 512)
+            if height % 64 != 0:
+                height = (height // 64) * 64
+            if width % 64 != 0:
+                width = (width // 64) * 64
+
+            prompt = getattr(request, "prompt", "")
+            num_frames = getattr(request, "num_frames", 49)
+            steps = getattr(request, "steps", 20)
+            guidance_scale = getattr(request, "guidance_scale", 3.0)
+
+            self._log_job(f"MLXLTXAdapter: Starting unified AV generation for prompt: '{prompt}'")
+            self._log_job(f"MLXLTXAdapter: Details: {width}x{height}, frames={num_frames}, steps={steps}, seed={seed}")
+
+            # Ensure output directory exists
+            out_dir = os.path.dirname(output_path)
+            if out_dir and not os.path.isdir(out_dir):
+                os.makedirs(out_dir, exist_ok=True)
+
+            if progress_callback:
+                progress_callback("generating_video", 0.15, "Starting unified AV generation...")
+
+            # We use a simple wrapper to avoid risky stream interception that can cause hangs
+            def generation_wrapper():
+                generate_video_with_audio(
+                    model_repo=model_repo,
+                    text_encoder_repo=text_encoder_path,
+                    prompt=prompt,
+                    height=height,
+                    width=width,
+                    num_frames=num_frames,
+                    seed=seed,
+                    fps=getattr(request, "fps", 24),
+                    output_path=output_path,
+                    negative_prompt=getattr(request, "negative_prompt", None),
+                    cfg_scale=guidance_scale,
+                    image=image_path,
+                    num_inference_steps=steps,
+                    enhance_prompt=getattr(request, "enhance_prompt", False),
+                    use_uncensored_enhancer=getattr(request, "use_uncensored_enhancer", False),
+                    verbose=True,
+                    no_audio=False
+                )
+
+            await asyncio.to_thread(generation_wrapper)
+
+            if os.path.exists(output_path):
+                self._log_job(f"MLXLTXAdapter: Output file exists. Size: {os.path.getsize(output_path)} bytes")
+            else:
+                # Check for .temp.mp4 or .temp which some versions might leave behind
+                temp_candidates = [
+                    output_path.replace(".mp4", ".temp.mp4"),
+                    output_path.replace(".mp4", ".temp"),
+                    output_path + ".temp"
+                ]
+                for temp_path in temp_candidates:
+                    if os.path.exists(temp_path):
+                        os.rename(temp_path, output_path)
+                        break
+
+            if progress_callback:
+                progress_callback("completed", 1.0, "Generation finished")
+
+            try:
+                self._extract_preview(output_path)
+            except Exception as e:
+                logger.warning(f"Failed to extract preview: {e}")
+
             return output_path
+
         except Exception as e:
-            logger.error(f"Error during AV generation: {e}")
-            raise
-
-    async def generate_image_to_video(
-        self,
-        request: Any,
-        output_path: str,
-        progress_callback: Optional[ProgressCallback] = None,
-        cancellation_token: Optional[CancellationToken] = None,
-    ) -> str:
-        # Image-to-video implementation...
-        # For now, it might be similar to base but with image conditioning
-        # Real LTX image-to-video uses the same pipeline usually but with conditioning latents
-        return await self._generate_base(request, output_path, progress_callback, cancellation_token)
-
-    async def generate_audio_to_video(
-        self,
-        request: Any,
-        output_path: str,
-        progress_callback: Optional[ProgressCallback] = None,
-        cancellation_token: Optional[CancellationToken] = None,
-    ) -> str:
-        if self._is_av:
-            return await self._generate_av(request, output_path, progress_callback, cancellation_token)
-        else:
-             raise UnsupportedCapabilityError("audio-to-video", "Current model does not support audio generation.")
-
-    async def generate_retake(
-        self,
-        request: Any,
-        output_path: str,
-        progress_callback: Optional[ProgressCallback] = None,
-        cancellation_token: Optional[CancellationToken] = None,
-    ) -> str:
-        raise UnsupportedCapabilityError("retake", "Retake is not yet implemented in the MLX backend.")
+            logger.error(f"AV generation failed: {e}")
+            raise e
 
     def _fix_flat_model_structure(self, model_path: str):
         """
@@ -354,19 +415,22 @@ class MLXLTXAdapter(LTXAdapter):
             except Exception as e:
                 logger.warning(f"Could not load embedded_config.json: {e}")
 
-        for comp_name, info in components.items():
-            comp_root = os.path.join(model_path, comp_name)
-            # Ensure it's not a symlink to somewhere else that might cause recursion
-            if os.path.islink(comp_root):
-                 os.unlink(comp_root)
-            os.makedirs(comp_root, exist_ok=True)
+            for comp_name, info in components.items():
+                comp_root = os.path.join(model_path, comp_name)
+                # Ensure it's not a symlink to somewhere else that might cause recursion
+                if os.path.islink(comp_root):
+                     os.unlink(comp_root)
 
-            # Support nested directory for ltx-video custom loading
-            if "nested" in info:
-                comp_dir = os.path.join(comp_root, info["nested"])
-                os.makedirs(comp_dir, exist_ok=True)
-            else:
-                comp_dir = comp_root
+                if not os.path.isdir(comp_root):
+                    os.makedirs(comp_root, exist_ok=True)
+
+                # Support nested directory for ltx-video custom loading
+                if "nested" in info:
+                    comp_dir = os.path.join(comp_root, info["nested"])
+                    if not os.path.isdir(comp_dir):
+                        os.makedirs(comp_dir, exist_ok=True)
+                else:
+                    comp_dir = comp_root
 
             # 1. Handle Weights
             if info.get("weights"):
@@ -463,9 +527,9 @@ class MLXLTXAdapter(LTXAdapter):
 
         # Real LTX generation logic
         try:
-            logger.info(f"MLXLTXAdapter: Starting REAL LTX generation for prompt: '{request.prompt}'")
+            self._log_job(f"MLXLTXAdapter: Starting REAL LTX generation for prompt: '{request.prompt}'")
             if getattr(request, 'negative_prompt', None):
-                logger.info(f"MLXLTXAdapter: Negative prompt: '{request.negative_prompt}'")
+                self._log_job(f"MLXLTXAdapter: Negative prompt: '{request.negative_prompt}'")
 
             # Wrapper for progress updates if the library supports it.
             # Assuming a standard callback pattern or we can wrap the generation loop.
@@ -484,16 +548,18 @@ class MLXLTXAdapter(LTXAdapter):
             # Ensure we have a seed for reproducibility and to avoid MLX error
             if getattr(request, "seed", None) is None or getattr(request, "seed", -1) == -1:
                 request.seed = random.randint(0, 2**32 - 1)
-                logger.info(f"Generated random seed for LTX: {request.seed}")
+            self._log_job(f"Generated random seed for LTX: {request.seed}")
 
             # Real call to the pipeline
-            logger.info(f"MLXLTXAdapter: Starting LTX pipeline call (seed: {request.seed}). This may take a while...")
+            self._log_job(f"MLXLTXAdapter: Starting LTX pipeline call (seed: {request.seed}). This may take a while...")
 
             if progress_callback:
                 progress_callback("generating_video", 0.1, "Starting LTX generation (this can take several minutes)...")
 
             # Ensure output directory exists
-            os.makedirs(os.path.dirname(output_path), exist_ok=True)
+            out_dir = os.path.dirname(output_path)
+            if not os.path.isdir(out_dir):
+                os.makedirs(out_dir, exist_ok=True)
 
             # If a placeholder already exists (e.g. from a failed previous attempt or initial setup),
             # we will overwrite it with the real generation result.
@@ -557,10 +623,10 @@ class MLXLTXAdapter(LTXAdapter):
         if not self._pipeline:
             raise RuntimeError("No model loaded. Call load_model first.")
 
-        if self._pipeline == "AV_MODEL":
+        if self._pipeline == "AV_MODEL" or self._is_av:
             return await self._generate_av(request, output_path, progress_callback, cancellation_token)
 
-        logger.info(f"MLXLTXAdapter: Generating image-to-video for {request.prompt}")
+        logger.info(f"MLXLTXAdapter: Generating image-to-video for {getattr(request, 'prompt', '')}")
 
         try:
             if progress_callback:
@@ -570,9 +636,12 @@ class MLXLTXAdapter(LTXAdapter):
             image = Image.open(request.image_path).convert("RGB")
 
             # Ensure we have a seed for reproducibility and to avoid MLX error
-            if getattr(request, "seed", None) is None:
-                request.seed = random.randint(0, 2**32 - 1)
-                logger.info(f"Generated random seed: {request.seed}")
+            seed = getattr(request, "seed", None)
+            if seed is None or seed == -1:
+                seed = random.randint(0, 2**32 - 1)
+                if hasattr(request, "seed"):
+                    request.seed = seed
+            logger.info(f"Generated random seed: {seed}")
 
             def internal_callback(step: int, total_steps: int, **kwargs):
                 if cancellation_token and cancellation_token.is_cancelled:
@@ -593,7 +662,7 @@ class MLXLTXAdapter(LTXAdapter):
                 num_frames=getattr(request, "num_frames", 49),
                 num_inference_steps=getattr(request, "steps", 20),
                 guidance_scale=getattr(request, "guidance_scale", 3.0),
-                seed=request.seed,
+                seed=seed,
                 callback=internal_callback if progress_callback else None,
             )
 
@@ -623,180 +692,6 @@ class MLXLTXAdapter(LTXAdapter):
             return ""
         except Exception as e:
             logger.error(f"LTX image-to-video failed: {e}")
-            raise e
-
-    async def _generate_av(
-        self,
-        request: Any,
-        output_path: str,
-        progress_callback: Optional[ProgressCallback] = None,
-        cancellation_token: Optional[CancellationToken] = None,
-    ) -> str:
-        """Generation implementation using mlx-video-with-audio."""
-        logger.info(f"MLXLTXAdapter: AV Generation for {request.prompt}")
-
-        try:
-            from mlx_video.generate_av import generate_video_with_audio
-        except ImportError:
-            raise DependencyError("mlx-video-with-audio", "Please install: pip install mlx-video-with-audio")
-
-        # Find text encoder path - default to common local path or let mlx-video handle repo ID
-        from ai_video_worker.config import settings
-        text_encoder_path = os.path.join(settings.models_dir, "gemma-3-12b-it-bf16")
-        if not os.path.exists(text_encoder_path):
-             text_encoder_path = "mlx-community/gemma-3-12b-it-bf16"
-
-        try:
-            def internal_callback(step: int, total_steps: int, **kwargs):
-                if cancellation_token and cancellation_token.is_cancelled:
-                    raise InterruptedError("Generation cancelled")
-                if progress_callback:
-                    # Map 0-100% of steps to 15-90% of total job progress
-                    progress = 0.15 + (step / total_steps) * 0.75
-                    progress_callback("generating_video", progress, f"Step {step}/{total_steps}...")
-
-            if progress_callback:
-                progress_callback("loading_model", 0.05, "Preparing unified AV model...")
-
-            # Use local path if we have it
-            model_repo = self._current_model_path if hasattr(self, "_current_model_path") else os.path.join(settings.models_dir, "ltx-video-av-q4")
-            if not os.path.exists(model_repo):
-                 model_repo = "notapalindrome/ltx23-mlx-av-q4"
-
-            # Check if image is provided
-            image_path = getattr(request, "image_path", None)
-
-            # Ensure we have a seed for reproducibility and to avoid MLX error
-            if getattr(request, "seed", None) is None or getattr(request, "seed", -1) == -1:
-                request.seed = random.randint(0, 2**32 - 1)
-                logger.info(f"Generated random seed for AV: {request.seed}")
-
-            # Ensure height/width are divisible by 64
-            height = getattr(request, "height", 512)
-            width = getattr(request, "width", 512)
-            if height % 64 != 0:
-                height = (height // 64) * 64
-                logger.warning(f"MLXLTXAdapter: Adjusted height to {height} (must be divisible by 64)")
-            if width % 64 != 0:
-                width = (width // 64) * 64
-                logger.warning(f"MLXLTXAdapter: Adjusted width to {width} (must be divisible by 64)")
-
-            logger.info(f"MLXLTXAdapter: Starting unified AV generation for prompt: '{request.prompt}'")
-            logger.info(f"MLXLTXAdapter: Original prompt: '{request.prompt}'")
-            if getattr(request, 'negative_prompt', None):
-                logger.info(f"MLXLTXAdapter: Negative prompt: '{request.negative_prompt}'")
-
-            # Note: mlx-video-with-audio might need specific arguments
-            # We follow the pattern from av_generator.py in ltx-video-mac
-            logger.info(f"MLXLTXAdapter: Starting unified AV generation (seed: {request.seed}). This may take a while...")
-            logger.debug(f"MLXLTXAdapter: AV Generation Details:")
-            logger.debug(f"  - Model Repo: {model_repo}")
-            logger.debug(f"  - Text Encoder: {text_encoder_path}")
-            logger.debug(f"  - Prompt: {request.prompt}")
-            logger.debug(f"  - Size: {width}x{height}")
-            logger.debug(f"  - Frames: {getattr(request, 'num_frames', 65)}")
-            logger.debug(f"  - Steps: {getattr(request, 'steps', 30)}")
-            logger.debug(f"  - Output: {output_path}")
-
-            # Ensure output directory exists
-            os.makedirs(os.path.dirname(output_path), exist_ok=True)
-
-            # If a placeholder already exists, we will overwrite it with the real generation result.
-            if os.path.exists(output_path):
-                logger.info(f"MLXLTXAdapter: Found existing file at {output_path} (size: {os.path.getsize(output_path)} bytes). It will be overwritten.")
-
-            # Unified AV generation is blocking. Run it in a thread.
-            # We capture stdout/stderr to parse progress from mlx-video's verbose output.
-            from ai_video_worker.utils.capture import ProgressStreamInterceptor, MLXProgressParser
-            import sys
-
-            parser = MLXProgressParser(progress_callback)
-
-            # Initialize with early stages so we have a base rank
-            if progress_callback:
-                progress_callback("checking_hardware", 0.05, "Validating hardware compatibility...")
-                progress_callback("loading_model", 0.08, "Preparing unified AV model...")
-
-            if getattr(request, "enhance_prompt", False):
-                logger.info("MLXLTXAdapter: Prompt enhancement is ENABLED")
-                logger.info(f"MLXLTXAdapter: Prompt enhancement is ENABLED. The prompt '{request.prompt}' will be expanded by an LLM.")
-                if progress_callback:
-                    progress_callback("preparing_inputs", 0.11, "Enhancing prompt with LLM...")
-            else:
-                logger.info(f"MLXLTXAdapter: Prompt enhancement is DISABLED. Using raw prompt: '{request.prompt}'")
-
-            def generation_wrapper():
-                original_stdout = sys.stdout
-                original_stderr = sys.stderr
-                sys.stdout = ProgressStreamInterceptor(original_stdout, parser.parse_line)
-                sys.stderr = ProgressStreamInterceptor(original_stderr, parser.parse_line)
-                try:
-                    generate_video_with_audio(
-                        model_repo=model_repo,
-                        text_encoder_repo=text_encoder_path,
-                        prompt=request.prompt,
-                        height=height,
-                        width=width,
-                        num_frames=getattr(request, "num_frames", 65),
-                        seed=request.seed,
-                        fps=getattr(request, "fps", 24),
-                        output_path=output_path,
-                        negative_prompt=getattr(request, "negative_prompt", None),
-                        cfg_scale=getattr(request, "guidance_scale", 3.0),
-                        image=image_path,
-                        num_inference_steps=getattr(request, "steps", 30),
-                        enhance_prompt=getattr(request, "enhance_prompt", False),
-                        use_uncensored_enhancer=getattr(request, "use_uncensored_enhancer", False),
-                        verbose=True,
-                        no_audio=False # We want audio in AV model
-                    )
-                finally:
-                    sys.stdout = original_stdout
-                    sys.stderr = original_stderr
-
-            import time
-            av_start_time = time.time()
-
-            await asyncio.to_thread(generation_wrapper)
-
-            av_duration = time.time() - av_start_time
-            logger.info(f"MLXLTXAdapter: generate_video_with_audio completed in {av_duration:.2f}s for output: {output_path}")
-
-            if os.path.exists(output_path):
-                logger.info(f"MLXLTXAdapter: Output file exists. Size: {os.path.getsize(output_path)} bytes")
-            else:
-                logger.error(f"MLXLTXAdapter: Output file DOES NOT EXIST after generation at {output_path}")
-                # Check for .temp.mp4 or .temp which some versions might leave behind
-                temp_candidates = [
-                    output_path.replace(".mp4", ".temp.mp4"),
-                    output_path.replace(".mp4", ".temp"),
-                    output_path + ".temp"
-                ]
-                for temp_path in temp_candidates:
-                    if os.path.exists(temp_path):
-                        logger.warning(f"MLXLTXAdapter: Found temporary file at {temp_path} (size: {os.path.getsize(temp_path)} bytes). Moving it to {output_path}")
-                        try:
-                            os.rename(temp_path, output_path)
-                            break
-                        except Exception as rename_err:
-                            logger.error(f"Failed to rename {temp_path} to {output_path}: {rename_err}")
-
-            if progress_callback:
-                progress_callback("completed", 1.0, "Generation finished")
-
-            # Extract preview image for UI
-            try:
-                self._extract_preview(output_path)
-            except Exception as e:
-                logger.warning(f"Failed to extract preview: {e}")
-
-            return output_path
-
-        except InterruptedError:
-            logger.info("AV Generation cancelled")
-            return ""
-        except Exception as e:
-            logger.error(f"AV generation failed: {e}")
             raise e
 
     def _extract_preview(self, video_path: str):

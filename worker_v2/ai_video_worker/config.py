@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     host: str = "127.0.0.1"
     port: int = 8000
     environment: Literal["development", "test", "production"] = "production"
-    log_level: str = "DEBUG"
+    log_level: str = "TRACE"
     log_file: str = "../logs/ai-studio-local.log"
 
     # Engine configuration
@@ -39,7 +39,7 @@ class Settings(BaseSettings):
     @classmethod
     def validate_log_level(cls, v: str) -> str:
         v = v.upper()
-        allowed = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
+        allowed = ["TRACE", "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
         if v not in allowed:
             raise ValueError(f"log_level must be one of {allowed}")
         return v
@@ -53,10 +53,8 @@ class Settings(BaseSettings):
         return v
 
     def setup_logging(self):
-        logging.basicConfig(
-            level=getattr(logging, self.log_level),
-            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-        )
+        from ai_video_worker.logging_config import setup_logging as init_logging
+        init_logging()
 
 
 settings = Settings()

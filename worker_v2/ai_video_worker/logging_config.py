@@ -5,8 +5,22 @@ from datetime import datetime
 
 from ai_video_worker.config import settings
 
+# Define TRACE level
+TRACE_LEVEL = 5
+logging.addLevelName(TRACE_LEVEL, "TRACE")
+
+def trace(self, message, *args, **kws):
+    if self.isEnabledFor(TRACE_LEVEL):
+        self._log(TRACE_LEVEL, message, args, **kws)
+
+logging.Logger.trace = trace
+
 def setup_logging():
-    level = getattr(logging, settings.log_level.upper())
+    level_name = settings.log_level.upper()
+    if level_name == "TRACE":
+        level = TRACE_LEVEL
+    else:
+        level = getattr(logging, level_name)
 
     # Standard format for console and file
     version = getattr(settings, "version", "unknown")
@@ -26,8 +40,12 @@ def setup_logging():
              log_path = os.path.join(base_dir, "logs", "ai-studio-local.log")
 
         log_dir = os.path.dirname(log_path)
-        if log_dir:
-            os.makedirs(log_dir, exist_ok=True)
+        if log_dir and not os.path.isdir(log_dir):
+            try:
+                os.makedirs(log_dir, exist_ok=True)
+            except FileExistsError:
+                if not os.path.islink(log_dir):
+                    raise
         handlers.append(logging.FileHandler(log_path))
 
     logging.basicConfig(

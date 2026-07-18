@@ -7,20 +7,6 @@
     }
   ],
   "copyCommands" : {
-    "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle/AIVideoLocalDirect.png" : {
-      "inputs" : [
-        {
-          "kind" : "file",
-          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Resources/AIVideoLocalDirect.png"
-        }
-      ],
-      "outputs" : [
-        {
-          "kind" : "file",
-          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle/AIVideoLocalDirect.png"
-        }
-      ]
-    },
     "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle/Assets.xcassets" : {
       "inputs" : [
         {

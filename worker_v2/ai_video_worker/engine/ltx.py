@@ -37,13 +37,28 @@ class LTXGenerationEngine(GenerationEngine):
         logger.info(f"Initialized LTXGenerationEngine with adapter: {self.adapter.__class__.__name__}")
         # Track active models and hardware state directly if needed
         self._current_model_id = None
+        self._job_logger = None
+
+    def set_job_logger(self, job_logger: Optional[Any]) -> None:
+        self._job_logger = job_logger
+        if hasattr(self.adapter, "set_job_logger"):
+             self.adapter.set_job_logger(job_logger)
+
+    def _log_job(self, message: str):
+        if self._job_logger:
+            try:
+                self._job_logger(message)
+            except Exception:
+                pass
+        logger.info(message)
+        logger.trace(f"Job log: {message}")
 
     def capabilities(self) -> List[str]:
         return self.adapter.capabilities()
 
     async def load_model(self, model_profile: Any) -> Any:
         model_id = getattr(model_profile, "id", str(model_profile))
-        logger.info(f"LTXEngine: Loading model {model_id}")
+        self._log_job(f"LTXEngine: Loading model {model_id}")
 
         # Ensure hardware is ready
         self._validate_hardware()
@@ -53,7 +68,7 @@ class LTXGenerationEngine(GenerationEngine):
         return result
 
     async def unload_model(self, model_id: str) -> None:
-        logger.info(f"LTXEngine: Unloading model {model_id}")
+        self._log_job(f"LTXEngine: Unloading model {model_id}")
         await self.adapter.unload_model(model_id)
         if self._current_model_id == model_id:
             self._current_model_id = None
@@ -141,8 +156,8 @@ class LTXGenerationEngine(GenerationEngine):
         job_id = os.path.basename(os.path.dirname(output_path))
         start_time = time.time()
 
-        logger.info(f"LTXEngine: Starting {mode} generation for job {job_id}")
-        logger.info(f"LTXEngine: Request prompt: '{getattr(request, 'prompt', 'N/A')}'")
+        self._log_job(f"LTXEngine: Starting {mode} generation for job {job_id}")
+        self._log_job(f"LTXEngine: Request prompt: '{getattr(request, 'prompt', 'N/A')}'")
 
         try:
             # 1. Automatic Model Loading
@@ -196,6 +211,7 @@ class LTXGenerationEngine(GenerationEngine):
 
             # 3. Preview Generation
             logger.debug(f"Generation finished in {time.time() - start_time:.2f}s, starting post-processing for job {job_id}")
+            self._log_job(f"LTXEngine: Generation finished in {time.time() - start_time:.2f}s")
             if progress_callback:
                 progress_callback("saving_metadata", 0.92, "Generating preview image...")
             preview_path = Path(output_path).parent / "preview.jpg"
@@ -211,7 +227,7 @@ class LTXGenerationEngine(GenerationEngine):
 
             # Use request prompt as composed prompt for now (until we have a real composer)
             composed_prompt = getattr(request, "prompt", "")
-            logger.info(f"LTXEngine: Saving composed prompt to file: '{composed_prompt}'")
+            self._log_job(f"LTXEngine: Saving composed prompt to file: '{composed_prompt}'")
 
             prompt_path = Path(output_path).parent / "composed-prompt.md"
             with open(prompt_path, "w") as f:
@@ -242,10 +258,10 @@ class LTXGenerationEngine(GenerationEngine):
 
     def _validate_hardware(self):
         """Validates that the current Mac appears compatible."""
-        logger.debug(f"[_validate_hardware] Checking hardware compatibility. min_memory_gb={settings.min_memory_gb}")
+        self._log_job(f"[_validate_hardware] Checking hardware compatibility. min_memory_gb={settings.min_memory_gb}")
         # Check for Apple Silicon
         if platform.machine() != "arm64":
-            logger.warning("Not running on Apple Silicon. MLX might be slow or unsupported.")
+            self._log_job("Not running on Apple Silicon. MLX might be slow or unsupported.")
 
         # Try to check for LTX dependencies in a way that doesn't block the whole engine
         try:
@@ -254,13 +270,13 @@ class LTXGenerationEngine(GenerationEngine):
         except ImportError:
             # We don't raise DependencyError here anymore, let the adapter handle it
             # so it can fall back to mock if needed.
-            logger.warning("ltx_video not found during hardware validation. Adapter will handle fallback.")
+            self._log_job("ltx_video not found during hardware validation. Adapter will handle fallback.")
 
         # Check memory
         mem = psutil.virtual_memory()
         total_gb = mem.total / (1024**3)
         available_gb = mem.available / (1024**3)
-        logger.debug(f"[_validate_hardware] Total RAM: {total_gb:.2f}GB, Available RAM: {available_gb:.2f}GB")
+        self._log_job(f"[_validate_hardware] Total RAM: {total_gb:.2f}GB, Available RAM: {available_gb:.2f}GB")
         if total_gb < settings.min_memory_gb:
             raise RuntimeError(
                 f"Insufficient memory: {total_gb:.1f}GB. "

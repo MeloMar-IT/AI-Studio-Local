@@ -7,10 +7,13 @@ def test_default_config_creation():
     assert settings.app_name == "AI Studio Local Worker"
     assert settings.host == "127.0.0.1"
     assert settings.port == 8000
-    assert settings.log_level == "DEBUG"
+    assert settings.log_level == "TRACE"
 
 def test_config_validation():
     # Test valid log level
+    settings = Settings(log_level="trace")
+    assert settings.log_level == "TRACE"
+
     settings = Settings(log_level="debug")
     assert settings.log_level == "DEBUG"
 

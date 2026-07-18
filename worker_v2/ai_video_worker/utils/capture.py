@@ -35,6 +35,7 @@ class MLXProgressParser:
         self.progress_callback = progress_callback
         self.current_stage = "preparing_inputs"
         self._highest_stage_rank = 0
+        self._job_logger = None
 
         # Rank stages to ensure strict monotonicity
         self._stage_ranks = {
@@ -57,6 +58,16 @@ class MLXProgressParser:
         self.stage_step_re = re.compile(r"STAGE:(\d+):STEP:(\d+):(\d+):Denoising")
         self.text_encoder_re = re.compile(r"TEXT_ENCODER:EVAL_CHUNK:(\d+):(\d+):(\d+)")
         self.vae_decode_re = re.compile(r"VAE:DECODE:STEP:(\d+):(\d+)")
+
+    def set_job_logger(self, job_logger: Optional[Callable[[str], None]]):
+        self._job_logger = job_logger
+
+    def _log_job(self, message: str):
+        if self._job_logger:
+            try:
+                self._job_logger(message)
+            except Exception:
+                pass
 
     def _emit_progress(self, stage: str, progress: float, message: str):
         if not self.progress_callback:
@@ -84,6 +95,7 @@ class MLXProgressParser:
         if line.startswith("ENHANCED_PROMPT:"):
             enhanced_prompt = line[len("ENHANCED_PROMPT:"):].strip()
             logger.info(f"MLXLTXAdapter: Captured ENHANCED PROMPT: '{enhanced_prompt}'")
+            self._log_job(f"MLXLTXAdapter: Captured ENHANCED PROMPT: '{enhanced_prompt}'")
 
         if not self.progress_callback:
             return
@@ -149,3 +161,4 @@ class MLXProgressParser:
         # Also handle fallsback for visibility
         elif "ENHANCER_FALLBACK:" in line:
             logger.warning(f"MLXLTXAdapter: Captured {line}")
+            self._log_job(f"MLXLTXAdapter: Captured {line}")

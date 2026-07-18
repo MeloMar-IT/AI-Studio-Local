@@ -98,6 +98,15 @@ class JobStore:
         }
         self.output_manager.save_metadata(job_id, metadata)
         self.output_manager.append_log(job_id, f"Job initialized for scene {request.scene_id}")
+        self.output_manager.append_log(job_id, f"Initial Request Parameters:")
+        self.output_manager.append_log(job_id, f"  - Prompt: {request.prompt}")
+        self.output_manager.append_log(job_id, f"  - Negative Prompt: {request.negative_prompt}")
+        self.output_manager.append_log(job_id, f"  - Model ID: {request.model_id}")
+        self.output_manager.append_log(job_id, f"  - Resolution: {request.width}x{request.height}")
+        self.output_manager.append_log(job_id, f"  - Steps: {request.steps}")
+        self.output_manager.append_log(job_id, f"  - Guidance Scale: {request.guidance_scale}")
+        self.output_manager.append_log(job_id, f"  - Seed: {request.seed}")
+        self.output_manager.append_log(job_id, f"  - Num Frames: {request.num_frames}")
 
         token = CancellationToken()
         self.cancellation_tokens[job_id] = token
@@ -269,6 +278,12 @@ class JobStore:
 
     async def run_job(self, job_id: str, request: GenerationRequest, token: CancellationToken):
         last_log_time = 0  # Initialize to 0 to ensure the first progress update is always logged
+
+        # Setup job-specific logging for the engine
+        if hasattr(self.engine, "set_job_logger"):
+            def job_logger(msg):
+                self.output_manager.append_log(job_id, msg)
+            self.engine.set_job_logger(job_logger)
 
         def progress_callback(status: str, progress: float, message: str):
             nonlocal last_log_time

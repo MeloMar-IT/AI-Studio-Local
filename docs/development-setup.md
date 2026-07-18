@@ -114,7 +114,7 @@ These can be customized in the **Settings** panel within the application.
 The worker is configured via environment variables (prefixed with `AI_VIDEO_WORKER_`):
 - `AI_VIDEO_WORKER_HOST`: Default `127.0.0.1`
 - `AI_VIDEO_WORKER_PORT`: Default `8000`
-- `AI_VIDEO_WORKER_LOG_LEVEL`: Default `INFO`
+- `AI_VIDEO_WORKER_LOG_LEVEL`: Default `INFO` (Supports `TRACE`, `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`)
 - `AI_VIDEO_WORKER_MODELS_DIR`: Default `models`
 - `AI_VIDEO_WORKER_OUTPUT_DIR`: Default `outputs`
 

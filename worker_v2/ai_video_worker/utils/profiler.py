@@ -35,8 +35,15 @@ def get_free_memory_gb() -> float:
 def get_free_disk_space_gb(path: str) -> float:
     try:
         # Ensure path exists for disk_usage to work
-        if not os.path.exists(path):
-            os.makedirs(path, exist_ok=True)
+        if not os.path.isdir(path):
+            try:
+                os.makedirs(path, exist_ok=True)
+            except FileExistsError:
+                # If it's a broken symlink, it doesn't "exist" as a directory
+                # and makedirs fails. Return 0.0 for usage in this case.
+                if os.path.islink(path):
+                    return 0.0
+                raise
         usage = shutil.disk_usage(path)
         return round(usage.free / (1024**3), 2)
     except Exception:

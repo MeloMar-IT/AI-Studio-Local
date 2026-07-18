@@ -101,7 +101,17 @@ def download_model(model_id: str, background_tasks):
 
     # Create model directory
     model_dir = os.path.join(settings.models_dir, model_id)
-    os.makedirs(model_dir, exist_ok=True)
+    try:
+        os.makedirs(model_dir, exist_ok=True)
+    except FileExistsError:
+        if os.path.islink(model_dir):
+            # If the specific model_id is a broken symlink, remove it and create a directory
+            if not os.path.exists(model_dir):
+                logger.warning(f"Removing broken symlink for model directory: {model_dir}")
+                os.remove(model_dir)
+                os.makedirs(model_dir, exist_ok=True)
+        else:
+            raise
 
     job_id = str(uuid.uuid4())
     job_store = store.job_store
@@ -195,9 +205,27 @@ def scan_models(models_dir: str) -> List[ModelProfile]:
     profiles_data = load_model_registry()
     results = []
 
-    # Ensure models_dir exists
-    if not os.path.exists(models_dir):
-        os.makedirs(models_dir, exist_ok=True)
+    # Ensure models_dir exists and is a directory
+    if os.path.islink(models_dir) and not os.path.exists(models_dir):
+        logger.warning(f"Models directory is a broken symlink: {models_dir}")
+        # If it's a broken symlink, we should probably try to create the target or remove the link
+        # For now, let's just log it and see if makedirs still fails or if we should handle it.
+        # Actually, if it's a broken symlink, makedirs WILL fail.
+        # Best approach: if it's a symlink, check if it's broken.
+        pass
+
+    if not os.path.isdir(models_dir):
+        try:
+            os.makedirs(models_dir, exist_ok=True)
+        except FileExistsError:
+            if os.path.islink(models_dir):
+                # It's a broken symlink
+                target = os.readlink(models_dir)
+                logger.error(f"Models directory '{models_dir}' is a broken symlink pointing to '{target}'")
+                # Attempt to create the target directory if it's a relative path from the symlink location
+                # But that might be risky. Better to just inform the user or handle it gracefully.
+                return []
+            raise
 
     for data in profiles_data:
         model_id = data["id"]
@@ -360,8 +388,16 @@ def import_model(path: str, model_id: str, copy: bool = True) -> dict:
         return {"success": False, "message": f"Source path does not exist: {path}"}
 
     models_dir = settings.models_dir
-    if not os.path.exists(models_dir):
-        os.makedirs(models_dir, exist_ok=True)
+    if not os.path.isdir(models_dir):
+        try:
+            os.makedirs(models_dir, exist_ok=True)
+        except FileExistsError:
+            # Handle broken symlink for models_dir
+            if os.path.islink(models_dir):
+                target = os.readlink(models_dir)
+                logger.error(f"Models directory '{models_dir}' is a broken symlink pointing to '{target}'")
+                return {"success": False, "message": f"Models directory is a broken symlink pointing to {target}"}
+            raise
 
     target_path = os.path.join(models_dir, model_id)
 
