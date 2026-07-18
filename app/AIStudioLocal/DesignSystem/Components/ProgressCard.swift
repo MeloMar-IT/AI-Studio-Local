@@ -54,17 +54,17 @@ struct ProgressCard: View {
 
                 Spacer()
 
-                if jobStatus != .completed && jobStatus != .failed && jobStatus != .cancelled {
-                    Text("\(Int(progress * 100))%")
+                if jobStatus != .failed && jobStatus != .cancelled {
+                    Text("\(Int((jobStatus == .completed ? 1.0 : progress) * 100))%")
                         .font(.App.headline)
-                        .foregroundColor(Color.App.accent)
+                        .foregroundColor(jobStatus == .completed ? .green : Color.App.accent)
                 }
             }
 
-            if jobStatus != .completed && jobStatus != .failed && jobStatus != .cancelled {
-                ProgressView(value: progress)
+            if jobStatus != .failed && jobStatus != .cancelled {
+                ProgressView(value: jobStatus == .completed ? 1.0 : progress)
                     .progressViewStyle(.linear)
-                    .tint(Color.App.accent)
+                    .tint(jobStatus == .completed ? .green : Color.App.accent)
             }
 
             if let error = errorInformation {

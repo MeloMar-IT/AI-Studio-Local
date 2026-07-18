@@ -12559,3 +12559,31 @@ Highly detailed fur simulation, realistic muscle deformation, natural body mecha
 2026-07-18 18:07:18,638 - ai-video-worker - v0.1.1 - [16239] - MainThread - INFO - Completed GET /jobs/3dbf049e-a517-4102-8e59-97ea82374dd9/events - Status 200 - Duration 1.46ms
 2026-07-18 18:07:18,638 - ai-video-worker - v0.1.1 - [16239] - MainThread - INFO - New subscription for job events: 3dbf049e-a517-4102-8e59-97ea82374dd9
 2026-07-18 18:07:20,708 - ai-video-worker - v0.1.1 - [16239] - MainThread - INFO - Subscription ended for job: 3dbf049e-a517-4102-8e59-97ea82374dd9
+2026-07-18 18:08:11,045 - ai-video-worker - v0.1.1 - [16239] - MainThread - INFO - MLXLTXAdapter: Output file exists. Size: 461776 bytes
+2026-07-18 18:08:11,045 - ai-video-worker - v0.1.1 - [16239] - MainThread - INFO - Job 3dbf049e-a517-4102-8e59-97ea82374dd9 progress: completed (100.0%) - Generation finished
+2026-07-18 18:08:11,045 - ai-video-worker - v0.1.1 - [16239] - MainThread - DEBUG - Job 3dbf049e-a517-4102-8e59-97ea82374dd9 progress: completed (100.0%) - Generation finished
+2026-07-18 18:08:11,053 - ai-video-worker - v0.1.1 - [16239] - MainThread - INFO - Extracted preview to outputs/3dbf049e-a517-4102-8e59-97ea82374dd9/preview.jpg
+2026-07-18 18:08:11,054 - ai-video-worker - v0.1.1 - [16239] - MainThread - DEBUG - Generation finished in 52.62s, starting post-processing for job 3dbf049e-a517-4102-8e59-97ea82374dd9
+2026-07-18 18:08:11,054 - ai-video-worker - v0.1.1 - [16239] - MainThread - INFO - LTXEngine: Generation finished in 52.62s
+2026-07-18 18:08:11,054 - ai-video-worker - v0.1.1 - [16239] - MainThread - TRACE - Job log: LTXEngine: Generation finished in 52.62s
+2026-07-18 18:08:11,054 - ai-video-worker - v0.1.1 - [16239] - MainThread - DEBUG - Job 3dbf049e-a517-4102-8e59-97ea82374dd9 progress: saving_metadata (92.0%) - Generating preview image...
+2026-07-18 18:08:11,060 - ai-video-worker - v0.1.1 - [16239] - MainThread - INFO - Extracted preview to outputs/3dbf049e-a517-4102-8e59-97ea82374dd9/preview.jpg
+2026-07-18 18:08:11,060 - ai-video-worker - v0.1.1 - [16239] - MainThread - DEBUG - Job 3dbf049e-a517-4102-8e59-97ea82374dd9 progress: saving_metadata (95.0%) - Saving composed prompt...
+2026-07-18 18:08:11,061 - ai-video-worker - v0.1.1 - [16239] - MainThread - INFO - LTXEngine: Saving composed prompt to file: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:08:11,061 - ai-video-worker - v0.1.1 - [16239] - MainThread - TRACE - Job log: LTXEngine: Saving composed prompt to file: 'Ultra-cinematic wildlife documentary. A powerful black panther sprints at full speed through a vast golden corn field at sunset. The camera tracks alongside the panther in a smooth low-angle chase shot, capturing every muscle moving beneath its glossy jet-black coat. Tall corn stalks bend and explode apart as the animal races through them, scattering leaves, dust, and pollen into the warm evening light.
+
+The panther’s amber eyes remain intensely focused while its breathing and powerful strides convey speed, agility, and raw strength. Sunbeams pierce through the corn, creating dramatic volumetric lighting, soft lens flares, and long golden shadows. Fine particles float in the air, adding depth and atmosphere.
+
+The sequence transitions between a close tracking shot, an over-the-shoulder chase perspective, a slow-motion frontal shot as the panther bursts through the corn, and a sweeping aerial drone reveal showing the endless field and the animal carving a path through it.
+
+Highly detailed fur simulation, realistic muscle deformation, natural body mechanics, physically accurate lighting, cinematic depth of field, subtle handheld camera movement, realistic motion blur, HDR colour grading, shallow focus, atmospheric haze, ultra-photorealistic, National Geographic quality, IMAX wildlife cinematography, 8K, hyper-realistic, emotionally powerful, dramatic, immersive, masterpiece.'
+2026-07-18 18:08:11,061 - ai-video-worker - v0.1.1 - [16239] - MainThread - DEBUG - Job 3dbf049e-a517-4102-8e59-97ea82374dd9 progress: saving_metadata (98.0%) - Saving detailed metadata...
+2026-07-18 18:08:11,074 - ai-video-worker - v0.1.1 - [16239] - MainThread - DEBUG - [_save_detailed_metadata] Writing metadata to outputs/3dbf049e-a517-4102-8e59-97ea82374dd9/metadata.json
+2026-07-18 18:08:11,075 - ai-video-worker - v0.1.1 - [16239] - MainThread - DEBUG - Job 3dbf049e-a517-4102-8e59-97ea82374dd9 progress: completed (100.0%) - Generation finished
+2026-07-18 18:08:11,075 - ai-video-worker - v0.1.1 - [16239] - MainThread - INFO - Job 3dbf049e-a517-4102-8e59-97ea82374dd9 completed successfully
