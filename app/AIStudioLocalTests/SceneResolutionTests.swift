@@ -100,4 +100,19 @@ final class SceneResolutionTests: XCTestCase {
         XCTAssertEqual(decodedScene.consistencyLocks.seed, true)
         XCTAssertEqual(decodedScene.consistencyLocks.clothing, true)
     }
+
+    func testSceneResolutionPresets() {
+        let res512p = SceneResolution.res512p
+        XCTAssertEqual(res512p.width, 704)
+        XCTAssertEqual(res512p.height, 512)
+        XCTAssertEqual(res512p.label, "512p (704x512)")
+
+        let res720p = SceneResolution.res720p
+        XCTAssertEqual(res720p.width, 1280)
+        XCTAssertEqual(res720p.height, 720)
+        XCTAssertEqual(res720p.label, "720p (1280x720)")
+
+        let custom = SceneResolution(width: 1920, height: 1080)
+        XCTAssertEqual(custom.label, "1920x1080")
+    }
 }

@@ -1008,6 +1008,21 @@ struct ProjectStudioView: View {
                             }
 
                             // FPS & Frame Count
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Resolution")
+                                    .font(.App.caption)
+                                    .foregroundColor(Color.App.secondaryText)
+
+                                Picker("Resolution", selection: Binding(
+                                    get: { scene.resolution ?? .res512p },
+                                    set: { viewModel.updateSceneResolution(scene.id, resolution: $0) }
+                                )) {
+                                    Text(SceneResolution.res512p.label).tag(SceneResolution.res512p)
+                                    Text(SceneResolution.res720p.label).tag(SceneResolution.res720p)
+                                }
+                                .pickerStyle(.menu)
+                            }
+
                             HStack {
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text("FPS")

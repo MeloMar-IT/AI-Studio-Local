@@ -202,13 +202,21 @@ class ProjectStudioViewModel: ObservableObject {
         }
     }
 
-    func updateSceneAdvancedSettings(_ sceneId: String, seed: Int? = nil, inferenceSteps: Int? = nil, guidanceScale: Float? = nil, fps: Int? = nil, frameCount: Int? = nil, modelProfileId: String? = nil, upscalerId: String? = nil, quantizationMode: String? = nil) {
+    func updateSceneResolution(_ sceneId: String, resolution: SceneResolution?) {
+        if let index = scenes.firstIndex(where: { $0.id == sceneId }) {
+            scenes[index].resolution = resolution
+            updateProject()
+        }
+    }
+
+    func updateSceneAdvancedSettings(_ sceneId: String, seed: Int? = nil, inferenceSteps: Int? = nil, guidanceScale: Float? = nil, fps: Int? = nil, frameCount: Int? = nil, resolution: SceneResolution? = nil, modelProfileId: String? = nil, upscalerId: String? = nil, quantizationMode: String? = nil) {
         if let index = scenes.firstIndex(where: { $0.id == sceneId }) {
             if let seed = seed { scenes[index].seed = seed }
             if let inferenceSteps = inferenceSteps { scenes[index].inferenceSteps = inferenceSteps }
             if let guidanceScale = guidanceScale { scenes[index].guidanceScale = guidanceScale }
             if let fps = fps { scenes[index].fps = fps }
             if let frameCount = frameCount { scenes[index].frameCount = frameCount }
+            if let resolution = resolution { scenes[index].resolution = resolution }
             if let modelProfileId = modelProfileId { scenes[index].modelProfileId = modelProfileId }
             if let upscalerId = upscalerId { scenes[index].upscalerId = upscalerId }
             if let quantizationMode = quantizationMode { scenes[index].quantizationMode = quantizationMode }

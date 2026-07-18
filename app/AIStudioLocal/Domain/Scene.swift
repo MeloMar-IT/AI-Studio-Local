@@ -8,13 +8,22 @@ public enum SceneMode: String, Codable, CaseIterable {
     case modelDownload = "model-download"
 }
 
-public struct SceneResolution: Codable, Equatable {
+public struct SceneResolution: Codable, Equatable, Hashable {
     public var width: Int
     public var height: Int
 
     public init(width: Int, height: Int) {
         self.width = width
         self.height = height
+    }
+
+    public static let res512p = SceneResolution(width: 704, height: 512)
+    public static let res720p = SceneResolution(width: 1280, height: 720)
+
+    public var label: String {
+        if width == 704 && height == 512 { return "512p (704x512)" }
+        if width == 1280 && height == 720 { return "720p (1280x720)" }
+        return "\(width)x\(height)"
     }
 }
 
