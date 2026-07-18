@@ -13,7 +13,7 @@ from fastapi.responses import JSONResponse, StreamingResponse
 from ai_video_worker.config import settings
 import ai_video_worker.jobs.store as store
 from ai_video_worker.engine.output import OutputManager
-from ai_video_worker.utils.models import scan_models, validate_model_folder, import_model, download_model, delete_model
+from ai_video_worker.utils.models import scan_models, validate_model_folder, import_model, download_model, delete_model, load_model_registry
 from ai_video_worker.schemas.api import (
     ErrorDetail,
     ErrorResponse,
@@ -156,29 +156,39 @@ def _validate_model_for_generation(model_id: str, mode: str):
     profile = next((m for m in models if m.id == model_id), None)
 
     if not profile:
+        # Check if the model is in the registry but just not downloaded
+        registry = load_model_registry()
+        registered_profile = next((m for m in registry if m["id"] == model_id), None)
+
+        if registered_profile:
+            # Model exists in registry but not on disk at all.
+            # We allow this because the generation job will handle auto-download.
+            return ModelProfile(
+                id=model_id,
+                name=registered_profile["name"],
+                description=registered_profile["description"],
+                family=registered_profile["family"],
+                expected_files=registered_profile.get("expected_files", []),
+                supported_modes=registered_profile.get("supported_modes", []),
+                installed=False,
+                status="missing"
+            )
+
         raise HTTPException(
             status_code=400,
             detail=ErrorResponse(
                 error=ErrorDetail(
                     code="model_not_found",
                     message=f"Model '{model_id}' not found in registry.",
-                    action="Please import the model through the Model Manager."
+                    action="Please select a valid model from the Continuity Library or Model Manager."
                 )
             ).model_dump()
         )
 
     if not profile.installed:
-        raise HTTPException(
-            status_code=400,
-            detail=ErrorResponse(
-                error=ErrorDetail(
-                    code="model_not_installed",
-                    message=f"Model '{model_id}' is not fully installed.",
-                    detail=f"Missing files: {', '.join(profile.missing_files)}",
-                    action="Please download or re-import the model."
-                )
-            ).model_dump()
-        )
+        # We allow partial models because the generation job will handle completing the download.
+        logger.info(f"Model '{model_id}' is partially installed. Generation job will complete download.")
+        return profile
 
     if mode not in profile.supported_modes:
         raise HTTPException(
@@ -229,8 +239,10 @@ async def text_to_video(request: GenerationRequest):
     if "text-to-video" not in engine.capabilities():
         raise HTTPException(status_code=400, detail="Current engine does not support text-to-video")
 
-    # Hardcode model_id to use ltx-video-av-q4
-    request.model_id = settings.default_model_id
+    # Use requested model_id if provided, otherwise fallback to default
+    if not request.model_id:
+        request.model_id = settings.default_model_id
+
     _validate_model_for_generation(request.model_id, "text-to-video")
 
     logger.debug(f"text_to_video request: {request.model_dump()}")
@@ -266,8 +278,10 @@ async def image_to_video(request: GenerationRequest):
             ).model_dump()
         )
 
-    # Hardcode model_id to use ltx-video-av-q4
-    request.model_id = settings.default_model_id
+    # Use requested model_id if provided, otherwise fallback to default
+    if not request.model_id:
+        request.model_id = settings.default_model_id
+
     _validate_image_path(request.image_path)
     _validate_model_for_generation(request.model_id, "image-to-video")
 
@@ -293,8 +307,10 @@ async def audio_to_video(request: GenerationRequest):
             ).model_dump()
         )
 
-    # Hardcode model_id to use ltx-video-av-q4
-    request.model_id = settings.default_model_id
+    # Use requested model_id if provided, otherwise fallback to default
+    if not request.model_id:
+        request.model_id = settings.default_model_id
+
     job_id = job_store.create_job(request)
     job = job_store.get_job(job_id)
     if not job:
@@ -315,8 +331,10 @@ async def generate_retake(request: GenerationRequest):
             ).model_dump()
         )
 
-    # Hardcode model_id to use ltx-video-av-q4
-    request.model_id = settings.default_model_id
+    # Use requested model_id if provided, otherwise fallback to default
+    if not request.model_id:
+        request.model_id = settings.default_model_id
+
     job_id = job_store.create_job(request)
     job = job_store.get_job(job_id)
     if not job:

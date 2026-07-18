@@ -67,11 +67,14 @@ def _do_model_download(model_id: str, model_dir: str, download_urls: dict, updat
                         if total_size > 0 and downloaded_size % (1024 * 1024) < (8192 * 16):
                             file_progress = downloaded_size / total_size
                             overall_progress = (i + file_progress) / total_files
-                            update_queue.put({
-                                "status": "downloading",
-                                "progress": overall_progress,
-                                "message": msg
-                            })
+                            try:
+                                update_queue.put({
+                                    "status": "downloading",
+                                    "progress": overall_progress,
+                                    "message": msg
+                                }, block=False)
+                            except queue.Full:
+                                pass
 
         # All files downloaded successfully
         update_queue.put({

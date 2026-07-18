@@ -13600,3 +13600,699 @@ Highly detailed fur simulation, realistic muscle deformation, natural body mecha
 2026-07-18 18:41:06,746 - ai-video-worker - v0.1.1 - [22096] - MainThread - TRACE - Request detail: GET http://localhost:8000/models
 2026-07-18 18:41:06,746 - ai-video-worker - v0.1.1 - [22096] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
 2026-07-18 18:41:06,746 - ai-video-worker - v0.1.1 - [22096] - MainThread - INFO - Completed GET /models - Status 200 - Duration 0.76ms
+2026-07-18 18:44:10,074 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Initialized LTXGenerationEngine with adapter: MLXLTXAdapter
+2026-07-18 18:44:10,690 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Library/Frameworks/Python.framework/Versions/3.13/bin/python3
+Venv Path:      None
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (78.58 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/models
+Models Disk:    724.87 GB free
+============================================================
+2026-07-18 18:44:10,735 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Library/Frameworks/Python.framework/Versions/3.13/bin/python3
+Venv Path:      None
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (78.53 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/models
+Models Disk:    724.87 GB free
+============================================================
+2026-07-18 18:44:14,840 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /api/v1/health
+2026-07-18 18:44:14,840 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/api/v1/health
+2026-07-18 18:44:14,840 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:14,840 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /api/v1/health - Status 404 - Duration 0.39ms
+2026-07-18 18:44:14,841 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /api/v1/models
+2026-07-18 18:44:14,841 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/api/v1/models
+2026-07-18 18:44:14,841 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:14,841 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /api/v1/models - Status 404 - Duration 0.20ms
+2026-07-18 18:44:25,611 - ai-video-worker - v0.1.1 - [22547] - MainThread - INFO - Initialized LTXGenerationEngine with adapter: MLXLTXAdapter
+2026-07-18 18:44:26,072 - ai-video-worker - v0.1.1 - [22547] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Library/Frameworks/Python.framework/Versions/3.13/bin/python3
+Venv Path:      None
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (78.38 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/models
+Models Disk:    724.87 GB free
+============================================================
+2026-07-18 18:44:26,100 - ai-video-worker - v0.1.1 - [22547] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Library/Frameworks/Python.framework/Versions/3.13/bin/python3
+Venv Path:      None
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (78.28 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/models
+Models Disk:    724.87 GB free
+============================================================
+2026-07-18 18:44:30,507 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /health
+2026-07-18 18:44:30,507 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/health
+2026-07-18 18:44:30,507 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:30,507 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /health - Status 200 - Duration 0.56ms
+2026-07-18 18:44:30,509 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /models
+2026-07-18 18:44:30,509 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/models
+2026-07-18 18:44:30,509 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:30,509 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /models - Status 200 - Duration 0.58ms
+2026-07-18 18:44:30,510 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming POST /generate/text-to-video
+2026-07-18 18:44:30,510 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: POST http://localhost:8000/generate/text-to-video
+2026-07-18 18:44:30,510 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive', 'content-length': '182', 'content-type': 'application/json'}
+2026-07-18 18:44:30,511 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - text_to_video request: {'prompt': 'A beautiful sunset over the ocean', 'negative_prompt': None, 'width': 704, 'height': 512, 'num_frames': 49, 'steps': 1, 'guidance_scale': 3.0, 'seed': None, 'enhance_prompt': False, 'use_uncensored_enhancer': False, 'model_id': 'ltx-video-av-q4', 'project_id': 'test-project', 'scene_id': 'test-scene', 'composed_prompt_path': None, 'image_path': None, 'audio_path': None, 'video_path': None, 'retake_start_seconds': None, 'retake_end_seconds': None}
+2026-07-18 18:44:30,511 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Creating text-to-video job for model: ltx-video-av-q4
+2026-07-18 18:44:30,512 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Job 89eb4df5-59a5-4aca-b384-83b41d6fcabf started background execution.
+2026-07-18 18:44:30,512 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - LTXEngine: Starting text-to-video generation for job 89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:30,512 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Job log: LTXEngine: Starting text-to-video generation for job 89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:30,512 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - LTXEngine: Request prompt: 'A beautiful sunset over the ocean'
+2026-07-18 18:44:30,512 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Job log: LTXEngine: Request prompt: 'A beautiful sunset over the ocean'
+2026-07-18 18:44:30,513 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Job 89eb4df5-59a5-4aca-b384-83b41d6fcabf progress: loading_model (5.0%) - Switching to model ltx-video-av-q4...
+2026-07-18 18:44:30,513 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Job 89eb4df5-59a5-4aca-b384-83b41d6fcabf progress: loading_model (5.0%) - Switching to model ltx-video-av-q4...
+2026-07-18 18:44:30,513 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - LTXEngine: Loading model ltx-video-av-q4
+2026-07-18 18:44:30,513 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Job log: LTXEngine: Loading model ltx-video-av-q4
+2026-07-18 18:44:30,513 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - [_validate_hardware] Checking hardware compatibility. min_memory_gb=16.0
+2026-07-18 18:44:30,513 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Job log: [_validate_hardware] Checking hardware compatibility. min_memory_gb=16.0
+2026-07-18 18:44:30,513 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - [_validate_hardware] Total RAM: 128.00GB, Available RAM: 78.43GB
+2026-07-18 18:44:30,513 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Job log: [_validate_hardware] Total RAM: 128.00GB, Available RAM: 78.43GB
+2026-07-18 18:44:30,513 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - MLXAdapter: Loading ltx-video-av-q4 from models/ltx-video-av-q4
+2026-07-18 18:44:30,698 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Job 89eb4df5-59a5-4aca-b384-83b41d6fcabf progress: preparing_inputs (10.0%) - Preparing generation inputs...
+2026-07-18 18:44:30,699 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - [MLXLTXAdapter] generate_text_to_video pipeline=AV_MODEL
+2026-07-18 18:44:30,699 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - MLXLTXAdapter: AV Generation for A beautiful sunset over the ocean
+2026-07-18 18:44:30,699 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Job 89eb4df5-59a5-4aca-b384-83b41d6fcabf progress: loading_model (5.0%) - Preparing unified AV model...
+2026-07-18 18:44:30,699 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Using seed for AV: 1054332468
+2026-07-18 18:44:30,699 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - MLXLTXAdapter: Starting unified AV generation for prompt: 'A beautiful sunset over the ocean'
+2026-07-18 18:44:30,699 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - MLXLTXAdapter: Details: 704x512, frames=49, steps=1, seed=1054332468
+2026-07-18 18:44:30,699 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Job 89eb4df5-59a5-4aca-b384-83b41d6fcabf progress: generating_video (15.0%) - Starting unified AV generation...
+2026-07-18 18:44:30,700 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed POST /generate/text-to-video - Status 200 - Duration 189.49ms
+2026-07-18 18:44:30,701 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:30,702 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:30,702 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:30,702 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.47ms
+2026-07-18 18:44:31,713 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:31,716 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:31,716 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:31,718 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 4.70ms
+2026-07-18 18:44:32,600 - torio._extension.utils - v0.1.1 - [22440] - ThreadPoolExecutor-0_0 - DEBUG - Loading FFmpeg6
+2026-07-18 18:44:32,601 - torio._extension.utils - v0.1.1 - [22440] - ThreadPoolExecutor-0_0 - DEBUG - Failed to load FFmpeg6 extension.
+Traceback (most recent call last):
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/_extension/utils.py", line 116, in _find_ffmpeg_extension
+    ext = _find_versionsed_ffmpeg_extension(ffmpeg_ver)
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/_extension/utils.py", line 108, in _find_versionsed_ffmpeg_extension
+    _load_lib(lib)
+    ~~~~~~~~~^^^^^
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/_extension/utils.py", line 94, in _load_lib
+    torch.ops.load_library(path)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torch/_ops.py", line 1357, in load_library
+    ctypes.CDLL(path)
+    ~~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/ctypes/__init__.py", line 390, in __init__
+    self._handle = _dlopen(self._name, mode)
+                   ~~~~~~~^^^^^^^^^^^^^^^^^^
+OSError: dlopen(/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/lib/libtorio_ffmpeg6.so, 0x0006): Library not loaded: @rpath/libavutil.58.dylib
+  Referenced from: <89C25D2B-AC8B-3954-8397-94C11778C733> /Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/lib/libtorio_ffmpeg6.so
+  Reason: no LC_RPATH's found
+2026-07-18 18:44:32,602 - torio._extension.utils - v0.1.1 - [22440] - ThreadPoolExecutor-0_0 - DEBUG - Loading FFmpeg5
+2026-07-18 18:44:32,603 - torio._extension.utils - v0.1.1 - [22440] - ThreadPoolExecutor-0_0 - DEBUG - Failed to load FFmpeg5 extension.
+Traceback (most recent call last):
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/_extension/utils.py", line 116, in _find_ffmpeg_extension
+    ext = _find_versionsed_ffmpeg_extension(ffmpeg_ver)
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/_extension/utils.py", line 108, in _find_versionsed_ffmpeg_extension
+    _load_lib(lib)
+    ~~~~~~~~~^^^^^
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/_extension/utils.py", line 94, in _load_lib
+    torch.ops.load_library(path)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torch/_ops.py", line 1357, in load_library
+    ctypes.CDLL(path)
+    ~~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/ctypes/__init__.py", line 390, in __init__
+    self._handle = _dlopen(self._name, mode)
+                   ~~~~~~~^^^^^^^^^^^^^^^^^^
+OSError: dlopen(/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/lib/libtorio_ffmpeg5.so, 0x0006): Library not loaded: @rpath/libavutil.57.dylib
+  Referenced from: <735443E6-547D-3821-9CB7-534A888D9EBA> /Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/lib/libtorio_ffmpeg5.so
+  Reason: no LC_RPATH's found
+2026-07-18 18:44:32,603 - torio._extension.utils - v0.1.1 - [22440] - ThreadPoolExecutor-0_0 - DEBUG - Loading FFmpeg4
+2026-07-18 18:44:32,603 - torio._extension.utils - v0.1.1 - [22440] - ThreadPoolExecutor-0_0 - DEBUG - Failed to load FFmpeg4 extension.
+Traceback (most recent call last):
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/_extension/utils.py", line 116, in _find_ffmpeg_extension
+    ext = _find_versionsed_ffmpeg_extension(ffmpeg_ver)
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/_extension/utils.py", line 108, in _find_versionsed_ffmpeg_extension
+    _load_lib(lib)
+    ~~~~~~~~~^^^^^
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/_extension/utils.py", line 94, in _load_lib
+    torch.ops.load_library(path)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torch/_ops.py", line 1357, in load_library
+    ctypes.CDLL(path)
+    ~~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/ctypes/__init__.py", line 390, in __init__
+    self._handle = _dlopen(self._name, mode)
+                   ~~~~~~~^^^^^^^^^^^^^^^^^^
+OSError: dlopen(/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/lib/libtorio_ffmpeg4.so, 0x0006): Library not loaded: @rpath/libavutil.56.dylib
+  Referenced from: <FC4AF6FF-CC28-35C0-994E-21E83D398E27> /Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/lib/libtorio_ffmpeg4.so
+  Reason: no LC_RPATH's found
+2026-07-18 18:44:32,604 - torio._extension.utils - v0.1.1 - [22440] - ThreadPoolExecutor-0_0 - DEBUG - Loading FFmpeg
+2026-07-18 18:44:32,604 - torio._extension.utils - v0.1.1 - [22440] - ThreadPoolExecutor-0_0 - DEBUG - Failed to load FFmpeg extension.
+Traceback (most recent call last):
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/_extension/utils.py", line 116, in _find_ffmpeg_extension
+    ext = _find_versionsed_ffmpeg_extension(ffmpeg_ver)
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/_extension/utils.py", line 106, in _find_versionsed_ffmpeg_extension
+    raise RuntimeError(f"FFmpeg{version} extension is not available.")
+RuntimeError: FFmpeg extension is not available.
+2026-07-18 18:44:32,724 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:32,724 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:32,725 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:32,726 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 1.64ms
+2026-07-18 18:44:33,784 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:33,946 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:33,957 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:33,989 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 205.36ms
+2026-07-18 18:44:34,996 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:34,996 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:34,996 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:34,996 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.36ms
+2026-07-18 18:44:36,002 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:36,002 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:36,002 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:36,002 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.35ms
+2026-07-18 18:44:37,009 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:37,009 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:37,009 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:37,009 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.36ms
+2026-07-18 18:44:38,016 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:38,016 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:38,016 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:38,016 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.44ms
+2026-07-18 18:44:39,024 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:39,024 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:39,024 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:39,024 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.65ms
+2026-07-18 18:44:40,031 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:40,031 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:40,031 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:40,031 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.34ms
+2026-07-18 18:44:41,033 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:41,033 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:41,033 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:41,033 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.37ms
+2026-07-18 18:44:42,040 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:42,040 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:42,040 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:42,040 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.31ms
+2026-07-18 18:44:43,047 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:43,047 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:43,047 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:43,047 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.34ms
+2026-07-18 18:44:44,054 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:44,054 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:44,054 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:44,054 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.36ms
+2026-07-18 18:44:45,057 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:45,057 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:45,057 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:45,058 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.35ms
+2026-07-18 18:44:46,064 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:46,064 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:46,064 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:46,065 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.34ms
+2026-07-18 18:44:47,067 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:47,067 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:47,067 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:47,067 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.36ms
+2026-07-18 18:44:48,074 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:48,074 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:48,074 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:48,074 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.35ms
+2026-07-18 18:44:49,079 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:49,079 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:49,079 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:49,080 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.35ms
+2026-07-18 18:44:50,084 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:50,084 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:50,084 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:50,084 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.37ms
+2026-07-18 18:44:51,086 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:51,087 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:51,087 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:51,087 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.35ms
+2026-07-18 18:44:52,092 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:52,092 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:52,092 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:52,092 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.48ms
+2026-07-18 18:44:53,099 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:53,099 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:53,099 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:53,100 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.33ms
+2026-07-18 18:44:54,106 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:54,106 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:54,106 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:54,106 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.36ms
+2026-07-18 18:44:55,113 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:55,113 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:55,113 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:55,113 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.38ms
+2026-07-18 18:44:56,117 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:56,117 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:56,117 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:56,118 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.37ms
+2026-07-18 18:44:57,124 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:57,124 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:57,124 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:57,125 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.34ms
+2026-07-18 18:44:58,129 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:58,129 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:58,129 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:58,130 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.34ms
+2026-07-18 18:44:59,132 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:59,132 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:44:59,132 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:44:59,132 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.37ms
+2026-07-18 18:45:00,139 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Incoming GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:45:00,139 - ai-video-worker - v0.1.1 - [22440] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf
+2026-07-18 18:45:00,139 - ai-video-worker - v0.1.1 - [22440] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:00,139 - ai-video-worker - v0.1.1 - [22440] - MainThread - INFO - Completed GET /jobs/89eb4df5-59a5-4aca-b384-83b41d6fcabf - Status 200 - Duration 0.40ms
+2026-07-18 18:45:22,441 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Initialized LTXGenerationEngine with adapter: MLXLTXAdapter
+2026-07-18 18:45:22,932 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Library/Frameworks/Python.framework/Versions/3.13/bin/python3
+Venv Path:      None
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (78.91 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/models
+Models Disk:    724.87 GB free
+============================================================
+2026-07-18 18:45:22,964 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Library/Frameworks/Python.framework/Versions/3.13/bin/python3
+Venv Path:      None
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (78.82 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/models
+Models Disk:    724.87 GB free
+============================================================
+2026-07-18 18:45:27,318 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /health
+2026-07-18 18:45:27,318 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/health
+2026-07-18 18:45:27,318 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:27,319 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /health - Status 200 - Duration 0.60ms
+2026-07-18 18:45:27,320 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /models
+2026-07-18 18:45:27,320 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/models
+2026-07-18 18:45:27,320 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:27,321 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /models - Status 200 - Duration 0.63ms
+2026-07-18 18:45:27,322 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming POST /generate/text-to-video
+2026-07-18 18:45:27,322 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: POST http://localhost:8000/generate/text-to-video
+2026-07-18 18:45:27,322 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive', 'content-length': '182', 'content-type': 'application/json'}
+2026-07-18 18:45:27,323 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - text_to_video request: {'prompt': 'A beautiful sunset over the ocean', 'negative_prompt': None, 'width': 704, 'height': 512, 'num_frames': 49, 'steps': 1, 'guidance_scale': 3.0, 'seed': None, 'enhance_prompt': False, 'use_uncensored_enhancer': False, 'model_id': 'ltx-video-av-q4', 'project_id': 'test-project', 'scene_id': 'test-scene', 'composed_prompt_path': None, 'image_path': None, 'audio_path': None, 'video_path': None, 'retake_start_seconds': None, 'retake_end_seconds': None}
+2026-07-18 18:45:27,323 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Creating text-to-video job for model: ltx-video-av-q4
+2026-07-18 18:45:27,324 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Job 88b98935-ef4c-453b-9b77-6c59962f68c7 started background execution.
+2026-07-18 18:45:27,324 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Checking model ltx-video-av-q4. Profile found: True, Installed: True
+2026-07-18 18:45:27,324 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - LTXEngine: Starting text-to-video generation for job 88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:27,324 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Job log: LTXEngine: Starting text-to-video generation for job 88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:27,324 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - LTXEngine: Request prompt: 'A beautiful sunset over the ocean'
+2026-07-18 18:45:27,324 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Job log: LTXEngine: Request prompt: 'A beautiful sunset over the ocean'
+2026-07-18 18:45:27,324 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Job 88b98935-ef4c-453b-9b77-6c59962f68c7 progress: loading_model (5.0%) - Switching to model ltx-video-av-q4...
+2026-07-18 18:45:27,324 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Job 88b98935-ef4c-453b-9b77-6c59962f68c7 progress: loading_model (5.0%) - Switching to model ltx-video-av-q4...
+2026-07-18 18:45:27,325 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - LTXEngine: Loading model ltx-video-av-q4
+2026-07-18 18:45:27,325 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Job log: LTXEngine: Loading model ltx-video-av-q4
+2026-07-18 18:45:27,325 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - [_validate_hardware] Checking hardware compatibility. min_memory_gb=16.0
+2026-07-18 18:45:27,325 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Job log: [_validate_hardware] Checking hardware compatibility. min_memory_gb=16.0
+2026-07-18 18:45:27,325 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - [_validate_hardware] Total RAM: 128.00GB, Available RAM: 78.63GB
+2026-07-18 18:45:27,325 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Job log: [_validate_hardware] Total RAM: 128.00GB, Available RAM: 78.63GB
+2026-07-18 18:45:27,325 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - MLXAdapter: Loading ltx-video-av-q4 from models/ltx-video-av-q4
+2026-07-18 18:45:27,461 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Job 88b98935-ef4c-453b-9b77-6c59962f68c7 progress: preparing_inputs (10.0%) - Preparing generation inputs...
+2026-07-18 18:45:27,461 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - [MLXLTXAdapter] generate_text_to_video pipeline=AV_MODEL
+2026-07-18 18:45:27,461 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - MLXLTXAdapter: AV Generation for A beautiful sunset over the ocean
+2026-07-18 18:45:27,462 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Job 88b98935-ef4c-453b-9b77-6c59962f68c7 progress: loading_model (5.0%) - Preparing unified AV model...
+2026-07-18 18:45:27,462 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Using seed for AV: 3679172681
+2026-07-18 18:45:27,462 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - MLXLTXAdapter: Starting unified AV generation for prompt: 'A beautiful sunset over the ocean'
+2026-07-18 18:45:27,462 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - MLXLTXAdapter: Details: 704x512, frames=49, steps=1, seed=3679172681
+2026-07-18 18:45:27,462 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Job 88b98935-ef4c-453b-9b77-6c59962f68c7 progress: generating_video (15.0%) - Starting unified AV generation...
+2026-07-18 18:45:27,463 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed POST /generate/text-to-video - Status 200 - Duration 140.43ms
+2026-07-18 18:45:27,464 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:27,464 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:27,464 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:27,465 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.66ms
+2026-07-18 18:45:28,469 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:28,469 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:28,469 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:28,471 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 1.76ms
+2026-07-18 18:45:28,855 - torio._extension.utils - v0.1.1 - [22654] - ThreadPoolExecutor-0_0 - DEBUG - Loading FFmpeg6
+2026-07-18 18:45:28,856 - torio._extension.utils - v0.1.1 - [22654] - ThreadPoolExecutor-0_0 - DEBUG - Failed to load FFmpeg6 extension.
+Traceback (most recent call last):
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/_extension/utils.py", line 116, in _find_ffmpeg_extension
+    ext = _find_versionsed_ffmpeg_extension(ffmpeg_ver)
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/_extension/utils.py", line 108, in _find_versionsed_ffmpeg_extension
+    _load_lib(lib)
+    ~~~~~~~~~^^^^^
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/_extension/utils.py", line 94, in _load_lib
+    torch.ops.load_library(path)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torch/_ops.py", line 1357, in load_library
+    ctypes.CDLL(path)
+    ~~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/ctypes/__init__.py", line 390, in __init__
+    self._handle = _dlopen(self._name, mode)
+                   ~~~~~~~^^^^^^^^^^^^^^^^^^
+OSError: dlopen(/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/lib/libtorio_ffmpeg6.so, 0x0006): Library not loaded: @rpath/libavutil.58.dylib
+  Referenced from: <89C25D2B-AC8B-3954-8397-94C11778C733> /Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/lib/libtorio_ffmpeg6.so
+  Reason: no LC_RPATH's found
+2026-07-18 18:45:28,856 - torio._extension.utils - v0.1.1 - [22654] - ThreadPoolExecutor-0_0 - DEBUG - Loading FFmpeg5
+2026-07-18 18:45:28,857 - torio._extension.utils - v0.1.1 - [22654] - ThreadPoolExecutor-0_0 - DEBUG - Failed to load FFmpeg5 extension.
+Traceback (most recent call last):
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/_extension/utils.py", line 116, in _find_ffmpeg_extension
+    ext = _find_versionsed_ffmpeg_extension(ffmpeg_ver)
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/_extension/utils.py", line 108, in _find_versionsed_ffmpeg_extension
+    _load_lib(lib)
+    ~~~~~~~~~^^^^^
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/_extension/utils.py", line 94, in _load_lib
+    torch.ops.load_library(path)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torch/_ops.py", line 1357, in load_library
+    ctypes.CDLL(path)
+    ~~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/ctypes/__init__.py", line 390, in __init__
+    self._handle = _dlopen(self._name, mode)
+                   ~~~~~~~^^^^^^^^^^^^^^^^^^
+OSError: dlopen(/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/lib/libtorio_ffmpeg5.so, 0x0006): Library not loaded: @rpath/libavutil.57.dylib
+  Referenced from: <735443E6-547D-3821-9CB7-534A888D9EBA> /Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/lib/libtorio_ffmpeg5.so
+  Reason: no LC_RPATH's found
+2026-07-18 18:45:28,857 - torio._extension.utils - v0.1.1 - [22654] - ThreadPoolExecutor-0_0 - DEBUG - Loading FFmpeg4
+2026-07-18 18:45:28,857 - torio._extension.utils - v0.1.1 - [22654] - ThreadPoolExecutor-0_0 - DEBUG - Failed to load FFmpeg4 extension.
+Traceback (most recent call last):
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/_extension/utils.py", line 116, in _find_ffmpeg_extension
+    ext = _find_versionsed_ffmpeg_extension(ffmpeg_ver)
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/_extension/utils.py", line 108, in _find_versionsed_ffmpeg_extension
+    _load_lib(lib)
+    ~~~~~~~~~^^^^^
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/_extension/utils.py", line 94, in _load_lib
+    torch.ops.load_library(path)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torch/_ops.py", line 1357, in load_library
+    ctypes.CDLL(path)
+    ~~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/ctypes/__init__.py", line 390, in __init__
+    self._handle = _dlopen(self._name, mode)
+                   ~~~~~~~^^^^^^^^^^^^^^^^^^
+OSError: dlopen(/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/lib/libtorio_ffmpeg4.so, 0x0006): Library not loaded: @rpath/libavutil.56.dylib
+  Referenced from: <FC4AF6FF-CC28-35C0-994E-21E83D398E27> /Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/lib/libtorio_ffmpeg4.so
+  Reason: no LC_RPATH's found
+2026-07-18 18:45:28,857 - torio._extension.utils - v0.1.1 - [22654] - ThreadPoolExecutor-0_0 - DEBUG - Loading FFmpeg
+2026-07-18 18:45:28,857 - torio._extension.utils - v0.1.1 - [22654] - ThreadPoolExecutor-0_0 - DEBUG - Failed to load FFmpeg extension.
+Traceback (most recent call last):
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/_extension/utils.py", line 116, in _find_ffmpeg_extension
+    ext = _find_versionsed_ffmpeg_extension(ffmpeg_ver)
+  File "/Users/marcelkoert/Library/Python/3.13/lib/python/site-packages/torio/_extension/utils.py", line 106, in _find_versionsed_ffmpeg_extension
+    raise RuntimeError(f"FFmpeg{version} extension is not available.")
+RuntimeError: FFmpeg extension is not available.
+2026-07-18 18:45:29,479 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:29,479 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:29,479 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:29,480 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.49ms
+2026-07-18 18:45:30,482 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:30,482 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:30,482 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:30,482 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.48ms
+2026-07-18 18:45:31,489 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:31,489 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:31,489 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:31,489 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.33ms
+2026-07-18 18:45:32,496 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:32,496 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:32,496 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:32,496 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.34ms
+2026-07-18 18:45:33,503 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:33,503 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:33,503 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:33,503 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.34ms
+2026-07-18 18:45:34,506 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:34,506 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:34,506 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:34,506 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.62ms
+2026-07-18 18:45:35,511 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:35,511 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:35,511 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:35,512 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.36ms
+2026-07-18 18:45:36,515 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:36,515 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:36,515 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:36,516 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.34ms
+2026-07-18 18:45:37,517 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:37,518 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:37,518 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:37,518 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.37ms
+2026-07-18 18:45:38,524 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:38,524 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:38,524 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:38,524 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.36ms
+2026-07-18 18:45:39,531 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:39,531 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:39,531 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:39,531 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.46ms
+2026-07-18 18:45:40,537 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:40,537 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:40,537 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:40,538 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.36ms
+2026-07-18 18:45:41,540 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:41,540 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:41,540 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:41,540 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.36ms
+2026-07-18 18:45:42,547 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:42,547 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:42,547 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:42,548 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.38ms
+2026-07-18 18:45:43,552 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:43,552 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:43,552 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:43,552 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.38ms
+2026-07-18 18:45:44,559 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:44,559 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:44,559 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:44,559 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.36ms
+2026-07-18 18:45:45,565 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:45,565 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:45,565 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:45,566 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.52ms
+2026-07-18 18:45:46,573 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:46,573 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:46,573 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:46,573 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.39ms
+2026-07-18 18:45:47,575 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:47,575 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:47,575 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:47,575 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.34ms
+2026-07-18 18:45:48,582 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:48,582 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:48,582 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:48,582 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.43ms
+2026-07-18 18:45:49,589 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:49,589 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:49,589 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:49,590 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.41ms
+2026-07-18 18:45:50,596 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:50,597 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:50,597 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:50,597 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.35ms
+2026-07-18 18:45:51,599 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:51,599 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:51,599 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:51,599 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.37ms
+2026-07-18 18:45:52,602 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:52,602 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:52,602 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:52,602 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.36ms
+2026-07-18 18:45:53,609 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:53,609 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:53,609 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:53,609 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.36ms
+2026-07-18 18:45:54,612 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:54,612 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:54,612 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:54,613 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.35ms
+2026-07-18 18:45:55,618 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:55,618 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:55,618 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:55,618 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.34ms
+2026-07-18 18:45:56,622 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Incoming GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:56,622 - ai-video-worker - v0.1.1 - [22654] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/88b98935-ef4c-453b-9b77-6c59962f68c7
+2026-07-18 18:45:56,622 - ai-video-worker - v0.1.1 - [22654] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:45:56,622 - ai-video-worker - v0.1.1 - [22654] - MainThread - INFO - Completed GET /jobs/88b98935-ef4c-453b-9b77-6c59962f68c7 - Status 200 - Duration 0.35ms
+2026-07-18 18:46:24,758 - ai-video-worker - v0.1.1 - [22854] - MainThread - INFO - Initialized LTXGenerationEngine with adapter: MLXLTXAdapter
+2026-07-18 18:46:25,218 - ai-video-worker - v0.1.1 - [22854] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Library/Frameworks/Python.framework/Versions/3.13/bin/python3
+Venv Path:      None
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (78.92 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/models
+Models Disk:    724.86 GB free
+============================================================
+2026-07-18 18:46:25,244 - ai-video-worker - v0.1.1 - [22854] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Library/Frameworks/Python.framework/Versions/3.13/bin/python3
+Venv Path:      None
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (78.49 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/models
+Models Disk:    724.86 GB free
+============================================================
+2026-07-18 18:46:29,658 - ai-video-worker - v0.1.1 - [22854] - MainThread - INFO - Incoming GET /health
+2026-07-18 18:46:29,658 - ai-video-worker - v0.1.1 - [22854] - MainThread - TRACE - Request detail: GET http://localhost:8000/health
+2026-07-18 18:46:29,658 - ai-video-worker - v0.1.1 - [22854] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:46:29,659 - ai-video-worker - v0.1.1 - [22854] - MainThread - INFO - Completed GET /health - Status 200 - Duration 0.70ms
+2026-07-18 18:46:29,661 - ai-video-worker - v0.1.1 - [22854] - MainThread - INFO - Incoming GET /models
+2026-07-18 18:46:29,661 - ai-video-worker - v0.1.1 - [22854] - MainThread - TRACE - Request detail: GET http://localhost:8000/models
+2026-07-18 18:46:29,661 - ai-video-worker - v0.1.1 - [22854] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:46:29,661 - ai-video-worker - v0.1.1 - [22854] - MainThread - INFO - Completed GET /models - Status 200 - Duration 0.60ms
+2026-07-18 18:46:29,662 - ai-video-worker - v0.1.1 - [22854] - MainThread - INFO - Incoming POST /generate/text-to-video
+2026-07-18 18:46:29,662 - ai-video-worker - v0.1.1 - [22854] - MainThread - TRACE - Request detail: POST http://localhost:8000/generate/text-to-video
+2026-07-18 18:46:29,662 - ai-video-worker - v0.1.1 - [22854] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive', 'content-length': '182', 'content-type': 'application/json'}
+2026-07-18 18:46:29,663 - ai-video-worker - v0.1.1 - [22854] - MainThread - INFO - Model 'ltx-video-2b-distilled' is partially installed. Generation job will complete download.
+2026-07-18 18:46:29,663 - ai-video-worker - v0.1.1 - [22854] - MainThread - DEBUG - text_to_video request: {'prompt': 'A beautiful sunset over the ocean', 'negative_prompt': None, 'width': 704, 'height': 512, 'num_frames': 49, 'steps': 1, 'guidance_scale': 3.0, 'seed': None, 'enhance_prompt': False, 'use_uncensored_enhancer': False, 'model_id': 'ltx-video-2b-distilled', 'project_id': 'test-project', 'scene_id': 'test-scene', 'composed_prompt_path': None, 'image_path': None, 'audio_path': None, 'video_path': None, 'retake_start_seconds': None, 'retake_end_seconds': None}
+2026-07-18 18:46:29,663 - ai-video-worker - v0.1.1 - [22854] - MainThread - INFO - Creating text-to-video job for model: ltx-video-2b-distilled
+2026-07-18 18:46:29,664 - ai-video-worker - v0.1.1 - [22854] - MainThread - INFO - Job cde7966e-7d9b-4e10-ad00-8adc608a5707 started background execution.
+2026-07-18 18:46:29,664 - ai-video-worker - v0.1.1 - [22854] - MainThread - INFO - Checking model ltx-video-2b-distilled. Profile found: True, Installed: False
+2026-07-18 18:46:29,664 - ai-video-worker - v0.1.1 - [22854] - MainThread - INFO - Job cde7966e-7d9b-4e10-ad00-8adc608a5707 updated: downloading (0.0%) - Waiting for model download slot...
+2026-07-18 18:46:29,665 - ai-video-worker - v0.1.1 - [22854] - MainThread - INFO - Job cde7966e-7d9b-4e10-ad00-8adc608a5707 updated: downloading (0.0%) - Starting download of ltx-video-2b-distilled...
+2026-07-18 18:46:29,673 - ai-video-worker - v0.1.1 - [22854] - MainThread - INFO - Completed POST /generate/text-to-video - Status 200 - Duration 10.84ms
+2026-07-18 18:46:29,675 - ai-video-worker - v0.1.1 - [22854] - MainThread - INFO - Incoming GET /jobs/cde7966e-7d9b-4e10-ad00-8adc608a5707
+2026-07-18 18:46:29,675 - ai-video-worker - v0.1.1 - [22854] - MainThread - TRACE - Request detail: GET http://localhost:8000/jobs/cde7966e-7d9b-4e10-ad00-8adc608a5707
+2026-07-18 18:46:29,675 - ai-video-worker - v0.1.1 - [22854] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive'}
+2026-07-18 18:46:29,676 - ai-video-worker - v0.1.1 - [22854] - MainThread - INFO - Completed GET /jobs/cde7966e-7d9b-4e10-ad00-8adc608a5707 - Status 200 - Duration 0.57ms
+2026-07-18 18:46:29,677 - ai-video-worker - v0.1.1 - [22854] - MainThread - INFO - Incoming POST /jobs/cde7966e-7d9b-4e10-ad00-8adc608a5707/cancel
+2026-07-18 18:46:29,677 - ai-video-worker - v0.1.1 - [22854] - MainThread - TRACE - Request detail: POST http://localhost:8000/jobs/cde7966e-7d9b-4e10-ad00-8adc608a5707/cancel
+2026-07-18 18:46:29,677 - ai-video-worker - v0.1.1 - [22854] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'user-agent': 'python-requests/2.32.3', 'accept-encoding': 'gzip, deflate', 'accept': '*/*', 'connection': 'keep-alive', 'content-length': '0'}
+2026-07-18 18:46:29,677 - ai-video-worker - v0.1.1 - [22854] - MainThread - INFO - Received cancellation request for job: cde7966e-7d9b-4e10-ad00-8adc608a5707
+2026-07-18 18:46:29,678 - ai-video-worker - v0.1.1 - [22854] - MainThread - INFO - Completed POST /jobs/cde7966e-7d9b-4e10-ad00-8adc608a5707/cancel - Status 200 - Duration 0.80ms
+2026-07-18 18:46:47,474 - ai-video-worker - v0.1.1 - [22960] - MainThread - INFO - Initialized LTXGenerationEngine with adapter: MLXLTXAdapter
+2026-07-18 18:46:47,889 - ai-video-worker - v0.1.1 - [22960] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python3
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (78.79 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/models
+Models Disk:    724.86 GB free
+============================================================
+2026-07-18 18:46:47,900 - ai-video-worker - v0.1.1 - [22960] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python3
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (78.77 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/models
+Models Disk:    724.86 GB free
+============================================================
+2026-07-18 18:46:50,303 - ai-video-worker - v0.1.1 - [22960] - MainThread - INFO - Incoming GET /health
+2026-07-18 18:46:50,303 - ai-video-worker - v0.1.1 - [22960] - MainThread - TRACE - Request detail: GET http://localhost:8000/health
+2026-07-18 18:46:50,303 - ai-video-worker - v0.1.1 - [22960] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:46:50,307 - ai-video-worker - v0.1.1 - [22960] - MainThread - INFO - Completed GET /health - Status 200 - Duration 4.65ms
+2026-07-18 18:46:50,320 - ai-video-worker - v0.1.1 - [22960] - MainThread - INFO - Incoming GET /hardware
+2026-07-18 18:46:50,320 - ai-video-worker - v0.1.1 - [22960] - MainThread - TRACE - Request detail: GET http://localhost:8000/hardware
+2026-07-18 18:46:50,320 - ai-video-worker - v0.1.1 - [22960] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:46:50,331 - ai-video-worker - v0.1.1 - [22960] - MainThread - INFO - Completed GET /hardware - Status 200 - Duration 11.30ms
+2026-07-18 18:46:50,333 - ai-video-worker - v0.1.1 - [22960] - MainThread - INFO - Incoming GET /hardware
+2026-07-18 18:46:50,333 - ai-video-worker - v0.1.1 - [22960] - MainThread - TRACE - Request detail: GET http://localhost:8000/hardware
+2026-07-18 18:46:50,333 - ai-video-worker - v0.1.1 - [22960] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:46:50,344 - ai-video-worker - v0.1.1 - [22960] - MainThread - INFO - Completed GET /hardware - Status 200 - Duration 10.98ms
+2026-07-18 18:46:52,745 - ai-video-worker - v0.1.1 - [22960] - MainThread - INFO - Incoming GET /models
+2026-07-18 18:46:52,745 - ai-video-worker - v0.1.1 - [22960] - MainThread - TRACE - Request detail: GET http://localhost:8000/models
+2026-07-18 18:46:52,745 - ai-video-worker - v0.1.1 - [22960] - MainThread - DEBUG - Request headers: {'host': 'localhost:8000', 'accept': '*/*', 'accept-language': 'en-GB,en;q=0.9', 'connection': 'keep-alive', 'accept-encoding': 'gzip, deflate', 'user-agent': 'AIStudioLocal (unknown version) CFNetwork/3860.600.21 Darwin/25.5.0'}
+2026-07-18 18:46:52,746 - ai-video-worker - v0.1.1 - [22960] - MainThread - INFO - Completed GET /models - Status 200 - Duration 1.09ms
