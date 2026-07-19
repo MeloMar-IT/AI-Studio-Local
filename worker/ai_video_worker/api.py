@@ -217,6 +217,42 @@ def _validate_image_path(image_path: str):
         )
 
 
+@router.post("/generate/voice-clone", response_model=JobStatus)
+async def voice_clone(request: GenerationRequest):
+    if "voice-clone" not in engine.capabilities():
+        raise HTTPException(
+            status_code=400,
+            detail=ErrorResponse(
+                error=ErrorDetail(
+                    code="unsupported_capability",
+                    message="Voice cloning is not supported by the current engine."
+                )
+            ).model_dump()
+        )
+
+    if not request.voice_clone_reference_path:
+        raise HTTPException(
+            status_code=400,
+            detail=ErrorResponse(
+                error=ErrorDetail(
+                    code="missing_reference",
+                    message="Voice clone requires a voice_clone_reference_path."
+                )
+            ).model_dump()
+        )
+
+    # Use default model if not specified
+    if not request.model_id:
+        request.model_id = "f5-tts-mlx"
+
+    logger.info(f"Creating voice-clone job for model: {request.model_id}")
+    job_id = job_store.create_job(request)
+    job = job_store.get_job(job_id)
+    if not job:
+        raise HTTPException(status_code=500, detail="Failed to create job")
+    return job
+
+
 @router.post("/generate/text-to-video", response_model=JobStatus)
 async def text_to_video(request: GenerationRequest):
     if "text-to-video" not in engine.capabilities():

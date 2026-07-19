@@ -229,6 +229,7 @@ struct ContinuityLibraryView: View {
         case .brand: return "briefcase.fill"
         case .promptBlock: return "text.alignleft"
         case .lora: return "cpu"
+        case .voiceClone: return "mic.fill"
         case .exportTemplate: return "square.and.arrow.up.fill"
         }
     }

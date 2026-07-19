@@ -106,6 +106,16 @@ class GenerationEngine(ABC):
         pass
 
     @abstractmethod
+    async def generate_voice_clone(
+        self,
+        request: Any,
+        output_path: str,
+        progress_callback: Optional[ProgressCallback] = None,
+        cancellation_token: Optional[CancellationToken] = None,
+    ) -> str:
+        pass
+
+    @abstractmethod
     async def generate(
         self,
         request: Any,

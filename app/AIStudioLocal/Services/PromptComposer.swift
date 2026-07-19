@@ -62,6 +62,7 @@ public final class DefaultPromptComposer: PromptComposer {
             .brand,
             .promptBlock,
             .lora,
+            .voiceClone,
             .audio // Audio near the end
         ]
 
@@ -72,6 +73,10 @@ public final class DefaultPromptComposer: PromptComposer {
             for element in typeElements {
                 sourceElementIds.append(element.id)
                 metadata[element.id] = element.name
+
+                if type == .voiceClone, let refPath = element.voiceCloneReferencePath {
+                    metadata["voice_clone_reference_path"] = refPath
+                }
 
                 let prompt = element.promptBlock.trimmingCharacters(in: .whitespacesAndNewlines)
                 if !prompt.isEmpty {

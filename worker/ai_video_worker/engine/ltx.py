@@ -133,6 +133,34 @@ class LTXGenerationEngine(GenerationEngine):
             cancellation_token
         )
 
+    async def generate_voice_clone(
+        self,
+        request: Any,
+        output_path: str,
+        progress_callback: Optional[ProgressCallback] = None,
+        cancellation_token: Optional[CancellationToken] = None,
+    ) -> str:
+        """
+        Generates a voice clone (TTS with reference audio).
+        """
+        # If we have an audio-capable adapter, use it
+        if hasattr(self.adapter, "generate_voice_clone"):
+            return await self.adapter.generate_voice_clone(
+                request,
+                output_path,
+                progress_callback,
+                cancellation_token
+            )
+
+        # Fallback/Default implementation if not in adapter yet
+        self._log_job("LTXEngine: Voice clone requested")
+        if progress_callback:
+            progress_callback("preparing_voice_clone", 0.1, "Initializing voice cloning model...")
+
+        # In a real implementation, we would load the F5-TTS or similar model here
+        # For now, we'll use the adapter if it supports it or raise error
+        raise UnsupportedCapabilityError("voice_clone", "Current adapter does not support standalone voice cloning.")
+
     async def generate(
         self,
         request: Any,
@@ -160,6 +188,25 @@ class LTXGenerationEngine(GenerationEngine):
         self._log_job(f"LTXEngine: Request prompt: '{getattr(request, 'prompt', 'N/A')}'")
 
         try:
+            # 0. Voice Clone Pre-processing
+            voice_clone_ref = getattr(request, "voice_clone_reference_path", None)
+            if voice_clone_ref and os.path.exists(voice_clone_ref):
+                self._log_job(f"LTXEngine: Voice clone reference detected: {voice_clone_ref}")
+                if progress_callback:
+                    progress_callback("generating_audio", 0.02, "Generating cloned voice...")
+
+                # Generate audio path for the cloned voice
+                cloned_audio_path = os.path.join(os.path.dirname(output_path), "cloned_voice.wav")
+
+                # We use the same engine but specifically for voice clone
+                # This allows us to use f5-tts-mlx or similar
+                await self.generate_voice_clone(request, cloned_audio_path, progress_callback, cancellation_token)
+
+                # Update request to use the generated audio
+                if hasattr(request, "audio_path"):
+                    request.audio_path = cloned_audio_path
+                    self._log_job(f"LTXEngine: Cloned voice generated at {cloned_audio_path}, using as audio_path")
+
             # 1. Automatic Model Loading
             model_id = getattr(request, "model_id", settings.default_model_id)
             if self.adapter._current_model_id != model_id:

@@ -84,6 +84,7 @@ class GenerationRequest(BaseModel):
     image_path: Optional[str] = None
     audio_path: Optional[str] = None
     video_path: Optional[str] = None
+    voice_clone_reference_path: Optional[str] = None
     retake_start_seconds: Optional[float] = None
     retake_end_seconds: Optional[float] = None
 

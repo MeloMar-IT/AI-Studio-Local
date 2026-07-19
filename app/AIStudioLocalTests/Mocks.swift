@@ -82,6 +82,7 @@ class MockGenerationClient: GenerationClient {
     func submitTextToVideo(request: GenerationRequest) async throws -> String { return "job-1" }
     func submitImageToVideo(request: GenerationRequest) async throws -> String { return "job-1" }
     func submitAudioToVideo(request: GenerationRequest) async throws -> String { return "job-1" }
+    func submitVoiceClone(request: GenerationRequest) async throws -> String { return "job-1" }
     func submitRetake(request: GenerationRequest) async throws -> String { return "job-1" }
 
     func getJobStatus(jobId: String) async throws -> GenerationJob {

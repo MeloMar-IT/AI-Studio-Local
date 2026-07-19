@@ -7,6 +7,7 @@ public protocol GenerationClient {
     func submitTextToVideo(request: GenerationRequest) async throws -> String // returns job_id
     func submitImageToVideo(request: GenerationRequest) async throws -> String // returns job_id
     func submitAudioToVideo(request: GenerationRequest) async throws -> String // returns job_id
+    func submitVoiceClone(request: GenerationRequest) async throws -> String // returns job_id
     func submitRetake(request: GenerationRequest) async throws -> String // returns job_id
     func getJobStatus(jobId: String) async throws -> GenerationJob
     func cancelJob(jobId: String) async throws
@@ -190,6 +191,7 @@ public struct GenerationRequest: Codable {
     public let imagePath: String?
     public let audioPath: String?
     public let videoPath: String?
+    public let voiceCloneReferencePath: String?
     public let retakeStartSeconds: Double?
     public let retakeEndSeconds: Double?
 
@@ -210,6 +212,7 @@ public struct GenerationRequest: Codable {
         imagePath: String? = nil,
         audioPath: String? = nil,
         videoPath: String? = nil,
+        voiceCloneReferencePath: String? = nil,
         retakeStartSeconds: Double? = nil,
         retakeEndSeconds: Double? = nil
     ) {
@@ -229,6 +232,7 @@ public struct GenerationRequest: Codable {
         self.imagePath = imagePath
         self.audioPath = audioPath
         self.videoPath = videoPath
+        self.voiceCloneReferencePath = voiceCloneReferencePath
         self.retakeStartSeconds = retakeStartSeconds
         self.retakeEndSeconds = retakeEndSeconds
     }
@@ -250,6 +254,7 @@ public struct GenerationRequest: Codable {
         case imagePath = "image_path"
         case audioPath = "audio_path"
         case videoPath = "video_path"
+        case voiceCloneReferencePath = "voice_clone_reference_path"
         case retakeStartSeconds = "retake_start_seconds"
         case retakeEndSeconds = "retake_end_seconds"
     }
@@ -341,6 +346,10 @@ public final class HTTPGenerationClient: GenerationClient {
 
     public func submitAudioToVideo(request: GenerationRequest) async throws -> String {
         return try await submitGeneration(request: request, endpoint: "generate/audio-to-video")
+    }
+
+    public func submitVoiceClone(request: GenerationRequest) async throws -> String {
+        return try await submitGeneration(request: request, endpoint: "generate/voice-clone")
     }
 
     public func submitRetake(request: GenerationRequest) async throws -> String {

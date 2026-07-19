@@ -100,6 +100,11 @@ class JobStore:
             "created_at": now.isoformat(),
             "updated_at": now.isoformat()
         }
+        # Add voice clone reference path to metadata if present
+        if request.voice_clone_reference_path:
+            metadata["voice_clone_reference_path"] = request.voice_clone_reference_path
+            self.output_manager.append_log(job_id, f"  - Voice Clone Reference: {request.voice_clone_reference_path}")
+
         self.output_manager.save_metadata(job_id, metadata)
         self.output_manager.append_log(job_id, f"Job initialized for scene {request.scene_id}")
         self.output_manager.append_log(job_id, f"Initial Request Parameters:")

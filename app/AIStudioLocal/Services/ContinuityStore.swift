@@ -34,6 +34,7 @@ extension ContinuityElementType {
         case .brand: return "brand-kits"
         case .promptBlock: return "prompt-blocks"
         case .lora: return "loras"
+        case .voiceClone: return "voice-clones"
         case .exportTemplate: return "export-templates"
         }
     }

@@ -6,6 +6,7 @@ public enum ContinuityElementType: String, Codable, CaseIterable {
     case style
     case camera
     case audio
+    case voiceClone = "voice_clone"
     case brand
     case promptBlock = "prompt_block"
     case lora
@@ -18,6 +19,7 @@ public enum ContinuityElementType: String, Codable, CaseIterable {
         case .style: return "paintpalette.fill"
         case .camera: return "video.fill"
         case .audio: return "waveform"
+        case .voiceClone: return "mic.fill"
         case .brand: return "briefcase.fill"
         case .promptBlock: return "text.alignleft"
         case .lora: return "cpu"
@@ -45,6 +47,7 @@ public struct ContinuityElement: Codable, Identifiable, Equatable {
     public var description: String
     public var promptBlock: String
     public var negativePrompt: String?
+    public var voiceCloneReferencePath: String?
     public var tags: [String]
     public var assets: [ContinuityAsset]
     public let createdAt: Date
@@ -61,6 +64,7 @@ public struct ContinuityElement: Codable, Identifiable, Equatable {
         description: String = "",
         promptBlock: String,
         negativePrompt: String? = nil,
+        voiceCloneReferencePath: String? = nil,
         tags: [String] = [],
         assets: [ContinuityAsset] = [],
         createdAt: Date = Date(),
@@ -72,6 +76,7 @@ public struct ContinuityElement: Codable, Identifiable, Equatable {
         self.description = description
         self.promptBlock = promptBlock
         self.negativePrompt = negativePrompt
+        self.voiceCloneReferencePath = voiceCloneReferencePath
         self.tags = tags
         self.assets = assets
         self.createdAt = createdAt
@@ -85,6 +90,7 @@ public struct ContinuityElement: Codable, Identifiable, Equatable {
         case description
         case promptBlock = "prompt_block"
         case negativePrompt = "negative_prompt"
+        case voiceCloneReferencePath = "voice_clone_reference_path"
         case tags
         case assets
         case createdAt = "created_at"

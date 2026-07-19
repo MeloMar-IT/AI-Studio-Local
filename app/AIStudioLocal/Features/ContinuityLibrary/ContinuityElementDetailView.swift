@@ -5,6 +5,7 @@ struct ContinuityElementDetailView: View {
     @State private var editedElement: ContinuityElement
     @State private var isShowingDeleteConfirmation = false
     @State private var isShowingImagePicker = false
+    @State private var isShowingAudioPicker = false
 
     init(viewModel: ContinuityLibraryViewModel, element: ContinuityElement) {
         self.viewModel = viewModel
@@ -54,6 +55,69 @@ struct ContinuityElementDetailView: View {
                     Divider()
                 }
 
+                if editedElement.type == .voiceClone {
+                    VStack(alignment: .leading, spacing: Spacing.medium) {
+                        Text("Voice Clone Settings")
+                            .font(.App.headline)
+
+                        Text("Upload a clear 5-30 second audio clip of the voice you want to clone.")
+                            .font(.App.caption)
+                            .foregroundColor(.secondary)
+
+                        HStack {
+                            if let refPath = editedElement.voiceCloneReferencePath {
+                                Image(systemName: "waveform.circle.fill")
+                                    .foregroundColor(.green)
+                                Text(URL(fileURLWithPath: refPath).lastPathComponent)
+                                    .font(.App.caption)
+                                    .lineLimit(1)
+
+                                Spacer()
+
+                                Button("Change") {
+                                    isShowingAudioPicker = true
+                                }
+                                .buttonStyle(.bordered)
+                            } else {
+                                Image(systemName: "mic.badge.plus")
+                                    .foregroundColor(.secondary)
+                                Text("No reference audio selected")
+                                    .font(.App.caption)
+                                    .foregroundColor(.secondary)
+
+                                Spacer()
+
+                                Button("Select File") {
+                                    isShowingAudioPicker = true
+                                }
+                                .buttonStyle(.borderedProminent)
+                            }
+                        }
+                        .padding(Spacing.medium)
+                        .background(Color.App.surface)
+                        .cornerRadius(8)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.App.border, lineWidth: 1)
+                        )
+                    }
+                    .fileImporter(
+                        isPresented: $isShowingAudioPicker,
+                        allowedContentTypes: [.audio, .mp3, .mpeg4Audio, .wav],
+                        allowsMultipleSelection: false
+                    ) { result in
+                        switch result {
+                        case .success(let urls):
+                            if let url = urls.first {
+                                editedElement.voiceCloneReferencePath = url.path
+                            }
+                        case .failure(let error):
+                            print("Audio import failed: \(error.localizedDescription)")
+                        }
+                    }
+                    Divider()
+                }
+
                 VStack(alignment: .leading, spacing: Spacing.medium) {
                     Text("Details")
                         .font(.App.headline)
@@ -80,7 +144,7 @@ struct ContinuityElementDetailView: View {
                     }
                 }
 
-                if editedElement.type != .brand && editedElement.type != .audio && editedElement.type != .camera && editedElement.type != .exportTemplate {
+                if editedElement.type != .brand && editedElement.type != .audio && editedElement.type != .voiceClone && editedElement.type != .camera && editedElement.type != .exportTemplate {
                     AssetGalleryView(
                         assets: editedElement.assets,
                         onAdd: { isShowingImagePicker = true },

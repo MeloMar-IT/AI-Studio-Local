@@ -119,6 +119,26 @@
       "recommended_hardware": "Apple M2 Max 64GB or better"
     },
     {
+      "id": "f5-tts-mlx",
+      "name": "F5-TTS MLX",
+      "description": "Voice cloning and TTS model for MLX",
+      "family": "F5-TTS",
+      "backend": "f5-tts-mlx",
+      "model_type": "Audio",
+      "version": "1.0",
+      "expected_files": [
+        "model.safetensors",
+        "config.json",
+        "vocab.txt"
+      ],
+      "download_urls": {
+        "model.safetensors": "https://huggingface.co/lucasnewman/f5-tts-mlx/resolve/main/model.safetensors"
+      },
+      "memory_requirement_gb": 8,
+      "supported_modes": ["voice-clone"],
+      "recommended_hardware": "Apple M1 8GB or better"
+    },
+    {
       "id": "ltx-video-2b-distilled",
       "name": "LTX-Video 2B Distilled",
       "description": "Fast draft generation",

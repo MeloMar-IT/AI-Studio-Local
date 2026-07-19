@@ -448,6 +448,7 @@ class ProjectStudioViewModel: ObservableObject {
             sceneId: scene.id,
             imagePath: scene.mode == .imageToVideo ? scene.referenceImagePath : nil,
             audioPath: (scene.mode == .audioToVideo || scene.audioMode == .imported || scene.audioMode == .voiceover) ? scene.audioReferencePath : nil,
+            voiceCloneReferencePath: composed.metadata["voice_clone_reference_path"],
             retakeStartSeconds: scene.mode == .retake ? retakeStartSeconds : nil,
             retakeEndSeconds: scene.mode == .retake ? retakeEndSeconds : nil
         )
