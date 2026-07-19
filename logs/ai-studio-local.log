@@ -39316,3 +39316,895 @@ The final 10–15 seconds show the jaguar standing over its successful hunt, bre
 2026-07-19 01:10:47,826 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Job 0930d91f-22b4-4a31-9f29-b9529d98894a completed successfully
 2026-07-19 01:10:48,698 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/0930d91f-22b4-4a31-9f29-b9529d98894a
 2026-07-19 01:10:48,700 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/0930d91f-22b4-4a31-9f29-b9529d98894a - Status 200 - Duration 2.30ms
+2026-07-19 06:26:30,581 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /models
+2026-07-19 06:26:30,583 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /models - Status 200 - Duration 2.23ms
+2026-07-19 06:27:03,858 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming POST /generate/text-to-video
+2026-07-19 06:27:03,860 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Creating text-to-video job for model: ltx-video-av-q4
+2026-07-19 06:27:03,862 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Job 36537d85-4385-4035-9711-bdfa0bced9c9 started background execution.
+2026-07-19 06:27:03,863 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - LTXEngine: Starting text-to-video generation for job 36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:27:03,863 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - LTXEngine: Request prompt: 'Duration: 10 seconds
+Style: Cinematic, Pixar-inspired realism, high-quality 3D animation, natural lighting, smooth camera movement, realistic character animation, 4K.
+
+A friendly middle-aged man with shoulder-length straight blond hair, light skin, rectangular black glasses, and a short grey beard and moustache walks confidently through a modern open-plan IT office. He is about 170 cm tall with a slightly stocky build.
+
+He is wearing:
+
+* a distinctive red, white and black anime-style T-shirt featuring a female ninja warrior graphic
+* black jeans
+* black sneakers with white soles
+
+His hands casually move as he walks. He smiles warmly at the camera with an approachable, slightly nerdy personality.
+
+The office is spacious with long corridors, desks full of monitors, glass meeting rooms, indoor plants, coffee machines, modern lighting, and large floor-to-ceiling windows overlooking a city skyline. A few people work in the background but remain out of focus.
+
+The camera slowly tracks backwards in front of him using a stabilized gimbal movement while maintaining eye level. The depth of field is cinematic with soft background blur.
+
+Halfway through the shot he looks directly into the camera, smiles naturally and clearly says:
+
+“Hi, I am Marcel Koert.”
+
+His lips synchronize perfectly with the spoken words. After speaking he gives a friendly smile while continuing to walk naturally.
+
+The animation should emphasize believable weight, natural arm swing, realistic facial expressions, subtle eye movement, accurate cloth simulation, and convincing hair physics. Warm corporate lighting, cinematic colour grading, ultra-high detail, clean rendering, professional promotional quality.'
+2026-07-19 06:27:03,863 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Job 36537d85-4385-4035-9711-bdfa0bced9c9 progress: preparing_inputs (10.0%) - Preparing generation inputs...
+2026-07-19 06:27:03,864 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - MLXLTXAdapter: AV Generation for Duration: 10 seconds
+Style: Cinematic, Pixar-inspired realism, high-quality 3D animation, natural lighting, smooth camera movement, realistic character animation, 4K.
+
+A friendly middle-aged man with shoulder-length straight blond hair, light skin, rectangular black glasses, and a short grey beard and moustache walks confidently through a modern open-plan IT office. He is about 170 cm tall with a slightly stocky build.
+
+He is wearing:
+
+* a distinctive red, white and black anime-style T-shirt featuring a female ninja warrior graphic
+* black jeans
+* black sneakers with white soles
+
+His hands casually move as he walks. He smiles warmly at the camera with an approachable, slightly nerdy personality.
+
+The office is spacious with long corridors, desks full of monitors, glass meeting rooms, indoor plants, coffee machines, modern lighting, and large floor-to-ceiling windows overlooking a city skyline. A few people work in the background but remain out of focus.
+
+The camera slowly tracks backwards in front of him using a stabilized gimbal movement while maintaining eye level. The depth of field is cinematic with soft background blur.
+
+Halfway through the shot he looks directly into the camera, smiles naturally and clearly says:
+
+“Hi, I am Marcel Koert.”
+
+His lips synchronize perfectly with the spoken words. After speaking he gives a friendly smile while continuing to walk naturally.
+
+The animation should emphasize believable weight, natural arm swing, realistic facial expressions, subtle eye movement, accurate cloth simulation, and convincing hair physics. Warm corporate lighting, cinematic colour grading, ultra-high detail, clean rendering, professional promotional quality.
+2026-07-19 06:27:03,864 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Using seed for AV: 3706325646
+2026-07-19 06:27:03,864 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - MLXLTXAdapter: Starting unified AV generation for prompt: 'Duration: 10 seconds
+Style: Cinematic, Pixar-inspired realism, high-quality 3D animation, natural lighting, smooth camera movement, realistic character animation, 4K.
+
+A friendly middle-aged man with shoulder-length straight blond hair, light skin, rectangular black glasses, and a short grey beard and moustache walks confidently through a modern open-plan IT office. He is about 170 cm tall with a slightly stocky build.
+
+He is wearing:
+
+* a distinctive red, white and black anime-style T-shirt featuring a female ninja warrior graphic
+* black jeans
+* black sneakers with white soles
+
+His hands casually move as he walks. He smiles warmly at the camera with an approachable, slightly nerdy personality.
+
+The office is spacious with long corridors, desks full of monitors, glass meeting rooms, indoor plants, coffee machines, modern lighting, and large floor-to-ceiling windows overlooking a city skyline. A few people work in the background but remain out of focus.
+
+The camera slowly tracks backwards in front of him using a stabilized gimbal movement while maintaining eye level. The depth of field is cinematic with soft background blur.
+
+Halfway through the shot he looks directly into the camera, smiles naturally and clearly says:
+
+“Hi, I am Marcel Koert.”
+
+His lips synchronize perfectly with the spoken words. After speaking he gives a friendly smile while continuing to walk naturally.
+
+The animation should emphasize believable weight, natural arm swing, realistic facial expressions, subtle eye movement, accurate cloth simulation, and convincing hair physics. Warm corporate lighting, cinematic colour grading, ultra-high detail, clean rendering, professional promotional quality.'
+2026-07-19 06:27:03,865 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - MLXLTXAdapter: Details: 704x512, frames=240, steps=81, seed=3706325646
+2026-07-19 06:27:03,865 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed POST /generate/text-to-video - Status 200 - Duration 7.72ms
+2026-07-19 06:27:04,106 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9/events
+2026-07-19 06:27:04,220 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming POST /generate/text-to-video
+2026-07-19 06:27:04,397 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9/events - Status 200 - Duration 291.34ms
+2026-07-19 06:27:04,427 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - New subscription for job events: 36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:27:04,448 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Creating text-to-video job for model: ltx-video-av-q4
+2026-07-19 06:27:04,449 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Job 16e65d00-5f02-4153-986c-2923ddba3d81 started background execution.
+2026-07-19 06:27:04,449 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - LTXEngine: Starting text-to-video generation for job 16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:27:04,450 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - LTXEngine: Request prompt: 'Duration: 10 seconds
+Style: Cinematic, Pixar-inspired realism, high-quality 3D animation, natural lighting, smooth camera movement, realistic character animation, 4K.
+
+A friendly middle-aged man with shoulder-length straight blond hair, light skin, rectangular black glasses, and a short grey beard and moustache walks confidently through a modern open-plan IT office. He is about 170 cm tall with a slightly stocky build.
+
+He is wearing:
+
+* a distinctive red, white and black anime-style T-shirt featuring a female ninja warrior graphic
+* black jeans
+* black sneakers with white soles
+
+His hands casually move as he walks. He smiles warmly at the camera with an approachable, slightly nerdy personality.
+
+The office is spacious with long corridors, desks full of monitors, glass meeting rooms, indoor plants, coffee machines, modern lighting, and large floor-to-ceiling windows overlooking a city skyline. A few people work in the background but remain out of focus.
+
+The camera slowly tracks backwards in front of him using a stabilized gimbal movement while maintaining eye level. The depth of field is cinematic with soft background blur.
+
+Halfway through the shot he looks directly into the camera, smiles naturally and clearly says:
+
+“Hi, I am Marcel Koert.”
+
+His lips synchronize perfectly with the spoken words. After speaking he gives a friendly smile while continuing to walk naturally.
+
+The animation should emphasize believable weight, natural arm swing, realistic facial expressions, subtle eye movement, accurate cloth simulation, and convincing hair physics. Warm corporate lighting, cinematic colour grading, ultra-high detail, clean rendering, professional promotional quality.'
+2026-07-19 06:27:04,450 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Job 16e65d00-5f02-4153-986c-2923ddba3d81 progress: preparing_inputs (10.0%) - Preparing generation inputs...
+2026-07-19 06:27:04,452 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - MLXLTXAdapter: AV Generation for Duration: 10 seconds
+Style: Cinematic, Pixar-inspired realism, high-quality 3D animation, natural lighting, smooth camera movement, realistic character animation, 4K.
+
+A friendly middle-aged man with shoulder-length straight blond hair, light skin, rectangular black glasses, and a short grey beard and moustache walks confidently through a modern open-plan IT office. He is about 170 cm tall with a slightly stocky build.
+
+He is wearing:
+
+* a distinctive red, white and black anime-style T-shirt featuring a female ninja warrior graphic
+* black jeans
+* black sneakers with white soles
+
+His hands casually move as he walks. He smiles warmly at the camera with an approachable, slightly nerdy personality.
+
+The office is spacious with long corridors, desks full of monitors, glass meeting rooms, indoor plants, coffee machines, modern lighting, and large floor-to-ceiling windows overlooking a city skyline. A few people work in the background but remain out of focus.
+
+The camera slowly tracks backwards in front of him using a stabilized gimbal movement while maintaining eye level. The depth of field is cinematic with soft background blur.
+
+Halfway through the shot he looks directly into the camera, smiles naturally and clearly says:
+
+“Hi, I am Marcel Koert.”
+
+His lips synchronize perfectly with the spoken words. After speaking he gives a friendly smile while continuing to walk naturally.
+
+The animation should emphasize believable weight, natural arm swing, realistic facial expressions, subtle eye movement, accurate cloth simulation, and convincing hair physics. Warm corporate lighting, cinematic colour grading, ultra-high detail, clean rendering, professional promotional quality.
+2026-07-19 06:27:04,453 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Using seed for AV: 772030510
+2026-07-19 06:27:04,454 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - MLXLTXAdapter: Starting unified AV generation for prompt: 'Duration: 10 seconds
+Style: Cinematic, Pixar-inspired realism, high-quality 3D animation, natural lighting, smooth camera movement, realistic character animation, 4K.
+
+A friendly middle-aged man with shoulder-length straight blond hair, light skin, rectangular black glasses, and a short grey beard and moustache walks confidently through a modern open-plan IT office. He is about 170 cm tall with a slightly stocky build.
+
+He is wearing:
+
+* a distinctive red, white and black anime-style T-shirt featuring a female ninja warrior graphic
+* black jeans
+* black sneakers with white soles
+
+His hands casually move as he walks. He smiles warmly at the camera with an approachable, slightly nerdy personality.
+
+The office is spacious with long corridors, desks full of monitors, glass meeting rooms, indoor plants, coffee machines, modern lighting, and large floor-to-ceiling windows overlooking a city skyline. A few people work in the background but remain out of focus.
+
+The camera slowly tracks backwards in front of him using a stabilized gimbal movement while maintaining eye level. The depth of field is cinematic with soft background blur.
+
+Halfway through the shot he looks directly into the camera, smiles naturally and clearly says:
+
+“Hi, I am Marcel Koert.”
+
+His lips synchronize perfectly with the spoken words. After speaking he gives a friendly smile while continuing to walk naturally.
+
+The animation should emphasize believable weight, natural arm swing, realistic facial expressions, subtle eye movement, accurate cloth simulation, and convincing hair physics. Warm corporate lighting, cinematic colour grading, ultra-high detail, clean rendering, professional promotional quality.'
+2026-07-19 06:27:04,454 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - MLXLTXAdapter: Details: 704x512, frames=240, steps=81, seed=772030510
+2026-07-19 06:27:04,455 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed POST /generate/text-to-video - Status 200 - Duration 234.73ms
+2026-07-19 06:27:04,708 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81/events
+2026-07-19 06:27:04,827 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81/events - Status 200 - Duration 119.77ms
+2026-07-19 06:27:05,025 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - New subscription for job events: 16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:27:05,449 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Subscription ended for job: 36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:27:06,052 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Subscription ended for job: 16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:27:08,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:27:08,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:27:08,716 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.64ms
+2026-07-19 06:27:08,716 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.36ms
+2026-07-19 06:27:13,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:27:13,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:27:13,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 1.42ms
+2026-07-19 06:27:13,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.40ms
+2026-07-19 06:27:18,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:27:18,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:27:18,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.57ms
+2026-07-19 06:27:18,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.38ms
+2026-07-19 06:27:23,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:27:23,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:27:23,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.48ms
+2026-07-19 06:27:23,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.42ms
+2026-07-19 06:27:28,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:27:28,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.74ms
+2026-07-19 06:27:28,716 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:27:28,717 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.35ms
+2026-07-19 06:27:33,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:27:33,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:27:33,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.54ms
+2026-07-19 06:27:33,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.35ms
+2026-07-19 06:27:38,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:27:38,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:27:38,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.50ms
+2026-07-19 06:27:38,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.44ms
+2026-07-19 06:27:43,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:27:43,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:27:43,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.49ms
+2026-07-19 06:27:43,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.42ms
+2026-07-19 06:27:48,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:27:48,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.47ms
+2026-07-19 06:27:48,716 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:27:48,716 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.38ms
+2026-07-19 06:27:53,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:27:53,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:27:53,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.56ms
+2026-07-19 06:27:53,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.32ms
+2026-07-19 06:27:58,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:27:58,716 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:27:58,716 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.87ms
+2026-07-19 06:27:58,716 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.38ms
+2026-07-19 06:28:03,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:28:03,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:28:03,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.51ms
+2026-07-19 06:28:03,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.31ms
+2026-07-19 06:28:08,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:28:08,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:28:08,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.50ms
+2026-07-19 06:28:08,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.31ms
+2026-07-19 06:28:13,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:28:13,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:28:13,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.53ms
+2026-07-19 06:28:13,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.31ms
+2026-07-19 06:28:18,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:28:18,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.47ms
+2026-07-19 06:28:18,717 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:28:18,717 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.28ms
+2026-07-19 06:28:23,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:28:23,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:28:23,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.52ms
+2026-07-19 06:28:23,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.34ms
+2026-07-19 06:28:28,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:28:28,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.53ms
+2026-07-19 06:28:28,716 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:28:28,716 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.33ms
+2026-07-19 06:28:33,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:28:33,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:28:33,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.52ms
+2026-07-19 06:28:33,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.31ms
+2026-07-19 06:28:38,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:28:38,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:28:38,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.51ms
+2026-07-19 06:28:38,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.31ms
+2026-07-19 06:28:43,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:28:43,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:28:43,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.53ms
+2026-07-19 06:28:43,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.33ms
+2026-07-19 06:28:48,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:28:48,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:28:48,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.54ms
+2026-07-19 06:28:48,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.33ms
+2026-07-19 06:28:53,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:28:53,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:28:53,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.49ms
+2026-07-19 06:28:53,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.30ms
+2026-07-19 06:28:58,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:28:58,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.40ms
+2026-07-19 06:28:58,716 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:28:58,716 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.32ms
+2026-07-19 06:29:03,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:29:03,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:29:03,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.51ms
+2026-07-19 06:29:03,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.30ms
+2026-07-19 06:29:08,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:29:08,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:29:08,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.52ms
+2026-07-19 06:29:08,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.32ms
+2026-07-19 06:29:13,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:29:13,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:29:13,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.52ms
+2026-07-19 06:29:13,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.31ms
+2026-07-19 06:29:18,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:29:18,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.39ms
+2026-07-19 06:29:18,716 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:29:18,716 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.27ms
+2026-07-19 06:29:23,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:29:23,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:29:23,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.50ms
+2026-07-19 06:29:23,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.30ms
+2026-07-19 06:29:28,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:29:28,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:29:28,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.56ms
+2026-07-19 06:29:28,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.33ms
+2026-07-19 06:29:33,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:29:33,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.43ms
+2026-07-19 06:29:33,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:29:33,716 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.32ms
+2026-07-19 06:29:38,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:29:38,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:29:38,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.52ms
+2026-07-19 06:29:38,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.33ms
+2026-07-19 06:29:43,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:29:43,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:29:43,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.53ms
+2026-07-19 06:29:43,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.32ms
+2026-07-19 06:29:48,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:29:48,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:29:48,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.51ms
+2026-07-19 06:29:48,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.32ms
+2026-07-19 06:29:53,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:29:53,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.45ms
+2026-07-19 06:29:53,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:29:53,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.27ms
+2026-07-19 06:29:58,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:29:58,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:29:58,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.50ms
+2026-07-19 06:29:58,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.33ms
+2026-07-19 06:30:03,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:30:03,716 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.82ms
+2026-07-19 06:30:03,717 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:30:03,717 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.38ms
+2026-07-19 06:30:08,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:30:08,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:30:08,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.53ms
+2026-07-19 06:30:08,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.33ms
+2026-07-19 06:30:13,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:30:13,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:30:13,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.52ms
+2026-07-19 06:30:13,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.37ms
+2026-07-19 06:30:18,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:30:18,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.41ms
+2026-07-19 06:30:18,716 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:30:18,716 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.26ms
+2026-07-19 06:30:23,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:30:23,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:30:23,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.55ms
+2026-07-19 06:30:23,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.32ms
+2026-07-19 06:30:28,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:30:28,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:30:28,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.54ms
+2026-07-19 06:30:28,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.34ms
+2026-07-19 06:30:33,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:30:33,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:30:33,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.51ms
+2026-07-19 06:30:33,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.31ms
+2026-07-19 06:30:38,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:30:38,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:30:38,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.50ms
+2026-07-19 06:30:38,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.32ms
+2026-07-19 06:30:43,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:30:43,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:30:43,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.54ms
+2026-07-19 06:30:43,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.34ms
+2026-07-19 06:30:48,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:30:48,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:30:48,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.58ms
+2026-07-19 06:30:48,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.39ms
+2026-07-19 06:30:53,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:30:53,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:30:53,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.49ms
+2026-07-19 06:30:53,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.30ms
+2026-07-19 06:30:58,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:30:58,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:30:58,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.50ms
+2026-07-19 06:30:58,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.31ms
+2026-07-19 06:31:03,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:31:03,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:31:03,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.53ms
+2026-07-19 06:31:03,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.33ms
+2026-07-19 06:31:08,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:31:08,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:31:08,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.58ms
+2026-07-19 06:31:08,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.40ms
+2026-07-19 06:31:13,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:31:13,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:31:13,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.53ms
+2026-07-19 06:31:13,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.32ms
+2026-07-19 06:31:18,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:31:18,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:31:18,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.49ms
+2026-07-19 06:31:18,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.30ms
+2026-07-19 06:31:23,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:31:23,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:31:23,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.58ms
+2026-07-19 06:31:23,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.41ms
+2026-07-19 06:31:28,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:31:28,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:31:28,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.51ms
+2026-07-19 06:31:28,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.33ms
+2026-07-19 06:31:33,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:31:33,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:31:33,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.52ms
+2026-07-19 06:31:33,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.32ms
+2026-07-19 06:31:38,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:31:38,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:31:38,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.51ms
+2026-07-19 06:31:38,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.44ms
+2026-07-19 06:31:43,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:31:43,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:31:43,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.49ms
+2026-07-19 06:31:43,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.43ms
+2026-07-19 06:31:48,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:31:48,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:31:48,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.61ms
+2026-07-19 06:31:48,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.43ms
+2026-07-19 06:31:53,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:31:53,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:31:53,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.54ms
+2026-07-19 06:31:53,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.46ms
+2026-07-19 06:31:58,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:31:58,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:31:58,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.76ms
+2026-07-19 06:31:58,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.68ms
+2026-07-19 06:32:03,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:32:03,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:32:03,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.51ms
+2026-07-19 06:32:03,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.43ms
+2026-07-19 06:32:08,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:32:08,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:32:08,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.52ms
+2026-07-19 06:32:08,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.45ms
+2026-07-19 06:32:13,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:32:13,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:32:13,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.51ms
+2026-07-19 06:32:13,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.43ms
+2026-07-19 06:32:18,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:32:18,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:32:18,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.49ms
+2026-07-19 06:32:18,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.42ms
+2026-07-19 06:32:23,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:32:23,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:32:23,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.50ms
+2026-07-19 06:32:23,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.43ms
+2026-07-19 06:32:28,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:32:28,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:32:28,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.51ms
+2026-07-19 06:32:28,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.46ms
+2026-07-19 06:32:33,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:32:33,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:32:33,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.49ms
+2026-07-19 06:32:33,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.42ms
+2026-07-19 06:32:38,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:32:38,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:32:38,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.49ms
+2026-07-19 06:32:38,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.43ms
+2026-07-19 06:32:43,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:32:43,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:32:43,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.53ms
+2026-07-19 06:32:43,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.44ms
+2026-07-19 06:32:48,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:32:48,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:32:48,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.52ms
+2026-07-19 06:32:48,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.46ms
+2026-07-19 06:32:53,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:32:53,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:32:53,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.49ms
+2026-07-19 06:32:53,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.43ms
+2026-07-19 06:32:58,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:32:58,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:32:58,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.56ms
+2026-07-19 06:32:58,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.45ms
+2026-07-19 06:33:03,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:33:03,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:33:03,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.55ms
+2026-07-19 06:33:03,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.45ms
+2026-07-19 06:33:08,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:33:08,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:33:08,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.59ms
+2026-07-19 06:33:08,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.53ms
+2026-07-19 06:33:13,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:33:13,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:33:13,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.54ms
+2026-07-19 06:33:13,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.47ms
+2026-07-19 06:33:18,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:33:18,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:33:18,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.54ms
+2026-07-19 06:33:18,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.44ms
+2026-07-19 06:33:23,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:33:23,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:33:23,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.52ms
+2026-07-19 06:33:23,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.31ms
+2026-07-19 06:33:28,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:33:28,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:33:28,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.55ms
+2026-07-19 06:33:28,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.47ms
+2026-07-19 06:33:33,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:33:33,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:33:33,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.60ms
+2026-07-19 06:33:33,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.50ms
+2026-07-19 06:33:38,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:33:38,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:33:38,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.58ms
+2026-07-19 06:33:38,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.49ms
+2026-07-19 06:33:43,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:33:43,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:33:43,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.51ms
+2026-07-19 06:33:43,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.32ms
+2026-07-19 06:33:48,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:33:48,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:33:48,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.55ms
+2026-07-19 06:33:48,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.33ms
+2026-07-19 06:33:53,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:33:53,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:33:53,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.52ms
+2026-07-19 06:33:53,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.46ms
+2026-07-19 06:33:58,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:33:58,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:33:58,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.53ms
+2026-07-19 06:33:58,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.47ms
+2026-07-19 06:34:03,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:34:03,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:34:03,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.54ms
+2026-07-19 06:34:03,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.46ms
+2026-07-19 06:34:08,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:34:08,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:34:08,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.54ms
+2026-07-19 06:34:08,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.46ms
+2026-07-19 06:34:13,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:34:13,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.51ms
+2026-07-19 06:34:13,716 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:34:13,716 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.39ms
+2026-07-19 06:34:18,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:34:18,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:34:18,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.88ms
+2026-07-19 06:34:18,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.32ms
+2026-07-19 06:34:21,323 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - MLXLTXAdapter: Output file exists. Size: 1330150 bytes
+2026-07-19 06:34:21,323 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Job 36537d85-4385-4035-9711-bdfa0bced9c9 progress: completed (100.0%) - Generation finished
+2026-07-19 06:34:21,331 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Extracted preview to outputs/36537d85-4385-4035-9711-bdfa0bced9c9/preview.jpg
+2026-07-19 06:34:21,331 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - LTXEngine: Generation finished in 437.47s
+2026-07-19 06:34:21,338 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Extracted preview to outputs/36537d85-4385-4035-9711-bdfa0bced9c9/preview.jpg
+2026-07-19 06:34:21,339 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - LTXEngine: Saving composed prompt to file: 'Duration: 10 seconds
+Style: Cinematic, Pixar-inspired realism, high-quality 3D animation, natural lighting, smooth camera movement, realistic character animation, 4K.
+
+A friendly middle-aged man with shoulder-length straight blond hair, light skin, rectangular black glasses, and a short grey beard and moustache walks confidently through a modern open-plan IT office. He is about 170 cm tall with a slightly stocky build.
+
+He is wearing:
+
+* a distinctive red, white and black anime-style T-shirt featuring a female ninja warrior graphic
+* black jeans
+* black sneakers with white soles
+
+His hands casually move as he walks. He smiles warmly at the camera with an approachable, slightly nerdy personality.
+
+The office is spacious with long corridors, desks full of monitors, glass meeting rooms, indoor plants, coffee machines, modern lighting, and large floor-to-ceiling windows overlooking a city skyline. A few people work in the background but remain out of focus.
+
+The camera slowly tracks backwards in front of him using a stabilized gimbal movement while maintaining eye level. The depth of field is cinematic with soft background blur.
+
+Halfway through the shot he looks directly into the camera, smiles naturally and clearly says:
+
+“Hi, I am Marcel Koert.”
+
+His lips synchronize perfectly with the spoken words. After speaking he gives a friendly smile while continuing to walk naturally.
+
+The animation should emphasize believable weight, natural arm swing, realistic facial expressions, subtle eye movement, accurate cloth simulation, and convincing hair physics. Warm corporate lighting, cinematic colour grading, ultra-high detail, clean rendering, professional promotional quality.'
+2026-07-19 06:34:21,340 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Job 36537d85-4385-4035-9711-bdfa0bced9c9 updated: completed (100.0%) - Job completed successfully
+2026-07-19 06:34:21,340 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Job 36537d85-4385-4035-9711-bdfa0bced9c9 completed successfully
+2026-07-19 06:34:23,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:34:23,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9
+2026-07-19 06:34:23,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.57ms
+2026-07-19 06:34:23,715 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/36537d85-4385-4035-9711-bdfa0bced9c9 - Status 200 - Duration 0.34ms
+2026-07-19 06:34:28,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:34:28,714 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 0.51ms
+2026-07-19 06:34:30,434 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - MLXLTXAdapter: Output file exists. Size: 1065162 bytes
+2026-07-19 06:34:30,435 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Job 16e65d00-5f02-4153-986c-2923ddba3d81 progress: completed (100.0%) - Generation finished
+2026-07-19 06:34:30,442 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Extracted preview to outputs/16e65d00-5f02-4153-986c-2923ddba3d81/preview.jpg
+2026-07-19 06:34:30,443 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - LTXEngine: Generation finished in 445.99s
+2026-07-19 06:34:30,450 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Extracted preview to outputs/16e65d00-5f02-4153-986c-2923ddba3d81/preview.jpg
+2026-07-19 06:34:30,451 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - LTXEngine: Saving composed prompt to file: 'Duration: 10 seconds
+Style: Cinematic, Pixar-inspired realism, high-quality 3D animation, natural lighting, smooth camera movement, realistic character animation, 4K.
+
+A friendly middle-aged man with shoulder-length straight blond hair, light skin, rectangular black glasses, and a short grey beard and moustache walks confidently through a modern open-plan IT office. He is about 170 cm tall with a slightly stocky build.
+
+He is wearing:
+
+* a distinctive red, white and black anime-style T-shirt featuring a female ninja warrior graphic
+* black jeans
+* black sneakers with white soles
+
+His hands casually move as he walks. He smiles warmly at the camera with an approachable, slightly nerdy personality.
+
+The office is spacious with long corridors, desks full of monitors, glass meeting rooms, indoor plants, coffee machines, modern lighting, and large floor-to-ceiling windows overlooking a city skyline. A few people work in the background but remain out of focus.
+
+The camera slowly tracks backwards in front of him using a stabilized gimbal movement while maintaining eye level. The depth of field is cinematic with soft background blur.
+
+Halfway through the shot he looks directly into the camera, smiles naturally and clearly says:
+
+“Hi, I am Marcel Koert.”
+
+His lips synchronize perfectly with the spoken words. After speaking he gives a friendly smile while continuing to walk naturally.
+
+The animation should emphasize believable weight, natural arm swing, realistic facial expressions, subtle eye movement, accurate cloth simulation, and convincing hair physics. Warm corporate lighting, cinematic colour grading, ultra-high detail, clean rendering, professional promotional quality.'
+2026-07-19 06:34:30,452 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Job 16e65d00-5f02-4153-986c-2923ddba3d81 updated: completed (100.0%) - Job completed successfully
+2026-07-19 06:34:30,452 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Job 16e65d00-5f02-4153-986c-2923ddba3d81 completed successfully
+2026-07-19 06:34:33,717 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81
+2026-07-19 06:34:33,718 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/16e65d00-5f02-4153-986c-2923ddba3d81 - Status 200 - Duration 2.03ms
+2026-07-19 07:27:00,512 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /models
+2026-07-19 07:27:00,513 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /models - Status 200 - Duration 1.47ms
+2026-07-19 07:27:04,015 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /models
+2026-07-19 07:27:04,016 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /models - Status 200 - Duration 0.78ms
+2026-07-19 07:29:21,706 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming POST /generate/image-to-video
+2026-07-19 07:29:21,708 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Creating image-to-video job for model: ltx-video-av-q4, image: /Users/marcelkoert/Downloads/fun.png
+2026-07-19 07:29:21,710 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Job ad671fde-a98a-4d4f-9f0f-7affbf52016b started background execution.
+2026-07-19 07:29:21,710 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - LTXEngine: Starting image-to-video generation for job ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:29:21,711 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - LTXEngine: Request prompt: 'Create a high-quality cinematic animation of the exact same stylized cartoon character shown in the reference image. Maintain identical facial features, proportions, long blond hair, glasses, beard, clothing, shoes, and overall art style. Do not redesign or replace the character.
+
+The character is standing in front of the bold red background with the large yellow “YOUR NAME” graffiti text exactly as in the reference.
+
+The character smiles confidently, then begins performing a fun, energetic dance:
+
+* Starts by tapping one foot to the beat.
+* Shifts weight from side to side.
+* Swings both arms naturally.
+* Performs a few playful shoulder pops.
+* Spins about 90 degrees before turning back.
+* Finishes with a small hop, points both thumbs toward himself, and smiles at the camera.
+
+Hair moves naturally with the motion. The oversized head should have subtle secondary movement, giving a lively cartoon feel.'
+2026-07-19 07:29:21,711 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Job ad671fde-a98a-4d4f-9f0f-7affbf52016b progress: preparing_inputs (10.0%) - Preparing generation inputs...
+2026-07-19 07:29:21,711 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - MLXLTXAdapter: AV Generation for Create a high-quality cinematic animation of the exact same stylized cartoon character shown in the reference image. Maintain identical facial features, proportions, long blond hair, glasses, beard, clothing, shoes, and overall art style. Do not redesign or replace the character.
+
+The character is standing in front of the bold red background with the large yellow “YOUR NAME” graffiti text exactly as in the reference.
+
+The character smiles confidently, then begins performing a fun, energetic dance:
+
+* Starts by tapping one foot to the beat.
+* Shifts weight from side to side.
+* Swings both arms naturally.
+* Performs a few playful shoulder pops.
+* Spins about 90 degrees before turning back.
+* Finishes with a small hop, points both thumbs toward himself, and smiles at the camera.
+
+Hair moves naturally with the motion. The oversized head should have subtle secondary movement, giving a lively cartoon feel.
+2026-07-19 07:29:21,712 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Using seed for AV: 4129744258
+2026-07-19 07:29:21,712 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - MLXLTXAdapter: Starting unified AV generation for prompt: 'Create a high-quality cinematic animation of the exact same stylized cartoon character shown in the reference image. Maintain identical facial features, proportions, long blond hair, glasses, beard, clothing, shoes, and overall art style. Do not redesign or replace the character.
+
+The character is standing in front of the bold red background with the large yellow “YOUR NAME” graffiti text exactly as in the reference.
+
+The character smiles confidently, then begins performing a fun, energetic dance:
+
+* Starts by tapping one foot to the beat.
+* Shifts weight from side to side.
+* Swings both arms naturally.
+* Performs a few playful shoulder pops.
+* Spins about 90 degrees before turning back.
+* Finishes with a small hop, points both thumbs toward himself, and smiles at the camera.
+
+Hair moves naturally with the motion. The oversized head should have subtle secondary movement, giving a lively cartoon feel.'
+2026-07-19 07:29:21,712 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - MLXLTXAdapter: Details: 704x512, frames=228, steps=20, seed=4129744258
+2026-07-19 07:29:21,713 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed POST /generate/image-to-video - Status 200 - Duration 6.82ms
+2026-07-19 07:29:21,963 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b/events
+2026-07-19 07:29:22,227 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b/events - Status 200 - Duration 263.22ms
+2026-07-19 07:29:22,257 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - New subscription for job events: ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:29:23,283 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Subscription ended for job: ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:29:23,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:29:23,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.38ms
+2026-07-19 07:29:28,769 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:29:28,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.42ms
+2026-07-19 07:29:33,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:29:33,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.47ms
+2026-07-19 07:29:38,769 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:29:38,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.36ms
+2026-07-19 07:29:43,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:29:43,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.34ms
+2026-07-19 07:29:48,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:29:48,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.39ms
+2026-07-19 07:29:53,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:29:53,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.34ms
+2026-07-19 07:29:58,769 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:29:58,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.38ms
+2026-07-19 07:30:03,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:30:03,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.37ms
+2026-07-19 07:30:08,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:30:08,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.38ms
+2026-07-19 07:30:13,769 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:30:13,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.36ms
+2026-07-19 07:30:18,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:30:18,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.37ms
+2026-07-19 07:30:23,769 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:30:23,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.41ms
+2026-07-19 07:30:28,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:30:28,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.37ms
+2026-07-19 07:30:33,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:30:33,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.37ms
+2026-07-19 07:30:38,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:30:38,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.34ms
+2026-07-19 07:30:43,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:30:43,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.35ms
+2026-07-19 07:30:48,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:30:48,772 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.65ms
+2026-07-19 07:30:53,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:30:53,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.40ms
+2026-07-19 07:30:58,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:30:58,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.34ms
+2026-07-19 07:31:03,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:31:03,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.36ms
+2026-07-19 07:31:08,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:31:08,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.36ms
+2026-07-19 07:31:13,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:31:13,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.38ms
+2026-07-19 07:31:18,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:31:18,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.36ms
+2026-07-19 07:31:23,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:31:23,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.36ms
+2026-07-19 07:31:28,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:31:28,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.35ms
+2026-07-19 07:31:33,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:31:33,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.35ms
+2026-07-19 07:31:38,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:31:38,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.35ms
+2026-07-19 07:31:43,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:31:43,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.42ms
+2026-07-19 07:31:48,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:31:48,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.41ms
+2026-07-19 07:31:53,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:31:53,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.37ms
+2026-07-19 07:31:58,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:31:58,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.37ms
+2026-07-19 07:32:03,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:32:03,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.36ms
+2026-07-19 07:32:08,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:32:08,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.38ms
+2026-07-19 07:32:13,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:32:13,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.36ms
+2026-07-19 07:32:18,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:32:18,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.36ms
+2026-07-19 07:32:23,772 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:32:23,772 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.50ms
+2026-07-19 07:32:28,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:32:28,772 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.35ms
+2026-07-19 07:32:33,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:32:33,772 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.36ms
+2026-07-19 07:32:38,770 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:32:38,771 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.37ms
+2026-07-19 07:32:43,772 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:32:43,772 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 0.38ms
+2026-07-19 07:32:46,224 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - MLXLTXAdapter: Output file exists. Size: 1997426 bytes
+2026-07-19 07:32:46,224 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Job ad671fde-a98a-4d4f-9f0f-7affbf52016b progress: completed (100.0%) - Generation finished
+2026-07-19 07:32:46,236 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Extracted preview to outputs/ad671fde-a98a-4d4f-9f0f-7affbf52016b/preview.jpg
+2026-07-19 07:32:46,237 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - LTXEngine: Generation finished in 204.53s
+2026-07-19 07:32:46,247 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Extracted preview to outputs/ad671fde-a98a-4d4f-9f0f-7affbf52016b/preview.jpg
+2026-07-19 07:32:46,248 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - LTXEngine: Saving composed prompt to file: 'Create a high-quality cinematic animation of the exact same stylized cartoon character shown in the reference image. Maintain identical facial features, proportions, long blond hair, glasses, beard, clothing, shoes, and overall art style. Do not redesign or replace the character.
+
+The character is standing in front of the bold red background with the large yellow “YOUR NAME” graffiti text exactly as in the reference.
+
+The character smiles confidently, then begins performing a fun, energetic dance:
+
+* Starts by tapping one foot to the beat.
+* Shifts weight from side to side.
+* Swings both arms naturally.
+* Performs a few playful shoulder pops.
+* Spins about 90 degrees before turning back.
+* Finishes with a small hop, points both thumbs toward himself, and smiles at the camera.
+
+Hair moves naturally with the motion. The oversized head should have subtle secondary movement, giving a lively cartoon feel.'
+2026-07-19 07:32:46,251 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Job ad671fde-a98a-4d4f-9f0f-7affbf52016b updated: completed (100.0%) - Job completed successfully
+2026-07-19 07:32:46,251 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Job ad671fde-a98a-4d4f-9f0f-7affbf52016b completed successfully
+2026-07-19 07:32:48,778 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b
+2026-07-19 07:32:48,779 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /jobs/ad671fde-a98a-4d4f-9f0f-7affbf52016b - Status 200 - Duration 1.52ms
+2026-07-19 07:33:32,442 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /models
+2026-07-19 07:33:32,443 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /models - Status 200 - Duration 0.99ms
+2026-07-19 07:36:52,284 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /models
+2026-07-19 07:36:52,285 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /models - Status 200 - Duration 0.79ms
+2026-07-19 07:36:57,975 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /models
+2026-07-19 07:36:57,976 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /models - Status 200 - Duration 0.89ms
+2026-07-19 07:37:01,754 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Incoming GET /models
+2026-07-19 07:37:01,754 - ai-video-worker - v0.1.1 - [31586] - MainThread - INFO - Completed GET /models - Status 200 - Duration 0.84ms
+2026-07-19 08:30:48,215 - ai-video-worker - v0.1.1 - [36740] - MainThread - INFO - Initialized LTXGenerationEngine with adapter: MLXLTXAdapter
+2026-07-19 08:30:48,602 - ai-video-worker - v0.1.1 - [36740] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python3
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (101.96 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/models
+Models Disk:    714.45 GB free
+============================================================
+2026-07-19 08:30:48,615 - ai-video-worker - v0.1.1 - [36740] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python3
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (101.83 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/models
+Models Disk:    714.45 GB free
+============================================================
+2026-07-19 08:32:12,727 - ai-video-worker - v0.1.1 - [36985] - MainThread - INFO - Initialized LTXGenerationEngine with adapter: MLXLTXAdapter
+2026-07-19 08:32:13,116 - ai-video-worker - v0.1.1 - [36985] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python3
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (101.4 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/models
+Models Disk:    714.44 GB free
+============================================================
+2026-07-19 08:32:13,128 - ai-video-worker - v0.1.1 - [36985] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python3
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (101.29 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/models
+Models Disk:    714.44 GB free
+============================================================
+2026-07-19 08:32:14,021 - ai-video-worker - v0.1.1 - [36985] - MainThread - INFO - Incoming GET /health
+2026-07-19 08:32:14,029 - ai-video-worker - v0.1.1 - [36985] - MainThread - INFO - Completed GET /health - Status 200 - Duration 7.69ms
+2026-07-19 08:32:14,039 - ai-video-worker - v0.1.1 - [36985] - MainThread - INFO - Incoming GET /hardware
+2026-07-19 08:32:14,053 - ai-video-worker - v0.1.1 - [36985] - MainThread - INFO - Completed GET /hardware - Status 200 - Duration 14.10ms
+2026-07-19 08:32:29,361 - ai-video-worker - v0.1.1 - [36985] - MainThread - INFO - Incoming GET /models
+2026-07-19 08:32:29,362 - ai-video-worker - v0.1.1 - [36985] - MainThread - INFO - Completed GET /models - Status 200 - Duration 1.13ms
+2026-07-19 08:34:59,967 - ai-video-worker - v0.1.1 - [37105] - MainThread - INFO - Initialized LTXGenerationEngine with adapter: MLXLTXAdapter
+2026-07-19 08:35:00,341 - ai-video-worker - v0.1.1 - [37105] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python3
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (101.88 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/models
+Models Disk:    714.45 GB free
+============================================================
+2026-07-19 08:35:00,351 - ai-video-worker - v0.1.1 - [37105] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python3
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (101.74 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/models
+Models Disk:    714.45 GB free
+============================================================
+2026-07-19 08:35:04,538 - ai-video-worker - v0.1.1 - [37105] - MainThread - INFO - Incoming GET /health
+2026-07-19 08:35:04,542 - ai-video-worker - v0.1.1 - [37105] - MainThread - INFO - Completed GET /health - Status 200 - Duration 3.77ms
+2026-07-19 08:35:04,602 - ai-video-worker - v0.1.1 - [37105] - MainThread - INFO - Incoming GET /hardware
+2026-07-19 08:35:04,614 - ai-video-worker - v0.1.1 - [37105] - MainThread - INFO - Completed GET /hardware - Status 200 - Duration 11.34ms
+2026-07-19 08:35:04,615 - ai-video-worker - v0.1.1 - [37105] - MainThread - INFO - Incoming GET /hardware
+2026-07-19 08:35:04,627 - ai-video-worker - v0.1.1 - [37105] - MainThread - INFO - Completed GET /hardware - Status 200 - Duration 12.16ms
+2026-07-19 09:11:14,014 - ai-video-worker - v0.1.1 - [37105] - MainThread - INFO - Incoming GET /models
+2026-07-19 09:11:14,016 - ai-video-worker - v0.1.1 - [37105] - MainThread - INFO - Completed GET /models - Status 200 - Duration 1.81ms
+2026-07-19 09:11:24,308 - ai-video-worker - v0.1.1 - [37105] - MainThread - INFO - Incoming GET /models
+2026-07-19 09:11:24,309 - ai-video-worker - v0.1.1 - [37105] - MainThread - INFO - Completed GET /models - Status 200 - Duration 0.92ms

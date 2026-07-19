@@ -4,6 +4,8 @@ AI Studio Local (AI Studio Local) is a native macOS application designed for loc
 
 ## 🚀 Getting Started
 
+* **[User Guide](user-guide)** - How to set up and run the application.
+* **[Model Download Guide](model-download-guide)** - Where to get the AI models.
 * **[Introduction](Home)** - Overview of the project and its goals.
 * **[User Experience](User-Experience)** - Principles behind the design and workflow.
 * **[Development Setup](Development-Setup)** - How to get the project running on your machine.

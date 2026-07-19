@@ -102,6 +102,8 @@ A service that automatically combines scene prompts with attached continuity ele
 
 ## Documentation
 
+- **[User Guide (Start Here)](docs/user-guide.md)**: How to set up and run the application.
+- **[Model Download Guide](docs/model-download-guide.md)**: Where to get the AI models.
 - [Architecture Overview](docs/architecture.md)
 - [User Experience](docs/user-experience.md)
 - [Development Setup](docs/development-setup.md)

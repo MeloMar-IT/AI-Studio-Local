@@ -4,6 +4,7 @@ struct ContinuityElementDetailView: View {
     @ObservedObject var viewModel: ContinuityLibraryViewModel
     @State private var editedElement: ContinuityElement
     @State private var isShowingDeleteConfirmation = false
+    @State private var isShowingImagePicker = false
 
     init(viewModel: ContinuityLibraryViewModel, element: ContinuityElement) {
         self.viewModel = viewModel
@@ -77,6 +78,20 @@ struct ContinuityElementDetailView: View {
                                     .stroke(Color.App.border, lineWidth: 1)
                             )
                     }
+                }
+
+                if editedElement.type != .brand && editedElement.type != .audio && editedElement.type != .camera && editedElement.type != .exportTemplate {
+                    AssetGalleryView(
+                        assets: editedElement.assets,
+                        onAdd: { isShowingImagePicker = true },
+                        onDelete: { assetId in
+                            viewModel.removeAsset(from: editedElement.id, assetId: assetId)
+                            if let updated = viewModel.elements.first(where: { $0.id == editedElement.id }) {
+                                editedElement = updated
+                            }
+                        }
+                    )
+                    Divider()
                 }
 
                 if editedElement.type != .brand {
@@ -162,6 +177,24 @@ struct ContinuityElementDetailView: View {
         ) {
             Button("Delete", role: .destructive) {
                 viewModel.deleteElement(editedElement.id)
+            }
+        }
+        .fileImporter(
+            isPresented: $isShowingImagePicker,
+            allowedContentTypes: [.image],
+            allowsMultipleSelection: true
+        ) { result in
+            switch result {
+            case .success(let urls):
+                for url in urls {
+                    viewModel.addAsset(to: editedElement.id, fileURL: url)
+                }
+                // Refresh local state
+                if let updated = viewModel.elements.first(where: { $0.id == editedElement.id }) {
+                    editedElement = updated
+                }
+            case .failure(let error):
+                viewModel.error = error
             }
         }
     }

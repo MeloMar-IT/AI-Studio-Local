@@ -79,6 +79,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/AssetGalleryView.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/ElementChip.swift"
         },
         {
@@ -380,6 +384,7 @@
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/MainNavigationView.swift.o",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Colors.swift.o",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppErrorView.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AssetGalleryView.swift.o",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ElementChip.swift.o",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/EmptyStateView.swift.o",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/FlowLayout.swift.o",
@@ -526,6 +531,10 @@
         {
           "kind" : "file",
           "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppErrorView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AssetGalleryView.swift.o"
         },
         {
           "kind" : "file",
@@ -820,6 +829,7 @@
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/App/MainNavigationView.swift",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Colors.swift",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/AppErrorView.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/AssetGalleryView.swift",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/ElementChip.swift",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/EmptyStateView.swift",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/FlowLayout.swift",
@@ -1273,6 +1283,7 @@
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/App/MainNavigationView.swift",
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Colors.swift",
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/AppErrorView.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/AssetGalleryView.swift",
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/ElementChip.swift",
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/EmptyStateView.swift",
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/FlowLayout.swift",
@@ -1616,6 +1627,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/AssetGalleryView.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/ElementChip.swift"
         },
         {
@@ -1931,6 +1946,10 @@
         {
           "kind" : "file",
           "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppState.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AssetGalleryView.swift.o"
         },
         {
           "kind" : "file",
@@ -2259,6 +2278,10 @@
         {
           "kind" : "file",
           "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppState.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AssetGalleryView.swift.o"
         },
         {
           "kind" : "file",

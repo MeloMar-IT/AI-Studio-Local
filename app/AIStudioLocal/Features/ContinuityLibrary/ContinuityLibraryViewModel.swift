@@ -80,8 +80,58 @@ class ContinuityLibraryViewModel: ObservableObject {
         }
     }
 
+    func addAsset(to elementId: String, fileURL: URL) {
+        guard let index = elements.firstIndex(where: { $0.id == elementId }) else { return }
+        var element = elements[index]
+
+        let assetId = UUID().uuidString
+        let destinationFolder = UserSettings.shared.continuityLibraryURL
+            .appendingPathComponent(element.type.folderName)
+            .appendingPathComponent("assets")
+
+        do {
+            try FileManager.default.createDirectory(at: destinationFolder, withIntermediateDirectories: true)
+
+            let fileExtension = fileURL.pathExtension
+            let destinationURL = destinationFolder.appendingPathComponent("\(assetId).\(fileExtension)")
+
+            try FileManager.default.copyItem(at: fileURL, to: destinationURL)
+
+            let newAsset = ContinuityAsset(id: assetId, path: destinationURL.path, type: "image")
+            element.assets.append(newAsset)
+            element.modifiedAt = Date()
+
+            updateElement(element)
+        } catch {
+            self.error = error
+        }
+    }
+
+    func removeAsset(from elementId: String, assetId: String) {
+        guard let index = elements.firstIndex(where: { $0.id == elementId }) else { return }
+        var element = elements[index]
+
+        if let assetIndex = element.assets.firstIndex(where: { $0.id == assetId }) {
+            let asset = element.assets[assetIndex]
+
+            // Try to delete the file
+            try? FileManager.default.removeItem(atPath: asset.path)
+
+            element.assets.remove(at: assetIndex)
+            element.modifiedAt = Date()
+
+            updateElement(element)
+        }
+    }
+
     func deleteElement(_ elementId: String) {
         guard let element = elements.first(where: { $0.id == elementId }) else { return }
+
+        // Clean up assets
+        for asset in element.assets {
+            try? FileManager.default.removeItem(atPath: asset.path)
+        }
+
         do {
             try store.delete(elementId: elementId, type: element.type)
             elements.removeAll { $0.id == elementId }

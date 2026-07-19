@@ -44,6 +44,13 @@
     "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppErrorView.swiftdeps",
     "diagnostics": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppErrorView.dia"
   },
+  "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/AssetGalleryView.swift": {
+    "dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AssetGalleryView.d",
+    "object": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AssetGalleryView.swift.o",
+    "swiftmodule": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AssetGalleryView~partial.swiftmodule",
+    "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AssetGalleryView.swiftdeps",
+    "diagnostics": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AssetGalleryView.dia"
+  },
   "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/ElementChip.swift": {
     "dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ElementChip.d",
     "object": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/ElementChip.swift.o",

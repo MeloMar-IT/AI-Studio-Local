@@ -1,6 +1,6 @@
-ls app# Development Setup
+# Development Setup
 
-This guide helps you set up AI Studio Local for local development.
+This guide helps you set up AI Studio Local for local development. For a simpler overview focused on just running the application, see the **[User Guide](user-guide.md)**.
 
 ## Current Status: MVP Foundation (v0.1.0)
 
