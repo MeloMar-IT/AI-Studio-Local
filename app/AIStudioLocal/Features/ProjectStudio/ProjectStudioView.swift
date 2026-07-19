@@ -945,7 +945,7 @@ struct ProjectStudioView: View {
                                     Slider(value: Binding(
                                         get: { scene.durationSeconds },
                                         set: { viewModel.updateSceneDuration(scene.id, duration: $0) }
-                                    ), in: 1...10, step: 0.5)
+                                    ), in: 1...60, step: 0.5)
 
                                     Text("\(String(format: "%.1f", scene.durationSeconds))s")
                                         .font(.App.caption)

@@ -430,6 +430,8 @@ class ProjectStudioViewModel: ObservableObject {
         let modelId = scene.modelProfileId ?? project.modelProfileId ?? "ltx-video-av-q4"
         let modelName = availableModels.first(where: { $0.id == modelId })?.name ?? "LTX Video AV Q4"
 
+        // Calculate frames based on duration and FPS.
+        // Note: Increasing duration beyond 10s (up to 60s) will significantly increase generation time and memory usage.
         let request = GenerationRequest(
             prompt: scene.mode == .retake ? retakePrompt : composed.prompt,
             negativePrompt: composed.negativePrompt.isEmpty ? nil : composed.negativePrompt,

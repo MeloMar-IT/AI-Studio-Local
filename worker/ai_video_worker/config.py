@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     host: str = "127.0.0.1"
     port: int = 8000
     environment: Literal["development", "test", "production"] = "production"
-    log_level: str = "TRACE"
+    log_level: str = "INFO"
     log_file: str = "../logs/ai-studio-local.log"
 
     # Engine configuration

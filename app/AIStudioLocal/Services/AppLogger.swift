@@ -60,6 +60,11 @@ public final class AppLogger {
 
     /// Log a message with a specific category and level
     public func log(_ message: String, category: LoggerCategory = .general, level: OSLogType = .default) {
+        // Only log debug messages in DEBUG builds
+        #if !DEBUG
+        if level == .debug { return }
+        #endif
+
         let logger = getLogger(for: category)
         logger.log(level: level, "\(message)")
 
