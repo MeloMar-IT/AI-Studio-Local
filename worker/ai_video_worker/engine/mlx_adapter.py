@@ -185,7 +185,13 @@ class MLXLTXAdapter(LTXAdapter):
         import mlx.core as mx
         import numpy as mx_numpy # mlx usually doesn't have .numpy, it's np-like
 
+        # Use composed prompt if it's sent from the app
         prompt = getattr(request, "prompt", "")
+        if hasattr(request, "composed_prompt") and request.composed_prompt:
+            prompt = request.composed_prompt
+        elif isinstance(request, dict) and request.get("composed_prompt"):
+            prompt = request.get("composed_prompt")
+
         negative_prompt = getattr(request, "negative_prompt", "")
         width = getattr(request, "width", 704)
         height = getattr(request, "height", 512)
@@ -199,9 +205,35 @@ class MLXLTXAdapter(LTXAdapter):
         height = (height // 32) * 32
 
         self._log_job(f"Generating: {width}x{height}, {num_frames} frames, steps={num_inference_steps}, seed={seed}")
+
+        loras = getattr(request, "loras", [])
+        if loras:
+            lora_info = ", ".join([f"{l.path} (scale: {l.scale})" for l in loras])
+            self._log_job(f"MLXAdapter [BASE]: LORAS BEING PASSED TO ENGINE: {lora_info}")
+            # Support multiple LoRAs if the library supports it, or at least the first one
+            try:
+                # Based on typical MLX/Diffusers adapters
+                for lora in loras:
+                    if os.path.exists(lora.path):
+                        # Force scale to 1.0 as requested
+                        lora_scale = 1.0
+                        self._log_job(f"MLXAdapter [BASE]: Loading LoRA from {lora.path} with scale {lora_scale} (forced to 1.0)")
+                        # If the pipeline has load_lora_weights (diffusers-like)
+                        if hasattr(self._pipeline, "load_lora_weights"):
+                            self._pipeline.load_lora_weights(lora.path, adapter_name=os.path.basename(lora.path))
+                            if hasattr(self._pipeline, "set_adapters"):
+                                self._pipeline.set_adapters([os.path.basename(lora.path)], adapter_weights=[lora_scale])
+                        # Or if it's a direct mlx-video/ltx-video method
+                        elif hasattr(self._pipeline, "load_lora"):
+                            self._pipeline.load_lora(lora.path, scale=lora_scale)
+                    else:
+                        self._log_job(f"MLXAdapter [BASE]: WARNING: LoRA file not found at {lora.path}")
+            except Exception as e:
+                self._log_job(f"MLXAdapter [BASE]: Error loading LoRA: {e}")
+        else:
+            self._log_job("MLXAdapter [BASE]: NO LORAS DETECTED IN REQUEST")
+
         self._log_job(f"MLXAdapter [BASE]: PROMPT BEING USED FOR MODEL CALL: '{prompt}'")
-        self._log_job(f"MLXLTXAdapter: Original prompt: '{prompt}'")
-        self._log_job(f"MLXAdapter [BASE]: NEGATIVE PROMPT BEING USED: '{negative_prompt}'")
 
         if progress_callback:
             progress_callback("generating_video", 0.2, "Starting LTX diffusion...")
@@ -305,13 +337,39 @@ class MLXLTXAdapter(LTXAdapter):
             if width % 64 != 0:
                 width = (width // 64) * 64
 
+            # Use composed prompt if it's sent from the app
             prompt = getattr(request, "prompt", "")
+            if hasattr(request, "composed_prompt") and request.composed_prompt:
+                prompt = request.composed_prompt
+            elif isinstance(request, dict) and request.get("composed_prompt"):
+                prompt = request.get("composed_prompt")
+
             num_frames = getattr(request, "num_frames", 49)
             steps = getattr(request, "steps", 20)
             guidance_scale = getattr(request, "guidance_scale", 3.0)
 
+            # Prioritize lora_path from request if available, otherwise check assets
+            lora_path = getattr(request, "lora_path", None)
+            loras = getattr(request, "loras", [])
+
+            if loras:
+                lora_info = ", ".join([f"{l.path} (scale: {l.scale})" for l in loras])
+                self._log_job(f"MLXLTXAdapter: LORAS BEING PASSED TO MLX-VIDEO: {lora_info}")
+            elif lora_path:
+                self._log_job(f"MLXLTXAdapter: SINGLE LORA_PATH BEING PASSED: {lora_path}")
+            else:
+                self._log_job("MLXLTXAdapter: NO LORAS DETECTED IN REQUEST")
+
             self._log_job(f"MLXLTXAdapter: Starting unified AV generation for prompt: '{prompt}'")
             self._log_job(f"MLXLTXAdapter: Details: {width}x{height}, frames={num_frames}, steps={steps}, seed={seed}")
+
+            # Check for LoRA files presence
+            if loras:
+                for lora in loras:
+                    if os.path.exists(lora.path):
+                         self._log_job(f"MLXLTXAdapter: VERIFIED: LoRA file exists at {lora.path}")
+                    else:
+                         self._log_job(f"MLXLTXAdapter: WARNING: LoRA file NOT FOUND at {lora.path}")
 
             # Ensure output directory exists
             out_dir = os.path.dirname(output_path)
@@ -321,8 +379,24 @@ class MLXLTXAdapter(LTXAdapter):
             if progress_callback:
                 progress_callback("generating_video", 0.15, "Starting unified AV generation...")
 
+            # Ensure we use the LoRA if provided. Unified AV supports lora_path.
+            final_lora_path = None
+            # Force scale to 1.0 as requested
+            final_lora_scale = 1.0
+
+            if loras:
+                final_lora_path = loras[0].path
+                # final_lora_scale = loras[0].scale # Forced to 1.0 above
+            elif lora_path:
+                final_lora_path = lora_path
+
             # We use a simple wrapper to avoid risky stream interception that can cause hangs
             def generation_wrapper():
+                # Note: lora_path and lora_scale are currently not supported by generate_video_with_audio
+                # and will be ignored to prevent crashes.
+                if final_lora_path:
+                    self._log_job(f"MLXLTXAdapter: WARNING: LoRA support is not yet available in unified AV generation. Ignoring LoRA: {final_lora_path}")
+
                 generate_video_with_audio(
                     model_repo=model_repo,
                     text_encoder_repo=text_encoder_path,
@@ -564,116 +638,16 @@ class MLXLTXAdapter(LTXAdapter):
         # We can remove this block if we are sure the loop covers it correctly
         # But let's keep it for now but make it safe
         # (Actually, let's remove it to avoid confusion)
-    async def unload_model(self, model_id: str) -> None:
-        logger.info(f"MLXLTXAdapter: Unloading model {model_id}")
-        self._current_model_id = None
-        self._current_model_path = None
-        self._pipeline = None
+    def _save_frames_as_video(self, frames, output_path, fps=24):
+        """Helper to save frames as video using ltx-video export utility."""
+        from ltx_video.utils.export_video import export_to_video
+        import numpy as np
 
-    async def generate_text_to_video(
-        self,
-        request: Any,
-        output_path: str,
-        progress_callback: Optional[ProgressCallback] = None,
-        cancellation_token: Optional[CancellationToken] = None,
-    ) -> str:
-        logger.debug(f"[MLXLTXAdapter] generate_text_to_video pipeline={self._pipeline}")
-        if not self._pipeline:
-            raise RuntimeError("No model loaded. Call load_model first.")
+        # Ensure frames are in numpy format if they are mlx arrays
+        if hasattr(frames, "tolist") or "mlx" in str(type(frames)):
+            frames = np.array(frames)
 
-        if self._pipeline == "AV_MODEL":
-            return await self._generate_av(request, output_path, progress_callback, cancellation_token)
-
-        logger.info(f"MLXLTXAdapter: Generating text-to-video for {request.prompt}")
-        logger.debug(f"[MLXLTXAdapter] params: width={request.width}, height={request.height}, frames={request.num_frames}, steps={request.steps}, guidance={request.guidance_scale}")
-
-        # Real LTX generation logic
-        try:
-            self._log_job(f"MLXLTXAdapter: Starting REAL LTX generation for prompt: '{request.prompt}'")
-            if getattr(request, 'negative_prompt', None):
-                self._log_job(f"MLXLTXAdapter: Negative prompt: '{request.negative_prompt}'")
-
-            # Wrapper for progress updates if the library supports it.
-            # Assuming a standard callback pattern or we can wrap the generation loop.
-            def internal_callback(step: int, total_steps: int, **kwargs):
-                if cancellation_token and cancellation_token.is_cancelled:
-                    # Some libraries support raising an exception to cancel
-                    raise InterruptedError("Generation cancelled")
-                if progress_callback:
-                    # Map 0-100% of steps to 15-90% of total job progress
-                    progress = 0.15 + (step / total_steps) * 0.75
-                    progress_callback("generating_video", progress, f"Step {step}/{total_steps}...")
-
-            if progress_callback:
-                progress_callback("preparing_inputs", 0.1, "Preparing generation inputs...")
-
-            # Ensure we have a seed for reproducibility and to avoid MLX error
-            if getattr(request, "seed", None) is None or getattr(request, "seed", -1) == -1:
-                request.seed = random.randint(0, 2**32 - 1)
-            self._log_job(f"Generated random seed for LTX: {request.seed}")
-
-            # Real call to the pipeline
-            self._log_job(f"MLXLTXAdapter: Starting LTX pipeline call (seed: {request.seed}). This may take a while...")
-
-            if progress_callback:
-                progress_callback("generating_video", 0.1, "Starting LTX generation (this can take several minutes)...")
-
-            # Ensure output directory exists
-            out_dir = os.path.dirname(output_path)
-            if not os.path.isdir(out_dir):
-                os.makedirs(out_dir, exist_ok=True)
-
-            # If a placeholder already exists (e.g. from a failed previous attempt or initial setup),
-            # we will overwrite it with the real generation result.
-            if os.path.exists(output_path):
-                logger.info(f"MLXLTXAdapter: Overwriting existing file/placeholder at {output_path} (size: {os.path.getsize(output_path)} bytes)")
-            else:
-                logger.info(f"MLXLTXAdapter: No existing file at {output_path}, will create new output.")
-
-            # Pipeline call is blocking. Run it in a thread.
-            result = await asyncio.to_thread(
-                self._pipeline,
-                prompt=request.prompt,
-                negative_prompt=getattr(request, "negative_prompt", ""),
-                width=getattr(request, "width", 704),
-                height=getattr(request, "height", 512),
-                num_frames=getattr(request, "num_frames", 49),
-                num_inference_steps=getattr(request, "steps", 20),
-                guidance_scale=getattr(request, "guidance_scale", 3.0),
-                seed=request.seed,
-                callback=internal_callback if progress_callback else None,
-            )
-
-            if progress_callback:
-                progress_callback("decoding", 0.90, "Decoding latents to video frames...")
-
-            if progress_callback:
-                progress_callback("encoding_output", 0.95, "Encoding final MP4...")
-
-            # Parse the real pipeline return type
-            if hasattr(result, "frames"):
-                result = result.frames
-
-            if hasattr(result, "save"):
-                result.save(output_path)
-            elif isinstance(result, str) and os.path.exists(result):
-                import shutil
-                if result != output_path:
-                    shutil.copy2(result, output_path)
-            else:
-                self._save_frames_as_video(result, output_path, fps=24)
-
-            if not os.path.isfile(output_path) or os.path.getsize(output_path) == 0:
-                raise RuntimeError("Generation completed without producing a valid video file")
-
-            return output_path
-
-        except InterruptedError:
-            logger.info("Generation cancelled in adapter")
-            return ""
-        except Exception as e:
-            logger.error(f"LTX generation failed: {e}")
-            raise e
+        export_to_video(frames, output_path, fps=fps)
 
     async def generate_image_to_video(
         self,
@@ -704,6 +678,24 @@ class MLXLTXAdapter(LTXAdapter):
                 if hasattr(request, "seed"):
                     request.seed = seed
             logger.info(f"Generated random seed: {seed}")
+
+            # Apply LoRAs if present
+            loras = getattr(request, "loras", [])
+            if loras:
+                try:
+                    for lora in loras:
+                        if os.path.exists(lora.path):
+                            # Force scale to 1.0 as requested
+                            lora_scale = 1.0
+                            self._log_job(f"MLXAdapter [I2V]: Loading LoRA from {lora.path} with scale {lora_scale} (forced to 1.0)")
+                            if hasattr(self._pipeline, "load_lora_weights"):
+                                self._pipeline.load_lora_weights(lora.path, adapter_name=os.path.basename(lora.path))
+                                if hasattr(self._pipeline, "set_adapters"):
+                                    self._pipeline.set_adapters([os.path.basename(lora.path)], adapter_weights=[lora_scale])
+                            elif hasattr(self._pipeline, "load_lora"):
+                                self._pipeline.load_lora(lora.path, scale=lora_scale)
+                except Exception as e:
+                    self._log_job(f"MLXAdapter [I2V]: Error loading LoRA: {e}")
 
             def internal_callback(step: int, total_steps: int, **kwargs):
                 if cancellation_token and cancellation_token.is_cancelled:
@@ -758,10 +750,13 @@ class MLXLTXAdapter(LTXAdapter):
 
     def _extract_preview(self, video_path: str):
         """Extracts the first frame of the video as a preview.jpg."""
-        import cv2
-        import os
-        from pathlib import Path
+        try:
+            import cv2
+        except ImportError:
+            logger.warning("OpenCV not found, cannot extract preview")
+            return
 
+        from pathlib import Path
         preview_path = str(Path(video_path).parent / "preview.jpg")
 
         cap = cv2.VideoCapture(video_path)
@@ -778,14 +773,24 @@ class MLXLTXAdapter(LTXAdapter):
 
         cap.release()
 
-    def _save_frames_as_video(self, frames: Any, output_path: str, fps: int = 24):
+    def _ensure_dependency(self, name: str, install_msg: str):
+        try:
+            importlib.import_module(name)
+        except ImportError:
+            raise DependencyError(name, install_msg)
+
+    def _save_frames_as_video_cv2(self, frames: Any, output_path: str, fps: int = 24):
         """Saves generated frames as an MP4 video using OpenCV."""
         self._ensure_dependency("cv2", "Please install opencv-python: pip install opencv-python")
         import cv2
         import numpy as np
 
         if not isinstance(frames, (list, np.ndarray)):
-            raise ValueError(f"Expected list or numpy array of frames, got {type(frames)}")
+            # If it's a single MLX array, try to convert to list/numpy
+            if hasattr(frames, "tolist"):
+                frames = np.array(frames)
+            else:
+                raise ValueError(f"Expected list or numpy array of frames, got {type(frames)}")
 
         if len(frames) == 0:
             raise ValueError("No frames to save")
@@ -833,3 +838,6 @@ class MLXLTXAdapter(LTXAdapter):
         cancellation_token: Optional[CancellationToken] = None,
     ) -> str:
         raise UnsupportedCapabilityError("retake")
+
+    # We don't implement train_lora here, so we let the LTXAdapter's base implementation
+    # (which raises UnsupportedCapabilityError) be used, and LTXEngine will handle it.

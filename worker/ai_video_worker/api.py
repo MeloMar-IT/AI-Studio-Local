@@ -26,6 +26,7 @@ from ai_video_worker.schemas.api import (
     ModelValidationResponse,
     ModelImportRequest,
     ModelDownloadRequest,
+    TrainingRequest,
 )
 
 router = APIRouter()
@@ -217,6 +218,36 @@ def _validate_image_path(image_path: str):
         )
 
 
+@router.post("/train/lora", response_model=JobStatus)
+async def train_lora(request: TrainingRequest):
+    if "lora-training" not in engine.capabilities():
+        raise HTTPException(
+            status_code=400,
+            detail=ErrorResponse(
+                error=ErrorDetail(
+                    code="unsupported_capability",
+                    message="LoRA training is not supported by the current engine."
+                )
+            ).model_dump()
+        )
+
+    # Use default model if not specified
+    if not request.model_id:
+        request.model_id = settings.default_model_id
+
+    # Create a pseudo GenerationRequest for JobStore compatibility
+    # JobStore currently expects GenerationRequest in create_job
+    # I will adapt JobStore later or use a workaround
+    logger.info(f"Creating LoRA training job for element: {request.element_id} ({request.element_type})")
+
+    # For now, I'll pass request as any, but I might need to update JobStore
+    job_id = job_store.create_training_job(request)
+    job = job_store.get_job(job_id)
+    if not job:
+        raise HTTPException(status_code=500, detail="Failed to create training job")
+    return job
+
+
 @router.post("/generate/voice-clone", response_model=JobStatus)
 async def voice_clone(request: GenerationRequest):
     if "voice-clone" not in engine.capabilities():
@@ -265,6 +296,10 @@ async def text_to_video(request: GenerationRequest):
     _validate_model_for_generation(request.model_id, "text-to-video")
 
     logger.debug(f"text_to_video request: {request.model_dump()}")
+    if request.loras:
+        lora_paths = [l.path for l in request.loras]
+        logger.info(f"Incoming /generate/text-to-video request with LoRAs: {lora_paths}")
+
     logger.info(f"Creating text-to-video job for model: {request.model_id}")
     job_id = job_store.create_job(request)
     job = job_store.get_job(job_id)
@@ -305,6 +340,10 @@ async def image_to_video(request: GenerationRequest):
     _validate_model_for_generation(request.model_id, "image-to-video")
 
     logger.debug(f"image_to_video request: {request.model_dump()}")
+    if request.loras:
+        lora_paths = [l.path for l in request.loras]
+        logger.info(f"Incoming /generate/image-to-video request with LoRAs: {lora_paths}")
+
     logger.info(f"Creating image-to-video job for model: {request.model_id}, image: {request.image_path}")
     job_id = job_store.create_job(request)
     job = job_store.get_job(job_id)

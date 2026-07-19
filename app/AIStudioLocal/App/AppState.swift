@@ -28,6 +28,7 @@ class AppState: ObservableObject {
 
     private let hardwareProfiler: HardwareProfilerProtocol
     private let generationClient: GenerationClient
+    private let continuityStore: ContinuityStore
     private let workerManager: WorkerManagerProtocol
     private let environment: AppEnvironment
     private var pollingTimer: Timer?
@@ -60,6 +61,9 @@ class AppState: ObservableObject {
         self.hardwareProfiler = hardwareProfiler
         self.workerManager = workerManager
 
+        self.continuityStore = FileContinuityStore()
+        self.continuityElements = (try? self.continuityStore.loadAll()) ?? []
+
         let client = generationClient ?? HTTPGenerationClient(baseURL: UserSettings.shared.workerBaseURL)
         self.generationClient = client
 
@@ -83,6 +87,19 @@ class AppState: ObservableObject {
 
         startPolling()
         setupSettingsObservers()
+        setupNotificationObservers()
+    }
+
+    private func setupNotificationObservers() {
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name("TriggerCharacterTraining"),
+            object: nil,
+            queue: .main
+        ) { [weak self] notification in
+            if let element = notification.object as? ContinuityElement {
+                self?.trainLoRA(for: element)
+            }
+        }
     }
 
     private func logStartupReport() async {
@@ -135,6 +152,61 @@ class AppState: ObservableObject {
                 }
             } catch {
                 AppLogger.shared.error("Failed to fetch worker hardware profile for report: \(error)", category: .worker)
+            }
+        }
+    }
+
+    // Character LoRA Training
+    func trainLoRA(for element: ContinuityElement) {
+        guard element.type == .character else { return }
+
+        // Ensure continuityElements is populated
+        if continuityElements.isEmpty {
+            continuityElements = (try? continuityStore.loadAll()) ?? []
+        }
+
+        let imageAssets = element.assets.filter {
+            ["image", "png", "jpg", "jpeg"].contains($0.type.lowercased())
+        }
+        guard !imageAssets.isEmpty else { return }
+
+        Task {
+            do {
+                let request = TrainingRequest(
+                    projectId: "library", // Continuity elements are global
+                    elementId: element.id,
+                    elementType: "character",
+                    trainingDataPaths: imageAssets.map { $0.path },
+                    triggerWord: element.name.replacingOccurrences(of: " ", with: "_").lowercased()
+                )
+
+                let jobId = try await generationClient.submitLoRATraining(request: request)
+
+                // Track this training job
+                await MainActor.run {
+                    // Update element state to training
+                    var updatedElement = element
+                    updatedElement.isTraining = true
+
+                    // Add to active jobs if we need to show it in the queue
+                    let job = GenerationJob(
+                        id: jobId,
+                        projectId: "library",
+                        sceneId: element.id,
+                        status: .queued,
+                        mode: .textToVideo, // Training doesn't have its own mode in SceneMode yet, but we'll identify it by projectId
+                        sceneName: "Training: \(element.name)"
+                    )
+                    self.addJob(job)
+
+                    // Update the store and cache
+                    try? continuityStore.save(updatedElement)
+                    if let index = continuityElements.firstIndex(where: { $0.id == element.id }) {
+                        continuityElements[index] = updatedElement
+                    }
+                }
+            } catch {
+                logger.error("Failed to start LoRA training: \(error.localizedDescription)")
             }
         }
     }
@@ -359,6 +431,16 @@ class AppState: ObservableObject {
                             self.activeJobs[index].message = event.message
                             self.activeJobs[index].error = event.error
 
+                            if let resultUrl = event.resultUrl {
+                                // For LoRA training jobs, we want to keep the absolute path if it is one.
+                                // For regular generations, we mimic transformWorkerOutputPath to make them project-relative.
+                                var path = resultUrl
+                                if self.activeJobs[index].projectId != "library" && path.hasPrefix("/") {
+                                    path = String(path.dropFirst(1))
+                                }
+                                self.activeJobs[index].outputPaths = JobOutputPaths(video: path)
+                            }
+
                             AppLogger.shared.info("📦 AppState: SSE Update for \(jobId): \(event.stage) (\(Int((event.percentage ?? 0)*100))%)", category: .worker)
 
                             if oldStatus != self.activeJobs[index].status || abs(oldProgress - self.activeJobs[index].progress) > 0.01 {
@@ -376,6 +458,13 @@ class AppState: ObservableObject {
                                 self.updateActiveJobsCount()
                                 if self.activeJobs[index].status == .completed {
                                     NotificationCenter.default.post(name: .generationCompleted, object: self.activeJobs[index])
+
+                                    // If this was a LoRA training job, update the element
+                                    if self.activeJobs[index].projectId == "library" {
+                                        let elementId = self.activeJobs[index].sceneId
+                                        let loraPath = self.activeJobs[index].outputPaths?.video
+                                        self.updateElementAfterTraining(elementId: elementId, loraPath: loraPath)
+                                    }
                                 }
                                 self.jobSubscriptions[jobId]?.cancel()
                                 self.jobSubscriptions.removeValue(forKey: jobId)
@@ -455,11 +544,60 @@ class AppState: ObservableObject {
 
                         if updatedJob.status == .completed {
                             NotificationCenter.default.post(name: .generationCompleted, object: updatedJobWithLocalData)
+
+                            // If this was a LoRA training job, update the element
+                            if updatedJobWithLocalData.projectId == "library" {
+                                self.updateElementAfterTraining(
+                                    elementId: updatedJobWithLocalData.sceneId,
+                                    loraPath: updatedJobWithLocalData.outputPaths?.video
+                                )
+                            }
                         }
                     }
                 }
             } catch {
                 AppLogger.shared.error("Error checking final status for job \(jobId): \(error)", category: .worker)
+            }
+        }
+    }
+
+    private func updateElementAfterTraining(elementId: String, loraPath: String?) {
+        NSLog("📦 AppState: LoRA training completed. Updating element \(elementId) with LORA path: \(loraPath ?? "nil")")
+
+        if let elIndex = self.continuityElements.firstIndex(where: { $0.id == elementId }) {
+            var updatedElement = self.continuityElements[elIndex]
+            updatedElement.isTraining = false
+            if let loraPath = loraPath {
+                updatedElement.trainedLoraPath = loraPath
+            }
+
+            self.continuityElements[elIndex] = updatedElement
+            try? self.continuityStore.save(updatedElement)
+            NotificationCenter.default.post(name: .continuityLibraryUpdated, object: updatedElement)
+            NSLog("✅ AppState: Element \(elementId) updated in cache and saved to disk.")
+        } else {
+            NSLog("📦 AppState: Element \(elementId) not in cache. Attempting to load from store...")
+            do {
+                let allElements = try self.continuityStore.loadAll()
+                if let element = allElements.first(where: { $0.id == elementId }) {
+                    var updatedElement = element
+                    updatedElement.isTraining = false
+                    if let loraPath = loraPath {
+                        updatedElement.trainedLoraPath = loraPath
+                    }
+                    try self.continuityStore.save(updatedElement)
+                    // Update cache too if it was just loaded
+                    self.continuityElements = allElements
+                    if let newIndex = self.continuityElements.firstIndex(where: { $0.id == elementId }) {
+                        self.continuityElements[newIndex] = updatedElement
+                    }
+                    NotificationCenter.default.post(name: .continuityLibraryUpdated, object: updatedElement)
+                    NSLog("✅ AppState: Element \(elementId) loaded from store, updated, and saved.")
+                } else {
+                    NSLog("❌ AppState: Element \(elementId) not found in store! Cannot update LoRA path.")
+                }
+            } catch {
+                NSLog("❌ AppState: Failed to load elements from store: \(error.localizedDescription)")
             }
         }
     }
@@ -503,6 +641,14 @@ class AppState: ObservableObject {
 
                             if updatedJob.status == .completed && oldStatus != .completed {
                                 NotificationCenter.default.post(name: .generationCompleted, object: updatedJobWithLocalData)
+
+                                // If this was a LoRA training job, update the element
+                                if updatedJobWithLocalData.projectId == "library" {
+                                    self.updateElementAfterTraining(
+                                        elementId: updatedJobWithLocalData.sceneId,
+                                        loraPath: updatedJobWithLocalData.outputPaths?.video
+                                    )
+                                }
                             }
                         }
                     }
@@ -517,4 +663,7 @@ class AppState: ObservableObject {
 extension NSNotification.Name {
     static let generationCompleted = NSNotification.Name("generationCompleted")
     static let modelsUpdated = NSNotification.Name("modelsUpdated")
+    static let continuityLibraryUpdated = NSNotification.Name("continuityLibraryUpdated")
+    static let selectScene = NSNotification.Name("selectScene")
+    static let openProject = NSNotification.Name("openProject")
 }

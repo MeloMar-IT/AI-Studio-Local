@@ -118,6 +118,62 @@ struct ContinuityElementDetailView: View {
                     Divider()
                 }
 
+                if editedElement.type == .character {
+                    VStack(alignment: .leading, spacing: Spacing.medium) {
+                        HStack {
+                            Text("Character Training")
+                                .font(.App.headline)
+
+                            Spacer()
+
+                            if editedElement.isTraining ?? false {
+                                StatusBadge(label: "Training In Progress", color: .orange)
+                            } else if editedElement.trainedLoraPath != nil {
+                                StatusBadge(label: "Trained", color: .green)
+                            }
+                        }
+
+                        if let loraPath = editedElement.trainedLoraPath {
+                            HStack {
+                                Image(systemName: "cpu")
+                                Text("Trained LoRA:")
+                                    .font(.App.caption)
+                                    .foregroundColor(.secondary)
+                                Text(URL(fileURLWithPath: loraPath).lastPathComponent)
+                                    .font(.App.caption)
+                                    .lineLimit(1)
+
+                                Spacer()
+
+                                Button("Retrain") {
+                                    viewModel.trainLoRA(for: editedElement)
+                                }
+                                .buttonStyle(.bordered)
+                                .disabled(editedElement.isTraining ?? false)
+                            }
+                            .padding(Spacing.small)
+                            .background(Color.App.surface)
+                            .cornerRadius(4)
+                        } else {
+                            Text("You can train a custom LoRA for this character to improve consistency across generations.")
+                                .font(.App.caption)
+                                .foregroundColor(.secondary)
+
+                            PrimaryButton((editedElement.isTraining ?? false) ? "Training..." : "Train LoRA") {
+                                viewModel.trainLoRA(for: editedElement)
+                            }
+                            .disabled((editedElement.isTraining ?? false) || editedElement.assets.filter { $0.type == "image" }.isEmpty)
+
+                            if editedElement.assets.filter { $0.type == "image" }.isEmpty {
+                                Text("Add at least one image asset to enable training.")
+                                    .font(.App.caption)
+                                    .foregroundColor(.red)
+                            }
+                        }
+                    }
+                    Divider()
+                }
+
                 VStack(alignment: .leading, spacing: Spacing.medium) {
                     Text("Details")
                         .font(.App.headline)

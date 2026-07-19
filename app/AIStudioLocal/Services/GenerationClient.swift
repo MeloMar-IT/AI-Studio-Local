@@ -16,6 +16,7 @@ public protocol GenerationClient {
     func importModel(path: String, copy: Bool, modelId: String?) async throws -> ModelImportResponse
     func downloadModel(modelId: String) async throws -> ModelDownloadResponse
     func deleteModel(modelId: String) async throws -> ModelDeleteResponse
+    func submitLoRATraining(request: TrainingRequest) async throws -> String // returns job_id
 }
 
 public struct ModelDeleteResponse: Codable {
@@ -94,6 +95,7 @@ public struct ProgressEvent: Codable {
     public let stage: String
     public let percentage: Double?
     public let message: String
+    public let resultUrl: String?
     public let error: String?
     public let timestamp: String
 
@@ -102,6 +104,7 @@ public struct ProgressEvent: Codable {
         case stage
         case percentage
         case message
+        case resultUrl = "result_url"
         case error
         case timestamp
     }
@@ -174,6 +177,16 @@ public struct HealthStatus: Codable {
     public let uptime: Double
 }
 
+public struct LoRAConfig: Codable, Equatable {
+    public let path: String
+    public let scale: Double
+
+    public init(path: String, scale: Double = 1.0) {
+        self.path = path
+        self.scale = scale
+    }
+}
+
 public struct GenerationRequest: Codable {
     public let prompt: String
     public let negativePrompt: String?
@@ -188,12 +201,15 @@ public struct GenerationRequest: Codable {
     public let modelId: String
     public let projectId: String
     public let sceneId: String
+    public let composedPrompt: String?
     public let imagePath: String?
+    public let referenceImagePaths: [String]?
     public let audioPath: String?
     public let videoPath: String?
     public let voiceCloneReferencePath: String?
     public let retakeStartSeconds: Double?
     public let retakeEndSeconds: Double?
+    public let loras: [LoRAConfig]?
 
     public init(
         prompt: String,
@@ -209,12 +225,15 @@ public struct GenerationRequest: Codable {
         modelId: String,
         projectId: String,
         sceneId: String,
+        composedPrompt: String? = nil,
         imagePath: String? = nil,
+        referenceImagePaths: [String]? = nil,
         audioPath: String? = nil,
         videoPath: String? = nil,
         voiceCloneReferencePath: String? = nil,
         retakeStartSeconds: Double? = nil,
-        retakeEndSeconds: Double? = nil
+        retakeEndSeconds: Double? = nil,
+        loras: [LoRAConfig]? = nil
     ) {
         self.prompt = prompt
         self.negativePrompt = negativePrompt
@@ -229,12 +248,15 @@ public struct GenerationRequest: Codable {
         self.modelId = modelId
         self.projectId = projectId
         self.sceneId = sceneId
+        self.composedPrompt = composedPrompt
         self.imagePath = imagePath
+        self.referenceImagePaths = referenceImagePaths
         self.audioPath = audioPath
         self.videoPath = videoPath
         self.voiceCloneReferencePath = voiceCloneReferencePath
         self.retakeStartSeconds = retakeStartSeconds
         self.retakeEndSeconds = retakeEndSeconds
+        self.loras = loras
     }
 
     enum CodingKeys: String, CodingKey {
@@ -251,12 +273,87 @@ public struct GenerationRequest: Codable {
         case modelId = "model_id"
         case projectId = "project_id"
         case sceneId = "scene_id"
+        case composedPrompt = "composed_prompt"
         case imagePath = "image_path"
+        case referenceImagePaths = "reference_image_paths"
         case audioPath = "audio_path"
         case videoPath = "video_path"
         case voiceCloneReferencePath = "voice_clone_reference_path"
         case retakeStartSeconds = "retake_start_seconds"
         case retakeEndSeconds = "retake_end_seconds"
+        case loras
+    }
+}
+
+public struct WorkerJobStatus: Codable {
+    public let jobId: String
+    public let status: String
+    public let progress: Double
+    public let message: String
+    public let resultUrl: String?
+    public let error: String?
+    public let projectId: String?
+    public let sceneId: String?
+    public let startedAt: Date?
+    public let completedAt: Date?
+
+    enum CodingKeys: String, CodingKey {
+        case jobId = "job_id"
+        case status
+        case progress
+        case message
+        case resultUrl = "result_url"
+        case error
+        case projectId = "project_id"
+        case sceneId = "scene_id"
+        case startedAt = "started_at"
+        case completedAt = "completed_at"
+    }
+}
+
+public struct TrainingRequest: Codable {
+    public let projectId: String
+    public let elementId: String
+    public let elementType: String
+    public let trainingDataPaths: [String]
+    public let modelId: String?
+    public let steps: Int
+    public let learningRate: Double
+    public let rank: Int
+    public let triggerWord: String?
+
+    public init(
+        projectId: String,
+        elementId: String,
+        elementType: String,
+        trainingDataPaths: [String],
+        modelId: String? = nil,
+        steps: Int = 500,
+        learningRate: Double = 0.0001,
+        rank: Int = 16,
+        triggerWord: String? = nil
+    ) {
+        self.projectId = projectId
+        self.elementId = elementId
+        self.elementType = elementType
+        self.trainingDataPaths = trainingDataPaths
+        self.modelId = modelId
+        self.steps = steps
+        self.learningRate = learningRate
+        self.rank = rank
+        self.triggerWord = triggerWord
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case projectId = "project_id"
+        case elementId = "element_id"
+        case elementType = "element_type"
+        case trainingDataPaths = "training_data_paths"
+        case modelId = "model_id"
+        case steps
+        case learningRate = "learning_rate"
+        case rank
+        case triggerWord = "trigger_word"
     }
 }
 
@@ -368,6 +465,11 @@ public final class HTTPGenerationClient: GenerationClient {
                 NSLog("🌐 HTTPGenerationClient: Request body: \(bodyString)")
             }
 
+            if let loras = request.loras, !loras.isEmpty {
+                let loraInfo = loras.map { "\($0.path) (scale: \($0.scale))" }.joined(separator: ", ")
+                NSLog("🌐 HTTPGenerationClient: Using LoRAs: \(loraInfo)")
+            }
+
             let (data, response) = try await session.data(for: urlRequest)
 
             if let httpResponse = response as? HTTPURLResponse {
@@ -430,34 +532,6 @@ public final class HTTPGenerationClient: GenerationClient {
 
             if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 404 {
                 throw GenerationClientError.jobNotFound(jobId)
-            }
-
-            // The worker returns a slightly different structure for job status
-            // we need to map it to our GenerationJob domain model
-            struct WorkerJobStatus: Codable {
-                let jobId: String
-                let status: String
-                let progress: Double
-                let message: String
-                let resultUrl: String?
-                let error: String?
-                let projectId: String?
-                let sceneId: String?
-                let startedAt: Date?
-                let completedAt: Date?
-
-                enum CodingKeys: String, CodingKey {
-                    case jobId = "job_id"
-                    case status
-                    case progress
-                    case message
-                    case resultUrl = "result_url"
-                    case error
-                    case projectId = "project_id"
-                    case sceneId = "scene_id"
-                    case startedAt = "started_at"
-                    case completedAt = "completed_at"
-                }
             }
 
             let workerStatus = try decoder.decode(WorkerJobStatus.self, from: data)
@@ -664,6 +738,32 @@ public final class HTTPGenerationClient: GenerationClient {
         }
 
         return try decoder.decode(ModelDeleteResponse.self, from: data)
+    }
+
+    public func submitLoRATraining(request: TrainingRequest) async throws -> String {
+        let url = baseURL.appendingPathComponent("train/lora")
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        do {
+            urlRequest.httpBody = try encoder.encode(request)
+            let (data, response) = try await session.data(for: urlRequest)
+
+            guard let httpResponse = response as? HTTPURLResponse,
+                  (200...299).contains(httpResponse.statusCode) else {
+                let errorJson = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+                let message = (errorJson?["detail"] as? String) ?? "Failed to submit training job"
+                throw GenerationClientError.workerError(code: "training_submission_failed", message: message)
+            }
+
+            let jobStatus = try decoder.decode(WorkerJobStatus.self, from: data)
+            return jobStatus.jobId
+        } catch let error as GenerationClientError {
+            throw error
+        } catch {
+            throw GenerationClientError.workerUnavailable(error)
+        }
     }
 
     /// Transforms worker output paths (absolute paths like "/outputs/{job_id}/output.mp4")

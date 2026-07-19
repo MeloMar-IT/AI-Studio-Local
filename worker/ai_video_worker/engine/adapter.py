@@ -71,3 +71,14 @@ class LTXAdapter(ABC):
     ) -> str:
         """Executes video retake generation."""
         pass
+
+    async def train_lora(
+        self,
+        request: Any,
+        output_directory: str,
+        progress_callback: Optional[ProgressCallback] = None,
+        cancellation_token: Optional[CancellationToken] = None,
+    ) -> str:
+        """Executes LoRA training."""
+        from ai_video_worker.engine.base import UnsupportedCapabilityError
+        raise UnsupportedCapabilityError("lora-training")

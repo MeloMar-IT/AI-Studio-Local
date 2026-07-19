@@ -342,10 +342,6 @@ struct HomeDashboardView: View {
     }
 }
 
-extension NSNotification.Name {
-    static let openProject = NSNotification.Name("openProject")
-}
-
 // MARK: - Components
 
 struct ActionCard: View {

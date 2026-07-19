@@ -250,4 +250,8 @@ class TestGenerationClient: GenerationClient {
     func deleteModel(modelId: String) async throws -> ModelDeleteResponse {
         return ModelDeleteResponse(success: true, message: "Deleted")
     }
+
+    func submitLoRATraining(request: TrainingRequest) async throws -> String {
+        return "train-1"
+    }
 }

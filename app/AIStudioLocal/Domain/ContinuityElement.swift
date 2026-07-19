@@ -48,6 +48,8 @@ public struct ContinuityElement: Codable, Identifiable, Equatable {
     public var promptBlock: String
     public var negativePrompt: String?
     public var voiceCloneReferencePath: String?
+    public var trainedLoraPath: String?
+    public var isTraining: Bool?
     public var tags: [String]
     public var assets: [ContinuityAsset]
     public let createdAt: Date
@@ -65,6 +67,8 @@ public struct ContinuityElement: Codable, Identifiable, Equatable {
         promptBlock: String,
         negativePrompt: String? = nil,
         voiceCloneReferencePath: String? = nil,
+        trainedLoraPath: String? = nil,
+        isTraining: Bool? = nil,
         tags: [String] = [],
         assets: [ContinuityAsset] = [],
         createdAt: Date = Date(),
@@ -77,6 +81,8 @@ public struct ContinuityElement: Codable, Identifiable, Equatable {
         self.promptBlock = promptBlock
         self.negativePrompt = negativePrompt
         self.voiceCloneReferencePath = voiceCloneReferencePath
+        self.trainedLoraPath = trainedLoraPath
+        self.isTraining = isTraining
         self.tags = tags
         self.assets = assets
         self.createdAt = createdAt
@@ -91,6 +97,8 @@ public struct ContinuityElement: Codable, Identifiable, Equatable {
         case promptBlock = "prompt_block"
         case negativePrompt = "negative_prompt"
         case voiceCloneReferencePath = "voice_clone_reference_path"
+        case trainedLoraPath = "trained_lora_path"
+        case isTraining = "is_training"
         case tags
         case assets
         case createdAt = "created_at"

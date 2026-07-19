@@ -45,12 +45,30 @@ struct ContinuityElementListView: View {
                     .font(.App.body)
                     .lineLimit(1)
 
-                if !element.description.isEmpty {
+                if element.isTraining ?? false {
+                    HStack(spacing: 4) {
+                        ProgressView()
+                            .controlSize(.small)
+                        Text("Training...")
+                            .font(.App.caption)
+                            .foregroundColor(.secondary)
+                    }
+                } else if !element.description.isEmpty {
                     Text(element.description)
                         .font(.App.caption)
                         .foregroundColor(.secondary)
                         .lineLimit(1)
+                } else if element.trainedLoraPath != nil {
+                    Text("Trained")
+                        .font(.App.caption)
+                        .foregroundColor(.green)
                 }
+            }
+
+            if element.trainedLoraPath != nil && !(element.isTraining ?? false) {
+                Image(systemName: "checkmark.seal.fill")
+                    .foregroundColor(.green)
+                    .font(.caption)
             }
         }
         .padding(.vertical, 4)

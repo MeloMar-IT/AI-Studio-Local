@@ -98,7 +98,3 @@ struct TaskQueueContentView: View {
         }
     }
 }
-
-extension NSNotification.Name {
-    static let selectScene = NSNotification.Name("selectScene")
-}

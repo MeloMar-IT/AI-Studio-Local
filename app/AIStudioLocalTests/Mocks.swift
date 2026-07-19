@@ -110,4 +110,8 @@ class MockGenerationClient: GenerationClient {
     func deleteModel(modelId: String) async throws -> ModelDeleteResponse {
         return ModelDeleteResponse(success: true, message: "OK")
     }
+
+    func submitLoRATraining(request: TrainingRequest) async throws -> String {
+        return "train-1"
+    }
 }

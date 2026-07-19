@@ -66,6 +66,11 @@ class ErrorResponse(BaseModel):
     error: ErrorDetail
 
 
+class LoRAConfig(BaseModel):
+    path: str
+    scale: float = 1.0
+
+
 class GenerationRequest(BaseModel):
     prompt: str
     negative_prompt: Optional[str] = None
@@ -80,13 +85,28 @@ class GenerationRequest(BaseModel):
     model_id: Optional[str] = None
     project_id: Optional[str] = None
     scene_id: Optional[str] = None
+    composed_prompt: Optional[str] = None
     composed_prompt_path: Optional[str] = None
     image_path: Optional[str] = None
+    reference_image_paths: Optional[List[str]] = None
     audio_path: Optional[str] = None
     video_path: Optional[str] = None
     voice_clone_reference_path: Optional[str] = None
     retake_start_seconds: Optional[float] = None
     retake_end_seconds: Optional[float] = None
+    loras: Optional[List[LoRAConfig]] = None
+
+
+class TrainingRequest(BaseModel):
+    project_id: str
+    element_id: str
+    element_type: str
+    training_data_paths: List[str]
+    model_id: Optional[str] = None
+    steps: int = 500
+    learning_rate: float = 1e-4
+    rank: int = 16
+    trigger_word: Optional[str] = None
 
 
 class JobStatus(BaseModel):
@@ -127,5 +147,6 @@ class ProgressEvent(BaseModel):
     stage: str
     percentage: Optional[float] = None
     message: str
+    result_url: Optional[str] = None
     error: Optional[str] = None
     timestamp: datetime

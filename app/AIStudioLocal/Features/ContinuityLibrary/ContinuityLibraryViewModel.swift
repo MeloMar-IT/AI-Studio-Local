@@ -64,6 +64,11 @@ class ContinuityLibraryViewModel: ObservableObject {
             try store.save(newElement)
             elements.append(newElement)
             selectedElementId = newElement.id
+
+            // If it's a character, trigger training
+            if type == .character {
+                NotificationCenter.default.post(name: NSNotification.Name("TriggerCharacterTraining"), object: newElement)
+            }
         } catch {
             self.error = error
         }
@@ -74,6 +79,11 @@ class ContinuityLibraryViewModel: ObservableObject {
             try store.save(element)
             if let index = elements.firstIndex(where: { $0.id == element.id }) {
                 elements[index] = element
+            }
+
+            // If it's a character, trigger training
+            if element.type == .character {
+                NotificationCenter.default.post(name: NSNotification.Name("TriggerCharacterTraining"), object: element)
             }
         } catch {
             self.error = error
@@ -272,14 +282,7 @@ class ContinuityLibraryViewModel: ObservableObject {
         self.showingImportConflictDialog = false
         isLoading = false
     }
-    func importFromFolder(url: URL) {
-        isLoading = true
-        do {
-            try store.importLibrary(from: url)
-            loadElements() // Refresh
-        } catch {
-            self.error = error
-        }
-        isLoading = false
+    func trainLoRA(for element: ContinuityElement) {
+        NotificationCenter.default.post(name: NSNotification.Name("TriggerCharacterTraining"), object: element)
     }
 }

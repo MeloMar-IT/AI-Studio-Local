@@ -36,8 +36,8 @@ final class PromptComposerTests: XCTestCase {
 
         let result = composer.compose(scene: scene, elements: [character, location])
 
-        // Order: Scene Prompt, Character, Location
-        XCTAssertEqual(result.prompt, "A man walking, wearing a grey hoodie, in a modern office")
+        // Order: Character, Location, Scene Prompt (Elements first)
+        XCTAssertEqual(result.prompt, "wearing a grey hoodie, in a modern office, A man walking")
         XCTAssertEqual(result.metadata["char-1"], "Marcel")
         XCTAssertEqual(result.metadata["loc-1"], "Office")
         XCTAssertEqual(result.sourceElementIds, ["char-1", "loc-1"])
@@ -56,8 +56,8 @@ final class PromptComposerTests: XCTestCase {
         let elements = [audio, camera, style, location, character]
         let result = composer.compose(scene: scene, elements: elements)
 
-        // Expected order: Scene, Character, Style, Location, Camera, Audio
-        let expected = "A man, a man, cinematic, in Tokyo, wide shot, lounge music"
+        // Expected order: Character, Style, Location, Camera, Audio, Scene
+        let expected = "a man, cinematic, in Tokyo, wide shot, lounge music, A man"
         XCTAssertEqual(result.prompt, expected)
     }
 
@@ -84,8 +84,8 @@ final class PromptComposerTests: XCTestCase {
 
         let result = composer.compose(scene: scene, elements: [style1, style2])
 
-        XCTAssertEqual(result.prompt, "A beautiful sunset, cinematic")
-        XCTAssertEqual(result.negativePrompt, "low quality, blur")
+        XCTAssertEqual(result.prompt, "cinematic, A beautiful sunset")
+        XCTAssertEqual(result.negativePrompt, "blur, low quality")
     }
 
     func testEmptyPromptBlocks() {
@@ -143,5 +143,64 @@ final class PromptComposerTests: XCTestCase {
         XCTAssertEqual(result.metadata["lock_character"], "true")
         XCTAssertEqual(result.metadata["lock_seed"], "true")
         XCTAssertNil(result.metadata["lock_location"])
+    }
+
+    func testElementEnforcementOverride() {
+        let scene = Scene(name: "Test Scene", prompt: "A woman running")
+        let character = ContinuityElement(
+            id: "char-1",
+            type: .character,
+            name: "Marcel",
+            promptBlock: "Senior SRE Marcel with a beard"
+        )
+
+        let result = composer.compose(scene: scene, elements: [character])
+
+        // Element (Marcel) should come before scene description (A woman running)
+        // This ensures the model treats the character identity as the primary subject.
+        XCTAssertTrue(result.prompt.hasPrefix("Senior SRE Marcel with a beard"))
+        XCTAssertEqual(result.prompt, "Senior SRE Marcel with a beard, A woman running")
+    }
+
+    func testComposeWithReferenceImages() {
+        let scene = Scene(name: "Test Scene", prompt: "A man walking")
+        let asset1 = ContinuityAsset(path: "/path/to/img1.jpg", type: "image")
+        let asset2 = ContinuityAsset(path: "/path/to/img2.png", type: "png")
+        let character = ContinuityElement(
+            id: "char-1",
+            type: .character,
+            name: "Marcel",
+            promptBlock: "wearing a grey hoodie",
+            assets: [asset1, asset2]
+        )
+
+        let result = composer.compose(scene: scene, elements: [character])
+
+        // Verify image paths are collected
+        XCTAssertEqual(result.referenceImagePaths.count, 2)
+        XCTAssertTrue(result.referenceImagePaths.contains("/path/to/img1.jpg"))
+        XCTAssertTrue(result.referenceImagePaths.contains("/path/to/img2.png"))
+
+        // Verify enforcement instruction is added to prompt
+        XCTAssertTrue(result.prompt.contains("follow the visual style and identity from the reference images strictly"))
+        XCTAssertTrue(result.prompt.hasPrefix("follow the visual style and identity from the reference images strictly"))
+    }
+
+    func testComposeWithLoRA() {
+        let scene = Scene(name: "Test Scene", prompt: "A man walking")
+        let character = ContinuityElement(
+            id: "char-1",
+            type: .character,
+            name: "Marcel",
+            promptBlock: "wearing a grey hoodie",
+            trainedLoraPath: "/path/to/marcel.safetensors"
+        )
+
+        let result = composer.compose(scene: scene, elements: [character])
+
+        XCTAssertEqual(result.loras.count, 1)
+        XCTAssertEqual(result.loras[0].path, "/path/to/marcel.safetensors")
+        XCTAssertEqual(result.loras[0].scale, 1.0)
+        XCTAssertEqual(result.metadata["lora_char-1"], "/path/to/marcel.safetensors")
     }
 }

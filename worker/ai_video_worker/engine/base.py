@@ -116,6 +116,16 @@ class GenerationEngine(ABC):
         pass
 
     @abstractmethod
+    async def train_lora(
+        self,
+        request: Any,
+        output_directory: str,
+        progress_callback: Optional[ProgressCallback] = None,
+        cancellation_token: Optional[CancellationToken] = None,
+    ) -> str:
+        pass
+
+    @abstractmethod
     async def generate(
         self,
         request: Any,

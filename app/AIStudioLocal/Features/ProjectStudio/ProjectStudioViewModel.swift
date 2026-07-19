@@ -81,6 +81,14 @@ class ProjectStudioViewModel: ObservableObject {
                 self?.fetchAvailableModels()
             }
             .store(in: &cancellables)
+
+        NotificationCenter.default.publisher(for: .continuityLibraryUpdated)
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                NSLog("📁 ProjectStudioViewModel: Received .continuityLibraryUpdated notification, resolving elements")
+                self?.resolveAllSceneElements()
+            }
+            .store(in: &cancellables)
     }
 
     func setAppState(_ appState: AppState) {
@@ -89,8 +97,29 @@ class ProjectStudioViewModel: ObservableObject {
 
     func composePrompt(for scene: Scene) -> ComposedPrompt {
         let elementIds = scene.attachedContinuityElements.map { $0.elementId }
-        let allElements = (try? continuityStore.loadAll()) ?? []
+
+        // Use AppState's continuityElements if available for better synchronization,
+        // otherwise fallback to loading from disk.
+        let allElements: [ContinuityElement]
+        if let appState = self.appState {
+            allElements = appState.continuityElements
+        } else {
+            allElements = (try? continuityStore.loadAll()) ?? []
+        }
+
         let attachedElements = allElements.filter { elementIds.contains($0.id) }
+
+        NSLog("🎨 ProjectStudioViewModel: Composing prompt for scene \(scene.id). Attached elements count: \(attachedElements.count)")
+        for element in attachedElements {
+            NSLog("🎨 ProjectStudioViewModel:   - Attached: \(element.name) (\(element.type.rawValue)) ID: \(element.id)")
+            if element.type == .character {
+                if let lora = element.trainedLoraPath {
+                    NSLog("🎬 ProjectStudioViewModel: Character \(element.name) has LoRA: \(lora)")
+                } else {
+                    NSLog("🎬 ProjectStudioViewModel: Character \(element.name) has NO LoRA path")
+                }
+            }
+        }
 
         return promptComposer.compose(scene: scene, elements: attachedElements)
     }
@@ -446,12 +475,20 @@ class ProjectStudioViewModel: ObservableObject {
             modelId: modelId,
             projectId: project.id,
             sceneId: scene.id,
+            composedPrompt: composed.prompt,
             imagePath: scene.mode == .imageToVideo ? scene.referenceImagePath : nil,
+            referenceImagePaths: composed.referenceImagePaths,
             audioPath: (scene.mode == .audioToVideo || scene.audioMode == .imported || scene.audioMode == .voiceover) ? scene.audioReferencePath : nil,
             voiceCloneReferencePath: composed.metadata["voice_clone_reference_path"],
             retakeStartSeconds: scene.mode == .retake ? retakeStartSeconds : nil,
-            retakeEndSeconds: scene.mode == .retake ? retakeEndSeconds : nil
+            retakeEndSeconds: scene.mode == .retake ? retakeEndSeconds : nil,
+            loras: composed.loras
         )
+
+        NSLog("🎬 ProjectStudioViewModel: Prepared request with \(composed.loras.count) LoRAs")
+        for lora in composed.loras {
+            NSLog("🎬 ProjectStudioViewModel:   - LoRA: \(lora.path) (scale: \(lora.scale))")
+        }
 
         Task {
             do {
@@ -534,7 +571,8 @@ class ProjectStudioViewModel: ObservableObject {
             negativePrompt: generation.negativePrompt,
             modelId: modelId,
             projectId: project.id,
-            sceneId: generation.sceneId
+            sceneId: generation.sceneId,
+            composedPrompt: generation.composedPrompt
         )
 
         Task {

@@ -4,6 +4,8 @@ public struct ComposedPrompt: Equatable {
     public let prompt: String
     public let negativePrompt: String
     public let sourceElementIds: [String]
+    public let referenceImagePaths: [String]
+    public let loras: [LoRAConfig]
     public let warnings: [String]
     public let metadata: [String: String]
 
@@ -11,12 +13,16 @@ public struct ComposedPrompt: Equatable {
         prompt: String,
         negativePrompt: String,
         sourceElementIds: [String] = [],
+        referenceImagePaths: [String] = [],
+        loras: [LoRAConfig] = [],
         warnings: [String] = [],
         metadata: [String: String] = [:]
     ) {
         self.prompt = prompt
         self.negativePrompt = negativePrompt
         self.sourceElementIds = sourceElementIds
+        self.referenceImagePaths = referenceImagePaths
+        self.loras = loras
         self.warnings = warnings
         self.metadata = metadata
     }
@@ -27,50 +33,41 @@ public protocol PromptComposer {
 }
 
 public final class DefaultPromptComposer: PromptComposer {
+    private let typeOrder: [ContinuityElementType] = [
+        .character,
+        .lora,
+        .style,
+        .location,
+        .camera,
+        .brand,
+        .promptBlock,
+        .audio,
+        .voiceClone
+    ]
+
     public init() {}
 
     public func compose(scene: Scene, elements: [ContinuityElement]) -> ComposedPrompt {
         var positiveParts: [String] = []
         var negativeParts: [String] = []
         var sourceElementIds: [String] = []
+        var referenceImagePaths: [String] = []
+        var loras: [LoRAConfig] = []
         var warnings: [String] = []
         var metadata: [String: String] = [:]
 
-        // 1. Scene Prompt (Must come first)
-        let scenePrompt = scene.prompt.trimmingCharacters(in: .whitespacesAndNewlines)
-        if !scenePrompt.isEmpty {
-            positiveParts.append(scenePrompt)
-        }
-
-        if let sceneNegative = scene.negativePrompt {
-            let trimmed = sceneNegative.trimmingCharacters(in: .whitespacesAndNewlines)
-            if !trimmed.isEmpty {
-                negativeParts.append(trimmed)
-            }
-        }
-
-        // 2. Elements by type
-        // Required Ordering:
+        // 1. Elements by type (Core Definition)
+        // Required Ordering for Stability:
         // - Character identity text must be included before style text.
         // - Location text must be included before camera text.
         // - Audio cues must be included near the end.
-        let typeOrder: [ContinuityElementType] = [
-            .character,
-            .style,
-            .location,
-            .camera,
-            .brand,
-            .promptBlock,
-            .lora,
-            .voiceClone,
-            .audio // Audio near the end
-        ]
-
+        NSLog("🎨 DefaultPromptComposer: Starting composition for scene \(scene.id) with \(elements.count) elements")
         for type in typeOrder {
             // Sort by name for determinism if multiple elements of same type
             let typeElements = elements.filter { $0.type == type }.sorted(by: { $0.id < $1.id })
 
             for element in typeElements {
+                NSLog("🎨 DefaultPromptComposer: Resolving element \(element.name) (\(element.id)) of type \(element.type.rawValue)")
                 sourceElementIds.append(element.id)
                 metadata[element.id] = element.name
 
@@ -78,17 +75,64 @@ public final class DefaultPromptComposer: PromptComposer {
                     metadata["voice_clone_reference_path"] = refPath
                 }
 
-                let prompt = element.promptBlock.trimmingCharacters(in: .whitespacesAndNewlines)
+                // Collect reference images from assets
+                for asset in element.assets {
+                    if asset.type.lowercased() == "image" || asset.type.lowercased() == "png" || asset.type.lowercased() == "jpg" || asset.type.lowercased() == "jpeg" {
+                        if !referenceImagePaths.contains(asset.path) {
+                            referenceImagePaths.append(asset.path)
+                        }
+                    }
+                }
+
+                // Add LoRA if available
+                if let loraPath = element.trainedLoraPath {
+                    NSLog("🎨 DefaultPromptComposer: Found explicit trainedLoraPath for element \(element.name): \(loraPath)")
+                    metadata["lora_\(element.id)"] = loraPath
+                    if !loras.contains(where: { $0.path == loraPath }) {
+                        loras.append(LoRAConfig(path: loraPath, scale: 1.0))
+                    }
+                } else {
+                    NSLog("🎨 DefaultPromptComposer: No explicit trainedLoraPath for element \(element.name), checking assets...")
+                    // Search assets for ANY element type (e.g. character, style) if it has a .safetensors file
+                    for asset in element.assets {
+                        if asset.path.hasSuffix(".safetensors") {
+                             NSLog("🎨 DefaultPromptComposer: Found LoRA safetensors in assets for \(element.name) (\(element.type.rawValue)): \(asset.path)")
+                             if !loras.contains(where: { $0.path == asset.path }) {
+                                 loras.append(LoRAConfig(path: asset.path, scale: 1.0))
+                             }
+                        }
+                    }
+                }
+
+                let prompt = element.promptBlock.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                 if !prompt.isEmpty {
                     positiveParts.append(prompt)
                 }
 
                 if let negative = element.negativePrompt {
-                    let trimmed = negative.trimmingCharacters(in: .whitespacesAndNewlines)
+                    let trimmed = negative.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                     if !trimmed.isEmpty {
                         negativeParts.append(trimmed)
                     }
                 }
+            }
+        }
+
+        // Add instructions to use reference images if they exist
+        if !referenceImagePaths.isEmpty {
+            positiveParts.insert("follow the visual style and identity from the reference images strictly", at: 0)
+        }
+
+        // 2. Scene Prompt (As modifier/context)
+        let scenePrompt = scene.prompt.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        if !scenePrompt.isEmpty {
+            positiveParts.append(scenePrompt)
+        }
+
+        if let sceneNegative = scene.negativePrompt {
+            let trimmed = sceneNegative.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            if !trimmed.isEmpty {
+                negativeParts.append(trimmed)
             }
         }
 
@@ -123,6 +167,8 @@ public final class DefaultPromptComposer: PromptComposer {
             prompt: finalPositive,
             negativePrompt: finalNegative,
             sourceElementIds: sourceElementIds,
+            referenceImagePaths: referenceImagePaths,
+            loras: loras,
             warnings: warnings,
             metadata: metadata
         )

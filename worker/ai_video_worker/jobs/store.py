@@ -90,7 +90,7 @@ class JobStore:
             "timestamp": now.isoformat(),
             "model_id": request.model_id,
             "prompt": request.prompt,
-            "composed_prompt": request.prompt,
+            "composed_prompt": request.composed_prompt or request.prompt,
             "negative_prompt": request.negative_prompt,
             "resolution": f"{request.width}x{request.height}",
             "steps": request.steps,
@@ -98,7 +98,8 @@ class JobStore:
             "seed": request.seed,
             "duration": request.num_frames,
             "created_at": now.isoformat(),
-            "updated_at": now.isoformat()
+            "updated_at": now.isoformat(),
+            "loras": [lora.model_dump() for lora in request.loras] if request.loras else []
         }
         # Add voice clone reference path to metadata if present
         if request.voice_clone_reference_path:
@@ -109,6 +110,8 @@ class JobStore:
         self.output_manager.append_log(job_id, f"Job initialized for scene {request.scene_id}")
         self.output_manager.append_log(job_id, f"Initial Request Parameters:")
         self.output_manager.append_log(job_id, f"  - Prompt: {request.prompt}")
+        if request.composed_prompt:
+             self.output_manager.append_log(job_id, f"  - Composed Prompt: {request.composed_prompt}")
         self.output_manager.append_log(job_id, f"  - Negative Prompt: {request.negative_prompt}")
         self.output_manager.append_log(job_id, f"  - Model ID: {request.model_id}")
         self.output_manager.append_log(job_id, f"  - Resolution: {request.width}x{request.height}")
@@ -116,6 +119,8 @@ class JobStore:
         self.output_manager.append_log(job_id, f"  - Guidance Scale: {request.guidance_scale}")
         self.output_manager.append_log(job_id, f"  - Seed: {request.seed}")
         self.output_manager.append_log(job_id, f"  - Num Frames: {request.num_frames}")
+        if request.loras:
+            self.output_manager.append_log(job_id, f"  - LoRAs: {metadata['loras']}")
 
         token = CancellationToken()
         self.cancellation_tokens[job_id] = token
@@ -124,6 +129,88 @@ class JobStore:
         asyncio.create_task(self.run_job(job_id, request, token))
         logger.info(f"Job {job_id} started background execution.")
         return job_id
+
+    def create_training_job(self, request: Any) -> str:
+        job_id = str(uuid.uuid4())
+        now = datetime.now()
+        job = JobStatus(
+            job_id=job_id,
+            status="preparing_training",
+            progress=0.0,
+            message="Training job created. Queueing for execution...",
+            created_at=now,
+            updated_at=now,
+        )
+        self.jobs[job_id] = job
+
+        # Write initial metadata
+        metadata = {
+            "training_id": job_id,
+            "project_id": request.project_id,
+            "element_id": request.element_id,
+            "element_type": request.element_type,
+            "status": job.status,
+            "timestamp": now.isoformat(),
+            "model_id": request.model_id or settings.default_model_id,
+            "steps": request.steps,
+            "learning_rate": request.learning_rate,
+            "rank": request.rank,
+            "trigger_word": request.trigger_word,
+            "training_data_paths": request.training_data_paths,
+            "created_at": now.isoformat(),
+            "updated_at": now.isoformat()
+        }
+        self.output_manager.save_metadata(job_id, metadata)
+        self.output_manager.append_log(job_id, f"LoRA Training job initialized for element {request.element_id}")
+        self.output_manager.append_log(job_id, f"Training Parameters:")
+        self.output_manager.append_log(job_id, f"  - Element: {request.element_id} ({request.element_type})")
+        self.output_manager.append_log(job_id, f"  - Steps: {request.steps}")
+        self.output_manager.append_log(job_id, f"  - Rank: {request.rank}")
+        self.output_manager.append_log(job_id, f"  - Trigger Word: {request.trigger_word}")
+
+        token = CancellationToken()
+        self.cancellation_tokens[job_id] = token
+
+        # Start training task in background
+        asyncio.create_task(self.run_training_job(job_id, request, token))
+        logger.info(f"Training job {job_id} started background execution.")
+        return job_id
+
+    async def run_training_job(self, job_id: str, request: Any, token: CancellationToken):
+        logger.info(f"Running training job {job_id}")
+
+        def progress_callback(status, progress, message):
+            self.update_job_status(job_id, status, progress, message)
+
+        try:
+            output_dir = os.path.join(settings.output_dir, "loras", request.element_id)
+            os.makedirs(output_dir, exist_ok=True)
+
+            lora_path = await self.engine.train_lora(
+                request,
+                output_dir,
+                progress_callback=progress_callback,
+                cancellation_token=token
+            )
+
+            if token.is_cancelled:
+                self.update_job_status(job_id, "cancelled", 1.0, "Training cancelled by user")
+            else:
+                self.update_job_status(job_id, "completed", 1.0, "Training completed successfully", result_url=lora_path)
+
+                # Update metadata with result
+                metadata_path = self.output_manager.get_metadata_path(job_id)
+                if metadata_path.exists():
+                    with open(metadata_path, "r") as f:
+                        metadata = json.load(f)
+                    metadata["status"] = "completed"
+                    metadata["result_url"] = lora_path
+                    metadata["updated_at"] = datetime.now().isoformat()
+                    self.output_manager.save_metadata(job_id, metadata)
+
+        except Exception as e:
+            logger.exception(f"Training job {job_id} failed: {e}")
+            self.update_job_status(job_id, "failed", 1.0, f"Training failed: {str(e)}", error=str(e))
 
     def get_job(self, job_id: str) -> Optional[JobStatus]:
         return self.jobs.get(job_id)
@@ -146,6 +233,7 @@ class JobStore:
                     "stage": job.status,
                     "percentage": job.progress,
                     "message": job.message,
+                    "result_url": job.result_url,
                     "timestamp": job.updated_at.isoformat()
                 }
 
@@ -210,7 +298,7 @@ class JobStore:
                 return False
         return False
 
-    def update_job_status(self, job_id: str, status: str, progress: float, message: str, error: Optional[str] = None):
+    def update_job_status(self, job_id: str, status: str, progress: float, message: str, error: Optional[str] = None, result_url: Optional[str] = None):
         """Update job status and notify listeners."""
         if job_id not in self.jobs:
             logger.warning(f"Attempted to update status for non-existent job {job_id}")
@@ -222,6 +310,8 @@ class JobStore:
         job.message = message
         if error:
             job.error = error
+        if result_url:
+            job.result_url = result_url
         job.updated_at = datetime.now()
 
         logger.info(f"Job {job_id} updated: {status} ({progress*100:.1f}%) - {message}")
@@ -233,6 +323,7 @@ class JobStore:
                 "stage": status,
                 "percentage": progress,
                 "message": message,
+                "result_url": result_url,
                 "timestamp": job.updated_at.isoformat()
             }
             if error:
@@ -267,6 +358,8 @@ class JobStore:
             })
             if error:
                 metadata["error"] = error
+            if result_url:
+                metadata["result_url"] = result_url
             if "created_at" not in metadata:
                 metadata["created_at"] = job.created_at.isoformat()
 
@@ -320,6 +413,7 @@ class JobStore:
                         "stage": status,
                         "percentage": progress,
                         "message": message,
+                        "result_url": getattr(job, "result_url", None),
                         "timestamp": job.updated_at.isoformat()
                     }
                     for q in self.listeners[job_id]:
