@@ -117,6 +117,11 @@ class MLXLTXAdapter(LTXAdapter):
         wrapper_script = os.path.abspath(os.path.join(os.path.dirname(__file__), "ltx_training_wrapper.py"))
         video_paths = getattr(request, "training_data_paths", [])
         trigger_word = getattr(request, "trigger_word", "a video of")
+        # The character element's free-text description, if the app sent one.
+        # Previously nothing upstream of here ever forwarded this, so captions
+        # were always just the bare trigger word -- see ltx_training_wrapper.py's
+        # prepare_dataset() for how this now gets combined into each caption.
+        description = getattr(request, "description", None)
         steps = getattr(request, "steps", 500)
         rank = getattr(request, "rank", 64)
         learning_rate = getattr(request, "learning_rate", 5e-4)
@@ -148,6 +153,8 @@ class MLXLTXAdapter(LTXAdapter):
             "--steps", str(steps),
             "--rank", str(rank),
         ]
+        if description and description.strip():
+            cmd += ["--description", description.strip()]
         if gemma_model_path:
             cmd += ["--gemma_model_path", gemma_model_path]
         cmd += [

@@ -254,4 +254,14 @@ class TestGenerationClient: GenerationClient {
     func submitLoRATraining(request: TrainingRequest) async throws -> String {
         return "train-1"
     }
+
+    func submitTrainingPreflight(request: TrainingPreflightRequest) async throws -> TrainingPreflightResponse {
+        return TrainingPreflightResponse(
+            score: 100,
+            imageCount: request.trainingDataPaths.count,
+            validImageCount: request.trainingDataPaths.count,
+            findings: [],
+            recommendation: "Looks solid -- safe to start training."
+        )
+    }
 }

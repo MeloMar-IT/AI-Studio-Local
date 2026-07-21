@@ -29,12 +29,28 @@ except ImportError as e:
     print(f"Error importing ltx_trainer_mlx: {e}")
     sys.exit(1)
 
-def prepare_dataset(video_paths, trigger_word, temp_dir):
-    """Prepares the directory structure for ltx-trainer."""
+def prepare_dataset(video_paths, trigger_word, temp_dir, description=None):
+    """
+    Prepares the directory structure for ltx-trainer.
+
+    Captions are `trigger_word` alone if no description is given (this was
+    previously the *only* option -- the caption was always just the bare
+    trigger word, regardless of what the character element's description
+    field said, because nothing upstream of here ever passed a description
+    through). When one is provided, it's appended after the trigger word so
+    the LoRA still reliably associates the exact token with this identity
+    (that association is what generation prompts key off of -- see
+    PromptComposer.swift's trigger-word injection) while also learning from
+    the richer descriptive text, which generally helps the LoRA separate
+    "this is the character" from "this is the pose/background/lighting".
+    """
     videos_dir = Path(temp_dir) / "videos"
     captions_dir = Path(temp_dir) / "captions"
     videos_dir.mkdir(parents=True, exist_ok=True)
     captions_dir.mkdir(parents=True, exist_ok=True)
+
+    description = description.strip() if description else None
+    caption_text = f"{trigger_word}, {description}" if description else trigger_word
 
     for i, video_path in enumerate(video_paths):
         video_path = Path(video_path)
@@ -51,7 +67,7 @@ def prepare_dataset(video_paths, trigger_word, temp_dir):
         # Create caption
         caption_path = captions_dir / f"video_{i}.txt"
         with open(caption_path, "w") as f:
-            f.write(trigger_word)
+            f.write(caption_text)
 
     return videos_dir, captions_dir
 
@@ -60,6 +76,12 @@ def main():
     parser.add_argument("--model_path", required=True)
     parser.add_argument("--video_paths", required=True, help="JSON list of video paths")
     parser.add_argument("--trigger_word", required=True)
+    parser.add_argument(
+        "--description",
+        default=None,
+        help="Optional descriptive text (e.g. the character element's description field) "
+        "appended after the trigger word in every caption.",
+    )
     parser.add_argument("--output_dir", required=True)
     parser.add_argument("--temp_dir", required=True)
     parser.add_argument("--steps", type=int, default=500)
@@ -78,7 +100,7 @@ def main():
 
     # 1. Prepare Dataset
     print(f"Preparing dataset in {args.temp_dir}...")
-    videos_dir, captions_dir = prepare_dataset(video_paths, args.trigger_word, args.temp_dir)
+    videos_dir, captions_dir = prepare_dataset(video_paths, args.trigger_word, args.temp_dir, description=args.description)
 
     preprocessed_dir = Path(args.temp_dir) / "preprocessed"
     preprocessed_dir.mkdir(parents=True, exist_ok=True)

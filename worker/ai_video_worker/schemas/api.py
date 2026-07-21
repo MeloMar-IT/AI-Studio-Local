@@ -107,6 +107,33 @@ class TrainingRequest(BaseModel):
     learning_rate: float = 1e-4
     rank: int = 16
     trigger_word: Optional[str] = None
+    # The character element's free-text description. Appended after the
+    # trigger word in every caption (see ltx_training_wrapper.prepare_dataset)
+    # instead of captions being just the bare trigger word.
+    description: Optional[str] = None
+
+
+class TrainingPreflightRequest(BaseModel):
+    training_data_paths: List[str]
+    trigger_word: Optional[str] = None
+    description: Optional[str] = None
+    # Must match the trainer's actual batch size (ltx_trainer_mlx config.py
+    # defaults to 2) -- see dataset_preflight.py's docstring for why this
+    # matters (silently-zero-batch training on odd/small datasets).
+    batch_size: int = 2
+
+
+class PreflightFinding(BaseModel):
+    severity: str  # "critical" | "warning" | "info"
+    message: str
+
+
+class TrainingPreflightResponse(BaseModel):
+    score: int
+    image_count: int
+    valid_image_count: int
+    findings: List[PreflightFinding]
+    recommendation: str
 
 
 class JobStatus(BaseModel):

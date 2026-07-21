@@ -17,6 +17,7 @@ public protocol GenerationClient {
     func downloadModel(modelId: String) async throws -> ModelDownloadResponse
     func deleteModel(modelId: String) async throws -> ModelDeleteResponse
     func submitLoRATraining(request: TrainingRequest) async throws -> String // returns job_id
+    func submitTrainingPreflight(request: TrainingPreflightRequest) async throws -> TrainingPreflightResponse
 }
 
 public struct ModelDeleteResponse: Codable {
@@ -321,6 +322,12 @@ public struct TrainingRequest: Codable {
     public let learningRate: Double
     public let rank: Int
     public let triggerWord: String?
+    // The character element's free-text description. Previously nothing sent
+    // this to the worker at all, so training captions were always just the
+    // bare trigger word regardless of what was written here -- see
+    // ltx_training_wrapper.prepare_dataset(), which now appends this after
+    // the trigger word in every caption when present.
+    public let description: String?
 
     public init(
         projectId: String,
@@ -331,7 +338,8 @@ public struct TrainingRequest: Codable {
         steps: Int = 500,
         learningRate: Double = 0.0001,
         rank: Int = 16,
-        triggerWord: String? = nil
+        triggerWord: String? = nil,
+        description: String? = nil
     ) {
         self.projectId = projectId
         self.elementId = elementId
@@ -342,6 +350,7 @@ public struct TrainingRequest: Codable {
         self.learningRate = learningRate
         self.rank = rank
         self.triggerWord = triggerWord
+        self.description = description
     }
 
     enum CodingKeys: String, CodingKey {
@@ -354,6 +363,54 @@ public struct TrainingRequest: Codable {
         case learningRate = "learning_rate"
         case rank
         case triggerWord = "trigger_word"
+        case description
+    }
+}
+
+public struct TrainingPreflightRequest: Codable {
+    public let trainingDataPaths: [String]
+    public let triggerWord: String?
+    public let description: String?
+    // Must match the trainer's actual batch size (ltx_trainer_mlx defaults to
+    // 2) -- see worker/ai_video_worker/engine/dataset_preflight.py for why
+    // this matters (silently-zero-batch training on odd/small datasets).
+    public let batchSize: Int
+
+    public init(trainingDataPaths: [String], triggerWord: String? = nil, description: String? = nil, batchSize: Int = 2) {
+        self.trainingDataPaths = trainingDataPaths
+        self.triggerWord = triggerWord
+        self.description = description
+        self.batchSize = batchSize
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case trainingDataPaths = "training_data_paths"
+        case triggerWord = "trigger_word"
+        case description
+        case batchSize = "batch_size"
+    }
+}
+
+public struct PreflightFinding: Codable, Identifiable, Equatable {
+    public let severity: String // "critical" | "warning" | "info"
+    public let message: String
+
+    public var id: String { severity + message }
+}
+
+public struct TrainingPreflightResponse: Codable, Equatable {
+    public let score: Int
+    public let imageCount: Int
+    public let validImageCount: Int
+    public let findings: [PreflightFinding]
+    public let recommendation: String
+
+    enum CodingKeys: String, CodingKey {
+        case score
+        case imageCount = "image_count"
+        case validImageCount = "valid_image_count"
+        case findings
+        case recommendation
     }
 }
 
@@ -759,6 +816,31 @@ public final class HTTPGenerationClient: GenerationClient {
 
             let jobStatus = try decoder.decode(WorkerJobStatus.self, from: data)
             return jobStatus.jobId
+        } catch let error as GenerationClientError {
+            throw error
+        } catch {
+            throw GenerationClientError.workerUnavailable(error)
+        }
+    }
+
+    public func submitTrainingPreflight(request: TrainingPreflightRequest) async throws -> TrainingPreflightResponse {
+        let url = baseURL.appendingPathComponent("train/lora/preflight")
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        do {
+            urlRequest.httpBody = try encoder.encode(request)
+            let (data, response) = try await session.data(for: urlRequest)
+
+            guard let httpResponse = response as? HTTPURLResponse,
+                  (200...299).contains(httpResponse.statusCode) else {
+                let errorJson = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+                let message = (errorJson?["detail"] as? String) ?? "Failed to run dataset preflight check"
+                throw GenerationClientError.workerError(code: "preflight_failed", message: message)
+            }
+
+            return try decoder.decode(TrainingPreflightResponse.self, from: data)
         } catch let error as GenerationClientError {
             throw error
         } catch {

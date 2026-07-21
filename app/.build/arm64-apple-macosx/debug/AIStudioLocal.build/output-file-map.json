@@ -149,6 +149,13 @@
     "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/StatusBadge.swiftdeps",
     "diagnostics": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/StatusBadge.dia"
   },
+  "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/TrainingPreflightSheet.swift": {
+    "dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/TrainingPreflightSheet.d",
+    "object": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/TrainingPreflightSheet.swift.o",
+    "swiftmodule": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/TrainingPreflightSheet~partial.swiftmodule",
+    "swift-dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/TrainingPreflightSheet.swiftdeps",
+    "diagnostics": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/TrainingPreflightSheet.dia"
+  },
   "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Spacing.swift": {
     "dependencies": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Spacing.d",
     "object": "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Spacing.swift.o",

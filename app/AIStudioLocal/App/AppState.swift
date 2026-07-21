@@ -2,6 +2,18 @@ import Foundation
 import Combine
 import OSLog
 
+/// Drives the dataset preflight popup shown before a character LoRA training
+/// job actually starts. Holds everything needed to either kick off training
+/// (Continue) or discard the request (Stop) without re-deriving anything.
+struct TrainingPreflightPresentation: Identifiable {
+    let id = UUID()
+    let element: ContinuityElement
+    let triggerWord: String
+    let description: String?
+    let imagePaths: [String]
+    let result: TrainingPreflightResponse
+}
+
 class AppState: ObservableObject {
     private let logger = Logger(subsystem: "com.ai-studio-local.app", category: "State")
     @Published var isLoading: Bool = false
@@ -25,6 +37,10 @@ class AppState: ObservableObject {
 
     // Continuity Library Cache for UI
     @Published var continuityElements: [ContinuityElement] = []
+
+    // Non-nil while the dataset preflight popup is on screen, awaiting the
+    // user's Continue/Stop choice for a pending LoRA training request.
+    @Published var trainingPreflight: TrainingPreflightPresentation?
 
     private let hardwareProfiler: HardwareProfilerProtocol
     private let generationClient: GenerationClient
@@ -174,46 +190,98 @@ class AppState: ObservableObject {
         // so the word the LoRA is actually trained on (captions are just this token by
         // itself) always matches what PromptComposer later injects into generation prompts.
         let triggerWord = element.name.replacingOccurrences(of: " ", with: "_").lowercased()
+        let imagePaths = imageAssets.map { $0.path }
+        // Previously never sent to the worker at all -- captions were always
+        // just the bare trigger word regardless of this field. nil (not empty
+        // string) when blank, so downstream code can tell "no description" from
+        // "empty description" with a single check.
+        let trimmedDescription = element.description.trimmingCharacters(in: .whitespacesAndNewlines)
+        let description = trimmedDescription.isEmpty ? nil : trimmedDescription
 
         Task {
+            // Run the dataset quality check (image count/batch-size fit, resolution
+            // consistency, near-duplicates, trigger word) before committing to a
+            // training run. The result is surfaced as a popup (trainingPreflight)
+            // with a 0-100 score; the user explicitly chooses Continue or Stop via
+            // confirmPendingTraining()/cancelPendingTraining() below -- training is
+            // never started directly from here.
             do {
-                let request = TrainingRequest(
-                    projectId: "library", // Continuity elements are global
-                    elementId: element.id,
-                    elementType: "character",
-                    trainingDataPaths: imageAssets.map { $0.path },
-                    triggerWord: triggerWord
-                )
-
-                let jobId = try await generationClient.submitLoRATraining(request: request)
-
-                // Track this training job
+                let preflightRequest = TrainingPreflightRequest(trainingDataPaths: imagePaths, triggerWord: triggerWord, description: description)
+                let result = try await generationClient.submitTrainingPreflight(request: preflightRequest)
                 await MainActor.run {
-                    // Update element state to training
-                    var updatedElement = element
-                    updatedElement.isTraining = true
-                    updatedElement.triggerWord = triggerWord
-
-                    // Add to active jobs if we need to show it in the queue
-                    let job = GenerationJob(
-                        id: jobId,
-                        projectId: "library",
-                        sceneId: element.id,
-                        status: .queued,
-                        mode: .textToVideo, // Training doesn't have its own mode in SceneMode yet, but we'll identify it by projectId
-                        sceneName: "Training: \(element.name)"
+                    self.trainingPreflight = TrainingPreflightPresentation(
+                        element: element,
+                        triggerWord: triggerWord,
+                        description: description,
+                        imagePaths: imagePaths,
+                        result: result
                     )
-                    self.addJob(job)
-
-                    // Update the store and cache
-                    try? continuityStore.save(updatedElement)
-                    if let index = continuityElements.firstIndex(where: { $0.id == element.id }) {
-                        continuityElements[index] = updatedElement
-                    }
                 }
             } catch {
-                logger.error("Failed to start LoRA training: \(error.localizedDescription)")
+                // Fail open: a broken/unreachable preflight check is a worker-side
+                // problem, not a reason to block the user's actual training request.
+                // Log it and start training directly instead of trapping the user
+                // behind a check that can't run.
+                logger.error("Dataset preflight check failed, starting training without it: \(error.localizedDescription)")
+                await startTrainingJob(for: element, triggerWord: triggerWord, description: description, imagePaths: imagePaths)
             }
+        }
+    }
+
+    /// Called when the user taps "Continue" on the preflight popup.
+    func confirmPendingTraining() {
+        guard let pending = trainingPreflight else { return }
+        trainingPreflight = nil
+        Task {
+            await startTrainingJob(for: pending.element, triggerWord: pending.triggerWord, description: pending.description, imagePaths: pending.imagePaths)
+        }
+    }
+
+    /// Called when the user taps "Stop" on the preflight popup. No training job
+    /// is ever submitted to the worker for this request.
+    func cancelPendingTraining() {
+        trainingPreflight = nil
+    }
+
+    private func startTrainingJob(for element: ContinuityElement, triggerWord: String, description: String?, imagePaths: [String]) async {
+        do {
+            let request = TrainingRequest(
+                projectId: "library", // Continuity elements are global
+                elementId: element.id,
+                elementType: "character",
+                trainingDataPaths: imagePaths,
+                triggerWord: triggerWord,
+                description: description
+            )
+
+            let jobId = try await generationClient.submitLoRATraining(request: request)
+
+            // Track this training job
+            await MainActor.run {
+                // Update element state to training
+                var updatedElement = element
+                updatedElement.isTraining = true
+                updatedElement.triggerWord = triggerWord
+
+                // Add to active jobs if we need to show it in the queue
+                let job = GenerationJob(
+                    id: jobId,
+                    projectId: "library",
+                    sceneId: element.id,
+                    status: .queued,
+                    mode: .textToVideo, // Training doesn't have its own mode in SceneMode yet, but we'll identify it by projectId
+                    sceneName: "Training: \(element.name)"
+                )
+                self.addJob(job)
+
+                // Update the store and cache
+                try? continuityStore.save(updatedElement)
+                if let index = continuityElements.firstIndex(where: { $0.id == element.id }) {
+                    continuityElements[index] = updatedElement
+                }
+            }
+        } catch {
+            logger.error("Failed to start LoRA training: \(error.localizedDescription)")
         }
     }
 

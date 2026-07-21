@@ -27,7 +27,11 @@ from ai_video_worker.schemas.api import (
     ModelImportRequest,
     ModelDownloadRequest,
     TrainingRequest,
+    TrainingPreflightRequest,
+    TrainingPreflightResponse,
+    PreflightFinding,
 )
+from ai_video_worker.engine.dataset_preflight import analyze_training_dataset
 
 router = APIRouter()
 
@@ -216,6 +220,31 @@ def _validate_image_path(image_path: str):
                 )
             ).model_dump()
         )
+
+
+@router.post("/train/lora/preflight", response_model=TrainingPreflightResponse)
+async def train_lora_preflight(request: TrainingPreflightRequest):
+    """
+    Read-only dataset quality check, called by the app right before it shows
+    the user a "start training?" confirmation. Does not touch job_store or
+    the engine -- just inspects the image files directly. Run in a thread
+    since it opens every image and does an O(n^2) similarity pass, which
+    could otherwise block the event loop for larger datasets.
+    """
+    result = await asyncio.to_thread(
+        analyze_training_dataset,
+        image_paths=request.training_data_paths,
+        trigger_word=request.trigger_word,
+        batch_size=request.batch_size,
+        description=request.description,
+    )
+    return TrainingPreflightResponse(
+        score=result.score,
+        image_count=result.image_count,
+        valid_image_count=result.valid_image_count,
+        findings=[PreflightFinding(severity=f.severity, message=f.message) for f in result.findings],
+        recommendation=result.recommendation,
+    )
 
 
 @router.post("/train/lora", response_model=JobStatus)

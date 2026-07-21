@@ -139,6 +139,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/TrainingPreflightSheet.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Spacing.swift"
         },
         {
@@ -399,6 +403,7 @@
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SceneCard.swift.o",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/SecondaryButton.swift.o",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/StatusBadge.swift.o",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/TrainingPreflightSheet.swift.o",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Spacing.swift.o",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Typography.swift.o",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/AppEnvironment.swift.o",
@@ -477,7 +482,6 @@
         "-entry-point-function-name",
         "-Xfrontend",
         "AIStudioLocal_main",
-        "-color-diagnostics",
         "-swift-version",
         "5",
         "-plugin-path",
@@ -591,6 +595,10 @@
         {
           "kind" : "file",
           "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/StatusBadge.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/TrainingPreflightSheet.swift.o"
         },
         {
           "kind" : "file",
@@ -844,6 +852,7 @@
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/SceneCard.swift",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/SecondaryButton.swift",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/StatusBadge.swift",
+        "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/TrainingPreflightSheet.swift",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Spacing.swift",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Typography.swift",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/AppEnvironment.swift",
@@ -955,7 +964,6 @@
         "-emit-objc-header",
         "-emit-objc-header-path",
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalPackageTests.build/include/AIStudioLocalPackageTests-Swift.h",
-        "-color-diagnostics",
         "-plugin-path",
         "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
         "-sdk",
@@ -1133,7 +1141,6 @@
         "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/ModuleCache",
         "-parseable-output",
         "-parse-as-library",
-        "-color-diagnostics",
         "-swift-version",
         "5",
         "-plugin-path",
@@ -1298,6 +1305,7 @@
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/SceneCard.swift",
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/SecondaryButton.swift",
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/StatusBadge.swift",
+      "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/TrainingPreflightSheet.swift",
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Spacing.swift",
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Typography.swift",
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/Domain/AppEnvironment.swift",
@@ -1376,7 +1384,6 @@
       "-entry-point-function-name",
       "-Xfrontend",
       "AIStudioLocal_main",
-      "-color-diagnostics",
       "-swift-version",
       "5",
       "-plugin-path",
@@ -1439,7 +1446,6 @@
       "-emit-objc-header",
       "-emit-objc-header-path",
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocalPackageTests.build/include/AIStudioLocalPackageTests-Swift.h",
-      "-color-diagnostics",
       "-plugin-path",
       "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
       "-sdk",
@@ -1514,7 +1520,6 @@
       "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/ModuleCache",
       "-parseable-output",
       "-parse-as-library",
-      "-color-diagnostics",
       "-swift-version",
       "5",
       "-plugin-path",
@@ -1684,6 +1689,10 @@
         {
           "kind" : "file",
           "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/StatusBadge.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/AIStudioLocal/DesignSystem/Components/TrainingPreflightSheet.swift"
         },
         {
           "kind" : "file",
@@ -2213,6 +2222,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/TrainingPreflightSheet.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/Typography.swift.o"
         },
         {
@@ -2542,6 +2555,10 @@
         {
           "kind" : "file",
           "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/TaskQueueViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal.build/TrainingPreflightSheet.swift.o"
         },
         {
           "kind" : "file",

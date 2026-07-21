@@ -128,5 +128,12 @@ struct ContentView: View {
             .onAppear {
                 AppLogger.shared.info("✅ MainNavigationView: onAppear", category: .ui)
             }
+            .sheet(item: $appState.trainingPreflight) { presentation in
+                TrainingPreflightSheet(
+                    presentation: presentation,
+                    onContinue: { appState.confirmPendingTraining() },
+                    onStop: { appState.cancelPendingTraining() }
+                )
+            }
     }
 }

@@ -53324,3 +53324,99 @@ Ultra-detailed.'
 2026-07-21 08:55:49,029 - ai-video-worker - v0.1.1 - [80963] - MainThread - INFO - Job 71b7c7d2-729f-4cc4-bfe8-5a75ac091e55 completed successfully
 2026-07-21 08:55:51,038 - ai-video-worker - v0.1.1 - [80963] - MainThread - INFO - Incoming GET /jobs/71b7c7d2-729f-4cc4-bfe8-5a75ac091e55
 2026-07-21 08:55:51,040 - ai-video-worker - v0.1.1 - [80963] - MainThread - INFO - Completed GET /jobs/71b7c7d2-729f-4cc4-bfe8-5a75ac091e55 - Status 200 - Duration 1.37ms
+2026-07-21 09:30:09,388 - ai-video-worker - v0.1.1 - [81699] - MainThread - INFO - Initialized LTXGenerationEngine with adapter: MLXLTXAdapter
+2026-07-21 09:30:09,828 - ai-video-worker - v0.1.1 - [81699] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python3
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (84.21 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/models
+Models Disk:    556.68 GB free
+============================================================
+2026-07-21 09:30:09,843 - ai-video-worker - v0.1.1 - [81699] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python3
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (83.95 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/models
+Models Disk:    556.68 GB free
+============================================================
+2026-07-21 09:30:22,993 - ai-video-worker - v0.1.1 - [81699] - MainThread - INFO - Incoming GET /health
+2026-07-21 09:30:22,998 - ai-video-worker - v0.1.1 - [81699] - MainThread - INFO - Completed GET /health - Status 200 - Duration 4.89ms
+2026-07-21 09:30:23,097 - ai-video-worker - v0.1.1 - [81699] - MainThread - INFO - Incoming GET /hardware
+2026-07-21 09:30:23,109 - ai-video-worker - v0.1.1 - [81699] - MainThread - INFO - Completed GET /hardware - Status 200 - Duration 12.85ms
+2026-07-21 09:30:23,111 - ai-video-worker - v0.1.1 - [81699] - MainThread - INFO - Incoming GET /hardware
+2026-07-21 09:30:23,123 - ai-video-worker - v0.1.1 - [81699] - MainThread - INFO - Completed GET /hardware - Status 200 - Duration 12.03ms
+2026-07-21 09:30:29,945 - ai-video-worker - v0.1.1 - [81699] - MainThread - INFO - Incoming POST /train/lora/preflight
+2026-07-21 09:30:29,979 - ai-video-worker - v0.1.1 - [81699] - MainThread - INFO - Completed POST /train/lora/preflight - Status 200 - Duration 34.42ms
+2026-07-21 09:31:45,429 - ai-video-worker - v0.1.1 - [81699] - MainThread - INFO - Incoming POST /train/lora/preflight
+2026-07-21 09:31:45,457 - ai-video-worker - v0.1.1 - [81699] - MainThread - INFO - Completed POST /train/lora/preflight - Status 200 - Duration 28.05ms
+2026-07-21 09:36:32,742 - ai-video-worker - v0.1.1 - [81899] - MainThread - INFO - Initialized LTXGenerationEngine with adapter: MLXLTXAdapter
+2026-07-21 09:36:33,194 - ai-video-worker - v0.1.1 - [81899] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python3
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (83.57 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/models
+Models Disk:    556.65 GB free
+============================================================
+2026-07-21 09:36:33,208 - ai-video-worker - v0.1.1 - [81899] - MainThread - INFO - ============================================================
+AI VIDEO WORKER STARTUP REPORT
+============================================================
+Status:         READY
+Version:        0.1.1
+Engine:         LTX
+OS:             Darwin 26.5.1
+Python:         3.13.0
+Python Path:    /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv/bin/python3
+Venv Path:      /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/venv
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (83.57 GB free)
+MLX Available:  ✅
+FFmpeg:         ✅
+Libraries:      fastapi:✅, uvicorn:✅, pydantic:✅, psutil:✅, requests:✅, mlx:✅, mlx_audio:✅, mlx_lm:✅, mlx_vlm:✅, mlx_video:✅, cv2:✅
+Models Dir:     /Users/marcelkoert/IdeaProjects/AI Studio Local/worker/models
+Models Disk:    556.65 GB free
+============================================================
+2026-07-21 09:36:39,122 - ai-video-worker - v0.1.1 - [81899] - MainThread - INFO - Incoming GET /health
+2026-07-21 09:36:39,127 - ai-video-worker - v0.1.1 - [81899] - MainThread - INFO - Completed GET /health - Status 200 - Duration 4.84ms
+2026-07-21 09:36:39,225 - ai-video-worker - v0.1.1 - [81899] - MainThread - INFO - Incoming GET /hardware
+2026-07-21 09:36:39,238 - ai-video-worker - v0.1.1 - [81899] - MainThread - INFO - Completed GET /hardware - Status 200 - Duration 12.94ms
+2026-07-21 09:36:39,239 - ai-video-worker - v0.1.1 - [81899] - MainThread - INFO - Incoming GET /hardware
+2026-07-21 09:36:39,252 - ai-video-worker - v0.1.1 - [81899] - MainThread - INFO - Completed GET /hardware - Status 200 - Duration 13.20ms
+2026-07-21 09:36:45,054 - ai-video-worker - v0.1.1 - [81899] - MainThread - INFO - Incoming POST /train/lora/preflight
+2026-07-21 09:36:45,083 - ai-video-worker - v0.1.1 - [81899] - MainThread - INFO - Completed POST /train/lora/preflight - Status 200 - Duration 28.36ms

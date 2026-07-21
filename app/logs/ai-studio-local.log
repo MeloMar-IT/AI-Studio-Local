@@ -4738,3 +4738,67 @@ Disk (Outputs): 556.84 GB free
 ============================================================
 2026-07-21 08:53:38,159 - app.WORKER - ERROR - Failed to fetch models: The operation couldn’t be completed. (AIStudioLocal.GenerationClientError error 0.)
 2026-07-21 08:54:05,859 - app.WORKER - INFO - 📦 AppState: SSE Update for 71b7c7d2-729f-4cc4-bfe8-5a75ac091e55: generating_video (16%)
+2026-07-21 09:30:22,637 - app.LIFECYCLE - INFO - 🚀 AIStudioLocalApp: init
+2026-07-21 09:30:22,905 - app.UI - INFO - ✅ MainNavigationView: onAppear
+2026-07-21 09:30:22,905 - app.LIFECYCLE - INFO - Application foregrounded
+2026-07-21 09:30:22,913 - app.LIFECYCLE - INFO - ✅ Application did finish launching
+2026-07-21 09:30:22,984 - app.UI - INFO - 🛠 Setting up dock icon...
+2026-07-21 09:30:22,984 - app.UI - INFO - 📦 Bundle.module.bundleURL: /Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle
+2026-07-21 09:30:23,075 - app.UI - INFO - 🎨 Dock icon updated from Bundle.module (AppIconDirect)
+2026-07-21 09:30:23,111 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-21 09:30:23,124 - app.WORKER - INFO - 
+============================================================
+AI VIDEO WORKER STARTUP REPORT (from App)
+============================================================
+Status:         READY
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (83.64 GB free)
+OS:             Darwin 26.5.1
+MLX Available:  ✅
+PyTorch:        ✅
+FFmpeg:         ✅
+Disk (Models):  556.65 GB free
+Disk (Outputs): 556.65 GB free
+============================================================
+2026-07-21 09:36:38,793 - app.LIFECYCLE - INFO - 🚀 AIStudioLocalApp: init
+2026-07-21 09:36:39,044 - app.UI - INFO - ✅ MainNavigationView: onAppear
+2026-07-21 09:36:39,044 - app.LIFECYCLE - INFO - Application foregrounded
+2026-07-21 09:36:39,051 - app.LIFECYCLE - INFO - ✅ Application did finish launching
+2026-07-21 09:36:39,112 - app.UI - INFO - 🛠 Setting up dock icon...
+2026-07-21 09:36:39,113 - app.UI - INFO - 📦 Bundle.module.bundleURL: /Users/marcelkoert/IdeaProjects/AI Studio Local/app/.build/arm64-apple-macosx/debug/AIStudioLocal_AIStudioLocal.bundle
+2026-07-21 09:36:39,202 - app.UI - INFO - 🎨 Dock icon updated from Bundle.module (AppIconDirect)
+2026-07-21 09:36:39,239 - app.LIFECYCLE - INFO - 
+============================================================
+AI STUDIO LOCAL STARTUP REPORT
+============================================================
+Model:          Mac16,5
+Apple Silicon:  ✅
+Memory:         128 GB
+Profile:        High Quality
+Local Ready:    ✅
+============================================================
+2026-07-21 09:36:39,253 - app.WORKER - INFO - 
+============================================================
+AI VIDEO WORKER STARTUP REPORT (from App)
+============================================================
+Status:         READY
+Device:         Marcels-MacBook-Pro-2.local
+Chip:           Apple M4 Max
+Memory:         128.0 GB total (83.74 GB free)
+OS:             Darwin 26.5.1
+MLX Available:  ✅
+PyTorch:        ✅
+FFmpeg:         ✅
+Disk (Models):  556.65 GB free
+Disk (Outputs): 556.65 GB free
+============================================================

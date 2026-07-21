@@ -114,4 +114,19 @@ class MockGenerationClient: GenerationClient {
     func submitLoRATraining(request: TrainingRequest) async throws -> String {
         return "train-1"
     }
+
+    var preflightResponse: TrainingPreflightResponse?
+
+    func submitTrainingPreflight(request: TrainingPreflightRequest) async throws -> TrainingPreflightResponse {
+        if let preflightResponse = preflightResponse {
+            return preflightResponse
+        }
+        return TrainingPreflightResponse(
+            score: 100,
+            imageCount: request.trainingDataPaths.count,
+            validImageCount: request.trainingDataPaths.count,
+            findings: [],
+            recommendation: "Looks solid -- safe to start training."
+        )
+    }
 }
