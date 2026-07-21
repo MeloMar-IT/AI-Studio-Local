@@ -170,6 +170,11 @@ class AppState: ObservableObject {
         }
         guard !imageAssets.isEmpty else { return }
 
+        // Computed once and reused for both the training request and the persisted element,
+        // so the word the LoRA is actually trained on (captions are just this token by
+        // itself) always matches what PromptComposer later injects into generation prompts.
+        let triggerWord = element.name.replacingOccurrences(of: " ", with: "_").lowercased()
+
         Task {
             do {
                 let request = TrainingRequest(
@@ -177,7 +182,7 @@ class AppState: ObservableObject {
                     elementId: element.id,
                     elementType: "character",
                     trainingDataPaths: imageAssets.map { $0.path },
-                    triggerWord: element.name.replacingOccurrences(of: " ", with: "_").lowercased()
+                    triggerWord: triggerWord
                 )
 
                 let jobId = try await generationClient.submitLoRATraining(request: request)
@@ -187,6 +192,7 @@ class AppState: ObservableObject {
                     // Update element state to training
                     var updatedElement = element
                     updatedElement.isTraining = true
+                    updatedElement.triggerWord = triggerWord
 
                     // Add to active jobs if we need to show it in the queue
                     let job = GenerationJob(

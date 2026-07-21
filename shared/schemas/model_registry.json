@@ -63,6 +63,29 @@
       "recommended_hardware": "Apple M1 Pro 16GB or better"
     },
     {
+      "id": "ltx-video-q4",
+      "name": "LTX-Video Q4 (Non-AV)",
+      "description": "Quantized Video-only model for MLX. Used for character-consistent generations with LoRA.",
+      "family": "LTX-Video",
+      "backend": "ltx-video",
+      "model_type": "Video",
+      "version": "1.0",
+      "expected_files": [
+        "config.json",
+        "embedded_config.json",
+        "quantize_config.json",
+        "transformer.safetensors",
+        "vae_decoder.safetensors",
+        "vae_encoder.safetensors"
+      ],
+      "download_urls": {
+        "transformer.safetensors": "https://huggingface.co/notapalindrome/ltx23-mlx-q4/resolve/main/transformer.safetensors"
+      },
+      "memory_requirement_gb": 12,
+      "supported_modes": ["text-to-video", "image-to-video"],
+      "recommended_hardware": "Apple M1 16GB or better"
+    },
+    {
       "id": "ltx-video-2b-v0.9",
       "name": "LTX-Video 2B v0.9",
       "description": "Production quality base model",

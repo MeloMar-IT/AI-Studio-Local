@@ -1,0 +1,31 @@
+{
+  "generation_id": "",
+  "project_id": null,
+  "scene_id": null,
+  "timestamp": "2026-07-19T14:41:44.851010",
+  "app_version": "0.1.1",
+  "worker_version": "0.1.1",
+  "model_id": "ltx-video-av-q4",
+  "prompt": "Marcel says: \"Hi there!\"",
+  "composed_prompt": "Marcel says: \"Hi there!\"",
+  "negative_prompt": null,
+  "seed": null,
+  "resolution": "704x512",
+  "aspect_ratio": "704:512",
+  "fps": 24,
+  "duration_frames": 49,
+  "steps": 20,
+  "guidance_scale": 3.0,
+  "image_path": null,
+  "image_hash": null,
+  "reference_image_paths": null,
+  "generation_time_seconds": 0.0,
+  "output_path": "output.mp4",
+  "preview_path": "preview.jpg",
+  "device_info": {
+    "machine": "arm64",
+    "processor": "arm",
+    "system": "Darwin",
+    "memory_gb": 128.0
+  }
+}

@@ -283,7 +283,7 @@ def scan_models(models_dir: str) -> List[ModelProfile]:
         )
         results.append(profile)
 
-    return [p for p in results if p.installed]
+    return results
 
 def is_model_installed(model_id: str) -> bool:
     """Check if a specific model is fully installed on disk."""

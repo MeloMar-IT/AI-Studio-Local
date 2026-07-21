@@ -33,6 +33,13 @@ class Settings(BaseSettings):
     # Hardware requirements
     min_memory_gb: float = 16.0
 
+    # Development/Testing flags
+    allow_mock_lora_training: bool = False
+
+    # Training configuration
+    ltx_trainer_repo_path: str = "../ltx-2-mlx-repo"
+    ltx_trainer_use_uv: bool = True
+
     model_config = ConfigDict(env_prefix="AI_VIDEO_WORKER_")
 
     @field_validator("log_level")

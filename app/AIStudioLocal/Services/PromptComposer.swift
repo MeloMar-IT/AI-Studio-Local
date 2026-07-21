@@ -91,6 +91,20 @@ public final class DefaultPromptComposer: PromptComposer {
                     if !loras.contains(where: { $0.path == loraPath }) {
                         loras.append(LoRAConfig(path: loraPath, scale: 1.0))
                     }
+
+                    // The LoRA is only trained to associate its weights with this exact
+                    // token (training captions are just the trigger word by itself -- see
+                    // ContinuityElement.triggerWord). Merging the LoRA into the model isn't
+                    // enough on its own: without this token in the prompt's text
+                    // conditioning, there's nothing to invoke the trained identity, so
+                    // generations come out looking like the untrained base model. Prepend
+                    // it so it lands early in the composed prompt.
+                    if let triggerWord = element.triggerWord, !triggerWord.isEmpty {
+                        NSLog("🎨 DefaultPromptComposer: Injecting trigger word for \(element.name): \(triggerWord)")
+                        positiveParts.append(triggerWord)
+                    } else {
+                        NSLog("🎨 DefaultPromptComposer: WARNING: \(element.name) has a trained LoRA but no stored triggerWord -- the LoRA may not visibly affect generation.")
+                    }
                 } else {
                     NSLog("🎨 DefaultPromptComposer: No explicit trainedLoraPath for element \(element.name), checking assets...")
                     // Search assets for ANY element type (e.g. character, style) if it has a .safetensors file

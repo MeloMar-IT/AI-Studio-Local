@@ -769,16 +769,21 @@ public final class HTTPGenerationClient: GenerationClient {
     /// Transforms worker output paths (absolute paths like "/outputs/{job_id}/output.mp4")
     /// to project-relative paths that can be resolved from the project directory.
     private func transformWorkerOutputPath(_ workerPath: String) -> String {
-        // Worker returns absolute paths like "/outputs/{job_id}/output.mp4"
-        // We need to convert this to a path relative to the project directory
-        // For example: "outputs/{job_id}/output.mp4"
-
-        // Remove leading slash if present
-        var path = workerPath
-        if path.hasPrefix("/") {
-            path = String(path.dropFirst(1))
+        // Video generation jobs return worker-relative paths like "/outputs/{job_id}/output.mp4",
+        // which we want project-relative: "outputs/{job_id}/output.mp4".
+        //
+        // LoRA training jobs return a real absolute filesystem path instead, e.g.
+        // "/Users/marcelkoert/.../worker/outputs/loras/<id>/<id>_lora.safetensors" (see
+        // train_lora()'s final_lora_path in mlx_adapter.py). Stripping its leading slash turns
+        // it into "Users/marcelkoert/..." -- not a valid path from any working directory -- so
+        // the LoRA silently fails os.path.exists() on the next generation and gets skipped
+        // without an error, producing a video with none of the trained character's identity.
+        //
+        // Only apply the relative-path convention to the "/outputs/..." pattern that video jobs
+        // actually use; leave any other absolute path untouched.
+        guard workerPath.hasPrefix("/outputs/") else {
+            return workerPath
         }
-
-        return path
+        return String(workerPath.dropFirst(1))
     }
 }

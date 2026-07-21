@@ -49,6 +49,13 @@ public struct ContinuityElement: Codable, Identifiable, Equatable {
     public var negativePrompt: String?
     public var voiceCloneReferencePath: String?
     public var trainedLoraPath: String?
+    // The exact token the LoRA was trained to associate with this character's appearance
+    // (captions written during preprocessing are just this word by itself, nothing else --
+    // see worker/outputs/temp_training/<id>/captions/*.txt). The trained weights only get
+    // strongly invoked when this token is present in the generation prompt; without it, the
+    // LoRA is merged into the model but has nothing in the text conditioning to activate it,
+    // so generations look like the base model instead of the trained character.
+    public var triggerWord: String?
     public var isTraining: Bool?
     public var tags: [String]
     public var assets: [ContinuityAsset]
@@ -68,6 +75,7 @@ public struct ContinuityElement: Codable, Identifiable, Equatable {
         negativePrompt: String? = nil,
         voiceCloneReferencePath: String? = nil,
         trainedLoraPath: String? = nil,
+        triggerWord: String? = nil,
         isTraining: Bool? = nil,
         tags: [String] = [],
         assets: [ContinuityAsset] = [],
@@ -82,6 +90,7 @@ public struct ContinuityElement: Codable, Identifiable, Equatable {
         self.negativePrompt = negativePrompt
         self.voiceCloneReferencePath = voiceCloneReferencePath
         self.trainedLoraPath = trainedLoraPath
+        self.triggerWord = triggerWord
         self.isTraining = isTraining
         self.tags = tags
         self.assets = assets
@@ -98,6 +107,7 @@ public struct ContinuityElement: Codable, Identifiable, Equatable {
         case negativePrompt = "negative_prompt"
         case voiceCloneReferencePath = "voice_clone_reference_path"
         case trainedLoraPath = "trained_lora_path"
+        case triggerWord = "trigger_word"
         case isTraining = "is_training"
         case tags
         case assets

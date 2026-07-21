@@ -10,7 +10,7 @@ from ai_video_worker.schemas.api import GenerationRequest, JobStatus
 
 class MockEngine(GenerationEngine):
     def capabilities(self): return ["text-to-video"]
-    async def load_model(self, model_profile): return None
+    async def load_model(self, model_profile): pass
     async def unload_model(self, model_id): pass
     async def generate_text_to_video(self, request, output_path, progress_callback=None, cancellation_token=None):
         if progress_callback:
@@ -20,6 +20,8 @@ class MockEngine(GenerationEngine):
         return output_path
     async def generate_image_to_video(self, *args, **kwargs): raise NotImplementedError()
     async def generate_audio_to_video(self, *args, **kwargs): raise NotImplementedError()
+    async def generate_voice_clone(self, *args, **kwargs): pass
+    async def train_lora(self, *args, **kwargs): pass
     async def generate_retake(self, *args, **kwargs): raise NotImplementedError()
     async def generate(self, request, output_path, progress_callback=None, cancellation_token=None):
         return await self.generate_text_to_video(request, output_path, progress_callback, cancellation_token)

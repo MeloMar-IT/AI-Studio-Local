@@ -1,8 +1,21 @@
 #!/bin/bash
 set -e
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
 # Change to worker directory
-cd "$(dirname "$0")/../worker"
+cd "$SCRIPT_DIR/../worker"
+
+# Ensure logs directory exists, and mirror all of this script's output (stdout
+# + stderr) to a shared log file as well as the terminal. run-app.sh writes to
+# the same file, so app + worker output can be reviewed together in one place
+# after the fact. Note: the worker process itself also writes its own
+# structured logs to logs/ai-studio-local.log separately (see config.py).
+LOG_DIR="$SCRIPT_DIR/../logs"
+mkdir -p "$LOG_DIR"
+LOG_FILE="$LOG_DIR/run.log"
+exec > >(tee -a "$LOG_FILE") 2>&1
+echo "===== $(date '+%Y-%m-%d %H:%M:%S') - run-worker.sh starting (pid $$) ====="
 
 # Create virtual environment if it doesn't exist
 if [ ! -d "venv" ]; then
@@ -47,9 +60,6 @@ else
         echo "ai-video-worker package already installed."
     fi
 fi
-
-# Ensure logs directory exists
-mkdir -p "$(dirname "$0")/../logs"
 
 # Trap ctrl-c
 trap 'echo "** Trapped CTRL-C / Termination"; pkill -f "ai_video_worker/main.py"; exit' INT TERM

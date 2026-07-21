@@ -1,0 +1,5 @@
+2026-07-20 16:29:42,764 - ltx_trainer_mlx.preprocess - WARNING - No caption file for hedgehog_end.png, using filename: 'hedgehog end'
+Preprocessing fixtures...
+Found 2 videos in ltx-2-mlx-repo/tests/fixtures/keyframe_pairs
+Phase 1: Encoding text prompts...
+Fetching 12 files:   0%|          | 0/12 [00:00<?, ?it/s]

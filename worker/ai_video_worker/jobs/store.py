@@ -62,7 +62,9 @@ class JobStore:
                     created_at=created_at or datetime.now(),
                     updated_at=updated_at or datetime.now(),
                     result_url=metadata.get("result_url"),
-                    error=metadata.get("error")
+                    error=metadata.get("error"),
+                    project_id=metadata.get("project_id"),
+                    scene_id=metadata.get("scene_id") or metadata.get("element_id"),
                 )
                 self.jobs[job_id] = job
             except Exception as e:
@@ -78,6 +80,8 @@ class JobStore:
             message="Job created. Queueing for execution...",
             created_at=now,
             updated_at=now,
+            project_id=request.project_id,
+            scene_id=request.scene_id,
         )
         self.jobs[job_id] = job
 
@@ -140,6 +144,12 @@ class JobStore:
             message="Training job created. Queueing for execution...",
             created_at=now,
             updated_at=now,
+            # request.project_id is the "library" sentinel the Swift app sends for
+            # element-training jobs; scene_id doubles as the element_id here since
+            # AppState.updateElementAfterTraining() reads job.sceneId as the element
+            # to update. See JobStatus comment in schemas/api.py for why this matters.
+            project_id=request.project_id,
+            scene_id=request.element_id,
         )
         self.jobs[job_id] = job
 
@@ -184,7 +194,7 @@ class JobStore:
 
         try:
             output_dir = os.path.join(settings.output_dir, "loras", request.element_id)
-            os.makedirs(output_dir, exist_ok=True)
+            Path(output_dir).mkdir(parents=True, exist_ok=True)
 
             lora_path = await self.engine.train_lora(
                 request,

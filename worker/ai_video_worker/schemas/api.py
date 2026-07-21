@@ -118,6 +118,15 @@ class JobStatus(BaseModel):
     updated_at: datetime
     result_url: Optional[str] = None
     error: Optional[str] = None
+    # project_id/scene_id round-trip through GET /jobs/{id} so the Swift app can tell
+    # "library" (element-training) jobs apart from regular per-project generation jobs
+    # after a poll response replaces its local job object. Without these, every polled
+    # job loses its client-assigned projectId tag on the very first refresh, the
+    # `projectId == "library"` completion check in AppState.swift never matches, and
+    # updateElementAfterTraining() never runs -- the character element's
+    # trained_lora_path silently never gets updated after training completes.
+    project_id: Optional[str] = None
+    scene_id: Optional[str] = None
 
 
 class ModelValidationRequest(BaseModel):

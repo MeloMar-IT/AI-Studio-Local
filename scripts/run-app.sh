@@ -1,7 +1,19 @@
 #!/bin/bash
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
 # Navigate to the app directory
-cd "$(dirname "$0")/../app"
+cd "$SCRIPT_DIR/../app"
+
+# Ensure logs directory exists, and mirror all of this script's output (stdout
+# + stderr) to a shared log file as well as the terminal. run-worker.sh writes
+# to the same file, so app + worker output can be reviewed together in one
+# place after the fact.
+LOG_DIR="$SCRIPT_DIR/../logs"
+mkdir -p "$LOG_DIR"
+LOG_FILE="$LOG_DIR/run.log"
+exec > >(tee -a "$LOG_FILE") 2>&1
+echo "===== $(date '+%Y-%m-%d %H:%M:%S') - run-app.sh starting (pid $$) ====="
 
 # Parse arguments
 ENVIRONMENT="production"
@@ -11,9 +23,6 @@ if [[ "$1" == "--dev" ]]; then
 else
     echo "Running in PRODUCTION mode..."
 fi
-
-# Ensure logs directory exists
-mkdir -p "$(dirname "$0")/../logs"
 
 # Run the SwiftUI application using swift run
 # We remove --quiet to see SPM output
